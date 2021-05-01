@@ -1,8 +1,8 @@
 {
-  "name": "piaf-vue",
+  "name": "robota-app",
   "version": "5.2.1",
-  "description": "Piaf - Vue 2 Bootstrap 4 Admin Dashboard Template",
-  "author": "Colored Strategies <support@coloredstrategies.com>",
+  "description": "RobotaLife",
+  "author": "RobotaLife",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
