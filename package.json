@@ -1,22 +1,23 @@
 {
-  "name": "front-app",
-  "version": "0.1.0",
+  "name": "piaf-vue",
+  "version": "5.2.1",
+  "description": "Piaf - Vue 2 Bootstrap 4 Admin Dashboard Template",
+  "author": "Colored Strategies <support@coloredstrategies.com>",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build"
   },
   "dependencies": {
-    "core-js": "^3.8.2",
-    "vue": "^2.6.12",
     "@glidejs/glide": "^3.4.1",
     "axios": "^0.21.1",
     "bootstrap-vue": "^2.21.2",
     "chart.js": "2.9.4",
+    "core-js": "^3.8.2",
     "firebase": "^8.2.3",
     "v-contextmenu": "^2.9.0",
     "video.js": "^7.10.2",
+    "vue": "^2.6.12",
     "vue-autosuggest": "^2.2.0",
     "vue-headroom": "0.10.1",
     "vue-i18n": "^8.22.4",
@@ -43,38 +44,20 @@
     "vuex": "^3.6.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.10",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-service": "~4.5.10",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.12",
+    "@vue/cli-plugin-babel": "^4.5.10",
     "@vue/cli-plugin-router": "^4.5.10",
     "@vue/cli-plugin-vuex": "^4.5.10",
+    "@vue/cli-service": "^4.5.10",
     "copy-webpack-plugin": "^6.0.3",
     "node-sass": "^4.14.1",
     "sass-loader": "^9.0.2",
-    "vue-loader": "^15.9.3"
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12"
   },
   "postcss": {
     "plugins": {
       "autoprefixer": {}
     }
-  },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
   },
   "browserslist": [
     "> 1%",
