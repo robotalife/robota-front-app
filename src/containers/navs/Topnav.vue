@@ -15,7 +15,7 @@
       >
         <mobile-menu-icon />
       </a>
-      <div
+<!--      <div
         :class="{'search':true, 'mobile-view':isMobileSearch}"
         ref="searchContainer"
         @mouseenter="isSearchOver=true"
@@ -29,8 +29,8 @@
         <span class="search-icon" @click="searchClick">
           <i class="simple-icon-magnifier"></i>
         </span>
-      </div>
-      <div class="d-inline-block">
+      </div>-->
+<!--      <div class="d-inline-block">
         <b-dropdown
           id="langddm"
           class="ml-2"
@@ -47,14 +47,7 @@
             @click="changeLocale(l.id, l.direction)"
           >{{l.name}}</b-dropdown-item>
         </b-dropdown>
-      </div>
-      <div class="position-relative d-none d-none d-lg-inline-block">
-        <a
-          class="btn btn-outline-primary btn-sm ml-2"
-          target="_top"
-          :href="buyUrl"
-        >{{$t('user.buy')}}</a>
-      </div>
+      </div>-->
     </div>
     <router-link class="navbar-logo" tag="a" :to="adminRoot">
       <span class="logo d-none d-xs-block"></span>
@@ -73,47 +66,6 @@
         <b-tooltip target="tool-mode-switch" placement="left" title="Dark Mode"></b-tooltip>
       </div>
       <div class="header-icons d-inline-block align-middle">
-        <div class="position-relative d-none d-sm-inline-block">
-          <b-dropdown
-            variant="empty"
-            size="sm"
-            right
-            toggle-class="header-icon"
-            menu-class="position-absolute mt-3 iconMenuDropdown"
-            no-caret
-          >
-            <template slot="button-content">
-              <i class="simple-icon-grid" />
-            </template>
-            <div>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-shop-4 d-block" />
-                {{$t('menu.dashboards')}}
-              </router-link>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-pantone d-block" />
-                {{$t('menu.ui')}}
-              </router-link>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-bar-chart-4 d-block" />
-                {{$t('menu.charts')}}
-              </router-link>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-speach-bubble d-block" />
-                {{$t('menu.chat')}}
-              </router-link>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-formula d-block" />
-                {{$t('menu.survey')}}
-              </router-link>
-              <router-link tag="a" to="#" class="icon-menu-item">
-                <i class="iconsminds-check d-block" />
-                {{$t('menu.todo')}}
-              </router-link>
-            </div>
-          </b-dropdown>
-        </div>
-
         <div class="position-relative d-inline-block">
           <b-dropdown
             variant="empty"
@@ -150,15 +102,6 @@
             </vue-perfect-scrollbar>
           </b-dropdown>
         </div>
-        <div class="position-relative d-none d-sm-inline-block">
-          <div class="btn-group">
-            <b-button variant="empty" class="header-icon btn-sm" @click="toggleFullScreen">
-              <i
-                :class="{'d-inline-block':true,'simple-icon-size-actual':fullScreen,'simple-icon-size-fullscreen':!fullScreen }"
-              />
-            </b-button>
-          </div>
-        </div>
       </div>
       <div class="user d-inline-block">
         <b-dropdown
@@ -175,10 +118,9 @@
               <img :alt="currentUser.title" :src="currentUser.img" />
             </span>
           </template>
-          <b-dropdown-item>Account</b-dropdown-item>
-          <b-dropdown-item>Features</b-dropdown-item>
-          <b-dropdown-item>History</b-dropdown-item>
-          <b-dropdown-item>Support</b-dropdown-item>
+          <b-dropdown-item>My Exchanges</b-dropdown-item>
+          <b-dropdown-item>Settings</b-dropdown-item>
+          <b-dropdown-item>Help Center</b-dropdown-item>
           <b-dropdown-divider />
           <b-dropdown-item @click="logout">Sign out</b-dropdown-item>
         </b-dropdown>

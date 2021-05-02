@@ -14,14 +14,12 @@
 <script>
 import Sidebar from "../containers/navs/Sidebar";
 import Topnav from "../containers/navs/Topnav";
-import Footer from "../containers/navs/Footer";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     topnav: Topnav,
     sidebar: Sidebar,
-    "footer-component": Footer
   },
   data() {
     return {

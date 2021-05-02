@@ -1,72 +1,35 @@
-import { adminRoot } from "./config";
-import { UserRole } from "../utils/auth.roles";
+import {adminRoot} from "./config";
+import {UserRole} from "../utils/auth.roles";
 
 const data = [{
-  id: "piaf",
-  icon: "iconsminds-shop",
-  label: "menu.piaf",
-  to: `${adminRoot}/piaf`,
-  subs: [{
-    icon: "simple-icon-paper-plane",
-    label: "menu.start",
-    to: `${adminRoot}/piaf/start`,
-    // roles: [UserRole.Admin, UserRole.Editor],
-  },
-  ]
+    id: "piaf",
+    icon: "iconsminds-shop",
+    label: "menu.dashboard",
+    to: `${adminRoot}/piaf`
 },
-{
-  id: "second-menu",
-  icon: "iconsminds-chemical",
-  label: "menu.second-menu",
-  to: `${adminRoot}/second-menu`,
-  subs: [{
-    icon: "simple-icon-paper-plane",
-    label: "menu.second",
-    to: `${adminRoot}/second-menu/second`,
-  },
-  ]
-},
-{
-  id: "pages",
-  icon: "iconsminds-digital-drawing",
-  label: "menu.pages",
-  to: "/user/login",
-  subs: [{
-    icon: "simple-icon-user-following",
-    label: "menu.login",
-    to: "/user/login",
-    newWindow: true
-  }, {
-    icon: "simple-icon-user-follow",
-    label: "menu.register",
-    to: "/user/register",
-    newWindow: true
-  }, {
-    icon: "simple-icon-user-unfollow",
-    label: "menu.forgot-password",
-    to: "/user/forgot-password",
-    newWindow: true
-  },
-  {
-    icon: "simple-icon-user-following",
-    label: "menu.reset-password",
-    to: "/user/reset-password",
-    newWindow: true
-  }
-  ]
-},
-{
-  id: "single",
-  icon: "iconsminds-three-arrow-fork",
-  label: "menu.single",
-  to: `${adminRoot}/single`,
-},
-{
-  id: "docs",
-  icon: "iconsminds-library",
-  label: "menu.docs",
-  to: "https://piaf-vue-docs.coloredstrategies.com/",
-  newWindow: true
-}
+    {
+        id: "second-menu",
+        icon: "iconsminds-chemical",
+        label: "menu.smartTrade",
+        to: `${adminRoot}/second-menu`
+    },
+    {
+        id: "pages",
+        icon: "iconsminds-digital-drawing",
+        label: "menu.myPortfolio",
+        to: "/user/login"
+    },
+    {
+        id: "market",
+        icon: "iconsminds-digital-drawing",
+        label: "menu.market",
+        to: "/user/login"
+    },
+    {
+        id: "single",
+        icon: "iconsminds-three-arrow-fork",
+        label: "menu.settings",
+        to: `${adminRoot}/single`,
+    }
 ];
 export default data;
