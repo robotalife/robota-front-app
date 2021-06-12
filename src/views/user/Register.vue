@@ -51,8 +51,9 @@ export default {
   methods: {
     formSubmit() {
       const self = this;
-      console.log('form submit called', this.fullname, this.email, this.password);
-      axios.post('https://ezfxka2wqh.execute-api.eu-central-1.amazonaws.com/dev/v1/user/register', {
+      console.log('form submit called', this.username, this.email, this.password);
+      console.log('url of function is', process.env.ROBOTALIFE_API_BASE_URL + '/user');
+      axios.post(process.env.VUE_APP_ROBOTALIFE_API_BASE_URL + '/user', {
         username: this.username,
         password: this.password,
         email: this.email
@@ -62,6 +63,7 @@ export default {
         const message = "Please use login link on left side of the card to enter the application";
         self.$notify(type, title, message, {permanent: true});
         console.log(response)
+        console.log(JSON.parse(response.data.body))
       }).catch(function (error) {
         console.log(error);
       });
