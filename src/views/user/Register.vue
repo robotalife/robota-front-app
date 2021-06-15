@@ -65,7 +65,10 @@ export default {
         console.log(response)
         console.log(JSON.parse(response.data.body))
       }).catch(function (error) {
-        console.log(error);
+        const type = "error";
+        const title = "A user with this email already exists";
+        const message = "Please use another email address to register";
+        self.$notify(type, title, message, {permanent: false});
       });
     }
   }
