@@ -15,3 +15,13 @@ jobs:
           node-version: 14.x
       - run: npm install
       - run: npm run-script build
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: es-west-1
+      - name: Copy files to the test website with the AWS CLI
+        run: |
+          aws s3 sync dist s3://robotalife-front-app-bucket
+
