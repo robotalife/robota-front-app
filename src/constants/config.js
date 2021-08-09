@@ -3,8 +3,8 @@ import { UserRole } from "../utils/auth.roles";
 export const defaultMenuType = 'menu-default' // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
 export const adminRoot = '/app';
 export const searchPath = `${adminRoot}/#`
-export const buyUrl = 'https://1.envato.market/nEyZa'
-export const apiUrl = 'https://api.coloredstrategies.com';
+// export const buyUrl = 'https://1.envato.market/nEyZa'
+// export const apiUrl = 'https://api.coloredstrategies.com';
 
 export const subHiddenBreakpoint = 1440
 export const menuHiddenBreakpoint = 768
@@ -27,8 +27,12 @@ export const firebaseConfig = {
   appId: "1:557576321564:web:bc2ce73477aff5c2197dd9"
 };
 
-
-
+export const gConfig = 
+   process.env.NODE_ENV === "production"
+    ? window.envVariables
+    : {
+        API_BASE_URL: "https://07o3x4g493.execute-api.eu-west-1.amazonaws.com/dev/v2", // IAT Environment
+      };
 
 export const currentUser = {
   id: 1,
@@ -38,7 +42,7 @@ export const currentUser = {
   role: UserRole.Admin
 }
 
-export const isAuthGuardActive = false;
+export const isAuthGuardActive = true;
 export const themeRadiusStorageKey = 'theme_radius'
 export const themeSelectedColorStorageKey = 'theme_selected_color'
 export const defaultColor = 'light.blueolympic'

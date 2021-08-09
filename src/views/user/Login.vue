@@ -70,17 +70,26 @@ const {
     minLength,
     email
 } = require("vuelidate/lib/validators");
+import axios from 'axios';
+import { gConfig } from '../../constants/config';
+
+import { setCurrentUser  , getGravatarURL} from "@/utils";
+import router from "@/router";
+import { UserRole } from "@/utils/auth.roles";
+
 import { adminRoot } from '../../constants/config';
 
 export default {
     data() {
         return {
             form: {
-                email: "test@coloredstrategies.com",
-                password: "xxxxxx"
+                email: this.email || "",
+                password: ""
             },
         };
     },
+        props: { email },
+
     mixins: [validationMixin],
     validations: {
         form: {
@@ -102,16 +111,56 @@ export default {
     methods: {
         ...mapActions(["login"]),
         formSubmit() {
-            this.$v.$touch();
-            this.form.email = "piaf-vue@coloredstrategies.com";
-            this.form.password = "piaf123";
-            this.$v.form.$touch();
-           // if (!this.$v.form.$anyError) {
-                this.login({
-                    email: this.form.email,
-                    password: this.form.password
-                });
-            //}
+            const self = this;
+
+            // this.$v.$touch();
+        //     this.form.email = "piaf-vue@coloredstrategies.com";
+        //     this.form.password = "piaf123";
+        //     this.$v.form.$touch();
+        //    // if (!this.$v.form.$anyError) {
+        //         this.login({
+        //             email: this.form.email,
+        //             password: this.form.password
+        //         });
+        //     //}
+
+        axios.post(gConfig.API_BASE_URL + '/signin', {
+        password: this.form.password,
+        email: this.form.email
+      }).then(function (response) {
+        if(response.data.statusCode == 200){
+        const type = "success";
+        const title = "You have been logged in successfully!";
+        const message = "You will be redirected to the dashboard !";
+        self.$notify(type, title, message, {permanent: false});
+
+        localStorage.setItem("token", response.data.body.token);
+        const loggedinUser = {
+            id: response.data.body.id,
+            title: response.data.body.username,
+            img: getGravatarURL('cmandesign@ymail.com'),
+            date: 'Last seen today 15:24',
+            role: 0
+            }
+            
+        setCurrentUser(loggedinUser)
+
+        router.push({name: 'dashboard'})
+        }
+        else{
+            const type = "error";
+        const title = "Error";
+        const message = response.data.errorMessage;
+        self.$notify(type, title, message, {permanent: false});
+        }
+      }).catch(error => {
+        console.log(error)
+        // console.log("test: " + error.response.data.errorMessage)
+        const type = "error";
+        const title = "Error";
+        const message = error.data.errorMessage;
+        self.$notify(type, title, message, {permanent: false});
+      });
         }
     },
     watch: {

@@ -9,13 +9,15 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: () => import(/* webpackChunkName: "home" */ "./views/home"),
+    redirect: "/user/login"
+    // component: () => import(/* webpackChunkName: "home" */ "./views/home"),
     // redirect: `${adminRoot}/piaf`,
   },
   {
     path: adminRoot,
+    name: 'dashboard',
     component: () => import(/* webpackChunkName: "app" */ "./views/app"),
-    redirect: `${adminRoot}/piaf`,
+    redirect: `${adminRoot}/exchange`,
     meta: { loginRequired: true },
     /*
    define with Authorization :
@@ -45,7 +47,17 @@ const routes = [
         ]
       },
 
-
+      {
+        name: "exchange",
+        path: "exchange",
+        component: () =>
+          import(/* webpackChunkName: "single" */ "./views/app/exchange"),
+      },
+      {
+        name: 'exchangeAdd',
+        path: 'exchange/add',
+        component: () => import(/* webpackChunkName: "piaf" */ "./views/app/exchange/add" )
+      },
       {
         path: "single",
         component: () =>
@@ -64,6 +76,8 @@ const routes = [
     children: [
       {
         path: "login",
+        name: "login",
+        props: true,
         component: () =>
           import(/* webpackChunkName: "user" */ "./views/user/Login")
       },

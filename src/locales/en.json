@@ -26,8 +26,10 @@
     "smartTrade": "Smart Trade",
     "myPortfolio": "My Portfolio",
     "market": "Market",
-    "settings": "settings"
-
+    "settings": "settings",
+    "home": "Home",
+    "exchange": "My Exchanges",
+    "add": "Add"
   },
   "dashboards": {
     "pending-orders": "Pending Orders",
@@ -132,6 +134,8 @@
     "profile": "PROFILE",
     "friends": "FRIENDS",
     "images": "IMAGES",
+    "myexchanges": "My Exchanges",
+    "addexchanges": "Add Exchange",
     "purchase": "PURCHASE",
     "prices":{
       "developer": "DEVELOPER",

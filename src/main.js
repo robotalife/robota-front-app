@@ -27,6 +27,7 @@ import VueScrollTo from 'vue-scrollto'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import { getCurrentLanguage } from './utils'
+import { gConfig } from './constants/config'
 
 Vue.use(BootstrapVue);
 Vue.use(VueI18n);

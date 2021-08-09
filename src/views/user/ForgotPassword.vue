@@ -68,10 +68,11 @@ export default {
     data() {
         return {
             form: {
-                email: "test@coloredstrategies.com"
+                email: this.email || "asghar"
             }
         };
     },
+    props: { email },
     mixins: [validationMixin],
     validations: {
         form: {

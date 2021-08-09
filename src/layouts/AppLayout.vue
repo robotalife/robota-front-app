@@ -7,7 +7,7 @@
         <slot></slot>
       </div>
     </main>
-    <footer-component />
+    <!-- <footer-component /> -->
   </div>
 </template>
 
