@@ -20,7 +20,7 @@
                     <th scope="col">Status</th>
                     <th scope="col">Action</th>
                 </tr>
-                <tr v-for="(exchange, index) in exchanges" :key="index">
+                <tr  v-for="(exchange, index) in exchanges" :key="index">
                     <td>
                         {{index + 1}}
                     </td>
@@ -76,7 +76,7 @@ export default {
         }]
     }
   },
-  created: function () {
+  mounted: function () {
     // `this` points to the vm instance
     this.getExchangesList()
   },
@@ -84,23 +84,20 @@ export default {
     getExchangesList() {
       const self = this;
             
-      axios.get(gConfig.API_BASE_URL + '/exchange/list', {
-          params: {
-                userId: getCurrentUser().id,
-          }
+      axios.post(gConfig.API_BASE_URL + '/exchange/list', {
+          userId: getCurrentUser().id
         }
       ).then(function (response) {
         if(response.data.statusCode == 200){
 
-          this.exchanges = response.data
+          self.exchanges = response.data.data
 
         }
       }).catch(error => {
-        console.log(error)
         // console.log("test: " + error.response.data.errorMessage)
         const type = "error";
         const title = "Error";
-        const message = error.response.data.errorMessage;
+        const message = error.data.errorMessage;
         self.$notify(type, title, message, {permanent: false});
       });
     }
