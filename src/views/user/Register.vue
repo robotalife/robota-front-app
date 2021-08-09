@@ -68,6 +68,12 @@ export default {
 
         router.push({name: 'login' , params: { email: userEmail }} )
         self.$notify(type, title, message, {permanent: true});
+        } else{
+          console.log(error)
+          const type = "error";
+          const title = "Error";
+          const message = response.data.errorMessage;
+          self.$notify(type, title, message, {permanent: false});
         }
       }).catch(error => {
         console.log(error)
