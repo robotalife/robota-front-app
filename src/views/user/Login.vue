@@ -3,12 +3,12 @@
     <b-colxx xxs="12" md="10" class="mx-auto my-auto">
         <b-card class="auth-card" no-body>
             <div class="position-relative image-side">
-                <p class="text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p>
+                <!-- <p class="text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p>
                 <p class="white mb-0">
                     Please use your credentials to login.
                     <br />If you are not a member, please
                     <router-link tag="a" to="/user/register" class="white">register</router-link>.
-                </p>
+                </p> -->
             </div>
             <div class="form-side">
                 <router-link tag="a" to="/">
@@ -28,9 +28,11 @@
                         <b-form-input type="password" v-model="$v.form.password.$model" :state="!$v.form.password.$error" />
                         <b-form-invalid-feedback v-if="!$v.form.password.required">Please enter your password</b-form-invalid-feedback>
                         <b-form-invalid-feedback v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength">Your password must be between 4 and 16 characters</b-form-invalid-feedback>
+                        <br><router-link tag="a" to="/user/forgot-password">{{ $t('user.forgot-password-question')}}</router-link>
+
                     </b-form-group>
                     <div class="d-flex justify-content-between align-items-center">
-                        <router-link tag="a" to="/user/forgot-password">{{ $t('user.forgot-password-question')}}</router-link>
+                         <router-link tag="a" to="/user/register">Didn’t create an account ? Sign Up</router-link>
                         <b-button type="submit" variant="primary" size="lg" :disabled="processing" :class="{'btn-multiple-state btn-shadow': true,
                     'show-spinner': processing,
                     'show-success': !processing && loginError===false,

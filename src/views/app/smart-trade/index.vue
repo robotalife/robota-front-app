@@ -9,66 +9,8 @@
   <b-row>
     <b-colxx xxs="12">
 
-        <b-card class="mb-4" :title="$t('pages.myexchanges')" >
-          <router-link :to="{name: 'exchangeAdd'}" class="btn btn-dark float-right mb-3" style="margin-top:-50px">Add New Exchange </router-link>
-          <table v-if="exchanges.length > 0" class="table table-striped table-hover">
-            <tbody>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Exchange</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Action</th>
-                </tr>
-                <tr  v-for="(exchange, index) in exchanges" :key="index">
-                    <td>
-                        {{index + 1}}
-                    </td>
-                    <td>
-                        <span>{{exchange.exchangeName}}</span>
-                    </td>
-                    <td>
-                        <span >{{exchange.exchangeType}}</span>
-                    </td>
-                    <td>
-                        <span class="pills" >Active</span>
-                    </td>
-                    <td>
-                      <div class='badge badge-danger'>
-                          <a @click="deleteExchangeModal(exchange)" class="icon fail">
-                                <i class="simple-icon-exclamation mr-1"></i> Remove
-                          </a> 
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-          </table>
-                          
-
-
-        </b-card>
-
-        <b-modal
-      id="modal-deleteExchange"
-      ref="modalExchange"
-      title="Delete Exchange"
-      @ok="deleteExchange"
-    >
-      <form ref="form" @submit.stop.prevent="deleteExchange">
-        <span>To confirm you are deleting an exchange from your account, you need to enter the name of exchange in the following input (<b>{{selectedExchange.exchangeName}}</b>)</span>
-        <b-form-group
-          label="Enter Exchange Name"
-          label-for="exchange-name-input"
-          invalid-feedback="Exchange Name is required"
-        >
-          <b-form-input
-            id="exchange-name-input"
-            v-model="selectedExchangeInput"
-            required
-          ></b-form-input>
-        </b-form-group>
-      </form>
-    </b-modal>
+      
+        
     </b-colxx>
   </b-row>
   </div>
