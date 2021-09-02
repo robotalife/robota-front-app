@@ -28,10 +28,11 @@ export const firebaseConfig = {
 };
 
 export const gConfig =
-    process.env.NODE_ENV === "production" ? window.envVariables : {
-        API_PUBLIC_URL: "https://public.robotalife.com/dev/v2", // IAT Environment
-        API_PRIVATE_URL:"https://api.robotalife.com/dev"
-    };
+    process.env.NODE_ENV === "production"
+        ? window.envVariables
+        : {
+            API_BASE_URL: "https://07o3x4g493.execute-api.eu-west-1.amazonaws.com/dev/v2", // IAT Environment
+        };
 
 export const currentUser = {
     id: 1,
