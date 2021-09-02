@@ -128,7 +128,7 @@ export default {
       //         });
       //     //}
 
-      axios.post(gConfig.API_PUBLIC_URL + '/signin', {
+      axios.post(gConfig.API_BASE_URL + '/signin', {
         password: this.form.password,
         email: this.form.email
       }).then(function (response) {
