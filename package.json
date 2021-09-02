@@ -5,6 +5,7 @@
   "author": "RobotaLife",
   "private": true,
   "scripts": {
+    "start": "vue cli-service serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
