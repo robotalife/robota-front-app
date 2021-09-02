@@ -5,7 +5,7 @@
   "author": "RobotaLife",
   "private": true,
   "scripts": {
-    "start": "vue cli-service serve",
+    "start": "npm run serve",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
