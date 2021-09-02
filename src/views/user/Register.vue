@@ -3,16 +3,21 @@
     <b-colxx xxs="12" md=10 class="mx-auto my-auto">
       <b-card class="auth-card" no-body>
         <div class="position-relative image-side ">
-          <p class=" text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p>
-          <p class="white mb-0"> Please use this form to register. <br/>If you are a member, please
+          <!-- <p class=" text-white h2">{{ $t('dashboards.magic-is-in-the-details') }}</p> -->
+          <!-- <p class="white mb-0"> Please use this form to register. <br/>If you are a member, please
             <router-link tag="a" to="/user/login" class="white">login</router-link>
             .
-          </p>
+          </p> -->
         </div>
         <div class="form-side">
-          <router-link tag="a" to="/"><span class="logo-single"/></router-link>
+          <!-- <router-link tag="a" to="/"><span class="logo-single"/></router-link> -->
           <h6 class="mb-4">{{ $t('user.register') }}</h6>
-          <b-form @submit.prevent="formSubmit">
+          <b-form @submit.prevent="registerSubmit">
+            <div class="mb-5">
+              Please use this form to register. <br/>If you are a member, please
+            <router-link tag="a" to="/user/login">login</router-link>
+            
+            </div>
             <label class="form-group has-float-label mb-4">
               <input type="text" class="form-control" v-model="username">
               <span>{{ $t('user.username') }}</span>
@@ -36,9 +41,9 @@
   </b-row>
 </template>
 <script>
-import {adminRoot} from '../../constants/config';
+import {adminRoot, gConfig} from '../../constants/config';
 import axios from 'axios';
-
+import router from "@/router";
 
 export default {
   data() {
@@ -49,25 +54,37 @@ export default {
     }
   },
   methods: {
-    formSubmit() {
+    registerSubmit() {
       const self = this;
       console.log('form submit called', this.username, this.email, this.password);
-      console.log('url of function is', process.env.ROBOTALIFE_API_BASE_URL + '/user');
-      axios.post(process.env.VUE_APP_ROBOTALIFE_API_BASE_URL + '/user', {
+      console.log('url of function is', gConfig.API_PUBLIC_URL + '/user');
+      
+      let userEmail = this.email
+      
+      axios.post(gConfig.API_PUBLIC_URL + '/user', {
         username: this.username,
         password: this.password,
         email: this.email
       }).then(function (response) {
-        const type = "success";
+        if(response.data.statusCode == 201){
+        const type = "Success";
         const title = "Your user has been created";
         const message = "Please use login link on left side of the card to enter the application";
+
+        router.push({name: 'login' , params: { email: userEmail }} )
         self.$notify(type, title, message, {permanent: true});
-        console.log(response)
-        console.log(JSON.parse(response.data.body))
-      }).catch(function (error) {
+        } else{
+          const type = "error";
+          const title = "Failed";
+          const message = response.data.message;
+          self.$notify(type, title, message, {permanent: false});
+        }
+      }).catch(error => {
+        console.log(error)
+        // console.log("test: " + error.response.data.errorMessage)
         const type = "error";
-        const title = "A user with this email already exists";
-        const message = "Please use another email address to register";
+        const title = "Error";
+        const message = error.response.data.errorMessage;
         self.$notify(type, title, message, {permanent: false});
       });
     }

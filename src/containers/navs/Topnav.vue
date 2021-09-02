@@ -118,7 +118,7 @@
               <img :alt="currentUser.title" :src="currentUser.img" />
             </span>
           </template>
-          <b-dropdown-item>My Exchanges</b-dropdown-item>
+          <b-dropdown-item @click="goToMyExchange">My Exchanges</b-dropdown-item>
           <b-dropdown-item>Settings</b-dropdown-item>
           <b-dropdown-item>Help Center</b-dropdown-item>
           <b-dropdown-divider />
@@ -139,7 +139,7 @@ import {
   searchPath,
   menuHiddenBreakpoint,
   localeOptions,
-  buyUrl,
+  // buyUrl,
   adminRoot
 } from "../../constants/config";
 import { getDirection, setDirection, getThemeColor, setThemeColor } from "../../utils";
@@ -158,7 +158,7 @@ export default {
       menuHiddenBreakpoint,
       searchPath,
       localeOptions,
-      buyUrl,
+      // buyUrl,
       notifications,
       isDarkActive: false,
       adminRoot
@@ -202,6 +202,11 @@ export default {
       this.signOut().then(() => {
         this.$router.push("/user/login");
       });
+    },
+    goToMyExchange() {
+      
+        this.$router.push({name: 'exchange'})
+
     },
 
     toggleFullScreen() {

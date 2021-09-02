@@ -377,12 +377,13 @@ hr {
 }
 
 .logo-single {
-  width: 110px;
-  height: 35px;
+  width: 223px;
+  height: 50px;
   background: url($logo-path) no-repeat;
   background-position: center center;
   display: inline-block;
   margin-bottom: 60px;
+  background-size: contain;
 }
 
 .list-item-heading {
@@ -1855,8 +1856,8 @@ button {
   }
 
   .navbar-logo {
-    width: 110px;
-    height: 35px;
+    width: 223px;
+    height: 50px;
     position: absolute;
     left: 0;
     right: 0;
@@ -1867,6 +1868,7 @@ button {
       height: 100%;
       background: url($logo-path) no-repeat;
       background-position: center center;
+      background-size:contain;
     }
 
     .logo-mobile {
@@ -1874,6 +1876,7 @@ button {
       height: 100%;
       background: url($logo-path-mobile) no-repeat;
       background-position: center center;
+      background-size:contain;
     }
 
     @include respond-below(sm) {
@@ -5084,7 +5087,7 @@ input:-webkit-autofill {
 
   .image-side {
     width: 40%;
-    background: url("/assets/img/login/balloon.jpg") no-repeat center top;
+    background: url("/assets/img/login/login-side-image.png") no-repeat center top;
     background-size: cover;
     padding: 80px 40px;
 

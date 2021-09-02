@@ -88,10 +88,6 @@ export default {
   components: {UserLayout},
   data() {
     return {
-      form: {
-        email: "test@coloredstrategies.com",
-        password: "xxxxxx"
-      },
     };
   },
   mixins: [validationMixin],

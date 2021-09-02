@@ -35,10 +35,11 @@
     height: unset;
     span {
       display: inline-block;
-      width: 100px;
+      width: 134px;
       height: 30px;
       background: url($lp-logo-path-pinned);
       background-repeat: no-repeat;
+      background-size:contain;
     }
   }
 
