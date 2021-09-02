@@ -108,7 +108,7 @@ export default {
     getExchangesList() {
       const self = this;
             
-      axios.post(gConfig.API_PUBLIC_URL + '/exchange/list', {
+      axios.post(gConfig.API_BASE_URL + '/exchange/list', {
           userId: getCurrentUser().id
         }
       ).then(function (response) {
@@ -146,7 +146,7 @@ export default {
       }
 
 
-      axios.delete(gConfig.API_PUBLIC_URL + '/exchange',
+      axios.delete(gConfig.API_BASE_URL + '/exchange',
       {
          data: { 'exchangeId': self.selectedExchange.exchangeId }
       }

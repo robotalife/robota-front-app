@@ -68,7 +68,7 @@ export default {
     addExchange() {
       const self = this;
             
-      axios.post(gConfig.API_PUBLIC_URL + '/exchange', this.exchange
+      axios.post(gConfig.API_BASE_URL + '/exchange', this.exchange
       ).then(function (response) {
         if(response.data.statusCode == 200){
           
