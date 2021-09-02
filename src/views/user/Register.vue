@@ -67,17 +67,16 @@ export default {
         email: this.email
       }).then(function (response) {
         if(response.data.statusCode == 201){
-        const type = "success";
+        const type = "Success";
         const title = "Your user has been created";
         const message = "Please use login link on left side of the card to enter the application";
 
         router.push({name: 'login' , params: { email: userEmail }} )
         self.$notify(type, title, message, {permanent: true});
         } else{
-          console.log(error)
           const type = "error";
-          const title = "Error";
-          const message = response.data.errorMessage;
+          const title = "Failed";
+          const message = response.data.message;
           self.$notify(type, title, message, {permanent: false});
         }
       }).catch(error => {

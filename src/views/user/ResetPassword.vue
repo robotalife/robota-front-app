@@ -24,9 +24,6 @@
                 :state="!$v.form.password.$error"
               />
               <b-form-invalid-feedback v-if="!$v.form.password.required">Please enter your password</b-form-invalid-feedback>
-              <b-form-invalid-feedback
-                v-else-if="!$v.form.password.minLength || !$v.form.password.maxLength"
-              >Your password must be between 4 and 16 characters</b-form-invalid-feedback>
             </b-form-group>
             <b-form-group :label="$t('user.password-again')" class="has-float-label mb-4">
               <b-form-input
