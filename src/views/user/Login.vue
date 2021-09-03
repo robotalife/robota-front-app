@@ -116,19 +116,7 @@ export default {
     ...mapActions(["login"]),
     formSubmit() {
       const self = this;
-
-      // this.$v.$touch();
-      //     this.form.email = "piaf-vue@coloredstrategies.com";
-      //     this.form.password = "piaf123";
-      //     this.$v.form.$touch();
-      //    // if (!this.$v.form.$anyError) {
-      //         this.login({
-      //             email: this.form.email,
-      //             password: this.form.password
-      //         });
-      //     //}
-
-      axios.post(gConfig.API_BASE_URL + '/signin', {
+      axios.post(gConfig.PUBLIC_API_URL + '/signin', {
         password: this.form.password,
         email: this.form.email
       }).then(function (response) {
