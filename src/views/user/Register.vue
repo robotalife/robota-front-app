@@ -57,11 +57,11 @@ export default {
     registerSubmit() {
       const self = this;
       console.log('form submit called', this.username, this.email, this.password);
-      console.log('url of function is', gConfig.API_BASE_URL + '/user');
+      console.log('url of function is', gConfig.PUBLIC_API_URL + '/user');
       
       let userEmail = this.email
       
-      axios.post(gConfig.API_BASE_URL + '/user', {
+      axios.post(gConfig.PUBLIC_API_URL + '/user', {
         username: this.username,
         password: this.password,
         email: this.email

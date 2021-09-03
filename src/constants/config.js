@@ -3,8 +3,7 @@ import {UserRole} from "../utils/auth.roles";
 export const defaultMenuType = 'menu-default' // 'menu-default', 'menu-sub-hidden', 'menu-hidden';
 export const adminRoot = '/app';
 export const searchPath = `${adminRoot}/#`
-// export const buyUrl = 'https://1.envato.market/nEyZa'
-// export const apiUrl = 'https://api.coloredstrategies.com';
+
 
 export const subHiddenBreakpoint = 1440
 export const menuHiddenBreakpoint = 768
@@ -27,12 +26,16 @@ export const firebaseConfig = {
     appId: "1:557576321564:web:bc2ce73477aff5c2197dd9"
 };
 
+const publicApiBase = "https://public.robotalife.com/";
+const privateApiBase = "https://api.robotalife.com/";
+const publicApiVersion = "/v2";
+
+export const stage = process.env.NODE_ENV === "production" ? "prod" : "dev";
 export const gConfig =
-    process.env.NODE_ENV === "production"
-        ? window.envVariables
-        : {
-            API_BASE_URL: "https://07o3x4g493.execute-api.eu-west-1.amazonaws.com/dev/v2", // IAT Environment
-        };
+    {
+        PUBLIC_API_URL: publicApiBase + stage + publicApiVersion,
+        PRIVATE_API_URL: privateApiBase + stage
+    }
 
 export const currentUser = {
     id: 1,
