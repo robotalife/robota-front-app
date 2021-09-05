@@ -120,33 +120,30 @@ export default {
         password: this.form.password,
         email: this.form.email
       }).then(function (response) {
-        console.log('then called in sign in')
-          if (response.data.statusCode === 200) {
-
-            console.log('entering the 200 code')
-            const type = "success";
-            const title = "You have been logged in successfully!";
-            const message = "You will be redirected to the dashboard !";
-            self.$notify(type, title, message, {permanent: false});
-            localStorage.setItem("token", response.data.token);
-            const loggedInUser = {
-              id: response.data.id,
-              title: response.data.username,
-              img: getGravatarURL('cmandesign@ymail.com'),
-              date: 'Last seen today 15:24',
-              role: 0
-            }
-            setCurrentUser(loggedInUser)
-            router.push({name: 'dashboard'})
-          } else {
-            const type = "error";
-            const title = "Error";
-            const message = response.data.message;
-            self.$notify(type, title, message, {permanent: false});
+        if (response.data.statusCode === 200) {
+          const responseObject = response.data.data;
+          const type = "success";
+          const title = "You have been logged in successfully!";
+          const message = "You will be redirected to the dashboard !";
+          const loggedInUser = {
+            id: responseObject.id,
+            title: responseObject.username,
+            img: getGravatarURL('cmandesign@ymail.com'),
+            date: 'Last seen today 15:24',
+            token: responseObject.token,
+            role: 0
           }
+          setCurrentUser(loggedInUser)
+          self.$notify(type, title, message, {permanent: false});
+          router.push({name: 'dashboard'})
+        } else {
+          const type = "error";
+          const title = "Error";
+          const message = response.data.message;
+          self.$notify(type, title, message, {permanent: false});
+        }
 
       }).catch(error => {
-        console.log('catch called in signin')
         const type = "error";
         const title = "Error";
         self.$notify(type, title, "there is a problem logging in, please try again later.", {permanent: false});
