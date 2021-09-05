@@ -1,25 +1,24 @@
 <template>
-<div>
-  <b-row>
-    <b-colxx xxs="12">
+  <div>
+    <b-row>
+      <b-colxx xxs="12">
         <piaf-breadcrumb :heading="$t('pages.myexchanges')"/>
-      <div class="separator mb-5"></div>
-    </b-colxx>
-  </b-row>
-  <b-row>
-    <b-colxx xxs="12">
+        <div class="separator mb-5"></div>
+      </b-colxx>
+    </b-row>
+    <b-row>
+      <b-colxx xxs="12">
 
-      
-        
-    </b-colxx>
-  </b-row>
+
+      </b-colxx>
+    </b-row>
   </div>
 </template>
 
 <script>
 import {adminRoot, gConfig} from '@/constants/config';
 import axios from 'axios';
-import { getCurrentUser } from "@/utils";
+import {getCurrentUser} from "@/utils";
 
 import router from "@/router";
 
@@ -34,11 +33,11 @@ export default {
       // }]
       exchanges: [],
       selectedExchange: {
-            "exchangeId": "",
-            "userId": "",
-            "exchangeName": "",
-            "exchangeType": ""
-        },
+        "exchangeId": "",
+        "userId": "",
+        "exchangeName": "",
+        "exchangeType": ""
+      },
       selectedExchangeInput: ""
     }
   },
@@ -49,12 +48,16 @@ export default {
   methods: {
     getExchangesList() {
       const self = this;
-            
-      axios.post(gConfig.PUBLIC_API_URL + '/exchange/list', {
-          userId: getCurrentUser().id
+      const config = {
+        headers: {
+          "authorization": getCurrentUser().token
         }
+      }
+      axios.post(gConfig.PUBLIC_API_URL + '/exchange/list', {
+            userId: getCurrentUser().id
+          }, config
       ).then(function (response) {
-        if(response.data.statusCode == 200){
+        if (response.data.statusCode == 200) {
 
           self.exchanges = response.data.data
 
@@ -75,26 +78,27 @@ export default {
     },
     deleteExchange() {
       const self = this;
-      
-      if(this.selectedExchangeInput != this.selectedExchange.exchangeName){
+
+      if (this.selectedExchangeInput != this.selectedExchange.exchangeName) {
 
         const type = "error";
         const title = "Error";
         const message = "You should enter the exchange name correctly!";
 
         self.$notify(type, title, message, {permanent: false});
-        return; 
-        
+        return;
+
       }
 
 
       axios.delete(gConfig.PUBLIC_API_URL + '/exchange',
-      {
-         data: { 'exchangeId': self.selectedExchange.exchangeId }
-      }
+          {
+            data: {'exchangeId': self.selectedExchange.exchangeId},
+            headers: {'authorization': getCurrentUser().token}
+          }
       ).then(function (response) {
-        if(response.data.statusCode == 200){
-          
+        if (response.data.statusCode == 200) {
+
           const type = "success";
           const title = "Success !";
           const message = "Exchange Deleted Successfully!";

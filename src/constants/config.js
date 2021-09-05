@@ -42,6 +42,7 @@ export const currentUser = {
     title: 'Sarah Kortney',
     img: '/assets/img/profiles/l-1.jpg',
     date: 'Last seen today 15:24',
+    token:'',
     role: UserRole.Admin
 }
 

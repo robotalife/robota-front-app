@@ -104,10 +104,15 @@ export default {
   methods: {
     getExchangesList() {
       const self = this;
-
-      axios.post(gConfig.PUBLIC_API_URL + '/exchange/list', {
-            userId: getCurrentUser().id
-          }
+      const config = {
+        headers: {
+          "authorization": getCurrentUser().token
+        }
+      };
+      const data = {
+        userId: getCurrentUser().id
+      };
+      axios.post(gConfig.PUBLIC_API_URL + '/exchange/list', data, config,
       ).then(function (response) {
         if (response.data.statusCode === 200) {
           self.exchanges = response.data.data
@@ -137,7 +142,7 @@ export default {
       axios.delete(gConfig.PUBLIC_API_URL + '/exchange',
           {
             data: {'exchangeId': self.selectedExchange.exchangeId},
-            headers: {'Authorization': localStorage.get('token')}
+            headers: {'authorization': getCurrentUser().token}
           }
       ).then(function (response) {
         if (response.data.statusCode == 200) {
