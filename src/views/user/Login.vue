@@ -115,44 +115,19 @@ export default {
   methods: {
     ...mapActions(["login"]),
     formSubmit() {
-      const self = this;
-      axios.post(gConfig.PUBLIC_API_URL + '/signin', {
-        password: this.form.password,
-        email: this.form.email
-      }).then(function (response) {
-        if (response.data.statusCode === 200) {
-          const responseObject = response.data.data;
-          const type = "success";
-          const title = "You have been logged in successfully!";
-          const message = "You will be redirected to the dashboard !";
-          const loggedInUser = {
-            id: responseObject.id,
-            title: responseObject.username,
-            img: getGravatarURL('cmandesign@ymail.com'),
-            date: 'Last seen today 15:24',
-            token: responseObject.token,
-            role: 0
-          }
-          setCurrentUser(loggedInUser)
-          self.$notify(type, title, message, {permanent: false});
-          router.push({name: 'dashboard'})
-        } else {
-          const type = "error";
-          const title = "Error";
-          const message = response.data.message;
-          self.$notify(type, title, message, {permanent: false});
-        }
-
-      }).catch(error => {
-        const type = "error";
-        const title = "Error";
-        self.$notify(type, title, "there is a problem logging in, please try again later.", {permanent: false});
-      });
+      this.$v.$touch();
+      this.$v.form.$touch();
+      if (!this.$v.form.$anyError) {
+        this.login({
+          email: this.form.email,
+          password: this.form.password
+        })
+      }
     }
   },
   watch: {
     currentUser(val) {
-      if (val && val.uid && val.uid.length > 0) {
+      if (val && val.id && val.id.length && val.token && val.token.length > 0) {
         setTimeout(() => {
           this.$router.push(adminRoot);
         }, 200);
