@@ -76,12 +76,6 @@ const {
   minLength,
   email
 } = require("vuelidate/lib/validators");
-import axios from 'axios';
-import {gConfig} from '../../constants/config';
-
-import {setCurrentUser, getGravatarURL} from "@/utils";
-import router from "@/router";
-import {UserRole} from "@/utils/auth.roles";
 
 import {adminRoot} from '../../constants/config';
 
@@ -140,10 +134,8 @@ export default {
           duration: 3000,
           permanent: false
         });
-
       }
     }
   }
-}
-;
+};
 </script>
