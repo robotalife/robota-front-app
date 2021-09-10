@@ -69,7 +69,7 @@ export default {
                     const loggedInUser = {
                         id: responseObject.id,
                         title: responseObject.username,
-                        //img: getGravatarURL(payload.email),
+                        img: getGravatarURL(payload.email),
                         date: 'Last seen today 15:24',
                         token: responseObject.token,
                         role: 0

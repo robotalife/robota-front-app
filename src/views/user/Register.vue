@@ -15,8 +15,7 @@
           <b-form @submit.prevent="registerSubmit">
             <div class="mb-5">
               Please use this form to register. <br/>If you are a member, please
-            <router-link tag="a" to="/user/login">login</router-link>
-            
+              <router-link tag="a" to="/user/login">login</router-link>
             </div>
             <label class="form-group has-float-label mb-4">
               <input type="text" class="form-control" v-model="username">
@@ -58,22 +57,22 @@ export default {
       const self = this;
       console.log('form submit called', this.username, this.email, this.password);
       console.log('url of function is', gConfig.PUBLIC_API_URL + '/user');
-      
+
       let userEmail = this.email
-      
+
       axios.post(gConfig.PUBLIC_API_URL + '/user', {
         username: this.username,
         password: this.password,
         email: this.email
       }).then(function (response) {
-        if(response.data.statusCode == 201){
-        const type = "Success";
-        const title = "Your user has been created";
-        const message = "Please use login link on left side of the card to enter the application";
+        if (response.data.statusCode == 201) {
+          const type = "Success";
+          const title = "Your user has been created";
+          const message = "Please use login link on left side of the card to enter the application";
 
-        router.push({name: 'login' , params: { email: userEmail }} )
-        self.$notify(type, title, message, {permanent: true});
-        } else{
+          router.push({name: 'login', params: {email: userEmail}})
+          self.$notify(type, title, message, {permanent: true});
+        } else {
           const type = "error";
           const title = "Failed";
           const message = response.data.message;

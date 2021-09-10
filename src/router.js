@@ -10,8 +10,6 @@ const routes = [
   {
     path: "/",
     redirect: "/user/login"
-    // component: () => import(/* webpackChunkName: "home" */ "./views/home"),
-    // redirect: `${adminRoot}/piaf`,
   },
   {
     path: adminRoot,
