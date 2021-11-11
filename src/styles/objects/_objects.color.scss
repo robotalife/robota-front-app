@@ -1,0 +1,29 @@
+@import '../global/color';
+
+$colors: (
+    'white' $white,
+    'g-100' $gray-100,
+    'g-80' $gray-80,
+    'g-65' $gray-65,
+    'g-50' $gray-50,
+    'g-40' $gray-40,
+    'g-30' $gray-30,
+    'db-20' $dark-blue-20,
+    'db-10' $dark-blue-10,
+    'db-05' $dark-blue-05,
+    'primary' $primary-blue-100,
+    'error' $error,
+    'warning' $warning,
+    'success' $success,
+    'gray' $background,
+);
+
+@each $color, $value in $colors {
+    .#{$color} {
+      color: $value !important;
+    }
+
+    .bg-#{$color} {
+      background-color: $value !important;
+    }
+}
