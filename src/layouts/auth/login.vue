@@ -25,15 +25,16 @@ export default {
   methods: {
     submit() {
       this.$api.auth
-        // .loginUser('admin@kariztech.com', '12345678')
         .loginUser(this.emailAddress, this.userPassword)
         .then((result) => {
           console.log(result);
           if (result.statusCode === 200) {
             storage.setItem("token", result.data.token);
-            // storage.setItem('user', result.user);
-            // this.$router.push({ name: 'dashboard' });
-            // window.location.href = '/';
+            storage.setItem("userId", {
+              id: result.data.id,
+              email: this.emailAddress,
+            });
+            this.$router.push({ name: "dashboard" });
             console.log("call");
           } else {
             this.snackbar = true;
@@ -75,10 +76,8 @@ export default {
 </script>
 <template>
   <form @submit.prevent="submit" @change="changeValues">
-    <p class="m-t-5 g-100 font-29-48 fw-900 m-b-0">Welcome Back</p>
-    <p class="g-65 font-14-24 fw-500 m-b-5">
-      Please login to access your dashboard
-    </p>
+    <!-- <p class="g-65 font-14-24 fw-500 m-b-5">
+    </p> -->
     <BaseInput label="Email" type="email" name="email" />
     <p v-if="emailIsNotValid" class="Login__error font-12-16">
       {{ emailValidation }}

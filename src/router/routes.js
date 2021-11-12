@@ -22,7 +22,33 @@ export default [
     },
   },
   {
+    path: "/",
+    name: "dashboard",
+    component: () =>
+      import(
+        /* webpackChunkName: "Main" */ "@/layouts/dashboard/components/Main"
+      ),
+    meta: {
+      layout: () =>
+        import(/* webpackChunkName: "Dashboard" */ "@/layouts/dashboard/Index"),
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/exchange",
+    name: "exchange",
+    component: () =>
+      import(
+        /* webpackChunkName: "Main" */ "@/layouts/dashboard/components/Exchange"
+      ),
+    meta: {
+      layout: () =>
+        import(/* webpackChunkName: "Dashboard" */ "@/layouts/dashboard/Index"),
+      requiresAuth: false,
+    },
+  },
+  {
     path: "*",
-    redirect: "/login",
+    redirect: "/",
   },
 ];

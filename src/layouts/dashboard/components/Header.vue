@@ -18,38 +18,19 @@ export default {
   },
   data() {
     return {
-      date: "14 Jun, 202",
-      projectName: "Immiscible_SPE10T",
-      userInfo: "",
+      userInfo: storage.getItem("userId").email,
       isAdminUser: "",
-      fetchedData: false,
+      fetchedData: true,
     };
   },
   created() {
-    this.getUserInfo();
+    // this.getUserExchanges();
   },
   methods: {
     logout() {
       storage.removeItem("token");
-      storage.removeItem("user");
+      storage.removeItem("userId");
       this.$router.push({ name: "login" });
-    },
-    showQueue() {
-      return this.$emit("clicked", "Queue");
-    },
-    showProjects() {
-      return this.$emit("clicked", "Projects");
-    },
-    getUserInfo() {
-      this.$api.admin.fetchUser(storage.getItem("user").id).then((result) => {
-        storage.setItem("user", result);
-        this.userInfo = result.firstName + " " + result.lastName;
-        this.isAdminUser = result.admin;
-        this.fetchedData = true;
-      });
-    },
-    changePassword() {
-      return this.$emit("clicked", "Password");
     },
   },
 };
@@ -69,44 +50,24 @@ export default {
       >
         <template v-slot:activator="{ attrs, on }">
           <div class="d-flex" v-bind="attrs" v-on="on">
-            <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
-            <span class="m-l-1 font-14-24 g-100 d-flex ai-center">
+            <span class="m-r-1 font-14-24 g-100 d-flex ai-center">
               {{ userInfo }}
             </span>
+            <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
           </div>
         </template>
         <v-list>
-          <v-list-item @click="changePassword">
-            <v-list-item-title>
-              <VIcon dark>$lock</VIcon>
-              <span class="g-65 font-14-24 fw-500 m-l-1">Change Password</span>
-            </v-list-item-title>
-          </v-list-item>
           <v-list-item @click="logout">
             <v-list-item-title>
-              <VIcon dark>$logout</VIcon>
+              <!-- <VIcon dark>$logout</VIcon> -->
               <span class="g-65 font-14-24 fw-500 m-l-1">Logout</span>
             </v-list-item-title>
           </v-list-item>
-          <v-list-item @click="showQueue">
-            <v-list-item-title>
-              <VIcon dark>$history</VIcon>
-              <span class="g-65 font-14-24 fw-500 m-l-1"
-                >Simulation History</span
-              >
-            </v-list-item-title>
-          </v-list-item>
-          <v-list-item @click="showProjects">
-            <v-list-item-title>
-              <VIcon dark>$saved</VIcon>
-              <span class="g-65 font-14-24 fw-500 m-l-1">My Projects</span>
-            </v-list-item-title>
-          </v-list-item>
-          <router-link v-if="isAdminUser" to="/admin/queue">
+          <router-link to="/exchange">
             <v-list-item>
               <v-list-item-title>
-                <VIcon dark>$admin</VIcon>
-                <span class="g-65 font-14-24 fw-500 m-l-1">Admin</span>
+                <!-- <VIcon dark>$admin</VIcon> -->
+                <span class="g-65 font-14-24 fw-500 m-l-1">My Exchanges</span>
               </v-list-item-title>
             </v-list-item>
           </router-link>
