@@ -31,20 +31,20 @@ export default [
     meta: {
       layout: () =>
         import(/* webpackChunkName: "Dashboard" */ "@/layouts/dashboard/Index"),
-      requiresAuth: false,
+      requiresAuth: true,
     },
   },
   {
-    path: "/exchange",
-    name: "exchange",
+    path: "/settings",
+    name: "settings",
     component: () =>
       import(
-        /* webpackChunkName: "Main" */ "@/layouts/dashboard/components/Exchange"
+        /* webpackChunkName: "Settings" */ "@/layouts/dashboard/components/Settings"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Dashboard" */ "@/layouts/dashboard/Index"),
-      requiresAuth: false,
+        import(/* webpackChunkName: "Settings" */ "@/layouts/dashboard/Index"),
+      requiresAuth: true,
     },
   },
   {

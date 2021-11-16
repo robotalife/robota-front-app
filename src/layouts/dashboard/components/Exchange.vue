@@ -1,42 +1,109 @@
 <script>
-// import Tabs from "@/components/tabs";
-// import storage from "@/utils/storage";
+import BaseInput from "@/components/input/BaseInput.vue";
+import BaseButton from "@/components/button/BaseButton.vue";
+import storage from "@/utils/storage";
 export default {
   name: "Exchange",
   components: {
-    // Tabs,
+    BaseInput,
+    BaseButton,
   },
   data() {
     return {
+      valuesItem: [
+        {
+          label: "API key",
+          name: "apiKey",
+        },
+        {
+          label: "Secret Key",
+          name: "apiSecret",
+        },
+        {
+          label: "Account Lable",
+          name: "exchangeName",
+        },
+      ],
+      exchangeObj: {
+        apiKey: "",
+        apiSecret: "",
+        exchangeName: "",
+        exchangeType: "BINANCE",
+        userId: storage.getItem("userId").id,
+      },
+      exChangeList: this.$store.state.exchangeList,
+      addExchangeDialog: false,
       snackbar: false,
-      dialog2: false,
       errorMessage: "",
       snackbarColor: "pink",
-      projectList: null,
-      modelTitle: "",
-      loading: false,
-      outputProjects: [],
-      changePasswordDialog: false,
-      userPassword: {
-        currentPassword: "",
-        newPassword: "",
-      },
     };
   },
-  mounted: function () {},
-  methods: {},
+  created() {
+    console.log(this.$store.state.exchangeList, "exchange list");
+  },
+  methods: {
+    changeExchangeForm(e) {
+      const name = e.target.name;
+      const value = e.target.value;
+      this.exchangeObj[name] = value;
+    },
+    addExchange() {
+      console.log(this.exchangeObj);
+      this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
+        this.$store.commit("ADD_EXCHANGE", result.data);
+        this.addExchangeDialog = false;
+      });
+    },
+    deleteExchange(id) {
+      this.$api.exchange.deleteExchange(id).then((result) => {
+        if (result.statusCode !== 200) {
+          this.errorMessage(result.message);
+          this.snackbar = false;
+          this.snackbarColor = "pink";
+        }
+        this.exChangeList.map((item, index) => {
+          if (item.exchangeId === id) {
+            let list = this.exChangeList;
+            list.splice(index, 1);
+            this.$store.commit("SET_EXCHANGE_LIST", list);
+          }
+        });
+      });
+    },
+  },
 };
 </script>
 
 <template>
-  <div class="h-1-1">
-    <div class="Dashboard h-1-1 d-flex ai-center jc-center">exchange</div>
-    <!-- <v-tabs-items v-model="tab" class="Sidebar">
-      <Domain />
-      <Properties />
-      <Features />
-      <Simulation />
-    </v-tabs-items> -->
+  <v-tab-item :transition="false" class="p-4 w-1-1">
+    <div v-for="(exchange, index) in exChangeList" :key="index">
+      <p>
+        {{ exchange.exchangeName }}
+      </p>
+      <div @click="() => deleteExchange(exchange.exchangeId)">
+        <BaseButton text="Delete Exchange" class="m-t-2" />
+      </div>
+    </div>
+    <div @click="addExchangeDialog = true">
+      <BaseButton text="Add Exchange" class="m-t-2" />
+    </div>
+    <v-dialog v-model="addExchangeDialog" width="550" height="600">
+      <form class="m-t-4 p-2 bg-white" @change="changeExchangeForm">
+        <BaseInput
+          v-for="item in valuesItem"
+          :key="item.name"
+          :label="item.label"
+          :name="item.name"
+        />
+        <div @click.prevent="addExchange">
+          <BaseButton
+            text="Add Exchange"
+            class="m-t-2"
+            @click.prevent="addExchange"
+          />
+        </div>
+      </form>
+    </v-dialog>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
@@ -50,73 +117,18 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
-  </div>
+  </v-tab-item>
 </template>
-
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-.Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
 
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
-  }
-
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
-  }
-
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
-  }
-
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+.Domain {
+  @include e(cartesian-gird) {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 16px;
+    grid-row-gap: 32px;
   }
 }
 </style>

@@ -28,9 +28,6 @@ export default {
         :key="item.index"
         class="Tabs__tab-item p-1-5"
       >
-        <p class="Tabs__tab-list d-flex ai-center jc-center font-12-16 m-b-0">
-          {{ item.index }}
-        </p>
         <p class="Tabs__tab-label font-14-24 m-l-1 m-b-0">{{ item.title }}</p>
       </v-tab>
     </v-tabs>

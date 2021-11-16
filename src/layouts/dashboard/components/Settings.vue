@@ -1,8 +1,13 @@
 <script>
-import storage from "@/utils/storage";
+import Tabs from "@/components/tabs/Tabs.vue";
+import Exchange from "./Exchange.vue";
+// import storage from "@/utils/storage";
 export default {
-  name: "Main",
-  components: {},
+  name: "Settings",
+  components: {
+    Tabs,
+    Exchange,
+  },
   data() {
     return {
       snackbar: false,
@@ -18,42 +23,43 @@ export default {
         currentPassword: "",
         newPassword: "",
       },
+      tabItems: [
+        {
+          title: "Edit Profile",
+          index: 1,
+        },
+        {
+          title: "Security",
+          index: 2,
+        },
+        {
+          title: "Notification",
+          index: 3,
+        },
+        {
+          title: "My Exchanges",
+          index: 4,
+        },
+      ],
+      tab: 1,
     };
   },
   mounted: function () {},
-  created() {
-    this.getUserExchanges();
-  },
-  methods: {
-    logout() {
-      storage.removeItem("token");
-      storage.removeItem("userId");
-      this.$router.push({ name: "login" });
-    },
-    getUserExchanges() {
-      this.$api.exchange
-        .fetchExchangeList(storage.getItem("userId")?.id)
-        .then((result) => {
-          this.fetchedData = true;
-          if (result.statusCode == 200) {
-            console.log(result.data);
-            this.$store.commit("SET_EXCHANGE_LIST", result.data);
-            this.$router.push({ name: "settings" });
-          } else if (result.statusCode === 401) {
-            this.logout();
-          }
-        })
-        .catch(() => {
-          this.fetchedData = true;
-        });
-    },
-  },
+  methods: {},
 };
 </script>
 
 <template>
   <div class="h-1-1">
-    <div class="Dashboard h-1-1 d-flex ai-center jc-center">inja</div>
+    <div class="Dashboard h-1-1 d-flex flex-col ai-center jc-center">
+      <Tabs :items="tabItems" />
+      <v-tabs-items v-model="tab" class="w-1-3">
+        <Exchange />
+        <Exchange />
+        <Exchange />
+        <Exchange />
+      </v-tabs-items>
+    </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
