@@ -3,7 +3,7 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 import storage from "@/utils/storage";
 export default {
-  name: "LogIn",
+  name: "SignIn",
   components: {
     BaseInput,
     BaseButton,

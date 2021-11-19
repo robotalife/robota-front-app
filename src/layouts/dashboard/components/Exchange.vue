@@ -31,7 +31,7 @@ export default {
         exchangeType: "BINANCE",
         userId: storage.getItem("userId").id,
       },
-      exChangeList: this.$store.state.exchangeList,
+      exChangeList: this.$store.state.exChangeList,
       addExchangeDialog: false,
       snackbar: false,
       errorMessage: "",
@@ -39,7 +39,7 @@ export default {
     };
   },
   created() {
-    console.log(this.$store.state.exchangeList, "exchange list");
+    console.log(this.$store.state.exChangeList, "exchange list");
   },
   methods: {
     changeExchangeForm(e) {
@@ -50,6 +50,7 @@ export default {
     addExchange() {
       console.log(this.exchangeObj);
       this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
+        console.log(result, this.$store.state.exChangeList, "2");
         this.$store.commit("ADD_EXCHANGE", result);
         this.addExchangeDialog = false;
       });
@@ -71,11 +72,18 @@ export default {
 
 <template>
   <v-tab-item :transition="false" class="p-4 w-1-1">
-    <div v-for="(exchange, index) in exChangeList" :key="index">
-      <p>
+    <div
+      v-for="(exchange, index) in exChangeList"
+      :key="index"
+      class="d-flex ai-center"
+    >
+      <p class="m-r-1">
         {{ exchange.exchangeName }}
       </p>
-      <div @click="() => deleteExchange(exchange.exchangeId)">
+      <div
+        v-if="exChangeList.length"
+        @click="() => deleteExchange(exchange.exchangeId)"
+      >
         <BaseButton text="Delete Exchange" class="m-t-2" />
       </div>
     </div>

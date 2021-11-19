@@ -1,9 +1,9 @@
 export default [
   {
-    path: "/login",
-    name: "login",
+    path: "/signIn",
+    name: "signIn",
     component: () =>
-      import(/* webpackChunkName: "login" */ "@/layouts/auth/login"),
+      import(/* webpackChunkName: "signIn" */ "@/layouts/auth/SignIn"),
     meta: {
       layout: () =>
         import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
@@ -14,10 +14,19 @@ export default [
     path: "/signup",
     name: "signup",
     component: () =>
-      import(/* webpackChunkName: "signup" */ "@/layouts/auth/signup"),
+      import(/* webpackChunkName: "signup" */ "@/layouts/auth/Signup"),
     meta: {
       layout: () =>
         import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/activate",
+    name: "activate",
+    meta: {
+      layout: () =>
+        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/Activate"),
       requiresAuth: false,
     },
   },

@@ -27,25 +27,13 @@ class Http {
   get(endpoint, options = {}) {
     return this.$http
       .get(endpoint, this.normalizeOptions(options))
-      .then(transformRes)
-      .catch((error) => {
-        if (error.response.status === 401) {
-          storage.removeItem("token");
-          window.location.reload();
-        }
-      });
+      .then(transformRes);
   }
 
   post(endpoint, body, options = {}) {
     return this.$http
       .post(endpoint, body, this.normalizeOptions(options))
-      .then(transformRes)
-      .catch((error) => {
-        if (error.response.status === 401) {
-          storage.removeItem("token");
-          window.location.reload();
-        }
-      });
+      .then(transformRes);
   }
 
   put(endpoint, body, options = {}) {
@@ -54,9 +42,9 @@ class Http {
       .then(transformRes);
   }
 
-  delete(endpoint, body, options = {}) {
+  delete(endpoint, options = {}) {
     return this.$http
-      .delete(endpoint, body, this.normalizeOptions(options))
+      .delete(endpoint, this.normalizeOptions(options))
       .then(transformRes);
   }
 }

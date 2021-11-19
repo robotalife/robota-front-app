@@ -35,8 +35,7 @@ export default {
         .fetchExchangeList(storage.getItem("userId")?.id)
         .then((result) => {
           this.fetchedData = true;
-          console.log(result);
-          this.$store.commit("SET_EXCHANGE_LIST", result);
+          this.$store.commit("SET_EXCHANGE_LIST", result.exchanges);
           this.$router.push({ name: "settings" });
         })
         .catch(() => {

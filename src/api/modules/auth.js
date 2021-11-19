@@ -2,6 +2,7 @@ import $http from "@/services/http";
 
 const LOGIN_ENDPOINT = "/signin";
 const REGISTER_ENDPOINT = "/signup";
+const ACTIVATE_USER_ENDPOINT = (id) => `/user/activate?key=${id}`;
 
 export default {
   loginUser(email, password) {
@@ -16,12 +17,7 @@ export default {
       password: password,
     });
   },
-  // changePassword(data) {
-  //   return $http.post(CHANGE_PASSWORD_ENDPOINT, data);
-  // },
-  // fotgetPassword(email) {
-  //   return $http.post(FORGET_PASSWORD_ENDPOINT, {
-  //     email: email,
-  //   });
-  // },
+  activateUser(id) {
+    return $http.post(ACTIVATE_USER_ENDPOINT(id));
+  },
 };
