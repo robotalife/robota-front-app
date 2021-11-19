@@ -1,7 +1,7 @@
 import $http from "@/services/http";
 
-const LOGIN_ENDPOINT = "/v1/signin";
-const REGISTER_ENDPOINT = "/v1/user";
+const LOGIN_ENDPOINT = "/signin";
+const REGISTER_ENDPOINT = "/signup";
 
 export default {
   loginUser(email, password) {

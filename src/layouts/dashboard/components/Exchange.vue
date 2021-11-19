@@ -50,17 +50,12 @@ export default {
     addExchange() {
       console.log(this.exchangeObj);
       this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
-        this.$store.commit("ADD_EXCHANGE", result.data);
+        this.$store.commit("ADD_EXCHANGE", result);
         this.addExchangeDialog = false;
       });
     },
     deleteExchange(id) {
-      this.$api.exchange.deleteExchange(id).then((result) => {
-        if (result.statusCode !== 200) {
-          this.errorMessage(result.message);
-          this.snackbar = false;
-          this.snackbarColor = "pink";
-        }
+      this.$api.exchange.deleteExchange(id).then(() => {
         this.exChangeList.map((item, index) => {
           if (item.exchangeId === id) {
             let list = this.exChangeList;

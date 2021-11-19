@@ -8,7 +8,7 @@ function transformRes(res) {
 class Http {
   constructor() {
     this.$http = axios.create({
-      baseURL: "https://public.robotalife.com/dev",
+      baseURL: "https://api.robotalife.com/dev",
     });
   }
 

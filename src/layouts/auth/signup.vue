@@ -28,14 +28,8 @@ export default {
       this.$api.auth
         // .loginUser('admin@kariztech.com', '12345678')
         .registerUser(this.emailAddress, this.userPassword)
-        .then((result) => {
-          console.log(result);
-          if (result.statusCode === 201) {
-            this.$router.push({ name: "login" });
-          } else {
-            this.snackbar = true;
-            this.errorMessage = result?.message;
-          }
+        .then(() => {
+          this.$router.push({ name: "login" });
         })
         .catch((error) => {
           this.snackbar = true;

@@ -1,11 +1,11 @@
 import $http from "@/services/http";
 
-const LOGIN_ENDPOINT = "/v2/exchange/list";
-const ADD_EXCHANGE = "/v2/exchange";
+const EXCHANGE_LIST_ENDPOINT = "/exchange/list";
+const ADD_EXCHANGE = "/exchange";
 
 export default {
   fetchExchangeList(id) {
-    return $http.post(LOGIN_ENDPOINT, {
+    return $http.post(EXCHANGE_LIST_ENDPOINT, {
       userId: id,
     });
   },

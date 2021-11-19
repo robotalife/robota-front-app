@@ -28,18 +28,13 @@ export default {
         .loginUser(this.emailAddress, this.userPassword)
         .then((result) => {
           console.log(result);
-          if (result.statusCode === 200) {
-            storage.setItem("token", result.data.token);
-            storage.setItem("userId", {
-              id: result.data.id,
-              email: this.emailAddress,
-            });
-            this.$router.push({ name: "dashboard" });
-            console.log("call");
-          } else {
-            this.snackbar = true;
-            this.errorMessage = result?.message;
-          }
+          storage.setItem("token", result.token);
+          storage.setItem("userId", {
+            id: result.id,
+            email: this.emailAddress,
+          });
+          this.$router.push({ name: "dashboard" });
+          console.log("call");
         })
         .catch((error) => {
           this.snackbar = true;

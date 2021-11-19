@@ -35,13 +35,9 @@ export default {
         .fetchExchangeList(storage.getItem("userId")?.id)
         .then((result) => {
           this.fetchedData = true;
-          if (result.statusCode == 200) {
-            console.log(result.data);
-            this.$store.commit("SET_EXCHANGE_LIST", result.data);
-            this.$router.push({ name: "settings" });
-          } else if (result.statusCode === 401) {
-            this.logout();
-          }
+          console.log(result);
+          this.$store.commit("SET_EXCHANGE_LIST", result);
+          this.$router.push({ name: "settings" });
         })
         .catch(() => {
           this.fetchedData = true;
@@ -53,7 +49,7 @@ export default {
 
 <template>
   <div class="h-1-1">
-    <div class="Dashboard h-1-1 d-flex ai-center jc-center">inja</div>
+    <div class="Dashboard h-1-1 d-flex ai-center jc-center">Dashboard</div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
