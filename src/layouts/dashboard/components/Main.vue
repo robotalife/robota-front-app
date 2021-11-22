@@ -14,6 +14,7 @@ export default {
       loading: false,
       outputProjects: [],
       changePasswordDialog: false,
+      exChangeList: this.$store.state.exChangeList,
       userPassword: {
         currentPassword: "",
         newPassword: "",
@@ -35,8 +36,11 @@ export default {
         .fetchExchangeList(storage.getItem("userId")?.id)
         .then((result) => {
           this.fetchedData = true;
-          this.$store.commit("SET_EXCHANGE_LIST", result.exchanges);
-          this.$router.push({ name: "settings" });
+          let customerExchangeList = result.exchanges;
+          this.$store.commit("SET_EXCHANGE_LIST", customerExchangeList);
+          if (customerExchangeList.length === 0) {
+            this.$router.push({ name: "settings" });
+          }
         })
         .catch(() => {
           this.fetchedData = true;
