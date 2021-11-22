@@ -18,7 +18,7 @@ export default {
   },
   data() {
     return {
-      userInfo: storage.getItem("userId")?.email,
+      userInfo: storage.getItem("user")?.email,
       isAdminUser: "",
       fetchedData: true,
     };
@@ -29,8 +29,8 @@ export default {
   methods: {
     logout() {
       storage.removeItem("token");
-      storage.removeItem("userId");
-      this.$router.push({ name: "login" });
+      storage.removeItem("user");
+      this.$router.push({ name: "signIn" });
     },
   },
 };
@@ -40,7 +40,7 @@ export default {
     <div class="d-flex jc-between ai-center Header p-x-4 p-y-2 bg-white">
       <div class="d-flex ai-center">
         <VIcon class="Header--darsim" size="32" dark>$darsim</VIcon>
-        <span class="g-100 font-18-24 fw-500 m-l-1">Darsim</span>
+        <span class="g-100 font-18-24 fw-500 m-l-1">Robotalife</span>
       </div>
       <v-menu
         v-if="fetchedData"

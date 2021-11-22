@@ -29,7 +29,7 @@ export default {
         .then((result) => {
           console.log(result);
           storage.setItem("token", result.token);
-          storage.setItem("userId", {
+          storage.setItem("user", {
             id: result.id,
             email: this.emailAddress,
           });

@@ -28,12 +28,12 @@ export default {
   methods: {
     logout() {
       storage.removeItem("token");
-      storage.removeItem("userId");
+      storage.removeItem("user");
       this.$router.push({ name: "login" });
     },
     getUserExchanges() {
       this.$api.exchange
-        .fetchExchangeList(storage.getItem("userId")?.id)
+        .fetchExchangeList(storage.getItem("user")?.id)
         .then((result) => {
           this.fetchedData = true;
           let customerExchangeList = result.exchanges;

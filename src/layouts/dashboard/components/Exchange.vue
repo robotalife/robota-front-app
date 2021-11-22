@@ -29,7 +29,7 @@ export default {
         apiSecret: "",
         exchangeName: "",
         exchangeType: "BINANCE",
-        userId: storage.getItem("userId").id,
+        userId: storage.getItem("user").id,
       },
       exChangeList: this.$store.state.exChangeList,
       addExchangeDialog: false,
