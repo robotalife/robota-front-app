@@ -1,5 +1,10 @@
 export default [
   {
+    path: "/",
+    redirect: "signIn",
+    requiresAuth: false,
+  },
+  {
     path: "/signIn",
     name: "signIn",
     component: () =>
