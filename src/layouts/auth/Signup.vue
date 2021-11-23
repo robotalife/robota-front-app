@@ -29,7 +29,7 @@ export default {
         // .loginUser('admin@kariztech.com', '12345678')
         .registerUser(this.emailAddress, this.userPassword)
         .then(() => {
-          this.$router.push({ name: "login" });
+          this.$router.push({ name: "signIn" });
         })
         .catch((error) => {
           this.snackbar = true;
