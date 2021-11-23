@@ -30,6 +30,7 @@ export default {
         .catch((error) => {
           console.log(error, "er");
           this.snackbar = true;
+          this.snackbarColor = "red";
           this.errorMessage = error?.response?.data.message;
         });
     },
