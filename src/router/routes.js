@@ -16,6 +16,32 @@ export default [
     },
   },
   {
+    path: "/forgot-password",
+    name: "forgot-password",
+    component: () =>
+      import(
+        /* webpackChunkName: "forgetPassword" */ "@/layouts/auth/forgetPassword"
+      ),
+    meta: {
+      layout: () =>
+        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+      requiresAuth: false,
+    },
+  },
+  {
+    path: "/forgot-password/finish",
+    name: "forgot-password-finish",
+    component: () =>
+      import(
+        /* webpackChunkName: "forgetPasswordFinish" */ "@/layouts/auth/ForgetPasswordFinish"
+      ),
+    meta: {
+      layout: () =>
+        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+      requiresAuth: false,
+    },
+  },
+  {
     path: "/signup",
     name: "signup",
     component: () =>

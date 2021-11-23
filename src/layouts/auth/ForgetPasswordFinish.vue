@@ -1,29 +1,55 @@
 <script>
 import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
+
 export default {
-  name: "ForgetPassword",
+  name: "ForgetPasswordFinish",
   components: {
     BaseInput,
     BaseButton,
   },
   data() {
     return {
-      emailAddress: "",
+      password: "",
+      isPasswordInvalid: true,
+      passwordValidationMessage: "",
+      resetKey: "",
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      emailRules: this.$validate.emailRules,
-      emailIsNotValid: false,
-      emailValidation: "",
     };
   },
   methods: {
+    validatePassword(value) {
+      let passwordPattern = new RegExp(
+        "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$"
+      );
+      if (value === "") {
+        this.isPasswordInvalid = true;
+        this.passwordValidationMessage = "password is required";
+        return false;
+      } else if (passwordPattern.test(value)) {
+        this.password = value;
+        this.isPasswordInvalid = false;
+        this.passwordValidationMessage = "";
+        return true;
+      } else {
+        this.isPasswordInvalid = true;
+        this.passwordValidationMessage =
+          "password must have at least eight characters, at least one uppercase letter," +
+          " one lowercase letter, one number and one special character.";
+        return false;
+      }
+    },
     submit() {
+      this.resetkey = this.$route.query.key;
+      if (!this.validatePassword(this.password)) {
+        return;
+      }
       this.$api.auth
-        .initiateResetPassword(this.emailAddress)
+        .finishResetPassword(this.password, this.$route.query.key)
         .then(() => {
-          this.errorMessage = `Rest Password link, sent to ${this.emailAddress}`;
+          this.errorMessage = `Password has been changed.`;
           this.snackbarColor = "green";
           this.snackbar = true;
         })
@@ -35,32 +61,22 @@ export default {
     },
     changeValues(e) {
       const value = e.target.value;
-      const emailRegex = new RegExp(/.+@.+\..+/);
-      if (value === "") {
-        this.emailIsNotValid = true;
-        this.emailValidation = "email is required";
-      } else if (emailRegex.test(value)) {
-        this.emailAddress = value;
-        this.emailIsNotValid = false;
-      } else {
-        this.emailIsNotValid = true;
-        this.emailValidation = "email is not valid";
-      }
+      this.validatePassword(value);
     },
   },
 };
 </script>
 <template>
-  <form @submit.prevent="submit" @change="changeValues">
+  <form @submit.prevent="submit" @change="changeValues" ref="form">
     <p class="m-t-5 g-100 font-29-48 fw-900 m-b-0">Reset Password</p>
-    <BaseInput label="Email" type="email" name="email" />
-    <p v-if="emailIsNotValid" class="ForgetPassword__error font-12-16">
-      {{ emailValidation }}
+    <BaseInput label="New Password" type="password" name="password" />
+    <p v-if="isPasswordInvalid" class="ForgetPassword__error font-12-16">
+      {{ passwordValidationMessage }}
     </p>
 
     <BaseButton
       class="w-1-1 m-t-3 bg-primary ForgetPassword__submit"
-      text="Reset Password"
+      text="Change Password"
       size="small"
     />
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
