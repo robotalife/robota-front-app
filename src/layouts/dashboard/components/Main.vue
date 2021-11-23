@@ -14,7 +14,7 @@ export default {
       loading: false,
       outputProjects: [],
       changePasswordDialog: false,
-      exChangeList: this.$store.state.exChangeList,
+      exChangeList: this.$store.state.exchangeList,
       userPassword: {
         currentPassword: "",
         newPassword: "",

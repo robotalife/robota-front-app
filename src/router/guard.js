@@ -5,14 +5,12 @@ export default async (to, from, next) => {
   const isAuthenticated = storage.getItem("token");
 
   if (requiresAuth) {
-    console.log("requires auth");
     if (isAuthenticated) {
       next();
     } else {
       next({ name: "login" });
     }
   } else {
-    console.log("else requires auth");
     if (isAuthenticated) {
       next({ name: "dashboard" });
     } else {

@@ -31,15 +31,20 @@ export default {
         exchangeType: "BINANCE",
         userId: storage.getItem("user").id,
       },
-      exChangeList: this.$store.state.exChangeList,
+      exchangeList: [],
       addExchangeDialog: false,
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
     };
   },
-  created() {
-    console.log(this.$store.state.exChangeList, "exchange list");
+  mounted() {
+    console.log(this.$store.state.exchangeList, "exchange list");
+    this.$api.exchange
+      .fetchExchangeList(storage.getItem("user")?.id)
+      .then((result) => {
+        this.exchangeList = result.exchanges;
+      });
   },
   methods: {
     changeExchangeForm(e) {
@@ -50,16 +55,16 @@ export default {
     addExchange() {
       console.log(this.exchangeObj);
       this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
-        console.log(result, this.$store.state.exChangeList, "2");
+        console.log(result, this.$store.state.exchangeList, "2");
         this.$store.commit("ADD_EXCHANGE", result);
         this.addExchangeDialog = false;
       });
     },
     deleteExchange(id) {
       this.$api.exchange.deleteExchange(id).then(() => {
-        this.exChangeList.map((item, index) => {
+        this.exchangeList.map((item, index) => {
           if (item.exchangeId === id) {
-            let list = this.exChangeList;
+            let list = this.exchangeList;
             list.splice(index, 1);
             this.$store.commit("SET_EXCHANGE_LIST", list);
           }
@@ -73,7 +78,7 @@ export default {
 <template>
   <v-tab-item :transition="false" class="p-4 w-1-1">
     <div
-      v-for="(exchange, index) in exChangeList"
+      v-for="(exchange, index) in exchangeList"
       :key="index"
       class="d-flex ai-center"
     >
@@ -81,7 +86,7 @@ export default {
         {{ exchange.exchangeName }}
       </p>
       <div
-        v-if="exChangeList.length"
+        v-if="exchangeList.length"
         @click="() => deleteExchange(exchange.exchangeId)"
       >
         <BaseButton text="Delete Exchange" class="m-t-2" />

@@ -1,7 +1,7 @@
 import $http from "@/services/http";
 
 const EXCHANGE_LIST_ENDPOINT = "/exchange/list";
-const ADD_EXCHANGE = "/exchange";
+const EXCHANGE_ENDPOINT = "/exchange";
 
 export default {
   fetchExchangeList(id) {
@@ -10,11 +10,9 @@ export default {
     });
   },
   addExchange(data) {
-    return $http.post(ADD_EXCHANGE, data);
+    return $http.post(EXCHANGE_ENDPOINT, data);
   },
   deleteExchange(id) {
-    return $http.delete(ADD_EXCHANGE, {
-      exchangeId: id,
-    });
+    return $http.delete(EXCHANGE_ENDPOINT + "/" + id);
   },
 };
