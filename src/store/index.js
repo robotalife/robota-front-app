@@ -7,7 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     user: "",
-    exChangeList: [],
+    exchangeList: [],
   },
   mutations: {
     SET_USER(state, user) {
@@ -15,10 +15,10 @@ export default new Vuex.Store({
       // storage.setItem('user', user);
     },
     SET_EXCHANGE_LIST(state, list) {
-      state.exChangeList = list;
+      state.exchangeList = list;
     },
     ADD_EXCHANGE(state, list) {
-      state.exChangeList.push(list);
+      state.exchangeList.push(list);
     },
   },
   actions: {},
