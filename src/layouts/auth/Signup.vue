@@ -33,7 +33,7 @@ export default {
         })
         .catch((error) => {
           this.snackbar = true;
-          this.errorMessage = error?.response?.data;
+          this.errorMessage = error?.response?.data.message;
         });
     },
     changeValues(e) {
