@@ -20,7 +20,7 @@ export default {
           this.$router.push({ name: "signIn" });
         })
         .catch((error) => {
-          this.errorMessage = error.response.data.message;
+          this.errorMessage = error?.response?.data.message;
         });
     },
   },

@@ -38,7 +38,7 @@ export default {
         })
         .catch((error) => {
           this.snackbar = true;
-          this.errorMessage = error?.response?.data;
+          this.errorMessage = error?.response?.data.message;
         });
     },
     changeValues(e) {
@@ -91,7 +91,7 @@ export default {
     />
     <div class="d-flex m-t-5 jc-center fw-500">
       <p class="font-14-24 g-65 m-r-0-5">Forgot your password?</p>
-      <RouterLink to="/forget-password" class="Login__reset">
+      <RouterLink to="/forgot-password" class="Login__reset">
         Reset Password
       </RouterLink>
     </div>
