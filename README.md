@@ -1,4 +1,4 @@
-# darsim
+# Robotalife Front App
 
 ## Project setup
 ```
