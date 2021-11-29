@@ -20,7 +20,7 @@ export default [
     name: "forgot-password",
     component: () =>
       import(
-        /* webpackChunkName: "forgetPassword" */ "@/layouts/auth/forgetPassword"
+        /* webpackChunkName: "forgetPassword" */ "@/layouts/auth/ForgetPassword"
       ),
     meta: {
       layout: () =>
@@ -79,11 +79,26 @@ export default [
     name: "settings",
     component: () =>
       import(
-        /* webpackChunkName: "Settings" */ "@/layouts/dashboard/components/Settings"
+        /* webpackChunkName: "Settings" */ "@/layouts/settings/components/Settings"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Settings" */ "@/layouts/dashboard/Index"),
+        import(/* webpackChunkName: "Settings" */ "@/layouts/settings/Index"),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/smart-trade",
+    name: "smart-trade",
+    component: () =>
+      import(
+        /* webpackChunkName: "Main" */ "@/layouts/smartTrade/components/Main"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SmartTrade" */ "@/layouts/smartTrade/Index"
+        ),
       requiresAuth: true,
     },
   },

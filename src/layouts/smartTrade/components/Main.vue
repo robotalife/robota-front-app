@@ -8,12 +8,7 @@ export default {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
-      exChangeList: this.$store.state.exchangeList,
     };
-  },
-  mounted: function () {},
-  created() {
-    this.getUserExchanges();
   },
   methods: {
     logout() {
@@ -49,8 +44,7 @@ export default {
 
 <template>
   <div class="h-1-1 d-flex flex-col ai-center jc-center">
-    <div class="Dashboard">Dashboard</div>
-    <RouterLink to="/smart-trade" class="Login__reset">Smart Trade</RouterLink>
+    <div class="Dashboard">Smart Trade</div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">

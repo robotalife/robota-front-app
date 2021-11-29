@@ -176,17 +176,17 @@ export default {
   @include m(over) {
     background-color: #006ef50d;
 
-    .v-icon__component {
-      height: 40px;
-      width: 40px;
-    }
+    // .v-icon__component {
+    //   height: 40px;
+    //   width: 40px;
+    // }
   }
 
   @include m(uploaded) {
-    .v-icon__component {
-      height: 40px;
-      width: 40px;
-    }
+    // .v-icon__component {
+    //   height: 40px;
+    //   width: 40px;
+    // }
   }
 
   @include e(cancel) {
@@ -198,10 +198,10 @@ export default {
     justify-content: center;
     cursor: pointer;
 
-    .v-icon__component {
-      height: 18px;
-      width: 18px;
-    }
+    // .v-icon__component {
+    //   height: 18px;
+    //   width: 18px;
+    // }
   }
 
   input {

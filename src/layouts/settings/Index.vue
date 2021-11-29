@@ -5,23 +5,6 @@ export default {
   components: {
     Header,
   },
-  data() {
-    return {
-      snackbar: false,
-      dialog2: false,
-      errorMessage: "",
-      snackbarColor: "pink",
-      projectList: null,
-      modelTitle: "",
-      loading: false,
-      outputProjects: [],
-      changePasswordDialog: false,
-      userPassword: {
-        currentPassword: "",
-        newPassword: "",
-      },
-    };
-  },
 };
 </script>
 

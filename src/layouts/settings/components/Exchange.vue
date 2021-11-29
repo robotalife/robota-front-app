@@ -2,6 +2,7 @@
 import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 import storage from "@/utils/storage";
+import { constants } from "@/constant/constants";
 export default {
   name: "Exchange",
   components: {
@@ -36,15 +37,16 @@ export default {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
+      userData: storage.getItem("user"),
+      exchangeListKey: constants.profile.exchanges,
+      deleteConfirmation: false,
+      selectedExchange: null,
     };
   },
   mounted() {
-    console.log(this.$store.state.exchangeList, "exchange list");
-    this.$api.exchange
-      .fetchExchangeList(storage.getItem("user")?.id)
-      .then((result) => {
-        this.exchangeList = result.exchanges;
-      });
+    this.$api.exchange.fetchExchangeList(this.userData?.id).then((result) => {
+      this.exchangeList = result.exchanges;
+    });
   },
   methods: {
     changeExchangeForm(e) {
@@ -52,24 +54,41 @@ export default {
       const value = e.target.value;
       this.exchangeObj[name] = value;
     },
-    addExchange() {
-      console.log(this.exchangeObj);
+    addExchange(e) {
+      e.preventDefault();
       this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
-        console.log(result, this.$store.state.exchangeList, "2");
-        this.$store.commit("ADD_EXCHANGE", result);
+        this.userData[this.exchangeListKey].push(result);
+        this.exchangeList.push(result);
+        storage.setItem("user", this.userData);
         this.addExchangeDialog = false;
       });
     },
-    deleteExchange(id) {
-      this.$api.exchange.deleteExchange(id).then(() => {
-        this.exchangeList.map((item, index) => {
-          if (item.exchangeId === id) {
-            let list = this.exchangeList;
-            list.splice(index, 1);
-            this.$store.commit("SET_EXCHANGE_LIST", list);
-          }
+    deleteExchange() {
+      const id = this.selectedExchange.exchangeId;
+      this.$api.exchange
+        .deleteExchange(id)
+        .then(() => {
+          this.exchangeList.map((item, index) => {
+            if (item.exchangeId === id) {
+              let list = this.exchangeList;
+              list.splice(index, 1);
+              this.userData[this.exchangeListKey] = list;
+              this.deleteConfirmation = false;
+            }
+          });
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
         });
-      });
+    },
+    openDeleteConfirmationDialog(exchange) {
+      this.selectedExchange = exchange;
+      this.deleteConfirmation = true;
+    },
+    closeDialog() {
+      this.deleteConfirmation = false;
+      this.selectedExchange = null;
     },
   },
 };
@@ -87,7 +106,7 @@ export default {
       </p>
       <div
         v-if="exchangeList.length"
-        @click="() => deleteExchange(exchange.exchangeId)"
+        @click="() => openDeleteConfirmationDialog(exchange)"
       >
         <BaseButton text="Delete Exchange" class="m-t-2" />
       </div>
@@ -96,21 +115,32 @@ export default {
       <BaseButton text="Add Exchange" class="m-t-2" />
     </div>
     <v-dialog v-model="addExchangeDialog" width="550" height="600">
-      <form class="m-t-4 p-2 bg-white" @change="changeExchangeForm">
+      <form
+        class="m-t-4 p-2 bg-white"
+        @submit.prevent="addExchange"
+        @change="changeExchangeForm"
+      >
         <BaseInput
           v-for="item in valuesItem"
           :key="item.name"
           :label="item.label"
           :name="item.name"
         />
-        <div @click.prevent="addExchange">
-          <BaseButton
-            text="Add Exchange"
-            class="m-t-2"
-            @click.prevent="addExchange"
-          />
-        </div>
+        <BaseButton text="Add Exchange" class="m-t-2" />
       </form>
+    </v-dialog>
+    <v-dialog v-model="deleteConfirmation" width="550" height="600">
+      <template>
+        <p>Are you sure to delete ?</p>
+        <div class="d-flex jc-between">
+          <div @click="deleteExchange">
+            <BaseButton text="Yes" class="m-t-2" />
+          </div>
+          <div @click="closeDialog">
+            <BaseButton text="No" class="m-t-2" />
+          </div>
+        </div>
+      </template>
     </v-dialog>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}

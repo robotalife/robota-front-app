@@ -1,4 +1,5 @@
 <script>
+// ToDo: change input to text field
 import VIcon from "vuetify/lib/components/VIcon";
 export default {
   name: "BaseInput",

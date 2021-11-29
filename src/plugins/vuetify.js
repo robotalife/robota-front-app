@@ -25,12 +25,16 @@ import logout from "@/assets/icons/logout.vue";
 import admin from "@/assets/icons/admin.vue";
 import remove from "@/assets/icons/remove.vue";
 import lock from "@/assets/icons/lock.vue";
+import robota from "@/assets/icons/robota.vue";
 
 Vue.use(Vuetify);
 const options = {
   ltr: true,
   icons: {
     values: {
+      robota: {
+        component: robota,
+      },
       remove: {
         component: remove,
       },

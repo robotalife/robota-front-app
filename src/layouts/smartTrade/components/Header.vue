@@ -19,7 +19,12 @@ export default {
   data() {
     return {
       userInfo: storage.getItem("user")?.email,
+      isAdminUser: "",
+      fetchedData: true,
     };
+  },
+  created() {
+    // this.getUserExchanges();
   },
   methods: {
     logout() {
@@ -31,12 +36,17 @@ export default {
 };
 </script>
 <template>
-  <v-card elevation="0">
+  <v-card :loading="!fetchedData" elevation="0">
     <div class="d-flex jc-between ai-center Header p-x-4 p-y-2 bg-white">
       <div class="d-flex ai-center">
-        <VIcon class="Header--darsim" dark>$robota</VIcon>
+        <VIcon class="Header__logo" :x-large="true" dark>$robota</VIcon>
       </div>
-      <v-menu rounded="lg" offset-y transition="scale-transition">
+      <v-menu
+        v-if="fetchedData"
+        rounded="lg"
+        offset-y
+        transition="scale-transition"
+      >
         <template v-slot:activator="{ attrs, on }">
           <div class="d-flex" v-bind="attrs" v-on="on">
             <span class="m-r-1 font-14-24 g-100 d-flex ai-center">
@@ -62,6 +72,9 @@ export default {
           </router-link>
         </v-list>
       </v-menu>
+      <!-- <router-link to="/admin/queue">
+      <div class="d-flex">Admin</div>
+    </router-link> -->
     </div>
   </v-card>
 </template>
@@ -72,6 +85,11 @@ export default {
 
 .Header {
   box-shadow: inset 0 -1px 0 0 $dark-blue-10;
+
+  @include e(logo) {
+    width: 185px;
+    height: 42px;
+  }
 
   @include e(profile) {
     background-color: $gray-65;
