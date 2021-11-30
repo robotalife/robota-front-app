@@ -18,14 +18,6 @@ export default {
       type: String,
       default: "",
     },
-    section: {
-      type: String,
-      default: "",
-    },
-    next: {
-      type: String,
-      default: "",
-    },
   },
   data() {
     return {
@@ -35,23 +27,7 @@ export default {
   },
   watch: {
     select: function () {
-      let collection;
-      if (this.next) {
-        collection = {
-          [this.section]: {
-            [this.next]: {
-              [this.name]: this.select,
-            },
-          },
-        };
-      } else {
-        collection = {
-          [this.section]: {
-            [this.name]: this.select,
-          },
-        };
-      }
-      this.$store.commit("SET_SAVE_CONFIG", collection);
+      return this.$emit("changed", this.select);
     },
   },
 };
@@ -65,8 +41,6 @@ export default {
       :items="items"
       :label="selected"
       :name="name"
-      :data-section="section"
-      :data-next="next"
       dense
       solo
       append-icon="$arrowDown"

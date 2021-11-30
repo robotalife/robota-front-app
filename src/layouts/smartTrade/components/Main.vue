@@ -1,41 +1,105 @@
 <script>
+import BaseSelect from "@/components/select/BaseSelect.vue";
+import Tabs from "@/components/tabs/Tabs.vue";
+import ManualTrade from "./ManualTrade.vue";
 import storage from "@/utils/storage";
 export default {
   name: "Main",
-  components: {},
+  components: {
+    BaseSelect,
+    Tabs,
+    ManualTrade,
+  },
   data() {
     return {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
+      exchangeItems: [],
+      coinMarketItems: [
+        {
+          text: "BTC/USDT",
+          value: "BTCUSDT",
+        },
+        {
+          text: "SHIB/USDT",
+          value: "SHIBUSDT",
+        },
+      ],
+      tabsItem: [
+        {
+          index: 1,
+          title: "Buy",
+        },
+        {
+          index: 2,
+          title: "Sell",
+        },
+        {
+          index: 3,
+          title: "Smart Trade",
+        },
+      ],
+      tab: 0,
+      userData: storage.getItem("user"),
+      fetchExchangeList: false,
+      orderRequest: {
+        exchangeId: "",
+        orderSide: "",
+        orderType: "LIMIT",
+        quantity: -1,
+        symbol: "",
+        price: -1,
+      },
     };
   },
+  created() {
+    this.$api.exchange
+      .fetchExchangeList(storage.getItem("user")?.id)
+      .then((result) => {
+        const exchanges = result.exchanges;
+        exchanges.map((item) => {
+          this.exchangeItems.push({
+            text: item.exchangeName,
+            value: item.exchangeId,
+          });
+        });
+        this.orderRequest.exchangeId = this.exchangeItems[0].value;
+        this.orderRequest.symbol = this.coinMarketItems[0].value;
+        const orderSideDefaultValue = this.tabsItem[this.tab].title;
+        this.orderRequest.orderSide = orderSideDefaultValue.toUpperCase();
+        this.fetchExchangeList = true;
+      });
+  },
   methods: {
-    logout() {
-      storage.removeItem("token");
-      storage.removeItem("user");
-      this.$router.push({ name: "login" });
+    changeBuyForm(e) {
+      const name = e.target.name;
+      const value = e.target.value;
+      this.orderRequest[name] = Number(value);
     },
-    getUserExchanges() {
-      let userData = storage.getItem("user");
-      this.$api.exchange
-        .fetchExchangeList(userData?.id)
-        .then((result) => {
-          this.fetchedData = true;
-          let customerExchangeList = result.exchanges;
-          userData["exchanges"] = customerExchangeList;
-          storage.setItem("user", userData);
-          if (customerExchangeList.length === 0) {
-            this.$router.push({ name: "settings" });
-          }
+    changeExchange(value) {
+      this.orderRequest.exchangeId = value;
+    },
+    changesymbol(value) {
+      this.orderRequest.symbol = value;
+    },
+    changeOrderType(value) {
+      this.orderRequest.orderType = value;
+      this.orderRequest.price = -1;
+    },
+    changeOrderSide(value) {
+      this.orderRequest.orderSide = value;
+    },
+    submitOrderRequest() {
+      this.$api.smartTrade
+        .creatOrder(this.orderRequest)
+        .then(() => {
+          this.errorMessage = "Order Submited";
+          this.snackbar = true;
         })
         .catch((error) => {
-          if (error.response.status === 401) {
-            this.logout();
-          } else {
-            this.snackbar = true;
-            this.errorMessage = error.response.data.message;
-          }
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
         });
     },
   },
@@ -43,8 +107,33 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1 d-flex flex-col ai-center jc-center">
+  <div
+    v-if="fetchExchangeList"
+    class="h-1-1 d-flex flex-col ai-center jc-center"
+  >
     <div class="Dashboard">Smart Trade</div>
+    <form @change="changeBuyForm" @submit.prevent="submitOrderRequest">
+      <BaseSelect
+        :items="exchangeItems"
+        label="Exchange"
+        name="exchange"
+        :selected="exchangeItems[0].text"
+        @changed="changeExchange"
+      />
+      <BaseSelect
+        :items="coinMarketItems"
+        label="Symbol"
+        name="symbol"
+        :selected="coinMarketItems[0].text"
+        @changed="changesymbol"
+      />
+      <Tabs :items="tabsItem" @clicked="changeOrderSide" />
+      <v-tabs-items v-model="tab" class="w-1-1">
+        <ManualTrade @changed="changeOrderType" />
+        <ManualTrade @changed="changeOrderType" />
+        <ManualTrade />
+      </v-tabs-items>
+    </form>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">

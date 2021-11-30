@@ -43,6 +43,10 @@ export default {
       type: String,
       default: "",
     },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -74,6 +78,7 @@ export default {
         :data-section="section"
         :data-next="next"
         :type="type"
+        :disabled="disabled"
         @keyup="changeValue"
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
