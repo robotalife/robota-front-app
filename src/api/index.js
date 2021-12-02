@@ -1,10 +1,10 @@
 import Vue from "vue";
-import authModule from "./modules/auth";
-import exchangeModule from "./modules/exchange";
-import smartTrade from "./modules/smartTrade";
+import authModule from "../modules/auth/api";
+import exchangeModule from "../modules/settings/api";
+import smartTradeModule from "../modules/smartTrade/api";
 
 Vue.prototype.$api = {
   auth: authModule,
   exchange: exchangeModule,
-  smartTrade: smartTrade,
+  smartTrade: smartTradeModule,
 };

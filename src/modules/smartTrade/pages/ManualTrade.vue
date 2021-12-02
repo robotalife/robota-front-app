@@ -9,12 +9,12 @@ export default {
     BaseButton,
     SwitchRadioGroup,
   },
-  // props: {
-  //   text: {
-  //     type: String,
-  //     default: "Submit",
-  //   },
-  // },
+  props: {
+    text: {
+      type: String,
+      default: "Submit",
+    },
+  },
   data() {
     return {
       swichItems: [
@@ -57,9 +57,9 @@ export default {
       class="m-t-2"
       :disabled="selectedSwitch == 1 ? true : false"
     />
-    <BaseInput label="Position Size" name="quantity" class="m-t-2" />
-    <BaseInput label="Total" name="Total" :disabled="true" />
-    <BaseButton text="Submit" class="w-1-1 m-t-2" />
+    <BaseInput label="Position Size (Total)" name="Total" :disabled="true" />
+    <BaseInput label="Unit" name="quantity" class="m-t-2" />
+    <BaseButton :text="text" class="w-1-1 m-t-2" />
   </v-tab-item>
 </template>
 <style scoped lang="scss">

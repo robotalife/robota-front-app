@@ -43,6 +43,10 @@ export default {
       tab: 0,
       userData: storage.getItem("user"),
       fetchExchangeList: false,
+      orderType: {
+        SELL: "LIMIT",
+        BUY: "MARKET",
+      },
       orderRequest: {
         exchangeId: "",
         orderSide: "",
@@ -66,8 +70,7 @@ export default {
         });
         this.orderRequest.exchangeId = this.exchangeItems[0].value;
         this.orderRequest.symbol = this.coinMarketItems[0].value;
-        const orderSideDefaultValue = this.tabsItem[this.tab].title;
-        this.orderRequest.orderSide = orderSideDefaultValue.toUpperCase();
+        this.orderRequest.orderSide = this.toOrderSide(this.tab);
         this.fetchExchangeList = true;
       });
   },
@@ -84,11 +87,16 @@ export default {
       this.orderRequest.symbol = value;
     },
     changeOrderType(value) {
+      const orderSide = this.toOrderSide(this.tab);
+      this.orderType[orderSide] = value;
       this.orderRequest.orderType = value;
       this.orderRequest.price = -1;
     },
     changeOrderSide(value) {
-      this.orderRequest.orderSide = value;
+      const orderSide = this.toOrderSide(value);
+      this.orderRequest.orderSide = orderSide;
+      this.orderRequest.orderType = this.orderType[orderSide];
+      this.tab = value;
     },
     submitOrderRequest() {
       this.$api.smartTrade
@@ -101,6 +109,10 @@ export default {
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
         });
+    },
+    toOrderSide(tab) {
+      const tabTitle = this.tabsItem[tab].title;
+      return tabTitle.toUpperCase();
     },
   },
 };
@@ -129,8 +141,8 @@ export default {
       />
       <Tabs :items="tabsItem" @clicked="changeOrderSide" />
       <v-tabs-items v-model="tab" class="w-1-1">
-        <ManualTrade @changed="changeOrderType" />
-        <ManualTrade @changed="changeOrderType" />
+        <ManualTrade text="Buy" @changed="changeOrderType" />
+        <ManualTrade text="Sell" @changed="changeOrderType" />
         <ManualTrade />
       </v-tabs-items>
     </form>

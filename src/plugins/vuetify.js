@@ -8,7 +8,6 @@ import cross from "@/assets/icons/cross.vue";
 import arrowDown from "@/assets/icons/arrowDown.vue";
 import download from "@/assets/icons/download.vue";
 import arrowLight from "@/assets/icons/arrowLight.vue";
-import darsim from "@/assets/icons/darsim.vue";
 import load from "@/assets/icons/load.vue";
 import history from "@/assets/icons/history.vue";
 import saved from "@/assets/icons/saved.vue";
@@ -76,9 +75,6 @@ const options = {
       },
       arrowLight: {
         component: arrowLight,
-      },
-      darsim: {
-        component: darsim,
       },
       load: {
         component: load,

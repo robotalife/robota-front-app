@@ -8,10 +8,10 @@ export default [
     path: "/signIn",
     name: "signIn",
     component: () =>
-      import(/* webpackChunkName: "signIn" */ "@/layouts/auth/SignIn"),
+      import(/* webpackChunkName: "signIn" */ "@/modules/auth/pages/SignIn"),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
       requiresAuth: false,
     },
   },
@@ -20,11 +20,11 @@ export default [
     name: "forgot-password",
     component: () =>
       import(
-        /* webpackChunkName: "forgetPassword" */ "@/layouts/auth/ForgetPassword"
+        /* webpackChunkName: "forgetPassword" */ "@/modules/auth/pages/ForgetPassword"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
       requiresAuth: false,
     },
   },
@@ -33,11 +33,11 @@ export default [
     name: "forgot-password-finish",
     component: () =>
       import(
-        /* webpackChunkName: "forgetPasswordFinish" */ "@/layouts/auth/ForgetPasswordFinish"
+        /* webpackChunkName: "forgetPasswordFinish" */ "@/modules/auth/pages/ForgetPasswordFinish"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
       requiresAuth: false,
     },
   },
@@ -45,10 +45,10 @@ export default [
     path: "/signup",
     name: "signup",
     component: () =>
-      import(/* webpackChunkName: "signup" */ "@/layouts/auth/Signup"),
+      import(/* webpackChunkName: "signup" */ "@/modules/auth/pages/Signup"),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/index"),
+        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
       requiresAuth: false,
     },
   },
@@ -57,7 +57,7 @@ export default [
     name: "activate",
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/layouts/auth/Activate"),
+        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/Activate"),
       requiresAuth: false,
     },
   },
@@ -65,12 +65,12 @@ export default [
     path: "/",
     name: "dashboard",
     component: () =>
-      import(
-        /* webpackChunkName: "Main" */ "@/layouts/dashboard/components/Main"
-      ),
+      import(/* webpackChunkName: "Main" */ "@/modules/dashboard/pages/Main"),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Dashboard" */ "@/layouts/dashboard/Index"),
+        import(
+          /* webpackChunkName: "Dashboard" */ "@/modules/dashboard/pages/Index"
+        ),
       requiresAuth: true,
     },
   },
@@ -79,11 +79,13 @@ export default [
     name: "settings",
     component: () =>
       import(
-        /* webpackChunkName: "Settings" */ "@/layouts/settings/components/Settings"
+        /* webpackChunkName: "Settings" */ "@/modules/settings/pages/Settings"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Settings" */ "@/layouts/settings/Index"),
+        import(
+          /* webpackChunkName: "Settings" */ "@/modules/settings/pages/Index"
+        ),
       requiresAuth: true,
     },
   },
@@ -91,13 +93,11 @@ export default [
     path: "/smart-trade",
     name: "smart-trade",
     component: () =>
-      import(
-        /* webpackChunkName: "Main" */ "@/layouts/smartTrade/components/Main"
-      ),
+      import(/* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/Main"),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "SmartTrade" */ "@/layouts/smartTrade/Index"
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
         ),
       requiresAuth: true,
     },
