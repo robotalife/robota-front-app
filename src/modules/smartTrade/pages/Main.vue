@@ -16,16 +16,7 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       exchangeItems: [],
-      coinMarketItems: [
-        {
-          text: "BTC/USDT",
-          value: "BTCUSDT",
-        },
-        {
-          text: "SHIB/USDT",
-          value: "SHIBUSDT",
-        },
-      ],
+      coinMarketItems: [],
       tabsItem: [
         {
           index: 1,
@@ -58,21 +49,38 @@ export default {
     };
   },
   created() {
-    this.$api.exchange
-      .fetchExchangeList(storage.getItem("user")?.id)
-      .then((result) => {
-        const exchanges = result.exchanges;
-        exchanges.map((item) => {
-          this.exchangeItems.push({
-            text: item.exchangeName,
-            value: item.exchangeId,
+    const fetchExchange = async () => {
+      this.$api.exchange
+        .fetchExchangeList(storage.getItem("user")?.id)
+        .then((result) => {
+          const exchanges = result.exchanges;
+          exchanges.map((item) => {
+            this.exchangeItems.push({
+              text: item.exchangeName,
+              value: item.exchangeId,
+            });
           });
+          this.orderRequest.exchangeId = this.exchangeItems[0].value;
+          this.orderRequest.orderSide = this.toOrderSide(this.tab);
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
         });
-        this.orderRequest.exchangeId = this.exchangeItems[0].value;
-        this.orderRequest.symbol = this.coinMarketItems[0].value;
-        this.orderRequest.orderSide = this.toOrderSide(this.tab);
-        this.fetchExchangeList = true;
-      });
+    };
+    fetchExchange().then(() => {
+      this.$api.smartTrade
+        .fetchSymbols()
+        .then((result) => {
+          this.coinMarketItems = result.symbols;
+          this.orderRequest.symbol = result.symbols[0].value;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+      this.fetchExchangeList = true;
+    });
   },
   methods: {
     changeBuyForm(e) {
