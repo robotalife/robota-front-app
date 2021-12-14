@@ -90,10 +90,42 @@ export default [
     },
   },
   {
-    path: "/smart-trade",
-    name: "smart-trade",
+    path: "/smart-trade/trading-terminal",
+    name: "trading-terminal",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/Main"),
+      import(
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/TradeTerminal"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/smart-trade/open-orders",
+    name: "open-orders",
+    component: () =>
+      import(
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OpenOrders"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/smart-trade/order-history",
+    name: "order-history",
+    component: () =>
+      import(
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OrderHistory"
+      ),
     meta: {
       layout: () =>
         import(

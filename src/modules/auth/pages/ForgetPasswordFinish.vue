@@ -49,9 +49,7 @@ export default {
       this.$api.auth
         .finishResetPassword(this.password, this.$route.query.key)
         .then(() => {
-          this.errorMessage = `Password has been changed.`;
-          this.snackbarColor = "green";
-          this.snackbar = true;
+          this.$router.push({ name: "signIn" });
         })
         .catch((error) => {
           console.log(error, "er");

@@ -50,7 +50,9 @@ export default {
 <template>
   <div class="h-1-1 d-flex flex-col ai-center jc-center">
     <div class="Dashboard">Dashboard</div>
-    <RouterLink to="/smart-trade" class="Login__reset">Smart Trade</RouterLink>
+    <RouterLink to="/smart-trade/trading-terminal" class="Login__reset"
+      >Smart Trade</RouterLink
+    >
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
