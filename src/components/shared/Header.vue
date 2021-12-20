@@ -1,6 +1,6 @@
 <script>
 import VIcon from "vuetify/lib/components/VIcon";
-import BaseSelect from "@/components/select/BaseSelect";
+import BaseSelect from "@/components/select/BaseSelect.vue";
 import storage from "@/utils/storage";
 export default {
   name: "Header",
@@ -18,16 +18,15 @@ export default {
       default: false,
     },
   },
+  created() {
+    this.fetchExchangeList();
+  },
   data() {
     return {
       userInfo: storage.getItem("user")?.email,
-      isAdminUser: "",
-      fetchedData: true,
-      exchangeItems: [],
+      exchangeList: [],
+      isLoading: true,
     };
-  },
-  created() {
-    this.getExchangeListFromStore();
   },
   methods: {
     logout() {
@@ -35,40 +34,49 @@ export default {
       storage.removeItem("user");
       this.$router.push({ name: "signIn" });
     },
-    onSelectExchange(value) {
-      storage.setItem("selectedExchange", value);
-    },
-    getExchangeListFromStore() {
-      const exchanges = storage.getItem("user")?.exchanges;
-      exchanges.map((item) => {
-        this.exchangeItems.push({
-          text: item.exchangeName,
-          value: item.exchangeId,
+    fetchExchangeList() {
+      this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "pending");
+      this.$api.exchange
+        .fetchExchangeList(this.$store.state.user?.id)
+        .then((result) => {
+          const exchanges = result.exchanges;
+          this.$store.commit("SET_EXCHANGE_LIST", exchanges);
+          this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "success");
+          this.exchangeList = this.$store.getters.exchangeListItem;
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.logout();
+          } else {
+            this.snackbar = true;
+            this.errorMessage = error.response.data.message;
+          }
+          this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
         });
-      });
+    },
+    changeExchange(value) {
+      this.$store.commit("SET_SELECTED_EXCHANGE", value);
     },
   },
 };
 </script>
 <template>
-  <v-card :loading="!fetchedData" elevation="0">
+  <v-card elevation="0" :loading="isLoading">
     <div class="d-flex jc-between ai-center Header p-x-4 p-y-2 bg-white">
       <div class="d-flex ai-center">
-        <VIcon class="Header__logo" :x-large="true" dark>$robota</VIcon>
+        <VIcon class="Header--darsim" dark>$robota</VIcon>
       </div>
       <div class="d-flex ai-center">
         <BaseSelect
-          :items="exchangeItems"
+          :items="exchangeList"
+          v-if="!isLoading"
           name="exchange"
-          :selected="exchangeItems[0].text"
-          @changed="onSelectExchange"
+          :selected="exchangeList[0].text"
+          class="m-r-1"
+          @changed="changeExchange"
         />
-        <v-menu
-          v-if="fetchedData"
-          rounded="lg"
-          offset-y
-          transition="scale-transition"
-        >
+        <v-menu rounded="lg" offset-y transition="scale-transition">
           <template v-slot:activator="{ attrs, on }">
             <div class="d-flex" v-bind="attrs" v-on="on">
               <span class="m-r-1 font-14-24 g-100 d-flex ai-center">
@@ -95,9 +103,6 @@ export default {
           </v-list>
         </v-menu>
       </div>
-      <!-- <router-link to="/admin/queue">
-      <div class="d-flex">Admin</div>
-    </router-link> -->
     </div>
   </v-card>
 </template>
@@ -108,11 +113,6 @@ export default {
 
 .Header {
   box-shadow: inset 0 -1px 0 0 $dark-blue-10;
-
-  @include e(logo) {
-    width: 185px;
-    height: 42px;
-  }
 
   @include e(profile) {
     background-color: $gray-65;
@@ -125,9 +125,5 @@ export default {
       fill: white;
     }
   }
-}
-
-.v-text-field__details {
-  display: none;
 }
 </style>

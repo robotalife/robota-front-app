@@ -8,7 +8,7 @@ export default async (to, from, next) => {
     if (isAuthenticated) {
       next();
     } else {
-      next({ name: "login" });
+      next({ name: "signIn" });
     }
   } else {
     if (isAuthenticated) {

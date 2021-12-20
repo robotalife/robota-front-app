@@ -15,7 +15,7 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      emailRules: this.$validate.emailRules,
+      emailRules: this.$rules.email,
       emailIsNotValid: false,
       passwordIsNotValid: false,
       emailValidation: "",
@@ -27,14 +27,12 @@ export default {
       this.$api.auth
         .loginUser(this.emailAddress, this.userPassword)
         .then((result) => {
-          console.log(result);
           storage.setItem("token", result.token);
-          storage.setItem("user", {
+          this.$store.commit("SET_USER", {
             id: result.id,
             email: this.emailAddress,
           });
           this.$router.push({ name: "dashboard" });
-          console.log("call");
         })
         .catch((error) => {
           this.snackbar = true;

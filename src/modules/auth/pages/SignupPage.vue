@@ -15,7 +15,7 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      emailRules: this.$validate.emailRules,
+      emailRules: this.$rules.email,
       emailIsNotValid: false,
       passwordIsNotValid: false,
       emailValidation: "",

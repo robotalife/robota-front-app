@@ -35,7 +35,7 @@ export default {
       type: String,
       default: "",
     },
-    default: {
+    value: {
       type: String,
       default: "",
     },
@@ -47,11 +47,6 @@ export default {
       type: Boolean,
       default: false,
     },
-  },
-  data() {
-    return {
-      value: this.default,
-    };
   },
   methods: {
     changeValue() {
@@ -71,7 +66,7 @@ export default {
       ]"
     >
       <input
-        v-model="value"
+        :value="value"
         :placeholder="placeholder"
         :name="name"
         class="w-1-1"
@@ -79,7 +74,7 @@ export default {
         :data-next="next"
         :type="type"
         :disabled="disabled"
-        @keyup="changeValue"
+        @input="(e) => $emit('input', e.target.value)"
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>

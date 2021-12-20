@@ -2,16 +2,19 @@ export default [
   {
     path: "/",
     redirect: "signIn",
-    requiresAuth: false,
   },
   {
     path: "/signIn",
     name: "signIn",
     component: () =>
-      import(/* webpackChunkName: "signIn" */ "@/modules/auth/pages/SignIn"),
+      import(
+        /* webpackChunkName: "signIn" */ "@/modules/auth/pages/SignInPage"
+      ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/PublicWrapper"
+        ),
       requiresAuth: false,
     },
   },
@@ -20,11 +23,13 @@ export default [
     name: "forgot-password",
     component: () =>
       import(
-        /* webpackChunkName: "forgetPassword" */ "@/modules/auth/pages/ForgetPassword"
+        /* webpackChunkName: "forgetPassword" */ "@/modules/auth/pages/ForgetPasswordPage"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/PublicWrapper"
+        ),
       requiresAuth: false,
     },
   },
@@ -33,11 +38,13 @@ export default [
     name: "forgot-password-finish",
     component: () =>
       import(
-        /* webpackChunkName: "forgetPasswordFinish" */ "@/modules/auth/pages/ForgetPasswordFinish"
+        /* webpackChunkName: "ChangePasswordPage" */ "@/modules/auth/pages/ChangePasswordPage"
       ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/PublicWrapper"
+        ),
       requiresAuth: false,
     },
   },
@@ -45,10 +52,14 @@ export default [
     path: "/signup",
     name: "signup",
     component: () =>
-      import(/* webpackChunkName: "signup" */ "@/modules/auth/pages/Signup"),
+      import(
+        /* webpackChunkName: "signup" */ "@/modules/auth/pages/SignupPage"
+      ),
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/index"),
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/PublicWrapper"
+        ),
       requiresAuth: false,
     },
   },
@@ -57,7 +68,9 @@ export default [
     name: "activate",
     meta: {
       layout: () =>
-        import(/* webpackChunkName: "Auth" */ "@/modules/auth/pages/Activate"),
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/ActivatePage"
+        ),
       requiresAuth: false,
     },
   },
@@ -65,11 +78,13 @@ export default [
     path: "/",
     name: "dashboard",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/dashboard/pages/Main"),
+      import(
+        /* webpackChunkName: "Main" */ "@/modules/dashboard/pages/DashboardPage"
+      ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Dashboard" */ "@/modules/dashboard/pages/Index"
+          /* webpackChunkName: "Dashboard" */ "@/modules/dashboard/pages/DashboardWrapper"
         ),
       requiresAuth: true,
     },
@@ -79,12 +94,12 @@ export default [
     name: "settings",
     component: () =>
       import(
-        /* webpackChunkName: "Settings" */ "@/modules/settings/pages/Settings"
+        /* webpackChunkName: "Settings" */ "@/modules/settings/pages/SettingsPage"
       ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Settings" */ "@/modules/settings/pages/Index"
+          /* webpackChunkName: "Settings" */ "@/modules/settings/pages/SettingsWrapper"
         ),
       requiresAuth: true,
     },
@@ -94,12 +109,12 @@ export default [
     name: "trading-terminal",
     component: () =>
       import(
-        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/TradeTerminal"
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/TradeTerminalPage"
       ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/TradeTerminalWrapper"
         ),
       requiresAuth: true,
     },
@@ -109,12 +124,12 @@ export default [
     name: "open-orders",
     component: () =>
       import(
-        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OpenOrders"
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OpenOrdersPage"
       ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/TradeTerminalWrapper"
         ),
       requiresAuth: true,
     },
@@ -124,12 +139,12 @@ export default [
     name: "order-history",
     component: () =>
       import(
-        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OrderHistory"
+        /* webpackChunkName: "Main" */ "@/modules/smartTrade/pages/OrderHistoryPage"
       ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/Index"
+          /* webpackChunkName: "SmartTrade" */ "@/modules/smartTrade/pages/TradeTerminalWrapper"
         ),
       requiresAuth: true,
     },

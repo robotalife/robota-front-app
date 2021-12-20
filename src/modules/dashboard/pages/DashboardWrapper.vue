@@ -1,10 +1,6 @@
 <script>
-import Header from "./Header.vue";
 export default {
   name: "Index",
-  components: {
-    Header,
-  },
   data() {
     return {
       snackbar: false,
@@ -27,7 +23,7 @@ export default {
 
 <template>
   <div class="h-1-1">
-    <Header />
+    dashboard wrapper
     <router-view></router-view>
   </div>
 </template>

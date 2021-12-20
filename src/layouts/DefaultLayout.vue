@@ -1,7 +1,9 @@
 <script>
 import storage from "@/utils/storage";
+import Header from "@/components/shared/Header.vue";
 export default {
   name: "DefaultLayout",
+  components: { Header },
   created() {
     if (storage.getItem("user")) {
       this.$store.commit("SET_USER", storage.getItem("user"));
@@ -11,5 +13,8 @@ export default {
 </script>
 
 <template>
-  <RouterView />
+  <div class="h-1-1">
+    <Header />
+    <RouterView />
+  </div>
 </template>

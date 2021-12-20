@@ -1,16 +1,12 @@
 <script>
-import Header from "./Header.vue";
 export default {
   name: "Index",
-  components: {
-    Header,
-  },
 };
 </script>
 
 <template>
   <div class="h-1-1">
-    <Header />
+    smart trade
     <router-view></router-view>
   </div>
 </template>

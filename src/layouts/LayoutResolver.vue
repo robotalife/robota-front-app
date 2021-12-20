@@ -10,11 +10,14 @@ export default {
       if (!this.$route?.matched.length) {
         return "div";
       }
-      return this.$route.meta?.layout || "DefaultLayout";
+      return this.$route.meta?.layout;
     },
   },
 };
 </script>
 <template>
-  <Component :is="layout" />
+  <DefaultLayout v-if="this.$route.meta.requiresAuth">
+    <Component :is="layout" />
+  </DefaultLayout>
+  <Component v-else :is="layout" />
 </template>

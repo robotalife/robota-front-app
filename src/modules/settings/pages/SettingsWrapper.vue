@@ -1,16 +1,29 @@
 <script>
-import Header from "./Header.vue";
 export default {
   name: "Index",
-  components: {
-    Header,
+  data() {
+    return {
+      snackbar: false,
+      dialog2: false,
+      errorMessage: "",
+      snackbarColor: "pink",
+      projectList: null,
+      modelTitle: "",
+      loading: false,
+      outputProjects: [],
+      changePasswordDialog: false,
+      userPassword: {
+        currentPassword: "",
+        newPassword: "",
+      },
+    };
   },
 };
 </script>
 
 <template>
   <div class="h-1-1">
-    <Header />
+    settings wrapper
     <router-view></router-view>
   </div>
 </template>

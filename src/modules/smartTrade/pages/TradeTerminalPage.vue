@@ -48,28 +48,29 @@ export default {
       },
     };
   },
-  created() {
-    var fetchExchange = async () => {
-      this.$api.exchange
-        .fetchExchangeList(storage.getItem("user")?.id)
-        .then((result) => {
-          const exchanges = result.exchanges;
-          exchanges.map((item) => {
-            this.exchangeItems.push({
-              text: item.exchangeName,
-              value: item.exchangeId,
-            });
-          });
-          this.orderRequest.exchangeId = this.exchangeItems[0].value;
-          this.orderRequest.orderSide = this.toOrderSide(this.tab);
-          console.log(this.exchangeItems, "testt");
-        })
-        .catch((error) => {
-          this.errorMessage = error.response.data.message;
-          this.snackbar = true;
-        });
-    };
-    fetchExchange().then(() => {
+  computed: {
+    checkExchangeListRequest() {
+      return this.$store.state.exchangeListRequestStatus;
+    },
+  },
+  watch: {
+    checkExchangeListRequest(state) {
+      console.log(state, "check status");
+      if (state === "success") {
+        this.getUserExchanges();
+      }
+    },
+  },
+  methods: {
+    getUserExchanges() {
+      const exchanges = this.$store.getters.exchangeListItem;
+      console.log(exchanges);
+      this.exchangeItems = exchanges;
+      this.orderRequest.exchangeId = this.exchangeItems[0].value;
+      this.orderRequest.orderSide = this.toOrderSide(this.tab);
+      this.fetchSymbols();
+    },
+    fetchSymbols() {
       this.$api.smartTrade
         .fetchSymbols()
         .then((result) => {
@@ -81,9 +82,7 @@ export default {
           this.snackbar = true;
         });
       this.isExchangeListLoaded = true;
-    });
-  },
-  methods: {
+    },
     changeBuyForm(e) {
       const name = e.target.name;
       const value = e.target.value;

@@ -1,9 +1,12 @@
 import Vue from "vue";
 
-Vue.prototype.$validate = {
-  emailRules: [
-    (v) => !!v || "email is required",
+const requiredFactory = (message) => {
+  return (v) => !!v || message;
+};
+Vue.prototype.$rules = {
+  email: [
+    requiredFactory("email is required"),
     (v) => /.+@.+\..+/.test(v) || "email is not valid",
   ],
-  requiredRule: [(v) => !!v || "its required"],
+  required: requiredFactory("its required"),
 };

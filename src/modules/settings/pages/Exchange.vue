@@ -3,15 +3,16 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 import storage from "@/utils/storage";
 import { constants } from "@/constant/constants";
+
 export default {
   name: "Exchange",
   components: {
     BaseInput,
     BaseButton,
   },
-  data() {
-    return {
-      valuesItem: [
+  computed: {
+    valuesItem() {
+      return [
         {
           label: "API key",
           name: "apiKey",
@@ -24,7 +25,16 @@ export default {
           label: "Account Lable",
           name: "exchangeName",
         },
-      ],
+      ];
+    },
+  },
+  data() {
+    return {
+      inputValues: {
+        apiKey: "",
+        apiSecret: "",
+        exchangeName: "",
+      },
       exchangeObj: {
         apiKey: "",
         apiSecret: "",
@@ -54,12 +64,15 @@ export default {
       const value = e.target.value;
       this.exchangeObj[name] = value;
     },
+    // updateExchanges () {
+    //   let exchanges = store.
+    // },
     addExchange(e) {
       e.preventDefault();
       this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
         this.userData[this.exchangeListKey].push(result);
         this.exchangeList.push(result);
-        storage.setItem("user", this.userData);
+        storage.setItem("exchanges", this.userData);
         this.addExchangeDialog = false;
       });
     },
@@ -125,6 +138,7 @@ export default {
           :key="item.name"
           :label="item.label"
           :name="item.name"
+          v-model="inputValues[item.name]"
         />
         <BaseButton text="Add Exchange" class="m-t-2" />
       </form>

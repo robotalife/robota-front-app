@@ -1,5 +1,5 @@
 <script>
-import storage from "@/utils/storage";
+// import storage from "@/utils/storage";
 export default {
   name: "OpenOrders",
   components: {},
@@ -26,13 +26,25 @@ export default {
       openOrders: [],
     };
   },
-  created() {
-    this.fetchOrders();
+  computed: {
+    checkExchangeListRequest() {
+      return this.$store.state.exchangeListRequestStatus;
+    },
+  },
+  watch: {
+    checkExchangeListRequest(state) {
+      console.log(state, "check status");
+      if (state === "success") {
+        this.fetchOrders();
+      }
+    },
   },
   methods: {
     fetchOrders() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      console.log(selectedExchange, "selected");
       this.$api.smartTrade
-        .fetchOpenOrders(storage.setItem("selectedExchange"))
+        .fetchOpenOrders(selectedExchange)
         .then((result) => {
           console.log(result);
           this.openOrders = result.openOrders;

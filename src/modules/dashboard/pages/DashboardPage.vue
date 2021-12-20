@@ -8,13 +8,22 @@ export default {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
-      exChangeList: this.$store.state.exchangeList,
     };
   },
-  mounted: function () {},
-  created() {
-    this.getUserExchanges();
+  computed: {
+    checkExchangeListRequest() {
+      return this.$store.state.exchangeListRequestStatus;
+    },
   },
+  watch: {
+    checkExchangeListRequest(state) {
+      console.log(state, "check status");
+      if (state === "success") {
+        this.getUserExchanges();
+      }
+    },
+  },
+  mounted: function () {},
   methods: {
     logout() {
       storage.removeItem("token");
@@ -22,26 +31,10 @@ export default {
       this.$router.push({ name: "login" });
     },
     getUserExchanges() {
-      let userData = storage.getItem("user");
-      this.$api.exchange
-        .fetchExchangeList(userData?.id)
-        .then((result) => {
-          this.fetchedData = true;
-          let customerExchangeList = result.exchanges;
-          userData["exchanges"] = customerExchangeList;
-          storage.setItem("user", userData);
-          if (customerExchangeList.length === 0) {
-            this.$router.push({ name: "settings" });
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 401) {
-            this.logout();
-          } else {
-            this.snackbar = true;
-            this.errorMessage = error.response.data.message;
-          }
-        });
+      const exchangeList = this.$store.getters.exchangeList;
+      if (!exchangeList) {
+        this.$router.push({ name: "settings" });
+      }
     },
   },
 };

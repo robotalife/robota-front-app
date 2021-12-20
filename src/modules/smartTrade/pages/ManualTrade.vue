@@ -53,12 +53,18 @@ export default {
     />
     <BaseInput
       label="Buy Price"
+      type="Number"
       name="price"
       class="m-t-2"
       :disabled="selectedSwitch == 1 ? true : false"
     />
-    <BaseInput label="Position Size (Total)" name="Total" :disabled="true" />
-    <BaseInput label="Unit" name="quantity" class="m-t-2" />
+    <BaseInput
+      type="Number"
+      label="Position Size (Total)"
+      name="Total"
+      :disabled="true"
+    />
+    <BaseInput type="Number" label="Unit" name="quantity" class="m-t-2" />
     <BaseButton :text="text" class="w-1-1 m-t-2" />
   </v-tab-item>
 </template>
