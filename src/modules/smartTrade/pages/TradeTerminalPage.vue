@@ -193,8 +193,16 @@ export default {
         />
         <Tabs :items="tabsItem" @clicked="changeOrderSide" />
         <v-tabs-items v-model="tab" class="w-1-1">
-          <ManualTrade text="Buy" @changed="changeOrderType" />
-          <ManualTrade text="Sell" @changed="changeOrderType" />
+          <ManualTrade
+            text="Buy"
+            @changed="changeOrderType"
+            :selectedCoin="orderRequest.symbol"
+          />
+          <ManualTrade
+            text="Sell"
+            @changed="changeOrderType"
+            :selectedCoin="orderRequest.symbol"
+          />
           <ManualTrade />
         </v-tabs-items>
       </form>

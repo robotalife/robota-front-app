@@ -10,6 +10,7 @@ export default new Vuex.Store({
     exchangeList: [],
     exchangeListRequestStatus: "start",
     selectedExchange: "",
+    // isLoading: true,
   },
   mutations: {
     SET_USER(state, user) {
@@ -30,6 +31,9 @@ export default new Vuex.Store({
       state.selectedExchange = selected;
       storage.setItem("selectedExchange", selected);
     },
+    // CHANGE_LOADING_STATUS(state, loading) {
+    //   state.isLoading = loading;
+    // },
   },
   getters: {
     exchangeList: (state) => {

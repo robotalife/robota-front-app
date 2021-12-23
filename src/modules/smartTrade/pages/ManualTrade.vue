@@ -14,6 +14,10 @@ export default {
       type: String,
       default: "Submit",
     },
+    selectedCoin: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -29,6 +33,8 @@ export default {
       ],
       selectedSwitch: 0,
       currentTab: 0,
+      Base: "",
+      Quote: "",
     };
   },
   methods: {
@@ -39,6 +45,10 @@ export default {
   watch: {
     selectedSwitch: function () {
       this.$emit("changed", this.swichItems[this.selectedSwitch].value);
+    },
+    selectedCoin: function () {
+      this.Base = this.selectedCoin.split("/")[0];
+      this.Quote = this.selectedCoin.split("/")[1];
     },
   },
 };
@@ -52,19 +62,27 @@ export default {
       @clicked="changeSwitch"
     />
     <BaseInput
-      label="Buy Price"
+      label="Price"
       type="Number"
       name="price"
       class="m-t-2"
+      :unit="Quote"
       :disabled="selectedSwitch == 1 ? true : false"
     />
     <BaseInput
       type="Number"
       label="Position Size (Total)"
       name="Total"
+      :unit="Base"
       :disabled="true"
     />
-    <BaseInput type="Number" label="Unit" name="quantity" class="m-t-2" />
+    <BaseInput
+      type="Number"
+      label="Total"
+      :unit="Quote"
+      name="quantity"
+      class="m-t-2"
+    />
     <BaseButton :text="text" class="w-1-1 m-t-2" />
   </v-tab-item>
 </template>

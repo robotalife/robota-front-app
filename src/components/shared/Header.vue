@@ -64,9 +64,9 @@ export default {
 <template>
   <v-card elevation="0" :loading="isLoading">
     <div class="d-flex jc-between ai-center Header p-x-4 p-y-2 bg-white">
-      <div class="d-flex ai-center">
+      <RouterLink to="/" class="d-flex ai-center">
         <VIcon class="Header--darsim" dark>$robota</VIcon>
-      </div>
+      </RouterLink>
       <div class="d-flex ai-center">
         <BaseSelect
           :items="exchangeList"
