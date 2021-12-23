@@ -55,11 +55,17 @@ export default {
   },
   watch: {
     checkExchangeListRequest(state) {
-      console.log(state, "check status");
       if (state === "success") {
         this.getUserExchanges();
       }
     },
+  },
+  created() {
+    const exchangeListCurrentStatus = this.$store.state
+      .exchangeListRequestStatus;
+    if (exchangeListCurrentStatus === "success") {
+      this.getUserExchanges();
+    }
   },
   methods: {
     getUserExchanges() {
