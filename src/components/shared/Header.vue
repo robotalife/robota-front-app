@@ -18,6 +18,28 @@ export default {
       default: false,
     },
   },
+  // computed: {
+  //   checkLoadingStatus() {
+  //     return this.$store.state.isLoading;
+  //   },
+  // },
+  // watch: {
+  //   checkLoadingStatus(state) {
+  //     console.log(state, "check loading");
+  //   },
+  // },
+  // computed: {
+  //   checkExchangeListRequest() {
+  //     return this.$store.state.exchangeListRequestStatus;
+  //   },
+  // },
+  // watch: {
+  //   checkExchangeListRequest(state) {
+  //     if (state === "success") {
+  //       this.getUserExchanges();
+  //     }
+  //   },
+  // },
   created() {
     this.fetchExchangeList();
   },

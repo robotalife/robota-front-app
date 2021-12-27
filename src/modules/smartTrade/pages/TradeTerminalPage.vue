@@ -74,11 +74,11 @@ export default {
       this.exchangeItems = exchanges;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
-      this.fetchSymbols();
+      this.fetchSymbols(this.exchangeItems[0].value);
     },
-    fetchSymbols() {
+    fetchSymbols(id) {
       this.$api.smartTrade
-        .fetchSymbols()
+        .fetchSymbols(id)
         .then((result) => {
           this.coinMarketItems = result.symbols;
           this.orderRequest.symbol = result.symbols[0].value;
@@ -96,9 +96,11 @@ export default {
     },
     changeExchange(value) {
       this.orderRequest.exchangeId = value;
+      this.fetchSymbols(value);
     },
     changesymbol(value) {
       this.orderRequest.symbol = value;
+      console.log(value, "selected symbol");
     },
     changeOrderType(value) {
       const orderSide = this.toOrderSide(this.tab);

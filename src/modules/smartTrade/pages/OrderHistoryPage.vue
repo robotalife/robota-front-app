@@ -1,127 +1,65 @@
 <script>
-import BaseSelect from "@/components/select/BaseSelect.vue";
-import Tabs from "@/components/tabs/Tabs.vue";
-import ManualTrade from "./ManualTrade.vue";
-import storage from "@/utils/storage";
+// import storage from "@/utils/storage";
 export default {
   name: "OrderHistory",
-  components: {
-    BaseSelect,
-    Tabs,
-    ManualTrade,
-  },
+  components: {},
   data() {
     return {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "pink",
-      exchangeItems: [],
-      coinMarketItems: [],
-      tabsItem: [
+      isOpenOrdersLoaded: false,
+      headers: [
         {
-          index: 1,
-          title: "Buy",
+          text: "Pair",
+          align: "start",
+          sortable: true,
+          value: "pair",
         },
-        {
-          index: 2,
-          title: "Sell",
-        },
-        {
-          index: 3,
-          title: "Smart Trade",
-        },
+        { text: "Volume", value: "volume", sortable: true },
+        { text: "Side", value: "side", sortable: true },
+        { text: "Status", value: "status" },
+        { text: "Closed On", value: "closedOn" },
       ],
-      tab: 0,
-      userData: storage.getItem("user"),
-      isExchangeListLoaded: false,
-      orderType: {
-        SELL: "LIMIT",
-        BUY: "MARKET",
-      },
-      orderRequest: {
-        exchangeId: "",
-        orderSide: "",
-        orderType: "LIMIT",
-        quantity: -1,
-        symbol: "",
-        price: -1,
-      },
+      openOrders: [],
     };
+  },
+  computed: {
+    checkExchangeListRequest() {
+      return this.$store.state.exchangeListRequestStatus;
+    },
+  },
+  watch: {
+    checkExchangeListRequest(state) {
+      console.log(state, "check status");
+      if (state === "success") {
+        console.log("call fetch orders");
+        this.fetchOrders();
+      }
+    },
   },
   created() {
-    var fetchExchange = async () => {
-      this.$api.exchange
-        .fetchExchangeList(storage.getItem("user")?.id)
-        .then((result) => {
-          const exchanges = result.exchanges;
-          exchanges.map((item) => {
-            this.exchangeItems.push({
-              text: item.exchangeName,
-              value: item.exchangeId,
-            });
-          });
-          this.orderRequest.exchangeId = this.exchangeItems[0].value;
-          this.orderRequest.orderSide = this.toOrderSide(this.tab);
-          console.log(this.exchangeItems, "testt");
-        })
-        .catch((error) => {
-          this.errorMessage = error.response.data.message;
-          this.snackbar = true;
-        });
-    };
-    fetchExchange().then(() => {
-      this.$api.smartTrade
-        .fetchSymbols()
-        .then((result) => {
-          this.coinMarketItems = result.symbols;
-          this.orderRequest.symbol = result.symbols[0].value;
-        })
-        .catch((error) => {
-          this.errorMessage = error.response.data.message;
-          this.snackbar = true;
-        });
-      this.isExchangeListLoaded = true;
-    });
+    const exchangeListCurrentStatus = this.$store.state
+      .exchangeListRequestStatus;
+    if (exchangeListCurrentStatus === "success") {
+      this.fetchOrders();
+    }
   },
   methods: {
-    changeBuyForm(e) {
-      const name = e.target.name;
-      const value = e.target.value;
-      this.orderRequest[name] = Number(value);
-    },
-    changeExchange(value) {
-      this.orderRequest.exchangeId = value;
-    },
-    changesymbol(value) {
-      this.orderRequest.symbol = value;
-    },
-    changeOrderType(value) {
-      const orderSide = this.toOrderSide(this.tab);
-      this.orderType[orderSide] = value;
-      this.orderRequest.orderType = value;
-      this.orderRequest.price = -1;
-    },
-    changeOrderSide(value) {
-      const orderSide = this.toOrderSide(value);
-      this.orderRequest.orderSide = orderSide;
-      this.orderRequest.orderType = this.orderType[orderSide];
-      this.tab = value;
-    },
-    submitOrderRequest() {
+    fetchOrders() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      console.log(selectedExchange, "selected");
       this.$api.smartTrade
-        .creatOrder(this.orderRequest)
-        .then(() => {
-          this.errorMessage = "Order Submited";
-          this.snackbar = true;
+        .fetchOrderHistory(selectedExchange)
+        .then((result) => {
+          console.log(result);
+          this.openOrders = result.orders;
+          this.isOpenOrdersLoaded = true;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
         });
-    },
-    toOrderSide(tab) {
-      const tabTitle = this.tabsItem[tab].title;
-      return tabTitle.toUpperCase();
     },
   },
 };
@@ -163,50 +101,29 @@ export default {
       </div>
     </v-card>
     <div
-      v-if="isExchangeListLoaded"
+      v-if="isOpenOrdersLoaded"
       class="h-1-1 d-flex flex-col ai-center jc-center"
     >
-      <div class="Dashboard">Smart Trade</div>
-      <form @change="changeBuyForm" @submit.prevent="submitOrderRequest">
-        <!-- ToDo: because of a problem with text prop on both exchangeItems and
-      coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
-        <BaseSelect
-          :items="exchangeItems"
-          v-if="exchangeItems[0]"
-          label="Exchange"
-          name="exchange"
-          :selected="exchangeItems[0].text"
-          @changed="changeExchange"
-        />
-        <BaseSelect
-          :items="coinMarketItems"
-          v-if="coinMarketItems[0]"
-          label="Symbol"
-          name="symbol"
-          :selected="coinMarketItems[0].text"
-          @changed="changesymbol"
-        />
-        <Tabs :items="tabsItem" @clicked="changeOrderSide" />
-        <v-tabs-items v-model="tab" class="w-1-1">
-          <ManualTrade text="Buy" @changed="changeOrderType" />
-          <ManualTrade text="Sell" @changed="changeOrderType" />
-          <ManualTrade />
-        </v-tabs-items>
-      </form>
-      <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
-        {{ errorMessage }}
-        <template v-slot:action="{ attrs }">
-          <v-btn
-            :color="snackbarColor"
-            text
-            v-bind="attrs"
-            @click="snackbar = false"
-          >
-            close
-          </v-btn>
-        </template>
-      </v-snackbar>
+      <v-data-table
+        :headers="headers"
+        :items="openOrders"
+        :items-per-page="5"
+        class="elevation-1"
+      ></v-data-table>
     </div>
+    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+      {{ errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          :color="snackbarColor"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 
