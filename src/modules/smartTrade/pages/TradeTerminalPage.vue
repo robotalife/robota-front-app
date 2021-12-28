@@ -112,7 +112,7 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
-          this.currentPrice = result.price;
+          this.currentPrice = String(result.price);
           this.availableQuote = result.available;
         })
         .catch((error) => {

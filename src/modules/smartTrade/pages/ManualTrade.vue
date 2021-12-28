@@ -39,6 +39,8 @@ export default {
       currentTab: 0,
       Base: "",
       Quote: "",
+      positionSizeFieldValue: "",
+      unitFieldValue: "",
     };
   },
   methods: {
@@ -53,6 +55,15 @@ export default {
     selectedCoin: function () {
       this.Base = this.selectedCoin.split("_")[0];
       this.Quote = this.selectedCoin.split("_")[1];
+    },
+    unitFieldValue: function (value) {
+      console.log(value, "unit value");
+      const total = Number(this.price) * Number(value);
+      this.positionSizeFieldValue = String(total);
+    },
+    positionSizeFieldValue: function (value) {
+      const total = Number(value) / Number(this.price);
+      this.unitFieldValue = String(total);
     },
   },
 };
@@ -71,22 +82,23 @@ export default {
       name="price"
       class="m-t-2"
       :unit="Quote"
-      :value="price"
+      v-model="price"
       :disabled="selectedSwitch == 1 ? true : false"
     />
     <BaseInput
       type="Number"
       label="Position Size (Total)"
       name="Total"
-      :unit="Base"
-      :disabled="true"
+      :unit="Quote"
+      v-model="positionSizeFieldValue"
     />
     <BaseInput
       type="Number"
-      label="Total"
-      :unit="Quote"
+      label="Unit"
+      :unit="Base"
       name="quantity"
       class="m-t-2"
+      v-model="unitFieldValue"
     />
     <BaseButton :text="text" class="w-1-1 m-t-2" />
   </v-tab-item>
