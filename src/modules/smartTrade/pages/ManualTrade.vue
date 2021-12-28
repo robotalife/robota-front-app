@@ -47,8 +47,8 @@ export default {
       this.$emit("changed", this.swichItems[this.selectedSwitch].value);
     },
     selectedCoin: function () {
-      this.Base = this.selectedCoin.split("/")[0];
-      this.Quote = this.selectedCoin.split("/")[1];
+      this.Base = this.selectedCoin.split("_")[0];
+      this.Quote = this.selectedCoin.split("_")[1];
     },
   },
 };

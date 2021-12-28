@@ -100,7 +100,18 @@ export default {
     },
     changesymbol(value) {
       this.orderRequest.symbol = value;
-      console.log(value, "selected symbol");
+      this.fetchSelectedSymbolDetails(value);
+    },
+    fetchSelectedSymbolDetails(value) {
+      this.$api.smartTrade
+        .fetchSymbolDetails(value, this.orderRequest.exchangeId)
+        .then((result) => {
+          console.log(result, "res");
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
     },
     changeOrderType(value) {
       const orderSide = this.toOrderSide(this.tab);
