@@ -46,6 +46,8 @@ export default {
         symbol: "",
         price: -1,
       },
+      currentPrice: "",
+      availableQuote: "",
     };
   },
   computed: {
@@ -82,6 +84,10 @@ export default {
         .then((result) => {
           this.coinMarketItems = result.symbols;
           this.orderRequest.symbol = result.symbols[0].value;
+          this.fetchSelectedSymbolDetails(
+            result.symbols[0].value,
+            this.orderRequest.exchangeId
+          );
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -106,7 +112,8 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
-          console.log(result, "res");
+          this.currentPrice = result.price;
+          this.availableQuote = result.available;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -210,11 +217,13 @@ export default {
             text="Buy"
             @changed="changeOrderType"
             :selectedCoin="orderRequest.symbol"
+            :price="currentPrice"
           />
           <ManualTrade
             text="Sell"
             @changed="changeOrderType"
             :selectedCoin="orderRequest.symbol"
+            :price="currentPrice"
           />
           <ManualTrade />
         </v-tabs-items>

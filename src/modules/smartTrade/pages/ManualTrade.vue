@@ -18,6 +18,10 @@ export default {
       type: String,
       default: "",
     },
+    price: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -67,6 +71,7 @@ export default {
       name="price"
       class="m-t-2"
       :unit="Quote"
+      :value="price"
       :disabled="selectedSwitch == 1 ? true : false"
     />
     <BaseInput
