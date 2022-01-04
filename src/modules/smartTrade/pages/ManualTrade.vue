@@ -40,12 +40,34 @@ export default {
       Base: "",
       Quote: "",
       positionSizeFieldValue: "",
-      unitFieldValue: "",
     };
   },
   methods: {
     changeSwitch(value) {
       this.selectedSwitch = value;
+    },
+  },
+  computed: {
+    unitFieldValue: {
+      get: function () {
+        if (
+          !this.positionSizeFieldValue ||
+          this.positionSizeFieldValue === ""
+        ) {
+          return "";
+        }
+        const calculatedUnitFieldValue =
+          Number(this.positionSizeFieldValue) / Number(this.price);
+        return String(calculatedUnitFieldValue);
+      },
+      set: function (unitFieldValue) {
+        if (!unitFieldValue || unitFieldValue === "") {
+          return "";
+        }
+        const calculatedPositionSizeFieldValue =
+          Number(unitFieldValue) * Number(this.price);
+        this.positionSizeFieldValue = String(calculatedPositionSizeFieldValue);
+      },
     },
   },
   watch: {
@@ -55,15 +77,6 @@ export default {
     selectedCoin: function () {
       this.Base = this.selectedCoin.split("_")[0];
       this.Quote = this.selectedCoin.split("_")[1];
-    },
-    unitFieldValue: function (value) {
-      console.log(value, "unit value");
-      const total = Number(this.price) * Number(value);
-      this.positionSizeFieldValue = String(total);
-    },
-    positionSizeFieldValue: function (value) {
-      const total = Number(value) / Number(this.price);
-      this.unitFieldValue = String(total);
     },
   },
 };
