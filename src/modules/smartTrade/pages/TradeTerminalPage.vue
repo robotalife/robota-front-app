@@ -217,13 +217,13 @@ export default {
             text="Buy"
             @changed="changeOrderType"
             :selectedCoin="orderRequest.symbol"
-            :price="currentPrice"
+            :selectedCoinPrice="currentPrice"
           />
           <ManualTrade
             text="Sell"
             @changed="changeOrderType"
             :selectedCoin="orderRequest.symbol"
-            :price="currentPrice"
+            :selectedCoinPrice="currentPrice"
           />
           <ManualTrade />
         </v-tabs-items>

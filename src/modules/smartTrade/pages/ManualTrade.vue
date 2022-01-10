@@ -18,7 +18,7 @@ export default {
       type: String,
       default: "",
     },
-    price: {
+    selectedCoinPrice: {
       type: String,
       default: "",
     },
@@ -40,6 +40,7 @@ export default {
       Base: "",
       Quote: "",
       positionSizeFieldValue: "",
+      price: "",
     };
   },
   methods: {
@@ -78,6 +79,9 @@ export default {
       this.Base = this.selectedCoin.split("_")[0];
       this.Quote = this.selectedCoin.split("_")[1];
     },
+    selectedCoinPrice(value) {
+      this.price = value;
+    },
   },
 };
 </script>
@@ -96,7 +100,7 @@ export default {
       class="m-t-2"
       :unit="Quote"
       v-model="price"
-      :disabled="selectedSwitch == 1 ? true : false"
+      :disabled="selectedSwitch === 1"
     />
     <BaseInput
       type="Number"
