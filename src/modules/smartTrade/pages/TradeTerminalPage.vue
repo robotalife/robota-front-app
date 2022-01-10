@@ -62,6 +62,16 @@ export default {
       }
     },
   },
+  mounted() {
+    let tradingViewScript = document.createElement("script");
+    tradingViewScript.setAttribute("src", "https://s3.tradingview.com/tv.js");
+    document.head.appendChild(tradingViewScript);
+  },
+  updated: function () {
+    this.$nextTick(function () {
+      this.initTradingView();
+    });
+  },
   created() {
     const exchangeListCurrentStatus = this.$store.state
       .exchangeListRequestStatus;
@@ -70,6 +80,22 @@ export default {
     }
   },
   methods: {
+    initTradingView() {
+      new window.TradingView.widget({
+        width: 980,
+        height: 610,
+        symbol: this.orderRequest.symbol.split("_").join(""),
+        interval: "D",
+        timezone: "Etc/UTC",
+        theme: "light",
+        style: "1",
+        locale: "en",
+        toolbar_bg: "#f1f3f6",
+        enable_publishing: false,
+        allow_symbol_change: true,
+        container_id: "tradingview_241f2",
+      });
+    },
     getUserExchanges() {
       const exchanges = this.$store.getters.exchangeListItem;
       console.log(exchanges);
@@ -192,42 +218,49 @@ export default {
       class="h-1-1 d-flex flex-col ai-center jc-center"
     >
       <div class="Dashboard">Smart Trade</div>
-      <form @change="changeBuyForm" @submit.prevent="submitOrderRequest">
-        <!-- ToDo: because of a problem with text prop on both exchangeItems and
-      coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
-        <BaseSelect
-          :items="exchangeItems"
-          v-if="exchangeItems[0]"
-          label="Exchange"
-          name="exchange"
-          :selected="exchangeItems[0].text"
-          @changed="changeExchange"
-        />
-        <BaseSelect
-          :items="coinMarketItems"
-          v-if="coinMarketItems[0]"
-          label="Symbol"
-          name="symbol"
-          :selected="coinMarketItems[0].text"
-          @changed="changesymbol"
-        />
-        <Tabs :items="tabsItem" @clicked="changeOrderSide" />
-        <v-tabs-items v-model="tab" class="w-1-1">
-          <ManualTrade
-            text="Buy"
-            @changed="changeOrderType"
-            :selectedCoin="orderRequest.symbol"
-            :selectedCoinPrice="currentPrice"
+      <div class="d-flex w-1-1 jc-center ai-start m-t-2">
+        <!-- TradingView Widget BEGIN -->
+        <div class="tradingview-widget-container m-r-2">
+          <div id="tradingview_241f2"></div>
+        </div>
+        <!-- TradingView Widget END -->
+        <form @change="changeBuyForm" @submit.prevent="submitOrderRequest">
+          <!-- ToDo: because of a problem with text prop on both exchangeItems and
+        coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
+          <BaseSelect
+            :items="exchangeItems"
+            v-if="exchangeItems[0]"
+            label="Exchange"
+            name="exchange"
+            :selected="exchangeItems[0].text"
+            @changed="changeExchange"
           />
-          <ManualTrade
-            text="Sell"
-            @changed="changeOrderType"
-            :selectedCoin="orderRequest.symbol"
-            :selectedCoinPrice="currentPrice"
+          <BaseSelect
+            :items="coinMarketItems"
+            v-if="coinMarketItems[0]"
+            label="Symbol"
+            name="symbol"
+            :selected="coinMarketItems[0].text"
+            @changed="changesymbol"
           />
-          <ManualTrade />
-        </v-tabs-items>
-      </form>
+          <Tabs :items="tabsItem" @clicked="changeOrderSide" />
+          <v-tabs-items v-model="tab" class="w-1-1">
+            <ManualTrade
+              text="Buy"
+              @changed="changeOrderType"
+              :selectedCoin="orderRequest.symbol"
+              :selectedCoinPrice="currentPrice"
+            />
+            <ManualTrade
+              text="Sell"
+              @changed="changeOrderType"
+              :selectedCoin="orderRequest.symbol"
+              :selectedCoinPrice="currentPrice"
+            />
+            <ManualTrade />
+          </v-tabs-items>
+        </form>
+      </div>
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
         {{ errorMessage }}
         <template v-slot:action="{ attrs }">
