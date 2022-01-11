@@ -25,6 +25,13 @@ import admin from "@/assets/icons/admin.vue";
 import remove from "@/assets/icons/remove.vue";
 import lock from "@/assets/icons/lock.vue";
 import robota from "@/assets/icons/robota.vue";
+import dashboard from "@/assets/icons/dashboard.vue";
+import smartTrade from "@/assets/icons/smartTrade.vue";
+import portfolio from "@/assets/icons/portfolio.vue";
+import setting from "@/assets/icons/setting.vue";
+import instagram from "@/assets/icons/instagram.vue";
+import telegram from "@/assets/icons/telegram.vue";
+import twitter from "@/assets/icons/twitter.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -33,6 +40,27 @@ const options = {
     values: {
       robota: {
         component: robota,
+      },
+      dashboard: {
+        component: dashboard,
+      },
+      smartTrade: {
+        component: smartTrade,
+      },
+      portfolio: {
+        component: portfolio,
+      },
+      setting: {
+        component: setting,
+      },
+      instagram: {
+        component: instagram,
+      },
+      telegram: {
+        component: telegram,
+      },
+      twitter: {
+        component: twitter,
       },
       remove: {
         component: remove,

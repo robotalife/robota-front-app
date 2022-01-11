@@ -18,28 +18,6 @@ export default {
       default: false,
     },
   },
-  // computed: {
-  //   checkLoadingStatus() {
-  //     return this.$store.state.isLoading;
-  //   },
-  // },
-  // watch: {
-  //   checkLoadingStatus(state) {
-  //     console.log(state, "check loading");
-  //   },
-  // },
-  // computed: {
-  //   checkExchangeListRequest() {
-  //     return this.$store.state.exchangeListRequestStatus;
-  //   },
-  // },
-  // watch: {
-  //   checkExchangeListRequest(state) {
-  //     if (state === "success") {
-  //       this.getUserExchanges();
-  //     }
-  //   },
-  // },
   created() {
     this.fetchExchangeList();
   },
@@ -101,7 +79,7 @@ export default {
         <v-menu rounded="lg" offset-y transition="scale-transition">
           <template v-slot:activator="{ attrs, on }">
             <div class="d-flex" v-bind="attrs" v-on="on">
-              <span class="m-r-1 font-14-24 g-100 d-flex ai-center">
+              <span class="m-r-2 font-14-24 g-100 d-flex ai-center">
                 {{ userInfo }}
               </span>
               <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
