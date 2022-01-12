@@ -50,7 +50,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1">
+  <div class="h-1-1 w-1-1">
     <div class="Dashboard h-1-1 d-flex flex-col ai-center jc-center">
       <Tabs :items="tabItems" />
       <v-tabs-items v-model="tab" class="w-1-3">

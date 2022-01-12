@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1 d-flex flex-col ai-center jc-center">
+  <div class="h-1-1 w-1-1 d-flex flex-col ai-center jc-center">
     <div class="Dashboard">Dashboard</div>
     <RouterLink to="/smart-trade/trading-terminal" class="Login__reset"
       >Smart Trade</RouterLink

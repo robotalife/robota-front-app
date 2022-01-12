@@ -48,6 +48,10 @@ export default {
       },
       currentPrice: "",
       availableQuote: "",
+      screenSize: {
+        height: window.screen.availHeight,
+        width: window.screen.availWidth,
+      },
     };
   },
   computed: {
@@ -70,6 +74,11 @@ export default {
   updated: function () {
     this.$nextTick(function () {
       this.initTradingView();
+      const tradingViewContainer = document.getElementById("tradingview_241f2");
+      if (tradingViewContainer) {
+        tradingViewContainer.children[0].style.width = "100%";
+        tradingViewContainer.children[0].children[0].style.width = "100%";
+      }
     });
   },
   created() {
@@ -179,52 +188,22 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex flex-col">
-    <v-card elevation="0" class="p-x-5 Users__header">
-      <div class="d-flex jc-between">
-        <div class="d-flex">
-          <RouterLink
-            to="/smart-trade/trading-terminal"
-            class="d-flex ai-start p-y-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$paper</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Trading Terminal
-            </span>
-          </RouterLink>
-          <RouterLink
-            to="/smart-trade/open-orders"
-            class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$user</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Open Orders
-            </span>
-          </RouterLink>
-          <RouterLink
-            to="/smart-trade/order-history"
-            class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$template</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Order History
-            </span>
-          </RouterLink>
-        </div>
-      </div>
-    </v-card>
+  <div class="d-flex flex-col w-1-1">
     <div
       v-if="isExchangeListLoaded"
-      class="h-1-1 d-flex flex-col ai-center jc-center"
+      class="h-1-1 w-1-1 d-flex flex-col ai-center jc-center"
     >
-      <div class="Dashboard">Smart Trade</div>
-      <div class="d-flex w-1-1 jc-center ai-start m-t-2">
+      <div class="d-flex w-1-1 jc-center ai-start m-t-4">
         <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container m-r-2">
-          <div id="tradingview_241f2"></div>
+        <div class="TradingTerminal__trading-view m-r-2 w-1-1">
+          <div id="tradingview_241f2" class="w-1-1"></div>
         </div>
         <!-- TradingView Widget END -->
-        <form @change="changeBuyForm" @submit.prevent="submitOrderRequest">
+        <form
+          @change="changeBuyForm"
+          @submit.prevent="submitOrderRequest"
+          class="TradingTerminal__trading-form p-2"
+        >
           <!-- ToDo: because of a problem with text prop on both exchangeItems and
         coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
           <BaseSelect
@@ -281,6 +260,21 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
+
+.TradingTerminal {
+  @include e(trading-view) {
+    border: 2px solid $gray-10;
+    border-radius: 8px;
+  }
+
+  @include e(trading-form) {
+    border: 2px solid;
+    border-image-slice: 1;
+    border-image-source: $horizental;
+    border-radius: 8px;
+  }
+}
+
 .Dashboard {
   background-color: #f1f2f4;
   max-height: 92vh;

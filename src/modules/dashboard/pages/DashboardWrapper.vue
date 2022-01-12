@@ -22,8 +22,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1">
-    dashboard wrapper
+  <div class="h-1-1 w-1-1">
     <router-view></router-view>
   </div>
 </template>

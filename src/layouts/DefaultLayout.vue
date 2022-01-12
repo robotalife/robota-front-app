@@ -21,7 +21,7 @@ export default {
     <Header />
     <div class="d-flex w-1-1 h-1-1">
       <SideBar />
-      <RouterView />
+      <slot></slot>
     </div>
   </div>
 </template>

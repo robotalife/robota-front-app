@@ -66,40 +66,7 @@ export default {
 </script>
 
 <template>
-  <div class="d-flex flex-col">
-    <v-card elevation="0" class="p-x-5 Users__header">
-      <div class="d-flex jc-between">
-        <div class="d-flex">
-          <RouterLink
-            to="/smart-trade/trading-terminal"
-            class="d-flex ai-start p-y-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$paper</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Trading Terminal
-            </span>
-          </RouterLink>
-          <RouterLink
-            to="/smart-trade/open-orders"
-            class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$user</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Open Orders
-            </span>
-          </RouterLink>
-          <RouterLink
-            to="/smart-trade/order-history"
-            class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
-          >
-            <!-- <VIcon class="Users__header-item-icon">$template</VIcon> -->
-            <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-              Order History
-            </span>
-          </RouterLink>
-        </div>
-      </div>
-    </v-card>
+  <div class="d-flex flex-col w-1-1">
     <div
       v-if="isOpenOrdersLoaded"
       class="h-1-1 d-flex flex-col ai-center jc-center"
