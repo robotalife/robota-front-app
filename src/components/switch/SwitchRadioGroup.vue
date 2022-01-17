@@ -38,7 +38,7 @@ export default {
           :key="item.value"
           class="SwitchRadioGroup__item"
         >
-          <p class="SwitchRadioGroup__item-label font-14-24 m-l-1 m-b-0 g-100">
+          <p class="SwitchRadioGroup__item-label font-text-small gray-3 m-b-0">
             {{ item.title }}
           </p>
         </v-tab>
@@ -54,8 +54,8 @@ export default {
 .SwitchRadioGroup {
   @include e(container) {
     padding: 2px 2px 2px 2px;
-    border-radius: 5px;
-    background-color: $dark-blue-05;
+    border-radius: 16px;
+    border: 2px solid $gray-10;
     max-height: 32px;
   }
 
@@ -82,21 +82,21 @@ export default {
   }
 
   &__item[aria-selected="true"] {
-    border-radius: 5px;
-    box-shadow: 0 3px 1px 0 rgba(0, 0, 0, 0.04), 0 3px 8px 0 rgba(0, 0, 0, 0.12);
-    border: solid 0.5px rgba(0, 0, 0, 0.04);
-    background-color: $white;
+    border-radius: 30px;
+    background-color: $brand-purple;
+    max-height: 24px;
 
     p {
-      color: $primary-blue-100 !important;
-      font-weight: 500;
+      color: $white !important;
+      font-size: 12px;
+      line-height: 24px;
     }
   }
 
   @include e(item) {
     padding-top: 2px;
     padding-bottom: 2px;
-    max-height: 28px;
+    max-height: 24px;
 
     &-list {
       height: 16px;

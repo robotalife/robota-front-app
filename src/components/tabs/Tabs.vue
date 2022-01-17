@@ -28,7 +28,7 @@ export default {
         :key="item.index"
         class="Tabs__tab-item p-1-5"
       >
-        <p class="Tabs__tab-label font-14-24 m-l-1 m-b-0">{{ item.title }}</p>
+        <p class="Tabs__tab-label font-14-24 m-b-0">{{ item.title }}</p>
       </v-tab>
     </v-tabs>
   </div>
@@ -49,16 +49,27 @@ export default {
       }
 
       .Tabs__tab-label {
-        color: $gray-100;
+        color: $gray-3;
       }
     }
 
     &-list {
       height: 16px;
       width: 16px;
-      background: $dark-blue-10;
+      background-image: $horizental;
       border-radius: 8px;
     }
   }
+}
+
+.v-tabs-slider {
+  background-image: $horizental;
+  height: 4px !important;
+  border-radius: 2px;
+}
+
+.v-slide-group__prev,
+.v-slide-group__next {
+  display: none !important;
 }
 </style>

@@ -202,42 +202,44 @@ export default {
         <form
           @change="changeBuyForm"
           @submit.prevent="submitOrderRequest"
-          class="TradingTerminal__trading-form p-2"
+          class="TradingTerminal__trading-form"
         >
-          <!-- ToDo: because of a problem with text prop on both exchangeItems and
-        coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
-          <BaseSelect
-            :items="exchangeItems"
-            v-if="exchangeItems[0]"
-            label="Exchange"
-            name="exchange"
-            :selected="exchangeItems[0].text"
-            @changed="changeExchange"
-          />
-          <BaseSelect
-            :items="coinMarketItems"
-            v-if="coinMarketItems[0]"
-            label="Symbol"
-            name="symbol"
-            :selected="coinMarketItems[0].text"
-            @changed="changesymbol"
-          />
-          <Tabs :items="tabsItem" @clicked="changeOrderSide" />
-          <v-tabs-items v-model="tab" class="w-1-1">
-            <ManualTrade
-              text="Buy"
-              @changed="changeOrderType"
-              :selectedCoin="orderRequest.symbol"
-              :selectedCoinPrice="currentPrice"
+          <div class="bg-white p-2">
+            <!-- ToDo: because of a problem with text prop on both exchangeItems and
+          coinMarketItems we had to add 2 redundant v-ifs, which should be removed. -->
+            <BaseSelect
+              :items="exchangeItems"
+              v-if="exchangeItems[0]"
+              label="Exchange"
+              name="exchange"
+              :selected="exchangeItems[0].text"
+              @changed="changeExchange"
             />
-            <ManualTrade
-              text="Sell"
-              @changed="changeOrderType"
-              :selectedCoin="orderRequest.symbol"
-              :selectedCoinPrice="currentPrice"
+            <BaseSelect
+              :items="coinMarketItems"
+              v-if="coinMarketItems[0]"
+              label="Symbol"
+              name="symbol"
+              :selected="coinMarketItems[0].text"
+              @changed="changesymbol"
             />
-            <ManualTrade />
-          </v-tabs-items>
+            <Tabs :items="tabsItem" @clicked="changeOrderSide" />
+            <v-tabs-items v-model="tab" class="w-1-1">
+              <ManualTrade
+                text="Buy"
+                @changed="changeOrderType"
+                :selectedCoin="orderRequest.symbol"
+                :selectedCoinPrice="currentPrice"
+              />
+              <ManualTrade
+                text="Sell"
+                @changed="changeOrderType"
+                :selectedCoin="orderRequest.symbol"
+                :selectedCoinPrice="currentPrice"
+              />
+              <ManualTrade />
+            </v-tabs-items>
+          </div>
         </form>
       </div>
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
@@ -268,10 +270,14 @@ export default {
   }
 
   @include e(trading-form) {
-    border: 2px solid;
-    border-image-slice: 1;
-    border-image-source: $horizental;
+    margin-top: 2px;
+    padding: 2px;
+    background-image: $horizental;
     border-radius: 8px;
+
+    > div {
+      border-radius: 6px;
+    }
   }
 }
 
