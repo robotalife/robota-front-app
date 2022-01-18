@@ -47,7 +47,7 @@ export default {
         price: -1,
       },
       currentPrice: "",
-      availableQuote: "",
+      availableAsset: 0,
       screenSize: {
         height: window.screen.availHeight,
         width: window.screen.availWidth,
@@ -148,7 +148,7 @@ export default {
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
           this.currentPrice = String(result.price);
-          this.availableQuote = result.available;
+          this.availableAsset = result.available;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -230,6 +230,7 @@ export default {
                 @changed="changeOrderType"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
+                :availableAsset="availableAsset"
               />
               <ManualTrade
                 text="Sell"

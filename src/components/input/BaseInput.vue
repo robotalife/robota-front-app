@@ -47,6 +47,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    unitMetadata: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
     changeValue() {
@@ -58,7 +62,13 @@ export default {
 
 <template>
   <div class="font-14-24 g-100">
-    <label class="m-b-0">{{ label }}</label>
+    <label class="m-b-0 d-flex jc-between">
+      <span>{{ label }}</span>
+      <span class="d-flex" v-if="unitMetadata">
+        <VIcon class="BaseInput__metadata-icon">$portfolio</VIcon>
+        {{ unitMetadata }}
+      </span>
+    </label>
     <div
       :class="[
         'BaseInput p-y-1 p-l-2 d-flex',
@@ -84,6 +94,7 @@ export default {
 
 <style scope lang="scss">
 @import "@/styles/global/color";
+@import "@/styles/utils/bem";
 
 .BaseInput {
   border-radius: 5px;
@@ -101,6 +112,12 @@ export default {
   .disabled {
     border: solid 1px $dark-blue-20;
     background-color: $dark-blue-05;
+  }
+
+  @include e(metadata-icon) {
+    > svg {
+      height: 14px;
+    }
   }
 }
 </style>

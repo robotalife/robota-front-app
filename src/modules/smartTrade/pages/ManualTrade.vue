@@ -22,6 +22,10 @@ export default {
       type: String,
       default: "",
     },
+    availableAsset: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -107,6 +111,7 @@ export default {
       label="Position Size (Total)"
       name="Total"
       class="m-t-3"
+      :unitMetadata="availableAsset + Quote"
       :unit="Quote"
       v-model="positionSizeFieldValue"
     />
