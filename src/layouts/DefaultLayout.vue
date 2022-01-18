@@ -19,9 +19,19 @@ export default {
 <template>
   <div class="h-1-1">
     <Header />
-    <div class="d-flex w-1-1 h-1-1">
+    <div class="d-flex w-1-1 DefaultLayout">
       <SideBar />
       <slot></slot>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+@import "@/styles/global/color";
+@import "@/styles/utils/bem";
+
+.DefaultLayout {
+  max-height: 85%;
+  overflow-y: scroll;
+}
+</style>

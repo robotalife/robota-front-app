@@ -46,7 +46,7 @@ export default {
     :color="color"
     :class="[
       'BaseButton p-x-2 font',
-      size === 'normal' ? 'p-y-1-5' : 'p-y-1 BaseButton--small',
+      size === 'normal' ? 'p-y-0-5' : 'p-y-1 BaseButton--small',
     ]"
     :disabled="disabled"
     depressed
@@ -61,7 +61,7 @@ export default {
 
 .BaseButton {
   border-radius: 5px;
-  height: 48px !important;
+  height: fit-content;
 
   @include m(small) {
     height: 40px !important;

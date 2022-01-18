@@ -97,7 +97,7 @@ export default {
       label="Price"
       type="Number"
       name="price"
-      class="m-t-2"
+      class="m-t-3"
       :unit="Quote"
       v-model="price"
       :disabled="selectedSwitch === 1"
@@ -106,6 +106,7 @@ export default {
       type="Number"
       label="Position Size (Total)"
       name="Total"
+      class="m-t-3"
       :unit="Quote"
       v-model="positionSizeFieldValue"
     />
@@ -114,22 +115,24 @@ export default {
       label="Unit"
       :unit="Base"
       name="quantity"
-      class="m-t-2"
+      class="m-t-3"
       v-model="unitFieldValue"
     />
-    <BaseButton :text="text" class="w-1-1 m-t-2" />
+    <BaseButton
+      :text="text"
+      class="w-1-1 m-t-3 font-body ManualTrade__submit"
+    />
   </v-tab-item>
 </template>
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 
-.Domain {
-  @include e(cartesian-gird) {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-column-gap: 16px;
-    grid-row-gap: 32px;
+.ManualTrade {
+  @include e(submit) {
+    color: $white;
+    background-image: $horizental;
+    border-radius: 30px;
   }
 }
 </style>

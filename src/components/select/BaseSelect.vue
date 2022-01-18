@@ -35,7 +35,7 @@ export default {
 
 <template>
   <label class="BaseSelect font-text-small gray-3 fw-500">
-    {{ label }}
+    <p class="m-b-0">{{ label }}</p>
     <v-select
       v-model="select"
       :items="items"

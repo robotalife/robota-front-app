@@ -57,11 +57,11 @@ export default {
 </script>
 
 <template>
-  <label class="font-14-24 g-100">
-    {{ label }}
+  <div class="font-14-24 g-100">
+    <label class="m-b-0">{{ label }}</label>
     <div
       :class="[
-        'BaseInput p-y-1 p-l-2 d-flex m-t-1',
+        'BaseInput p-y-1 p-l-2 d-flex',
         { icon: 'p-r-0-5', unit: 'p-r-2' },
       ]"
     >
@@ -79,7 +79,7 @@ export default {
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>
     </div>
-  </label>
+  </div>
 </template>
 
 <style scope lang="scss">

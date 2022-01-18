@@ -224,7 +224,7 @@ export default {
               @changed="changesymbol"
             />
             <Tabs :items="tabsItem" @clicked="changeOrderSide" />
-            <v-tabs-items v-model="tab" class="w-1-1">
+            <v-tabs-items v-model="tab" class="w-1-1 m-t-1">
               <ManualTrade
                 text="Buy"
                 @changed="changeOrderType"
