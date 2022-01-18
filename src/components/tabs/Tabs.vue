@@ -23,11 +23,7 @@ export default {
 <template>
   <div class="Tabs__tab">
     <v-tabs v-model="tab">
-      <v-tab
-        v-for="item in items"
-        :key="item.index"
-        class="Tabs__tab-item p-1-5"
-      >
+      <v-tab v-for="item in items" :key="item.index" class="Tabs__tab-item">
         <p class="Tabs__tab-label font-14-24 m-b-0">{{ item.title }}</p>
       </v-tab>
     </v-tabs>
@@ -51,6 +47,17 @@ export default {
       .Tabs__tab-label {
         color: $gray-3;
       }
+    }
+
+    &-label {
+      color: $gray-3;
+      // font-size: 16px;
+      // line-height: 24px;
+      // font-weight: 700;
+    }
+
+    &-item {
+      padding: 0px !important;
     }
 
     &-list {

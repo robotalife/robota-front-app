@@ -8,38 +8,35 @@ export default {
   <div class="h-1-1 w-1-1">
     <div class="p-x-5 p-y-7">
       <p class="brand-purple font-h-1 fw-700">Smart Trade</p>
-      <v-card
-        elevation="0"
-        class="Users__header m-t-3 TradingTerminalWrapper__tabs"
-      >
+      <v-card elevation="0" class="m-t-3 TradingTerminalWrapper__tabs">
         <div class="d-flex jc-between">
           <div class="d-flex">
             <RouterLink
               to="/smart-trade/trading-terminal"
-              class="d-flex ai-start p-y-3 Users__header-item"
+              class="d-flex ai-start p-y-3"
             >
               <!-- <VIcon class="Users__header-item-icon">$paper</VIcon> -->
-              <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-                Trading Terminal
-              </span>
+              <div class="h-1-1">
+                <span class="font-16-24 g-50 fw-500"> Trading Terminal </span>
+              </div>
             </RouterLink>
             <RouterLink
               to="/smart-trade/open-orders"
-              class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <!-- <VIcon class="Users__header-item-icon">$user</VIcon> -->
-              <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-                Open Orders
-              </span>
+              <div class="h-1-1">
+                <span class="font-16-24 g-50 fw-500"> Open Orders </span>
+              </div>
             </RouterLink>
             <RouterLink
               to="/smart-trade/order-history"
-              class="d-flex ai-start p-y-3 m-l-3 Users__header-item"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <!-- <VIcon class="Users__header-item-icon">$template</VIcon> -->
-              <span class="font-16-24 g-50 fw-500 Users__header-item-title">
-                Order History
-              </span>
+              <div class="h-1-1">
+                <span class="font-16-24 g-50 fw-500"> Order History </span>
+              </div>
             </RouterLink>
           </div>
         </div>

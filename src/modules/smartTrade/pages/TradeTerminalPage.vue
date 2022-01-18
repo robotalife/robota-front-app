@@ -274,6 +274,7 @@ export default {
     padding: 2px;
     background-image: $horizental;
     border-radius: 8px;
+    min-width: 312px;
 
     > div {
       border-radius: 6px;
