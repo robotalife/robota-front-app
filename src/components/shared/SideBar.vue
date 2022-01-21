@@ -42,6 +42,6 @@ export default {
 @import "@/styles/utils/bem";
 .SideBar {
   border-right: 2px solid $gray-10;
-  height: 98vh;
+  height: 90vh;
 }
 </style>

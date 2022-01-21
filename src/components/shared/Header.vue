@@ -64,8 +64,8 @@ export default {
 <template>
   <v-card elevation="0" :loading="isLoading">
     <div class="d-flex jc-between ai-center Header p-x-4 p-y-2 bg-white">
-      <RouterLink to="/" class="d-flex ai-center">
-        <VIcon class="Header--darsim" dark>$robota</VIcon>
+      <RouterLink to="/" class="d-flex ai-center Header__logo">
+        <VIcon dark>$robotaLogo</VIcon>
       </RouterLink>
       <div class="d-flex ai-center">
         <BaseSelect
@@ -123,6 +123,13 @@ export default {
 
     > svg > path {
       fill: white;
+    }
+  }
+
+  @include e(logo) {
+    ::v-deep .v-icon__component {
+      width: 185px !important;
+      height: 42px !important;
     }
   }
 }

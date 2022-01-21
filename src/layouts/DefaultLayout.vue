@@ -32,6 +32,5 @@ export default {
 
 .DefaultLayout {
   max-height: 85%;
-  overflow-y: scroll;
 }
 </style>
