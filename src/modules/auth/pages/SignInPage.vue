@@ -68,51 +68,50 @@ export default {
 };
 </script>
 <template>
-  <form @submit.prevent="submit" @change="changeValues">
-    <!-- <p class="g-65 font-14-24 fw-500 m-b-5">
+  <div>
+    <p class="font-h-3 brand-purple fw-700">Sign In</p>
+    <form class="m-t-3" @submit.prevent="submit" @change="changeValues">
+      <!-- <p class="g-65 font-14-24 fw-500 m-b-5">
     </p> -->
-    <BaseInput label="Email" type="email" name="email" />
-    <p v-if="emailIsNotValid" class="Login__error font-12-16">
-      {{ emailValidation }}
-    </p>
-    <div class="m-t-2">
-      <BaseInput label="Password" type="password" name="password" />
-      <p v-if="passwordIsNotValid" class="Login__error font-12-16">
-        {{ passwordValidation }}
+      <BaseInput label="Email Address" type="email" name="email" />
+      <p v-if="emailIsNotValid" class="Login__error font-12-16">
+        {{ emailValidation }}
       </p>
-    </div>
+      <div class="m-t-2">
+        <BaseInput label="Password" type="password" name="password" />
+        <p v-if="passwordIsNotValid" class="Login__error font-12-16">
+          {{ passwordValidation }}
+        </p>
+      </div>
 
-    <BaseButton
-      class="w-1-1 m-t-3 bg-primary Login--submit"
-      text="Login"
-      size="small"
-    />
-    <div class="d-flex m-t-5 jc-center fw-500">
-      <p class="font-14-24 g-65 m-r-0-5">Forgot your password?</p>
-      <RouterLink to="/forgot-password" class="Login__reset">
-        Reset Password
-      </RouterLink>
-    </div>
-    <div class="d-flex m-t-2 jc-center fw-500">
-      <p class="font-14-24 g-65 m-r-0-5">
-        Didn’t create an account ?
-        <RouterLink to="/signup" class="Login__reset"> Sign Up </RouterLink>
-      </p>
-    </div>
-    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
-      {{ errorMessage }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          :color="snackbarColor"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          close
-        </v-btn>
-      </template>
-    </v-snackbar>
-  </form>
+      <BaseButton class="w-1-1 m-t-3 Login--submit" text="Login" size="small" />
+      <div class="d-flex m-t-4 jc-center fw-500">
+        <p class="font-14-24 g-2 m-r-0-5">Forgot your password?</p>
+        <RouterLink to="/forgot-password" class="Login__reset">
+          Reset Password
+        </RouterLink>
+      </div>
+      <div class="d-flex m-t-2 jc-center fw-500">
+        <p class="font-14-24 g-2 m-r-0-5">
+          Didn’t create an account ?
+          <RouterLink to="/signup" class="Login__reset"> Sign Up </RouterLink>
+        </p>
+      </div>
+      <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+        {{ errorMessage }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            :color="snackbarColor"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </form>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -122,10 +121,18 @@ export default {
 .Login {
   @include m(submit) {
     color: $white;
+    background-image: $horizental;
+    border-radius: 30px;
+
+    ::v-deep .v-btn__content {
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 700;
+    }
   }
 
   @include e(reset) {
-    color: $primary-blue-100;
+    color: $blue;
   }
 
   @include e(error) {
