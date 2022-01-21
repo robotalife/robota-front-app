@@ -55,6 +55,7 @@ export default {
 
 .TradingTerminalWrapper {
   overflow-y: scroll;
+  height: 90vh;
   &::-webkit-scrollbar {
     width: 4px;
     background-color: #f5f7fa;
