@@ -45,12 +45,12 @@ export default {
       }
 
       .Tabs__tab-label {
-        color: $gray-3;
+        color: $brand-purple;
       }
     }
 
     &-label {
-      color: $gray-3;
+      color: $gray-2;
       // font-size: 16px;
       // line-height: 24px;
       // font-weight: 700;

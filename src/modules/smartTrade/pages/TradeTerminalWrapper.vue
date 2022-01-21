@@ -15,27 +15,30 @@ export default {
               to="/smart-trade/trading-terminal"
               class="d-flex ai-start p-y-3"
             >
-              <!-- <VIcon class="Users__header-item-icon">$paper</VIcon> -->
               <div class="h-1-1">
-                <span class="font-16-24 g-50 fw-500"> Trading Terminal </span>
+                <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">
+                  Trading Terminal
+                </span>
               </div>
             </RouterLink>
             <RouterLink
               to="/smart-trade/open-orders"
               class="d-flex ai-start p-y-3 m-l-3"
             >
-              <!-- <VIcon class="Users__header-item-icon">$user</VIcon> -->
               <div class="h-1-1">
-                <span class="font-16-24 g-50 fw-500"> Open Orders </span>
+                <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">
+                  Open Orders
+                </span>
               </div>
             </RouterLink>
             <RouterLink
               to="/smart-trade/order-history"
               class="d-flex ai-start p-y-3 m-l-3"
             >
-              <!-- <VIcon class="Users__header-item-icon">$template</VIcon> -->
               <div class="h-1-1">
-                <span class="font-16-24 g-50 fw-500"> Order History </span>
+                <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">
+                  Order History
+                </span>
               </div>
             </RouterLink>
           </div>
@@ -76,8 +79,8 @@ export default {
 .router-link-active {
   border-bottom: 2px solid rgb(79, 79, 243);
 
-  .Users__header-item-title {
-    color: gray !important;
+  .TradingTerminalWrapper__tab {
+    color: $brand-purple !important;
   }
 }
 </style>
