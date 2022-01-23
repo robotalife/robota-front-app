@@ -1,0 +1,48 @@
+@import '../../styles/utils/rem';
+$alignments: left, right, center;
+$weights: 400, 500, 700, 900;
+$sizes:('29-48' 29 48px,
+        '20-32' 20 32px,
+        '18-24'  18 24px,
+        '16-24' 16 24px,
+        '14-24' 14 24px,
+        '12-16' 12 16px,
+        'h-1' 28 48px,
+        'h-2' 22.4 40px,
+        'h-3'  20.8 40px,
+        'h-4' 18.4 32px,
+        'h-5' 17.6 28px,
+        '12-16' 16 24px,
+        'body' 13.6 24px,
+        'text-xlarge' 43.2 28px,
+        'text-large' 30.4 28px,
+        'text-one' 16 24px,
+        'text-small' 12.6 24px,
+        'text-extra-small' 11.2 28px,
+);
+
+@each $name, $size, $height in $sizes {
+  .font-#{$name} {
+    @include font-size-rem($size, $height);
+  }
+}
+
+@each $alignment in $alignments {
+    .ta-#{$alignment} {
+      text-align: $alignment;
+    }
+}
+
+.fw-bold {
+    font-weight: bold;
+}
+
+@each $weight in $weights {
+  .fw-#{$weight} {
+    font-weight: $weight;
+  }
+}
+
+.nowrap {
+    white-space: nowrap;
+}

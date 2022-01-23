@@ -1,0 +1,42 @@
+
+$positions: start, center, end, reverse, between, around, evenly;
+
+@each $position in $positions {
+    .jc {
+        &-#{$position} {
+            @if $position == center {
+                justify-content: $position;
+            } @else if $position == end or $position == start {
+                justify-content: flex-#{$position};
+            } @else {
+                justify-content: space-#{$position};
+            }
+        }
+    }
+
+    .ai {
+        &-#{$position} {
+            @if $position == center {
+                align-items: $position;
+            } @else if $position == end or $position == start {
+                align-items: flex-#{$position};
+            }
+        }
+    }
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-row-reverse {
+    flex-direction: row-reverse;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-col-reverse {
+    flex-direction: column-reverse;
+}

@@ -1,0 +1,17 @@
+
+@mixin font-size-rem ($size, $line-height:auto){
+    font-size : (strip-unit($size)/16) + rem;
+    @if(type-of($line-height) == number) {
+        line-height: $line-height;
+    }
+}
+
+
+// Remove unit
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+      @return $number / ($number * 0 + 1);
+    }
+  
+    @return $number;
+}
