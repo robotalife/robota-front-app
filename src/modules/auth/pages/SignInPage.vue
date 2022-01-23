@@ -71,8 +71,6 @@ export default {
   <div>
     <p class="font-h-3 brand-purple fw-700">Sign In</p>
     <form class="m-t-3" @submit.prevent="submit" @change="changeValues">
-      <!-- <p class="g-65 font-14-24 fw-500 m-b-5">
-    </p> -->
       <BaseInput label="Email Address" type="email" name="email" />
       <p v-if="emailIsNotValid" class="Login__error font-12-16">
         {{ emailValidation }}

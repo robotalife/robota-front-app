@@ -52,32 +52,34 @@ export default {
 };
 </script>
 <template>
-  <form @submit.prevent="submit" @change="changeValues">
-    <p class="m-t-5 g-100 font-29-48 fw-900 m-b-0">Reset Password</p>
-    <BaseInput label="Email" type="email" name="email" />
-    <p v-if="emailIsNotValid" class="ForgetPassword__error font-12-16">
-      {{ emailValidation }}
-    </p>
+  <div>
+    <p class="font-h-3 brand-purple fw-700">Reset Password</p>
+    <form @submit.prevent="submit" @change="changeValues">
+      <BaseInput label="Email" type="email" name="email" />
+      <p v-if="emailIsNotValid" class="ForgetPassword__error font-12-16">
+        {{ emailValidation }}
+      </p>
 
-    <BaseButton
-      class="w-1-1 m-t-3 bg-primary ForgetPassword__submit"
-      text="Reset Password"
-      size="small"
-    />
-    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
-      {{ errorMessage }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          :color="snackbarColor"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          close
-        </v-btn>
-      </template>
-    </v-snackbar>
-  </form>
+      <BaseButton
+        class="w-1-1 m-t-3 ForgetPassword--submit"
+        text="Reset Password"
+        size="small"
+      />
+      <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+        {{ errorMessage }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            :color="snackbarColor"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </form>
+  </div>
 </template>
 
 <style scoped lang="scss">
@@ -85,8 +87,20 @@ export default {
 @import "@/styles/utils/bem";
 
 .ForgetPassword {
-  @include e(submit) {
+  @include m(submit) {
     color: $white;
+    background-image: $horizental;
+    border-radius: 30px;
+
+    ::v-deep .v-btn__content {
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 700;
+    }
+  }
+
+  @include e(reset) {
+    color: $blue;
   }
 
   @include e(error) {

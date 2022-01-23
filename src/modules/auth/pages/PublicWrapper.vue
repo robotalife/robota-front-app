@@ -36,10 +36,9 @@ export default {
   background-position: center;
 
   @include e(card) {
-    border-radius: 10px;
     width: 464px;
     min-height: fit-content;
-    box-shadow: 0px 4px 18px rgba(25, 25, 35, 0.05);
+    box-shadow: 0 4px 18px rgba(25, 25, 35, 0.05);
     border-radius: 8px;
   }
 

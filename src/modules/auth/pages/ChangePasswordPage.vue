@@ -3,7 +3,7 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 
 export default {
-  name: "ForgetPasswordFinish",
+  name: "ChangePasswordPage",
   components: {
     BaseInput,
     BaseButton,
@@ -65,41 +65,55 @@ export default {
 };
 </script>
 <template>
-  <form @submit.prevent="submit" @change="changeValues" ref="form">
-    <p class="m-t-5 g-100 font-29-48 fw-900 m-b-0">Reset Password</p>
-    <BaseInput label="New Password" type="password" name="password" />
-    <p v-if="isPasswordInvalid" class="ForgetPassword__error font-12-16">
-      {{ passwordValidationMessage }}
-    </p>
+  <div>
+    <p class="font-h-3 brand-purple fw-700">Reset Password</p>
+    <form @submit.prevent="submit" @change="changeValues" ref="form">
+      <BaseInput label="New Password" type="password" name="password" />
+      <p v-if="isPasswordInvalid" class="ChangePassword__error font-12-16">
+        {{ passwordValidationMessage }}
+      </p>
 
-    <BaseButton
-      class="w-1-1 m-t-3 bg-primary ForgetPassword__submit"
-      text="Change Password"
-      size="small"
-    />
-    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
-      {{ errorMessage }}
-      <template v-slot:action="{ attrs }">
-        <v-btn
-          :color="snackbarColor"
-          text
-          v-bind="attrs"
-          @click="snackbar = false"
-        >
-          close
-        </v-btn>
-      </template>
-    </v-snackbar>
-  </form>
+      <BaseButton
+        class="w-1-1 m-t-3 bg-primary ChangePassword--submit"
+        text="Change Password"
+        size="small"
+      />
+      <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+        {{ errorMessage }}
+        <template v-slot:action="{ attrs }">
+          <v-btn
+            :color="snackbarColor"
+            text
+            v-bind="attrs"
+            @click="snackbar = false"
+          >
+            close
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </form>
+  </div>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 
-.ForgetPassword {
-  @include e(submit) {
+.ChangePassword {
+  @include m(submit) {
     color: $white;
+    background-image: $horizental;
+    border-radius: 30px;
+
+    ::v-deep .v-btn__content {
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 700;
+    }
+  }
+
+  @include e(reset) {
+    color: $blue;
   }
 
   @include e(error) {
