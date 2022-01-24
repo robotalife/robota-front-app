@@ -74,7 +74,7 @@ export default {
       </p>
 
       <BaseButton
-        class="w-1-1 m-t-3 bg-primary ChangePassword--submit"
+        class="w-1-1 m-t-3 bg-primary ChangePassword__submit"
         text="Change Password"
         size="small"
       />
@@ -100,7 +100,7 @@ export default {
 @import "@/styles/utils/bem";
 
 .ChangePassword {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
     background-image: $horizental;
     border-radius: 30px;
