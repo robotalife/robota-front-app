@@ -1,0 +1,112 @@
+<script>
+import BaseInput from "@/components/input/BaseInput";
+import BaseButton from "@/components/button/BaseButton";
+
+export default {
+  name: "Security",
+  components: { BaseInput, BaseButton },
+  computed: {
+    valuesItem() {
+      return [
+        {
+          label: "Current Password",
+          name: "currentPassword",
+        },
+        {
+          label: "New Password",
+          name: "newPassword",
+        },
+        {
+          label: "Repeat New Password",
+          name: "newPasswordRepeat",
+        },
+      ];
+    },
+  },
+  data() {
+    return {
+      snackbar: false,
+      errorMessage: "",
+      snackbarColor: "pink",
+      inputValues: {
+        currentPassword: "",
+        newPassword: "",
+        newPasswordRepeat: "",
+      },
+    };
+  },
+  methods: {},
+};
+</script>
+
+<template>
+  <div class="d-flex flex-col w-1-4">
+    <p class="font-h-3 brand-purple fw-700">Change Password</p>
+    <form>
+      <BaseInput
+        v-for="item in valuesItem"
+        :key="item.name"
+        :label="item.label"
+        :name="item.name"
+        v-model="inputValues[item.name]"
+      />
+      <BaseButton
+        text="Submit"
+        class="w-1-1 m-t-3 Security--submit"
+        size="small"
+      />
+    </form>
+    <p class="font-h-3 brand-purple fw-700">2 Factor Authentication</p>
+    <form>
+      <p>
+        With 2-Step Verification (also known as two-factor authentication), you
+        add an extra layer of security to your account in case your password is
+        stolen.
+      </p>
+      <BaseButton
+        text="Enable"
+        class="w-1-1 m-t-3 Security--submit"
+        size="small"
+      />
+    </form>
+    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+      {{ errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          :color="snackbarColor"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          close
+        </v-btn>
+      </template>
+    </v-snackbar>
+  </div>
+</template>
+<style scoped lang="scss">
+@import "@/styles/global/color";
+@import "@/styles/utils/bem";
+
+.Security {
+  @include m(submit) {
+    color: $white;
+    background-image: $horizental;
+    border-radius: 30px;
+
+    ::v-deep .v-btn__content {
+      font-size: 13px;
+      line-height: 24px;
+      font-weight: 700;
+    }
+
+    @include e(reset) {
+      color: $blue;
+    }
+
+    @include e(error) {
+      color: $error;
+    }
+  }
+}
+</style>

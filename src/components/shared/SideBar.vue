@@ -18,7 +18,7 @@ export default {
         <VIcon dark>$smartTrade</VIcon>
       </RouterLink>
       <VIcon dark class="m-t-5">$portfolio</VIcon>
-      <RouterLink to="/settings" class="m-t-5">
+      <RouterLink to="/settings/profile" class="m-t-5">
         <VIcon dark>$setting</VIcon>
       </RouterLink>
     </div>

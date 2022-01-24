@@ -108,21 +108,24 @@ export default {
 </script>
 
 <template>
-  <v-tab-item :transition="false" class="p-4 w-1-1">
+  <div class="d-flex flex-col w-1-2">
     <div
       v-for="(exchange, index) in exchangeList"
       :key="index"
       class="d-flex ai-center"
     >
-      <p class="m-r-1">
-        {{ exchange.exchangeName }}
-      </p>
-      <div
-        v-if="exchangeList.length"
-        @click="() => openDeleteConfirmationDialog(exchange)"
-      >
-        <BaseButton text="Delete Exchange" class="m-t-2" />
-      </div>
+      <v-card elevation="2" class="m-t-3" outlined>
+        <p>{{ exchange.exchangeName }}</p>
+        <div
+          v-if="exchangeList.length"
+          @click="() => openDeleteConfirmationDialog(exchange)"
+        >
+          <BaseButton text="Delete Exchange" class="m-t-2" />
+        </div>
+      </v-card>
+      <!--      <p class="m-r-1">-->
+      <!--        {{ exchange.exchangeName }}-->
+      <!--      </p>-->
     </div>
     <div @click="addExchangeDialog = true">
       <BaseButton text="Add Exchange" class="m-t-2" />
@@ -169,7 +172,7 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
-  </v-tab-item>
+  </div>
 </template>
 <style scoped lang="scss">
 @import "@/styles/global/color";
