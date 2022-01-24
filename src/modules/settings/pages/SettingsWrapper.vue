@@ -51,7 +51,9 @@ export default {
           </div>
         </div>
       </v-card>
-      <RouterView />
+      <div class="m-t-5">
+        <RouterView />
+      </div>
     </div>
   </div>
 </template>

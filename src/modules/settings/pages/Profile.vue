@@ -32,7 +32,7 @@ export default {
       />
       <BaseButton
         text="Submit"
-        class="w-1-1 m-t-3 Profile--submit"
+        class="w-1-1 m-t-3 bg-brand-purple Profile__submit"
         size="small"
       />
     </form>
@@ -56,9 +56,8 @@ export default {
 @import "@/styles/utils/bem";
 
 .Profile {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
-    background-image: $horizental;
     border-radius: 30px;
 
     ::v-deep .v-btn__content {

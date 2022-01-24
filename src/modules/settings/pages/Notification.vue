@@ -22,10 +22,25 @@ export default {
 <template>
   <div class="d-flex flex-col w-1-4">
     <form>
-      <VSwitch v-model="isEmailOn" label="Email"></VSwitch>
-      <VSwitch v-model="isBrowserOn" label="Browser Alert"></VSwitch>
-      <VSwitch v-model="isTelegramBotOn" label="Telegram Bot"></VSwitch>
-      <VSwitch v-model="isNewsletterOn" label="Newsletter"></VSwitch>
+      <VSwitch inset color="indigo" v-model="isEmailOn" label="Email"></VSwitch>
+      <VSwitch
+        inset
+        color="indigo"
+        v-model="isBrowserOn"
+        label="Browser Alert"
+      ></VSwitch>
+      <VSwitch
+        inset
+        color="indigo"
+        v-model="isTelegramBotOn"
+        label="Telegram Bot"
+      ></VSwitch>
+      <VSwitch
+        inset
+        color="indigo"
+        v-model="isNewsletterOn"
+        label="Newsletter"
+      ></VSwitch>
     </form>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}

@@ -52,7 +52,7 @@ export default {
       />
       <BaseButton
         text="Submit"
-        class="w-1-1 m-t-3 Security--submit"
+        class="w-1-1 m-t-3 bg-brand-purple Security__submit"
         size="small"
       />
     </form>
@@ -65,7 +65,7 @@ export default {
       </p>
       <BaseButton
         text="Enable"
-        class="w-1-1 m-t-3 Security--submit"
+        class="w-1-1 m-t-3 bg-brand-purple Security__submit"
         size="small"
       />
     </form>
@@ -89,9 +89,8 @@ export default {
 @import "@/styles/utils/bem";
 
 .Security {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
-    background-image: $horizental;
     border-radius: 30px;
 
     ::v-deep .v-btn__content {
