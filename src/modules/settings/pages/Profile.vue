@@ -32,7 +32,7 @@ export default {
       />
       <BaseButton
         text="Submit"
-        class="w-1-1 m-t-3 bg-brand-purple Profile__submit"
+        class="w-1-2 m-t-3 bg-brand-purple Profile__submit"
         size="small"
       />
     </form>

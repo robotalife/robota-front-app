@@ -52,23 +52,25 @@ export default {
       />
       <BaseButton
         text="Submit"
-        class="w-1-1 m-t-3 bg-brand-purple Security__submit"
+        class="w-1-2 m-t-3 bg-brand-purple Security__submit"
         size="small"
       />
     </form>
-    <p class="font-h-3 brand-purple fw-700">2 Factor Authentication</p>
-    <form>
-      <p>
-        With 2-Step Verification (also known as two-factor authentication), you
-        add an extra layer of security to your account in case your password is
-        stolen.
-      </p>
-      <BaseButton
-        text="Enable"
-        class="w-1-1 m-t-3 bg-brand-purple Security__submit"
-        size="small"
-      />
-    </form>
+    <div class="m-t-10">
+      <p class="font-h-3 brand-purple fw-700">2 Factor Authentication</p>
+      <form>
+        <p>
+          With 2-Step Verification (also known as two-factor authentication),
+          you add an extra layer of security to your account in case your
+          password is stolen.
+        </p>
+        <BaseButton
+          text="Enable"
+          class="w-1-2 m-t-3 bg-brand-purple Security__submit"
+          size="small"
+        />
+      </form>
+    </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
