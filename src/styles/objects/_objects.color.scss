@@ -22,6 +22,7 @@ $colors: (
     'gray-9' $gray-9,
     'gray-10' $gray-10,
     'gray-11' $gray-11,
+    'tomato-red' $tomato-red,
 );
 
 @each $color, $value in $colors {

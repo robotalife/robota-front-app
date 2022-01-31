@@ -75,7 +75,7 @@ export default {
         :headers="headers"
         :items="openOrders"
         :items-per-page="5"
-        class="elevation-1"
+        class="elevation-1 w-1-1"
       ></v-data-table>
     </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
