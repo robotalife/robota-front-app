@@ -31,6 +31,9 @@ export default {
         { text: "Last Price", value: "lastPrice" },
       ],
       balances: [],
+      snackbar: false,
+      errorMessage: "",
+      snackbarColor: "",
     };
   },
   computed: {
@@ -45,6 +48,13 @@ export default {
         this.fetchBalances();
       }
     },
+  },
+  created() {
+    const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
+    if (exchangeListRequestStatus === "success") {
+      this.fillData();
+      this.fetchBalances();
+    }
   },
   methods: {
     fillData() {
@@ -92,24 +102,23 @@ export default {
           class="elevation-1 w-1-1"
         ></v-data-table>
       </div>
-      <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
-        {{ errorMessage }}
-        <template v-slot:action="{ attrs }">
-          <v-btn
-            :color="snackbarColor"
-            text
-            v-bind="attrs"
-            @click="snackbar = false"
-          >
-            close
-          </v-btn>
-        </template>
-      </v-snackbar>
+      <div class="small">
+        <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
+      </div>
     </div>
-    <div class="small">
-      <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
-      <button @click="fillData()">Randomize</button>
-    </div>
+    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+      {{ errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          :color="snackbarColor"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <style>

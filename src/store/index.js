@@ -52,6 +52,9 @@ export default new Vuex.Store({
     selectedExchange: (state) => {
       return state.selectedExchange || state.exchangeList[0].exchangeId;
     },
+    exchangeListStatus: (state) => {
+      return state.exchangeListRequestStatus;
+    },
   },
   actions: {},
 });

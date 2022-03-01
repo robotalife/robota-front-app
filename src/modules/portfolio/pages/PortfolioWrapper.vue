@@ -22,8 +22,10 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1 w-1-1">
-    <router-view></router-view>
+  <div class="w-1-1">
+    <div class="Dashboard p-x-5 p-y-7 h-1-1">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -31,66 +33,21 @@ export default {
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 .Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
-
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
+  overflow-y: scroll;
+  height: 90vh;
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: #f5f7fa;
   }
 
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #bec4cb;
   }
 
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
-  }
-
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    //-webkit-box-shadow: inset 0 0 0 1px #fff;
   }
 }
 </style>
