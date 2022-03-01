@@ -6,6 +6,7 @@ const OPEN_ORDERS = (id) => `/order/open?exchangeId=${id}`;
 const ORDER_HISTORY = (id) => `/order/list?exchangeId=${id}`;
 const SYMBOL_DETAILS_ENDPOINT = (pair, id) =>
   `/symbols/${pair}?exchangeId=${id}`;
+const DELETE_OPEN_ORDER = (id) => `/order/open/${id}`;
 
 export default {
   creatOrder(data) {
@@ -22,5 +23,8 @@ export default {
   },
   fetchSymbolDetails(pair, id) {
     return $http.get(SYMBOL_DETAILS_ENDPOINT(pair, id));
+  },
+  deleteOpenOrder(id) {
+    return $http.delete(DELETE_OPEN_ORDER(id));
   },
 };

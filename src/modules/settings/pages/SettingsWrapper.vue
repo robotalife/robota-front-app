@@ -1,96 +1,96 @@
 <script>
 export default {
   name: "Index",
-  data() {
-    return {
-      snackbar: false,
-      dialog2: false,
-      errorMessage: "",
-      snackbarColor: "pink",
-      projectList: null,
-      modelTitle: "",
-      loading: false,
-      outputProjects: [],
-      changePasswordDialog: false,
-      userPassword: {
-        currentPassword: "",
-        newPassword: "",
-      },
-    };
-  },
 };
 </script>
 
 <template>
-  <div class="h-1-1 w-1-1">
-    <router-view></router-view>
+  <div class="w-1-1">
+    <div class="SettingsWrapper p-x-5 p-y-7 h-1-1">
+      <p class="brand-purple font-h-1 fw-700">Settings</p>
+      <v-card elevation="0" class="m-t-3 SettingsWrapper__tabs">
+        <div class="d-flex jc-between">
+          <div class="d-flex">
+            <RouterLink to="/settings/profile" class="d-flex ai-start p-y-3">
+              <div class="h-1-1">
+                <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
+                  Edit Profile
+                </span>
+              </div>
+            </RouterLink>
+            <RouterLink
+              to="/settings/security"
+              class="d-flex ai-start p-y-3 m-l-3"
+            >
+              <div class="h-1-1">
+                <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
+                  Security
+                </span>
+              </div>
+            </RouterLink>
+            <RouterLink
+              to="/settings/notification"
+              class="d-flex ai-start p-y-3 m-l-3"
+            >
+              <div class="h-1-1">
+                <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
+                  Notification
+                </span>
+              </div>
+            </RouterLink>
+            <RouterLink
+              to="/settings/exchange"
+              class="d-flex ai-start p-y-3 m-l-3"
+            >
+              <div class="h-1-1">
+                <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
+                  My Exchanges
+                </span>
+              </div>
+            </RouterLink>
+          </div>
+        </div>
+      </v-card>
+      <div class="m-t-5">
+        <RouterView />
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-.Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
 
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
+.SettingsWrapper {
+  overflow-y: scroll;
+  height: 90vh;
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: #f5f7fa;
   }
 
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #bec4cb;
   }
 
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    //-webkit-box-shadow: inset 0 0 0 1px #fff;
   }
 
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+  @include e(tabs) {
+    border-bottom: 2px solid $gray-10;
+    border-radius: unset;
+  }
+}
+
+.router-link-active {
+  border-bottom: 2px solid rgb(79, 79, 243);
+
+  .SettingsWrapper__tab {
+    color: $brand-purple !important;
   }
 }
 </style>

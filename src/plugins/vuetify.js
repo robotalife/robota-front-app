@@ -33,6 +33,7 @@ import instagram from "@/assets/icons/instagram.vue";
 import telegram from "@/assets/icons/telegram.vue";
 import twitter from "@/assets/icons/twitter.vue";
 import robotaLogo from "@/assets/icons/robotaLogo.vue";
+import trash from "@/assets/icons/trash.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -41,6 +42,9 @@ const options = {
     values: {
       robota: {
         component: robota,
+      },
+      trash: {
+        component: trash,
       },
       robotaLogo: {
         component: robotaLogo,

@@ -17,8 +17,10 @@ export default {
       <RouterLink to="/smart-trade/trading-terminal" class="m-t-5">
         <VIcon dark>$smartTrade</VIcon>
       </RouterLink>
-      <VIcon dark class="m-t-5">$portfolio</VIcon>
-      <RouterLink to="/settings" class="m-t-5">
+      <RouterLink to="/portfolio" class="m-t-5">
+        <VIcon dark>$portfolio</VIcon>
+      </RouterLink>
+      <RouterLink to="/settings/profile" class="m-t-5">
         <VIcon dark>$setting</VIcon>
       </RouterLink>
     </div>

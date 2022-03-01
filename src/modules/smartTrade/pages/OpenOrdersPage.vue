@@ -1,8 +1,11 @@
 <script>
 // import storage from "@/utils/storage";
+import BaseButton from "@/components/button/BaseButton";
 export default {
   name: "OpenOrders",
-  components: {},
+  components: {
+    BaseButton,
+  },
   data() {
     return {
       snackbar: false,
@@ -21,7 +24,7 @@ export default {
         { text: "Type", value: "type" },
         // { text: "Source", value: "source" },
         { text: "Creation date", value: "creationDate" },
-        { text: "Action" },
+        { text: "Action", value: "action" },
       ],
       openOrders: [],
     };
@@ -60,6 +63,23 @@ export default {
           this.snackbar = true;
         });
     },
+    deleteOrder(id) {
+      this.$api.smartTrade
+        .deleteOpenOrder(id)
+        .then(() => {
+          this.fetchOrders();
+          this.snackbar = true;
+          this.snackbarColor = "green";
+          this.errorMessage = `order deleted successfully`;
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+          this.snackbar = true;
+          this.snackbarColor = "pink";
+          this.errorMessage =
+            "There is a problem with the service, please try again later.";
+        });
+    },
   },
 };
 </script>
@@ -74,8 +94,14 @@ export default {
         :headers="headers"
         :items="openOrders"
         :items-per-page="5"
-        class="elevation-1"
-      ></v-data-table>
+        class="elevation-1 w-1-1"
+      >
+        <template v-slot:item.action="{ item }">
+          <div @click="deleteOrder(item.id)">
+            <BaseButton beforeIcon="$cross" class="bg-tomato-red" />
+          </div>
+        </template>
+      </v-data-table>
     </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}

@@ -1,10 +1,12 @@
 <script>
 // ToDo: handle event listener
 import VBtn from "vuetify/lib/components/VBtn";
+import VIcon from "vuetify/lib/components/VIcon";
 export default {
   name: "BaseButton",
   components: {
     VBtn,
+    VIcon,
   },
   props: {
     text: {
@@ -31,6 +33,14 @@ export default {
       type: String,
       default: "",
     },
+    beforeIcon: {
+      type: String,
+      default: "",
+    },
+    afterIcon: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -51,7 +61,11 @@ export default {
     :disabled="disabled"
     depressed
   >
+    <VIcon v-if="beforeIcon" :class="[text && 'm-r-1']" dark>{{
+      beforeIcon
+    }}</VIcon>
     {{ text }}
+    <VIcon v-if="afterIcon" dark>{{ afterIcon }}</VIcon>
   </VBtn>
 </template>
 
