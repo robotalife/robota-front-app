@@ -74,7 +74,9 @@ export default {
   updated: function () {
     this.$nextTick(function () {
       this.initTradingView();
-      const tradingViewContainer = document.getElementById("tradingview_241f2");
+      const tradingViewContainer = document.getElementById(
+        "tradingviewContainer"
+      );
       if (tradingViewContainer) {
         tradingViewContainer.children[0].style.width = "100%";
         tradingViewContainer.children[0].children[0].style.width = "100%";
@@ -102,7 +104,7 @@ export default {
         toolbar_bg: "#f1f3f6",
         enable_publishing: false,
         allow_symbol_change: true,
-        container_id: "tradingview_241f2",
+        container_id: "tradingviewContainer",
       });
     },
     getUserExchanges() {
@@ -196,7 +198,7 @@ export default {
       <div class="d-flex w-1-1 jc-center ai-start m-t-4">
         <!-- TradingView Widget BEGIN -->
         <div class="TradingTerminal__trading-view m-r-2 w-1-1">
-          <div id="tradingview_241f2" class="w-1-1"></div>
+          <div id="tradingviewContainer" class="w-1-1"></div>
         </div>
         <!-- TradingView Widget END -->
         <form
