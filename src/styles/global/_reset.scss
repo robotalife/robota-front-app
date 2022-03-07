@@ -74,33 +74,6 @@ hr {
   border: none;
 }
 
-.vtk {
-  top: 146px !important;
-  width: 50% !important;
-  height: 770px !important;
-  left: unset !important;
-  @media (max-width: 1450px) {
-    right: -10px !important;
-  }
-
-  @media (max-width: 980px) {
-    width: 40% !important;
-  }
-
-  @media (max-width: 816px) {
-    width: 30% !important;
-  }
-
-  @media (min-width: 1450px) {
-    right: 12% !important;
-  }
-
-  > canvas {
-    width: 700px !important;
-    height: 770px !important;
-  }
-}
-
 .v-expansion-panel-content {
   border-radius: 0px !important;
 }
