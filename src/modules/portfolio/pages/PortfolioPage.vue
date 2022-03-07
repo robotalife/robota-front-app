@@ -1,5 +1,6 @@
 <script>
 import Doughnut from "./SampleChart";
+// import BaseButton from "../../../components/button/BaseButton.vue";
 
 export default {
   components: {
@@ -31,6 +32,7 @@ export default {
         { text: "Last Price", value: "lastPrice" },
       ],
       balances: [],
+      balance: "N/A",
       snackbar: false,
       errorMessage: "",
       snackbarColor: "",
@@ -46,6 +48,7 @@ export default {
       if (state === "success") {
         this.fillData();
         this.fetchBalances();
+        this.fetchBalance();
       }
     },
   },
@@ -54,6 +57,7 @@ export default {
     if (exchangeListRequestStatus === "success") {
       this.fillData();
       this.fetchBalances();
+      this.fetchBalance();
     }
   },
   methods: {
@@ -85,12 +89,36 @@ export default {
           this.snackbar = true;
         });
     },
+    fetchBalance() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      console.log(selectedExchange, "selected");
+      this.$api.portfolio
+        .fetchBalance(selectedExchange)
+        .then((result) => {
+          console.log(result);
+          this.balance = result.balance;
+          // this.isBalanceLoaded = true;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+    },
+    refreshBalanceValue() {
+      this.fetchBalance();
+    },
   },
 };
 </script>
 <template>
   <div>
     <div class="d-flex flex-col w-1-1">
+      <div class="d-flex jc-end">
+        <!-- <div @click="refreshBalanceValue">
+          <BaseButton text="refresh" />
+        </div> -->
+        <p>${{ balance }}</p>
+      </div>
       <div
         v-if="isBalancesLoaded"
         class="h-1-1 d-flex flex-col ai-center jc-center"
