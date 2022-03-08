@@ -1,10 +1,12 @@
 <script>
-import Doughnut from "./SampleChart";
+// import Doughnut from "./SampleChart";
+import PieChart from "./PieChart.vue";
 // import BaseButton from "../../../components/button/BaseButton.vue";
 
 export default {
   components: {
-    Doughnut,
+    // Doughnut,
+    PieChart,
   },
   data() {
     return {
@@ -131,7 +133,8 @@ export default {
         ></v-data-table>
       </div>
       <div class="small">
-        <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
+        <!-- <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut> -->
+        <PieChart />
       </div>
     </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">

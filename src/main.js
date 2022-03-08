@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "@/api";
 import "@/validation";
 import "@/styles/app.scss";
+import "@/plugins/echarts";
 
 Vue.config.productionTip = false;
 
