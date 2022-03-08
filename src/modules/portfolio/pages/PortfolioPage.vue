@@ -21,6 +21,12 @@ export default {
       isLoaded: false,
       headers: [
         {
+          text: "",
+          align: "start",
+          sortable: false,
+          value: "logo",
+        },
+        {
           text: "Name",
           align: "start",
           sortable: true,
@@ -128,7 +134,11 @@ export default {
           :items="balances"
           :items-per-page="5"
           class="elevation-1 w-1-1"
-        ></v-data-table>
+        >
+          <template v-slot:item.logo="{ item }">
+            <img class="Portfolio__symbolIcon" :src="item.logo" />
+          </template>
+        </v-data-table>
       </div>
       <div class="small">
         <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
@@ -149,7 +159,15 @@ export default {
     </v-snackbar>
   </div>
 </template>
-<style>
+<style scoped lang="scss">
+@import "@/styles/global/color";
+@import "@/styles/utils/bem";
+.Portfolio {
+  @include e(symbolIcon) {
+    max-width: 24px;
+    max-height: 24px;
+  }
+}
 .small {
   max-width: 600px;
   margin: 150px auto;
