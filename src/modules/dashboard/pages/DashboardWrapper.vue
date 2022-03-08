@@ -22,7 +22,7 @@ export default {
 </script>
 
 <template>
-  <div class="h-1-1 w-1-1">
+  <div class="h-1-1 w-1-1 p-x-5 p-y-7">
     <router-view></router-view>
   </div>
 </template>

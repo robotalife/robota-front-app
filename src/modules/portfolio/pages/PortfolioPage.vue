@@ -34,7 +34,7 @@ export default {
         },
         { text: "Total", value: "assetTotal", sortable: true },
         { text: "Available", value: "assetAvailable", sortable: true },
-        { text: "Value", value: "assetValue" },
+        { text: "Value(BTC)", value: "assetValue" },
         { text: "Last Price", value: "lastPrice" },
       ],
       balances: [],
@@ -42,6 +42,8 @@ export default {
       snackbar: false,
       errorMessage: "",
       snackbarColor: "",
+      percentageList: [],
+      isPercentageListLoaded: false,
     };
   },
   computed: {
@@ -55,6 +57,7 @@ export default {
         this.fillData();
         this.fetchBalances();
         this.fetchBalance();
+        this.fetchPercentageList();
       }
     },
   },
@@ -64,12 +67,14 @@ export default {
       this.fillData();
       this.fetchBalances();
       this.fetchBalance();
+      this.fetchPercentageList();
     }
   },
   methods: {
     fillData() {
-      const exchangeListCurrentStatus = this.$store.state
-        .exchangeListRequestStatus;
+      // eslint-disable-next-line prettier/prettier
+      const exchangeListCurrentStatus =
+        this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
         this.$api.portfolio.fetchPieChartData(exchangeId).then((result) => {
@@ -110,6 +115,21 @@ export default {
           this.snackbar = true;
         });
     },
+    fetchPercentageList() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      console.log(selectedExchange, "selected");
+      this.$api.portfolio
+        .fetchPercentageList(selectedExchange)
+        .then((result) => {
+          console.log(result);
+          this.percentageList = result.assetPercentageValueList;
+          this.isPercentageListLoaded = true;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+    },
     refreshBalanceValue() {
       this.fetchBalance();
     },
@@ -123,7 +143,26 @@ export default {
         <!-- <div @click="refreshBalanceValue">
           <BaseButton text="refresh" />
         </div> -->
-        <p>${{ balance }}</p>
+        <p class="font-h-1 m-b-2">$ {{ balance }}</p>
+      </div>
+      <div class="Portfolio__pie-container d-flex w-1-1 m-b-2">
+        <div class="Portfolio__pie">
+          <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
+        </div>
+        <div
+          v-if="isPercentageListLoaded"
+          class="m-l-4 ai-center d-flex flex-col flex-wrap ai-start"
+        >
+          <div
+            class="m-t-1 m-r-4 d-flex"
+            v-for="(item, index) in percentageList"
+            :key="index"
+          >
+            <img :src="item.logo" class="m-r-1" />
+            <p class="Portfolio__symbol-name m-r-1">{{ item.assetName }}</p>
+            <p>{{ item.percentage }}</p>
+          </div>
+        </div>
       </div>
       <div
         v-if="isBalancesLoaded"
@@ -132,16 +171,14 @@ export default {
         <v-data-table
           :headers="headers"
           :items="balances"
-          :items-per-page="5"
+          :hide-default-footer="true"
+          :disable-pagination="true"
           class="elevation-1 w-1-1"
         >
           <template v-slot:item.logo="{ item }">
             <img class="Portfolio__symbolIcon" :src="item.logo" />
           </template>
         </v-data-table>
-      </div>
-      <div class="small">
-        <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
       </div>
     </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
@@ -167,9 +204,17 @@ export default {
     max-width: 24px;
     max-height: 24px;
   }
-}
-.small {
-  max-width: 600px;
-  margin: 150px auto;
+
+  @include e(pie-container) {
+    max-height: 300px;
+  }
+
+  @include e(pie) {
+    max-width: 300px;
+  }
+
+  @include e(symbol-name) {
+    width: 40px;
+  }
 }
 </style>
