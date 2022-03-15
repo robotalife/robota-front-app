@@ -23,7 +23,7 @@ export default {
 
 <template>
   <div class="w-1-1">
-    <div class="Dashboard p-x-5 p-y-7 h-1-1">
+    <div class="Portfolio p-x-5 p-y-7 h-1-1">
       <router-view></router-view>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-.Dashboard {
+.Portfolio {
   overflow-y: scroll;
   height: 90vh;
   &::-webkit-scrollbar {

@@ -73,7 +73,7 @@ export default {
           v-if="!isLoading"
           name="exchange"
           :selected="exchangeList[0].text"
-          class="m-r-1"
+          class="Header__exchange m-r-2"
           @changed="changeExchange"
         />
         <v-menu rounded="lg" offset-y transition="scale-transition">
@@ -131,6 +131,10 @@ export default {
       width: 185px !important;
       height: 42px !important;
     }
+  }
+
+  @include e(exchange) {
+    max-height: 40px;
   }
 }
 </style>

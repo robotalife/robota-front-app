@@ -145,15 +145,15 @@ export default {
 </script>
 <template>
   <div>
-    <div class="d-flex flex-col w-1-1">
+    <div class="Dashboard d-flex flex-col w-1-1">
       <div class="d-flex jc-end">
         <!-- <div @click="refreshBalanceValue">
           <BaseButton text="refresh" />
         </div> -->
         <p class="font-h-1 m-b-2">$ {{ balance }}</p>
       </div>
-      <div class="Portfolio__pie-container d-flex w-1-1 m-b-2">
-        <div class="Portfolio__pie">
+      <div class="Dashboard__pie-container d-flex w-1-1 m-b-3">
+        <div class="Dashboard__pie">
           <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
         </div>
         <div
@@ -173,7 +173,7 @@ export default {
       </div>
       <div
         v-if="isBalancesLoaded"
-        class="h-1-1 d-flex flex-col ai-center jc-center"
+        class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"
       >
         <v-data-table
           :headers="headers"
@@ -183,7 +183,7 @@ export default {
           class="elevation-1 w-1-1"
         >
           <template v-slot:item.logo="{ item }">
-            <img class="Portfolio__symbolIcon" :src="item.logo" />
+            <img class="Dashboard__symbol-icon" :src="item.logo" />
           </template>
         </v-data-table>
       </div>
@@ -206,8 +206,8 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-.Portfolio {
-  @include e(symbolIcon) {
+.Dashboard {
+  @include e(symbol-icon) {
     max-width: 24px;
     max-height: 24px;
   }
