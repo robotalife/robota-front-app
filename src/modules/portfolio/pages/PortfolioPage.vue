@@ -158,7 +158,7 @@ export default {
             v-for="(item, index) in percentageList"
             :key="index"
           >
-            <img :src="item.logo" class="Portfolio__symbolIcon m-r-1" />
+            <img :src="item.logo" class="Portfolio__symbol-icon m-r-1" />
             <p class="Portfolio__symbol-name m-r-1">{{ item.assetName }}</p>
             <p>{{ item.percentage }}</p>
           </div>
@@ -176,7 +176,7 @@ export default {
           class="elevation-1 w-1-1"
         >
           <template v-slot:item.logo="{ item }">
-            <img class="Portfolio__symbolIcon" :src="item.logo" />
+            <img class="Portfolio__symbol-icon" :src="item.logo" />
           </template>
         </v-data-table>
       </div>
@@ -200,7 +200,7 @@ export default {
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 .Portfolio {
-  @include e(symbolIcon) {
+  @include e(symbol-icon) {
     max-width: 24px;
     max-height: 24px;
   }

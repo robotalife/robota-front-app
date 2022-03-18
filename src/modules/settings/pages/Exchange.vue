@@ -1,6 +1,7 @@
 <script>
 import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
+import BaseSelect from "@/components/select/BaseSelect.vue";
 import storage from "@/utils/storage";
 import { constants } from "@/constant/constants";
 
@@ -9,10 +10,15 @@ export default {
   components: {
     BaseInput,
     BaseButton,
+    BaseSelect,
   },
   computed: {
     valuesItem() {
       return [
+        {
+          label: "Account Lable",
+          name: "exchangeName",
+        },
         {
           label: "API key",
           name: "apiKey",
@@ -20,10 +26,6 @@ export default {
         {
           label: "Secret Key",
           name: "apiSecret",
-        },
-        {
-          label: "Account Lable",
-          name: "exchangeName",
         },
       ];
     },
@@ -41,6 +43,7 @@ export default {
         exchangeName: "",
         exchangeType: "BINANCE",
         userId: storage.getItem("user").id,
+        passPhrase: "",
       },
       exchangeList: [],
       addExchangeDialog: false,
@@ -51,6 +54,12 @@ export default {
       exchangeListKey: constants.profile.exchanges,
       deleteConfirmation: false,
       selectedExchange: null,
+      exchangeTypeList: [
+        { text: "Binance", value: "BINANCE" },
+        { text: "KuCoin", value: "KUCOIN" },
+      ],
+      passphrase: "",
+      selectedExchangeType: "BINANCE",
     };
   },
   mounted() {
@@ -74,6 +83,7 @@ export default {
         this.exchangeList.push(result);
         storage.setItem("exchanges", this.userData);
         this.addExchangeDialog = false;
+        console.log(this.addExchangeDialog, "dialog");
       });
     },
     deleteExchange() {
@@ -102,6 +112,10 @@ export default {
     closeDialog() {
       this.deleteConfirmation = false;
       this.selectedExchange = null;
+    },
+    changeExchangeType(selectedExchange) {
+      this.selectedExchangeType = selectedExchange;
+      this.exchangeObj.exchangeType = selectedExchange;
     },
   },
 };
@@ -144,6 +158,7 @@ export default {
         text="Add Exchange"
       />
     </div>
+    {{ addExchangeDialog }}
     <v-dialog v-model="addExchangeDialog" width="550" height="600">
       <div class="p-2 bg-white">
         <p class="gray-2 font-h-2 fw-700">Connect your Binance Account</p>
@@ -160,12 +175,26 @@ export default {
           @submit.prevent="addExchange"
           @change="changeExchangeForm"
         >
+          <BaseSelect
+            label="Exchange Type"
+            :items="exchangeTypeList"
+            name="exchangeType"
+            :selected="exchangeTypeList[0].text"
+            class="Exchange__exchange-type m-r-2"
+            @changed="changeExchangeType"
+          />
           <BaseInput
             v-for="item in valuesItem"
             :key="item.name"
             :label="item.label"
             :name="item.name"
             v-model="inputValues[item.name]"
+          />
+          <BaseInput
+            v-if="selectedExchangeType === 'KUCOIN'"
+            label="Passphrase"
+            name="passPhrase"
+            v-model="passphrase"
           />
           <BaseButton
             text="Add Exchange"
@@ -282,6 +311,12 @@ export default {
     font-size: 12px;
     line-height: 24px;
     border-radius: 30px;
+  }
+
+  @include e(exchange-type) {
+    .v-text-field__details {
+      display: none;
+    }
   }
 }
 </style>

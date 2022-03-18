@@ -165,8 +165,8 @@ export default {
             v-for="(item, index) in percentageList"
             :key="index"
           >
-            <img :src="item.logo" class="Portfolio__symbolIcon m-r-1" />
-            <p class="Portfolio__symbol-name m-r-1">{{ item.assetName }}</p>
+            <img :src="item.logo" class="Dashboard__symbol-icon m-r-1" />
+            <p class="Dashboard__symbol-name m-r-1">{{ item.assetName }}</p>
             <p>{{ item.percentage }}</p>
           </div>
         </div>

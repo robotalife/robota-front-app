@@ -26,6 +26,7 @@ export default {
       userInfo: storage.getItem("user")?.email,
       exchangeList: [],
       isLoading: true,
+      selectedEchange: "",
     };
   },
   methods: {
@@ -43,6 +44,9 @@ export default {
           this.$store.commit("SET_EXCHANGE_LIST", exchanges);
           this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "success");
           this.exchangeList = this.$store.getters.exchangeListItem;
+          this.selectedEchange = exchanges.filter(
+            (item) => item.exchangeId === this.$store.getters.selectedExchange
+          );
           this.isLoading = false;
         })
         .catch((error) => {
@@ -57,6 +61,7 @@ export default {
     },
     changeExchange(value) {
       this.$store.commit("SET_SELECTED_EXCHANGE", value);
+      location.reload();
     },
   },
 };
@@ -72,7 +77,7 @@ export default {
           :items="exchangeList"
           v-if="!isLoading"
           name="exchange"
-          :selected="exchangeList[0].text"
+          :selected="selectedEchange[0].exchangeName"
           class="Header__exchange m-r-2"
           @changed="changeExchange"
         />

@@ -52,11 +52,15 @@ export default {
         height: window.screen.availHeight,
         width: window.screen.availWidth,
       },
+      selectedExchange: "",
     };
   },
   computed: {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
+    },
+    checkSelectedExchange() {
+      return this.$store.state.selectedExchange;
     },
   },
   watch: {
@@ -64,6 +68,12 @@ export default {
       if (state === "success") {
         this.getUserExchanges();
       }
+    },
+    checkSelectedExchange(state) {
+      const selectedExchangeObj = this.exchangeItems.filter((item) => {
+        return item.value == state;
+      });
+      this.selectedExchange = selectedExchangeObj[0].text;
     },
   },
   mounted() {
@@ -88,6 +98,11 @@ export default {
       .exchangeListRequestStatus;
     if (exchangeListCurrentStatus === "success") {
       this.getUserExchanges();
+      const selectedExchangeIdInStore = this.$store.getters.selectedExchange;
+      const selectedExchangeObj = this.exchangeItems.filter((item) => {
+        return item.value == selectedExchangeIdInStore;
+      });
+      this.selectedExchange = selectedExchangeObj;
     }
   },
   methods: {
@@ -109,7 +124,6 @@ export default {
     },
     getUserExchanges() {
       const exchanges = this.$store.getters.exchangeListItem;
-      console.log(exchanges);
       this.exchangeItems = exchanges;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
@@ -214,7 +228,7 @@ export default {
               v-if="exchangeItems[0]"
               label="Exchange"
               name="exchange"
-              :selected="exchangeItems[0].text"
+              :selected="selectedExchange"
               @changed="changeExchange"
             />
             <BaseSelect
