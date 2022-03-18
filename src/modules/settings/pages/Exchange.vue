@@ -158,7 +158,7 @@ export default {
         text="Add Exchange"
       />
     </div>
-    {{ addExchangeDialog }}
+
     <v-dialog v-model="addExchangeDialog" width="550" height="600">
       <div class="p-2 bg-white">
         <p class="gray-2 font-h-2 fw-700">Connect your Binance Account</p>
