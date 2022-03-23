@@ -78,15 +78,21 @@ export default {
     // },
     addExchange(e) {
       e.preventDefault();
-      this.$api.exchange.addExchange(this.exchangeObj).then((result) => {
-        if (!this.userData[this.exchangeListKey]) {
-          this.userData[this.exchangeListKey] = [];
-        }
-        this.userData[this.exchangeListKey].push(result);
-        this.exchangeList.push(result);
-        storage.setItem("exchanges", this.userData);
-        this.addExchangeDialog = false;
-      });
+      this.$api.exchange
+        .addExchange(this.exchangeObj)
+        .then((result) => {
+          if (!this.userData[this.exchangeListKey]) {
+            this.userData[this.exchangeListKey] = [];
+          }
+          this.userData[this.exchangeListKey].push(result);
+          this.exchangeList.push(result);
+          storage.setItem("exchanges", this.userData);
+          this.addExchangeDialog = false;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
     },
     deleteExchange() {
       const id = this.selectedExchange.exchangeId;
