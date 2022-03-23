@@ -16,7 +16,7 @@ export default {
     valuesItem() {
       return [
         {
-          label: "Account Lable",
+          label: "Account Label",
           name: "exchangeName",
         },
         {
