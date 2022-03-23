@@ -52,12 +52,14 @@ export default new Vuex.Store({
     selectedExchange: (state) => {
       if (state.selectedExchange) {
         return state.selectedExchange;
-      } else {
+      } else if (state.exchangeList.length > 0) {
         const exchangeId =
           storage.getItem("selectedExchange") ||
           state.exchangeList[0].exchangeId;
         state.selectedExchange = exchangeId;
         return exchangeId;
+      } else {
+        return "";
       }
     },
     exchangeListStatus: (state) => {
