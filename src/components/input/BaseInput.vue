@@ -87,6 +87,7 @@ export default {
         :data-section="section"
         :data-next="next"
         :type="type"
+        step="any"
         :disabled="disabled"
         @input="(e) => $emit('input', e.target.value)"
       />
