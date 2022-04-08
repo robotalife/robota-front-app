@@ -112,7 +112,7 @@ export default {
                 <span class="g-65 font-14-24 fw-500 m-l-1">Logout</span>
               </v-list-item-title>
             </v-list-item>
-            <router-link to="/settings">
+            <router-link to="/settings/exchange">
               <v-list-item>
                 <v-list-item-title>
                   <!-- <VIcon dark>$admin</VIcon> -->
