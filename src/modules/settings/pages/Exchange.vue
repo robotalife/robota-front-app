@@ -169,7 +169,7 @@ export default {
 
     <v-dialog v-model="addExchangeDialog" width="550" height="600">
       <div class="p-2 bg-white">
-        <p class="gray-2 font-h-2 fw-700">Connect your Binance Account</p>
+        <p class="gray-2 font-h-2 fw-700">Connect your Account</p>
         <p class="gray-2 font-body fw-400 m-t-1">
           At this moment you just can add binance account. A secure connection
           with your exchange account is established using API keys. To learn
@@ -322,7 +322,7 @@ export default {
   }
 
   @include e(exchange-type) {
-    .v-text-field__details {
+    ::v-deep .v-text-field__details {
       display: none;
     }
   }

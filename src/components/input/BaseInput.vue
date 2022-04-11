@@ -55,6 +55,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    step: {
+      type: String,
+      default: "any",
+    },
+    minValue: {
+      type: Number,
+      default: 0,
+    },
   },
   methods: {
     changeValue() {
@@ -88,6 +96,8 @@ export default {
         :data-next="next"
         :type="type"
         :disabled="disabled"
+        :step="step"
+        :min="minValue"
         @input="(e) => $emit('input', e.target.value)"
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
