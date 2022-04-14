@@ -196,7 +196,8 @@ export default {
       this.$api.smartTrade
         .creatOrder(this.orderRequest)
         .then(() => {
-          this.errorMessage = "Order Submited";
+          this.errorMessage = "Order Submitted";
+          this.snackbarColor = "green";
           this.snackbar = true;
         })
         .catch((error) => {

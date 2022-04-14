@@ -63,7 +63,7 @@ export default {
         }
         const calculatedUnitFieldValue = (
           Number(this.positionSizeFieldValue) / Number(this.price)
-        ).toFixed(2);
+        ).toFixed(8);
         this.$emit("update", Number(calculatedUnitFieldValue));
         return String(calculatedUnitFieldValue);
       },
