@@ -1,34 +1,14 @@
 <template>
   <svg
+    width="10"
+    height="10"
+    viewBox="0 0 10 10"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
   >
-    <defs>
-      <filter id="lgqkxrqkta" color-interpolation-filters="auto">
-        <feColorMatrix
-          in="SourceGraphic"
-          values="0 0 0 0 0.064075 0 0 0 0 0.067452 0 0 0 0 0.091089 0 0 0 1.000000 0"
-        />
-      </filter>
-    </defs>
-    <g
-      fill="none"
-      fill-rule="evenodd"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    >
-      <g>
-        <g
-          filter="url(#lgqkxrqkta)"
-          transform="translate(-208.000000, -227.000000) translate(208.000000, 227.000000)"
-        >
-          <g stroke="#200E32" stroke-width="1.5">
-            <path d="M14 0L7 7 0 0" transform="translate(5.000000, 8.500000)" />
-          </g>
-        </g>
-      </g>
-    </g>
+    <path
+      d="M9.58349 3.3335H0.416513C0.261853 3.33354 0.119951 3.39068 0.0479329 3.48193C-0.024085 3.57318 -0.0143696 3.68351 0.0731679 3.76851L4.65665 8.2131C4.73439 8.28847 4.8628 8.3335 5 8.3335C5.1372 8.3335 5.26561 8.28847 5.34334 8.2131L9.92683 3.76851C10.0144 3.68351 10.0241 3.57318 9.95207 3.48193C9.88005 3.39068 9.73815 3.33354 9.58349 3.3335Z"
+      fill="#AFAFAF"
+    />
   </svg>
 </template>

@@ -1,8 +1,8 @@
 const vtkChainWebpack = require('vtk.js/Utilities/config/chainWebpack');
 
 module.exports = {
-  lintOnSave: process.env.NODE_ENV !== 'production',
-
+  lintOnSave: process.env.NODE_ENV !== "production",
+  productionSourceMap: false,
   devServer: {
     overlay: {
       warnings: true,

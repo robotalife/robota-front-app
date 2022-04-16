@@ -44,6 +44,7 @@ export default {
       snackbarColor: "",
       percentageList: [],
       isPercentageListLoaded: false,
+      showBalance: false,
     };
   },
   computed: {
@@ -53,12 +54,12 @@ export default {
   },
   watch: {
     checkExchangeListRequest(state) {
+      this.getUserExchanges();
       if (state === "success") {
         this.fillData();
         this.fetchBalances();
         this.fetchBalance();
         this.fetchPercentageList();
-        this.getUserExchanges();
       }
     },
   },
@@ -88,11 +89,9 @@ export default {
     },
     fetchBalances() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.dashboard
         .fetchBalances(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.balances = result.balances;
           this.isBalancesLoaded = true;
         })
@@ -103,26 +102,23 @@ export default {
     },
     fetchBalance() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.dashboard
         .fetchBalance(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.balance = result.balance;
-          // this.isBalanceLoaded = true;
+          this.showBalance = true;
         })
         .catch((error) => {
+          this.showBalance = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
         });
     },
     fetchPercentageList() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.dashboard
         .fetchPercentageList(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.percentageList = result.assetPercentageValueList;
           this.isPercentageListLoaded = true;
         })
@@ -136,8 +132,8 @@ export default {
     },
     getUserExchanges() {
       const exchangeList = this.$store.getters.exchangeList;
-      if (!exchangeList) {
-        this.$router.push({ name: "settings" });
+      if (exchangeList.length == 0) {
+        this.$router.push({ name: "exchange" });
       }
     },
   },
@@ -150,7 +146,7 @@ export default {
         <!-- <div @click="refreshBalanceValue">
           <BaseButton text="refresh" />
         </div> -->
-        <p class="font-h-1 m-b-2">$ {{ balance }}</p>
+        <p class="font-h-1 m-b-2" v-if="showBalance">$ {{ balance }}</p>
       </div>
       <div class="Dashboard__pie-container d-flex w-1-1 m-b-3">
         <div class="Dashboard__pie">

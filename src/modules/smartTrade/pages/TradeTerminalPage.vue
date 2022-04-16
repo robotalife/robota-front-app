@@ -53,6 +53,7 @@ export default {
         width: window.screen.availWidth,
       },
       selectedExchange: "",
+      value: 0,
     };
   },
   computed: {
@@ -74,6 +75,9 @@ export default {
         return item.value == state;
       });
       this.selectedExchange = selectedExchangeObj[0].text;
+    },
+    currentPrice(value) {
+      this.orderRequest.price = Number(value);
     },
   },
   mounted() {
@@ -106,6 +110,10 @@ export default {
     }
   },
   methods: {
+    updateQuantityValue(value) {
+      console.log(typeof value);
+      this.orderRequest.quantity = value;
+    },
     initTradingView() {
       new window.TradingView.widget({
         width: 980,
@@ -150,6 +158,7 @@ export default {
       const name = e.target.name;
       const value = e.target.value;
       this.orderRequest[name] = Number(value);
+      console.log(this.orderRequest, name, value);
     },
     changeExchange(value) {
       this.orderRequest.exchangeId = value;
@@ -187,7 +196,8 @@ export default {
       this.$api.smartTrade
         .creatOrder(this.orderRequest)
         .then(() => {
-          this.errorMessage = "Order Submited";
+          this.errorMessage = "Order Submitted";
+          this.snackbarColor = "green";
           this.snackbar = true;
         })
         .catch((error) => {
@@ -244,12 +254,14 @@ export default {
               <ManualTrade
                 text="Buy"
                 @changed="changeOrderType"
+                @update="updateQuantityValue"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
                 :availableAsset="availableAsset"
               />
               <ManualTrade
                 text="Sell"
+                @update="updateQuantityValue"
                 @changed="changeOrderType"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
