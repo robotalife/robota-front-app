@@ -52,11 +52,16 @@ export default {
         height: window.screen.availHeight,
         width: window.screen.availWidth,
       },
+      selectedExchange: "",
+      value: 0,
     };
   },
   computed: {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
+    },
+    checkSelectedExchange() {
+      return this.$store.state.selectedExchange;
     },
   },
   watch: {
@@ -64,6 +69,15 @@ export default {
       if (state === "success") {
         this.getUserExchanges();
       }
+    },
+    checkSelectedExchange(state) {
+      const selectedExchangeObj = this.exchangeItems.filter((item) => {
+        return item.value == state;
+      });
+      this.selectedExchange = selectedExchangeObj[0].text;
+    },
+    currentPrice(value) {
+      this.orderRequest.price = Number(value);
     },
   },
   mounted() {
@@ -74,7 +88,9 @@ export default {
   updated: function () {
     this.$nextTick(function () {
       this.initTradingView();
-      const tradingViewContainer = document.getElementById("tradingview_241f2");
+      const tradingViewContainer = document.getElementById(
+        "tradingviewContainer"
+      );
       if (tradingViewContainer) {
         tradingViewContainer.children[0].style.width = "100%";
         tradingViewContainer.children[0].children[0].style.width = "100%";
@@ -86,9 +102,18 @@ export default {
       .exchangeListRequestStatus;
     if (exchangeListCurrentStatus === "success") {
       this.getUserExchanges();
+      const selectedExchangeIdInStore = this.$store.getters.selectedExchange;
+      const selectedExchangeObj = this.exchangeItems.filter((item) => {
+        return item.value == selectedExchangeIdInStore;
+      });
+      this.selectedExchange = selectedExchangeObj;
     }
   },
   methods: {
+    updateQuantityValue(value) {
+      console.log(typeof value);
+      this.orderRequest.quantity = value;
+    },
     initTradingView() {
       new window.TradingView.widget({
         width: 980,
@@ -102,12 +127,11 @@ export default {
         toolbar_bg: "#f1f3f6",
         enable_publishing: false,
         allow_symbol_change: true,
-        container_id: "tradingview_241f2",
+        container_id: "tradingviewContainer",
       });
     },
     getUserExchanges() {
       const exchanges = this.$store.getters.exchangeListItem;
-      console.log(exchanges);
       this.exchangeItems = exchanges;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
@@ -134,6 +158,7 @@ export default {
       const name = e.target.name;
       const value = e.target.value;
       this.orderRequest[name] = Number(value);
+      console.log(this.orderRequest, name, value);
     },
     changeExchange(value) {
       this.orderRequest.exchangeId = value;
@@ -171,7 +196,8 @@ export default {
       this.$api.smartTrade
         .creatOrder(this.orderRequest)
         .then(() => {
-          this.errorMessage = "Order Submited";
+          this.errorMessage = "Order Submitted";
+          this.snackbarColor = "green";
           this.snackbar = true;
         })
         .catch((error) => {
@@ -196,7 +222,7 @@ export default {
       <div class="d-flex w-1-1 jc-center ai-start m-t-4">
         <!-- TradingView Widget BEGIN -->
         <div class="TradingTerminal__trading-view m-r-2 w-1-1">
-          <div id="tradingview_241f2" class="w-1-1"></div>
+          <div id="tradingviewContainer" class="w-1-1"></div>
         </div>
         <!-- TradingView Widget END -->
         <form
@@ -212,7 +238,7 @@ export default {
               v-if="exchangeItems[0]"
               label="Exchange"
               name="exchange"
-              :selected="exchangeItems[0].text"
+              :selected="selectedExchange"
               @changed="changeExchange"
             />
             <BaseSelect
@@ -228,12 +254,14 @@ export default {
               <ManualTrade
                 text="Buy"
                 @changed="changeOrderType"
+                @update="updateQuantityValue"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
                 :availableAsset="availableAsset"
               />
               <ManualTrade
                 text="Sell"
+                @update="updateQuantityValue"
                 @changed="changeOrderType"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
@@ -280,70 +308,6 @@ export default {
     > div {
       border-radius: 6px;
     }
-  }
-}
-
-.Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
-
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
-  }
-
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
-  }
-
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
-  }
-
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
   }
 }
 

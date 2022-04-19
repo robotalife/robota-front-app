@@ -8,7 +8,6 @@ export default {
   computed: {
     layout() {
       if (!this.$route?.matched.length) {
-        console.log("layout1");
         return "div";
       }
       return this.$route.meta?.layout;

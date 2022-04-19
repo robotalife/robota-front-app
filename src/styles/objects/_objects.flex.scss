@@ -40,3 +40,7 @@ $positions: start, center, end, reverse, between, around, evenly;
 .flex-col-reverse {
     flex-direction: column-reverse;
 }
+
+.flex-wrap {
+    flex-wrap: wrap;
+}

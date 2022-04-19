@@ -25,7 +25,13 @@ export default {
     return {
       userInfo: storage.getItem("user")?.email,
       exchangeList: [],
-      isLoading: true,
+      isLoading: false,
+      selectedExchange: [
+        {
+          exchangeName: "Create an exchange",
+          exchangeId: "",
+        },
+      ],
     };
   },
   methods: {
@@ -35,6 +41,7 @@ export default {
       this.$router.push({ name: "signIn" });
     },
     fetchExchangeList() {
+      this.isLoading = true;
       this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "pending");
       this.$api.exchange
         .fetchExchangeList(this.$store.state.user?.id)
@@ -43,7 +50,19 @@ export default {
           this.$store.commit("SET_EXCHANGE_LIST", exchanges);
           this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "success");
           this.exchangeList = this.$store.getters.exchangeListItem;
+          this.selectedExchange = exchanges.filter(
+            (item) => item.exchangeId === this.$store.getters.selectedExchange
+          );
           this.isLoading = false;
+          //if the list is empty then the drop down should not be shown
+          if (this.selectedExchange.length === 0) {
+            this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
+            const defaultExchangeValue = {
+              exchangeName: "Create an exchange",
+              exchangeId: "",
+            };
+            this.selectedExchange.push(defaultExchangeValue);
+          }
         })
         .catch((error) => {
           if (error.response.status === 401) {
@@ -53,10 +72,12 @@ export default {
             this.errorMessage = error.response.data.message;
           }
           this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
+          this.isLoading = false;
         });
     },
     changeExchange(value) {
       this.$store.commit("SET_SELECTED_EXCHANGE", value);
+      location.reload();
     },
   },
 };
@@ -70,10 +91,9 @@ export default {
       <div class="d-flex ai-center">
         <BaseSelect
           :items="exchangeList"
-          v-if="!isLoading"
           name="exchange"
-          :selected="exchangeList[0].text"
-          class="m-r-1"
+          :selected="selectedExchange[0].exchangeName"
+          class="Header__exchange m-r-2"
           @changed="changeExchange"
         />
         <v-menu rounded="lg" offset-y transition="scale-transition">
@@ -92,7 +112,7 @@ export default {
                 <span class="g-65 font-14-24 fw-500 m-l-1">Logout</span>
               </v-list-item-title>
             </v-list-item>
-            <router-link to="/settings">
+            <router-link to="/settings/exchange">
               <v-list-item>
                 <v-list-item-title>
                   <!-- <VIcon dark>$admin</VIcon> -->
@@ -131,6 +151,10 @@ export default {
       width: 185px !important;
       height: 42px !important;
     }
+  }
+
+  @include e(exchange) {
+    max-height: 40px;
   }
 }
 </style>

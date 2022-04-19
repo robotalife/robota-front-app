@@ -61,7 +61,9 @@ export default {
     :disabled="disabled"
     depressed
   >
-    <VIcon v-if="beforeIcon" class="m-r-1" dark>{{ beforeIcon }}</VIcon>
+    <VIcon v-if="beforeIcon" :class="[text && 'm-r-1']" dark>{{
+      beforeIcon
+    }}</VIcon>
     {{ text }}
     <VIcon v-if="afterIcon" dark>{{ afterIcon }}</VIcon>
   </VBtn>
