@@ -12,14 +12,36 @@ export default {
   <div class="SideBar p-x-4 p-y-6 d-flex flex-col jc-between">
     <div class="d-flex flex-col">
       <RouterLink to="/dashboard">
-        <VIcon dark>$dashboard</VIcon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$dashboard</VIcon>
+          </template>
+          <span>Dashboard</span>
+        </v-tooltip>
       </RouterLink>
       <RouterLink to="/smart-trade/trading-terminal" class="m-t-5">
-        <VIcon dark>$smartTrade</VIcon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$smartTrade</VIcon>
+          </template>
+          <span>Trading Terminal</span>
+        </v-tooltip>
       </RouterLink>
-      <VIcon dark class="m-t-5">$portfolio</VIcon>
+      <RouterLink to="/portfolio" class="m-t-5">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$portfolio</VIcon>
+          </template>
+          <span>Portfolio</span>
+        </v-tooltip>
+      </RouterLink>
       <RouterLink to="/settings/profile" class="m-t-5">
-        <VIcon dark>$setting</VIcon>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$setting</VIcon>
+          </template>
+          <span>Settings</span>
+        </v-tooltip>
       </RouterLink>
     </div>
     <div class="d-flex flex-col">

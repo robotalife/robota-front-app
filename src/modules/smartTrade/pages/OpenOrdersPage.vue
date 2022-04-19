@@ -1,8 +1,11 @@
 <script>
 // import storage from "@/utils/storage";
+import BaseButton from "@/components/button/BaseButton";
 export default {
   name: "OpenOrders",
-  components: {},
+  components: {
+    BaseButton,
+  },
   data() {
     return {
       snackbar: false,
@@ -21,7 +24,7 @@ export default {
         { text: "Type", value: "type" },
         // { text: "Source", value: "source" },
         { text: "Creation date", value: "creationDate" },
-        { text: "Action" },
+        { text: "Action", value: "action" },
       ],
       openOrders: [],
     };
@@ -60,6 +63,23 @@ export default {
           this.snackbar = true;
         });
     },
+    deleteOrder(id) {
+      this.$api.smartTrade
+        .deleteOpenOrder(id)
+        .then(() => {
+          this.fetchOrders();
+          this.snackbar = true;
+          this.snackbarColor = "green";
+          this.errorMessage = `order deleted successfully`;
+        })
+        .catch((error) => {
+          console.log(error.response.data.message);
+          this.snackbar = true;
+          this.snackbarColor = "pink";
+          this.errorMessage =
+            "There is a problem with the service, please try again later.";
+        });
+    },
   },
 };
 </script>
@@ -74,8 +94,14 @@ export default {
         :headers="headers"
         :items="openOrders"
         :items-per-page="5"
-        class="elevation-1"
-      ></v-data-table>
+        class="elevation-1 w-1-1"
+      >
+        <template v-slot:item.action="{ item }">
+          <div @click="deleteOrder(item.id)">
+            <BaseButton beforeIcon="$cross" class="bg-tomato-red" />
+          </div>
+        </template>
+      </v-data-table>
     </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
@@ -96,69 +122,6 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-.Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
-
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
-  }
-
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
-  }
-
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
-  }
-
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
-  }
-}
 
 .router-link-active {
   border-bottom: 2px solid rgb(79, 79, 243);

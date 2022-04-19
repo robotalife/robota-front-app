@@ -50,7 +50,20 @@ export default new Vuex.Store({
       return listItems;
     },
     selectedExchange: (state) => {
-      return state.selectedExchange || state.exchangeList[0].exchangeId;
+      if (state.selectedExchange) {
+        return state.selectedExchange;
+      } else if (state.exchangeList.length > 0) {
+        const exchangeId =
+          storage.getItem("selectedExchange") ||
+          state.exchangeList[0].exchangeId;
+        state.selectedExchange = exchangeId;
+        return exchangeId;
+      } else {
+        return "";
+      }
+    },
+    exchangeListStatus: (state) => {
+      return state.exchangeListRequestStatus;
     },
   },
   actions: {},

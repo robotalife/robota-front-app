@@ -82,7 +82,7 @@ export default {
         </p>
       </div>
 
-      <BaseButton class="w-1-1 m-t-3 Login--submit" text="Login" size="small" />
+      <BaseButton class="w-1-1 m-t-3 Login__submit" text="Login" size="small" />
       <div class="d-flex m-t-4 jc-center fw-500">
         <p class="font-14-24 g-2 m-r-0-5">Forgot your password?</p>
         <RouterLink to="/forgot-password" class="Login__reset">
@@ -117,7 +117,7 @@ export default {
 @import "@/styles/utils/bem";
 
 .Login {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
     background-image: $horizental;
     border-radius: 30px;

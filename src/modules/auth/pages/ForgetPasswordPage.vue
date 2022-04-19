@@ -61,7 +61,7 @@ export default {
       </p>
 
       <BaseButton
-        class="w-1-1 m-t-3 ForgetPassword--submit"
+        class="w-1-1 m-t-3 ForgetPassword__submit"
         text="Reset Password"
         size="small"
       />
@@ -87,7 +87,7 @@ export default {
 @import "@/styles/utils/bem";
 
 .ForgetPassword {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
     background-image: $horizental;
     border-radius: 30px;

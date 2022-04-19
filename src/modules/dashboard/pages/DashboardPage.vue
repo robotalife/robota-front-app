@@ -1,13 +1,50 @@
 <script>
-import storage from "@/utils/storage";
+import Doughnut from "./SampleChart";
+// import BaseButton from "../../../components/button/BaseButton.vue";
+
 export default {
-  name: "Main",
-  components: {},
+  components: {
+    Doughnut,
+  },
   data() {
     return {
+      isBalancesLoaded: false,
+      datacollection: {
+        labels: [],
+        datasets: [
+          {
+            backgroundColor: [],
+            data: [],
+          },
+        ],
+      },
+      isLoaded: false,
+      headers: [
+        {
+          text: "",
+          align: "start",
+          sortable: false,
+          value: "logo",
+        },
+        {
+          text: "Name",
+          align: "start",
+          sortable: true,
+          value: "assetName",
+        },
+        { text: "Total", value: "assetTotal", sortable: true },
+        { text: "Available", value: "assetAvailable", sortable: true },
+        { text: "Value(BTC)", value: "assetValue" },
+        { text: "Last Price", value: "lastPrice" },
+      ],
+      balances: [],
+      balance: "N/A",
       snackbar: false,
       errorMessage: "",
-      snackbarColor: "pink",
+      snackbarColor: "",
+      percentageList: [],
+      isPercentageListLoaded: false,
+      showBalance: false,
     };
   },
   computed: {
@@ -17,35 +54,136 @@ export default {
   },
   watch: {
     checkExchangeListRequest(state) {
-      console.log(state, "check status");
+      this.getUserExchanges();
       if (state === "success") {
-        this.getUserExchanges();
+        this.fillData();
+        this.fetchBalances();
+        this.fetchBalance();
+        this.fetchPercentageList();
       }
     },
   },
-  mounted: function () {},
+  created() {
+    const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
+    if (exchangeListRequestStatus === "success") {
+      this.fillData();
+      this.fetchBalances();
+      this.fetchBalance();
+      this.fetchPercentageList();
+    }
+  },
   methods: {
-    logout() {
-      storage.removeItem("token");
-      storage.removeItem("user");
-      this.$router.push({ name: "login" });
+    fillData() {
+      // eslint-disable-next-line prettier/prettier
+      const exchangeListCurrentStatus =
+        this.$store.state.exchangeListRequestStatus;
+      if (exchangeListCurrentStatus === "success") {
+        const exchangeId = this.$store.getters.selectedExchange;
+        this.$api.dashboard.fetchPieChartData(exchangeId).then((result) => {
+          this.datacollection.labels = result.labels;
+          this.datacollection.datasets[0].data = result.data;
+          this.datacollection.datasets[0].backgroundColor = result.colors;
+          this.isLoaded = true;
+        });
+      }
+    },
+    fetchBalances() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      this.$api.dashboard
+        .fetchBalances(selectedExchange)
+        .then((result) => {
+          this.balances = result.balances;
+          this.isBalancesLoaded = true;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+    },
+    fetchBalance() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      this.$api.dashboard
+        .fetchBalance(selectedExchange)
+        .then((result) => {
+          this.balance = result.balance;
+          this.showBalance = true;
+        })
+        .catch((error) => {
+          this.showBalance = false;
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+    },
+    fetchPercentageList() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      this.$api.dashboard
+        .fetchPercentageList(selectedExchange)
+        .then((result) => {
+          this.percentageList = result.assetPercentageValueList;
+          this.isPercentageListLoaded = true;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
+    },
+    refreshBalanceValue() {
+      this.fetchBalance();
     },
     getUserExchanges() {
       const exchangeList = this.$store.getters.exchangeList;
-      if (!exchangeList) {
-        this.$router.push({ name: "settings" });
+      if (exchangeList.length == 0) {
+        this.$router.push({ name: "exchange" });
       }
     },
   },
 };
 </script>
-
 <template>
-  <div class="h-1-1 w-1-1 d-flex flex-col ai-center jc-center">
-    <div class="Dashboard">Dashboard</div>
-    <RouterLink to="/smart-trade/trading-terminal" class="Login__reset"
-      >Smart Trade</RouterLink
-    >
+  <div>
+    <div class="Dashboard d-flex flex-col w-1-1">
+      <div class="d-flex jc-end">
+        <!-- <div @click="refreshBalanceValue">
+          <BaseButton text="refresh" />
+        </div> -->
+        <p class="font-h-1 m-b-2" v-if="showBalance">$ {{ balance }}</p>
+      </div>
+      <div class="Dashboard__pie-container d-flex w-1-1 m-b-3">
+        <div class="Dashboard__pie">
+          <Doughnut v-if="isLoaded" :chart-data="datacollection"></Doughnut>
+        </div>
+        <div
+          v-if="isPercentageListLoaded"
+          class="m-l-4 ai-center d-flex flex-col flex-wrap ai-start"
+        >
+          <div
+            class="m-t-1 m-r-4 d-flex"
+            v-for="(item, index) in percentageList"
+            :key="index"
+          >
+            <img :src="item.logo" class="Dashboard__symbol-icon m-r-1" />
+            <p class="Dashboard__symbol-name m-r-1">{{ item.assetName }}</p>
+            <p>{{ item.percentage }}</p>
+          </div>
+        </div>
+      </div>
+      <div
+        v-if="isBalancesLoaded"
+        class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"
+      >
+        <v-data-table
+          :headers="headers"
+          :items="balances"
+          :hide-default-footer="true"
+          :disable-pagination="true"
+          class="elevation-1 w-1-1"
+        >
+          <template v-slot:item.logo="{ item }">
+            <img class="Dashboard__symbol-icon" :src="item.logo" />
+          </template>
+        </v-data-table>
+      </div>
+    </div>
     <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
       {{ errorMessage }}
       <template v-slot:action="{ attrs }">
@@ -61,71 +199,25 @@ export default {
     </v-snackbar>
   </div>
 </template>
-
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 .Dashboard {
-  background-color: #f1f2f4;
-  max-height: 92vh;
-
-  @include e(btn) {
-    &-cancel {
-      background-color: $white !important;
-      border: 1px solid $dark-blue-20;
-      color: $gray-100;
-    }
-
-    @include m(white) {
-      color: $white;
-    }
+  @include e(symbol-icon) {
+    max-width: 24px;
+    max-height: 24px;
   }
 
-  @include e(status) {
-    height: 10px;
-    width: 10px;
-    border-radius: 10px;
-
-    @include m(Completed) {
-      background-color: $success;
-    }
-
-    @include m(Running) {
-      background-color: $primary-blue-100;
-    }
-
-    @include m(Pending) {
-      background-color: $warning;
-    }
-
-    @include m(Canceled) {
-      background-color: $error;
-    }
+  @include e(pie-container) {
+    max-height: 300px;
   }
 
-  @include e(card) {
-    border-radius: 10px;
-    max-height: 188px;
-    min-width: 170px;
-    cursor: pointer;
-
-    &-title {
-      color: $white;
-    }
-
-    &:hover {
-      border: 1px solid $primary-blue-100;
-    }
-
-    &-icon {
-      transform: rotate(45deg);
-    }
+  @include e(pie) {
+    max-width: 300px;
   }
 
-  @include e(more) {
-    width: 32px;
-    height: 32px;
-    padding: 4px;
+  @include e(symbol-name) {
+    width: 40px;
   }
 }
 </style>

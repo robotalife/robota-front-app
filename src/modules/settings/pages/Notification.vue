@@ -57,7 +57,4 @@ export default {
     </v-snackbar>
   </div>
 </template>
-<style scoped lang="scss">
-@import "@/styles/global/color";
-@import "@/styles/utils/bem";
-</style>
+<style scoped lang="scss"></style>

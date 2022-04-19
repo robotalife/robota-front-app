@@ -23,8 +23,8 @@ export default {
       default: "",
     },
     availableAsset: {
-      type: String,
-      default: "",
+      type: Number,
+      default: 0,
     },
   },
   data() {
@@ -61,8 +61,10 @@ export default {
         ) {
           return "";
         }
-        const calculatedUnitFieldValue =
-          Number(this.positionSizeFieldValue) / Number(this.price);
+        const calculatedUnitFieldValue = (
+          Number(this.positionSizeFieldValue) / Number(this.price)
+        ).toFixed(8);
+        this.$emit("update", Number(calculatedUnitFieldValue));
         return String(calculatedUnitFieldValue);
       },
       set: function (unitFieldValue) {
@@ -71,7 +73,9 @@ export default {
         }
         const calculatedPositionSizeFieldValue =
           Number(unitFieldValue) * Number(this.price);
-        this.positionSizeFieldValue = String(calculatedPositionSizeFieldValue);
+        this.positionSizeFieldValue = String(
+          calculatedPositionSizeFieldValue.toFixed(8)
+        );
       },
     },
   },

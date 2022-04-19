@@ -96,7 +96,7 @@ export default {
       </div>
 
       <BaseButton
-        class="w-1-1 m-t-3 SignUp--submit"
+        class="w-1-1 m-t-3 SignUp__submit"
         text="Sign Up"
         size="small"
       />
@@ -128,7 +128,7 @@ export default {
 @import "@/styles/utils/bem";
 
 .SignUp {
-  @include m(submit) {
+  @include e(submit) {
     color: $white;
     background-image: $horizental;
     border-radius: 30px;
