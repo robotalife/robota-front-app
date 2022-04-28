@@ -95,7 +95,6 @@ export default {
         :data-section="section"
         :data-next="next"
         :type="type"
-        step="any"
         :disabled="disabled"
         :step="step"
         :min="minValue"
