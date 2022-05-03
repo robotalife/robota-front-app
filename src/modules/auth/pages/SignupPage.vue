@@ -29,7 +29,11 @@ export default {
       this.$api.auth
         .registerUser(this.emailAddress, this.userPassword)
         .then(() => {
-          this.$router.push({ name: "signIn" });
+          this.snackbar = true;
+          this.snackbarColor = "green";
+          this.errorMessage =
+            "Please check your email for the activation email.";
+          setTimeout(() => this.$router.push({ name: "signIn" }), 15000);
         })
         .catch((error) => {
           this.snackbar = true;
