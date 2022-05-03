@@ -20,6 +20,7 @@ export default {
       passwordIsNotValid: false,
       emailValidation: "",
       passwordValidation: "",
+      termsAndConditions: false,
     };
   },
   methods: {
@@ -95,6 +96,13 @@ export default {
         </p>
       </div>
 
+      <label class="d-flex ai-center m-t-3">
+        <input type="checkbox" value="termsAndConditions" />
+        <p class="m-l-0-5 font-text-small">
+          I agree to the <a href="#" class="SignUp__link">Term & Conditions</a>
+        </p>
+      </label>
+
       <BaseButton
         class="w-1-1 m-t-3 SignUp__submit"
         text="Sign Up"
@@ -146,6 +154,10 @@ export default {
 
   @include e(error) {
     color: $error;
+  }
+
+  @include e(link) {
+    color: $blue;
   }
 }
 </style>
