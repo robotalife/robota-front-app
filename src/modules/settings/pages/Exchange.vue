@@ -88,6 +88,9 @@ export default {
           this.exchangeList.push(result);
           storage.setItem("exchanges", this.userData);
           this.addExchangeDialog = false;
+          this.errorMessage = "Successfully created an exchange.";
+          this.snackbar = true;
+          this.snackbarColor = "green";
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;

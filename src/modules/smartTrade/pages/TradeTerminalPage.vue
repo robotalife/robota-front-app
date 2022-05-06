@@ -1,5 +1,6 @@
 <script>
 import BaseSelect from "@/components/select/BaseSelect.vue";
+import AutoCompleteSelect from "@/components/select/AutoCompleteSelect.vue";
 import Tabs from "@/components/tabs/Tabs.vue";
 import ManualTrade from "./ManualTrade.vue";
 import storage from "@/utils/storage";
@@ -7,6 +8,7 @@ export default {
   name: "TradingTerminal",
   components: {
     BaseSelect,
+    AutoCompleteSelect,
     Tabs,
     ManualTrade,
   },
@@ -241,7 +243,7 @@ export default {
               :selected="selectedExchange"
               @changed="changeExchange"
             />
-            <BaseSelect
+            <AutoCompleteSelect
               :items="coinMarketItems"
               v-if="coinMarketItems[0]"
               label="Symbol"
