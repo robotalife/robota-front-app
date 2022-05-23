@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run serve",
-    "serve": "vue-cli-service serve --port 8081",
-    "build": "vue-cli-service build",
+    "start": "npm run serve --mode $NODE_ENV",
+    "serve": "vue-cli-service serve --mode $NODE_ENV",
+    "build": "vue-cli-service build --mode $NODE_ENV",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

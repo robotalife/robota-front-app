@@ -27,6 +27,7 @@ export default {
         { text: "Action", value: "action" },
       ],
       openOrders: [],
+      isLoading: false,
     };
   },
   computed: {
@@ -54,7 +55,6 @@ export default {
       this.$api.smartTrade
         .fetchOpenOrders(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.openOrders = result.openOrders;
           this.isOpenOrdersLoaded = true;
         })
@@ -64,16 +64,18 @@ export default {
         });
     },
     deleteOrder(id) {
+      this.isLoading = true;
       this.$api.smartTrade
         .deleteOpenOrder(id)
         .then(() => {
           this.fetchOrders();
+          this.isLoading = false;
           this.snackbar = true;
           this.snackbarColor = "green";
           this.errorMessage = `order deleted successfully`;
         })
-        .catch((error) => {
-          console.log(error.response.data.message);
+        .catch(() => {
+          this.isLoading = false;
           this.snackbar = true;
           this.snackbarColor = "pink";
           this.errorMessage =
@@ -98,7 +100,11 @@ export default {
       >
         <template v-slot:item.action="{ item }">
           <div @click="deleteOrder(item.id)">
-            <BaseButton beforeIcon="$cross" class="bg-tomato-red" />
+            <BaseButton
+              beforeIcon="$cross"
+              class="bg-tomato-red"
+              :isLoading="isLoading"
+            />
           </div>
         </template>
       </v-data-table>

@@ -16,19 +16,22 @@ export default {
       emailRules: this.$rules.email,
       emailIsNotValid: false,
       emailValidation: "",
+      isButtonLoading: false,
     };
   },
   methods: {
     submit() {
+      this.isButtonLoading = true;
       this.$api.auth
         .initiateResetPassword(this.emailAddress)
         .then(() => {
+          this.isButtonLoading = false;
           this.errorMessage = `Rest Password link, sent to ${this.emailAddress}`;
           this.snackbarColor = "green";
           this.snackbar = true;
         })
         .catch((error) => {
-          console.log(error, "er");
+          this.isButtonLoading = false;
           this.snackbar = true;
           this.snackbarColor = "red";
           this.errorMessage = error?.response?.data.message;
@@ -64,6 +67,7 @@ export default {
         class="w-1-1 m-t-3 ForgetPassword__submit"
         text="Reset Password"
         size="small"
+        :isLoading="isButtonLoading"
       />
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
         {{ errorMessage }}

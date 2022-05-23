@@ -20,6 +20,6 @@ new Vue({
   router,
   store,
   vuetify,
-  VeeValidate,
+  // VeeValidate,
   render: (h) => h(App),
 }).$mount("#app");

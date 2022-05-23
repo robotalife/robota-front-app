@@ -7,16 +7,13 @@ export default {
     };
   },
   created() {
-    console.log("Activate");
     this.activateUser();
   },
   methods: {
     activateUser() {
-      this.loaded = true;
       this.$api.auth
         .activateUser(this.$route.query.key)
-        .then((result) => {
-          console.log(result);
+        .then(() => {
           this.$router.push({ name: "signIn" });
         })
         .catch((error) => {

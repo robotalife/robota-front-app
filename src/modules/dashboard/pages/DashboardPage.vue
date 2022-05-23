@@ -104,7 +104,7 @@ export default {
     fillData() {
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
-        this.$store.state.exchangeListRequestStatus;
+          this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
         this.$api.dashboard.fetchPieChartData(exchangeId).then((result) => {
@@ -119,7 +119,6 @@ export default {
               value: Number(this.datacollection.datasets[0].data[i]),
               color: this.datacollection.datasets[0].backgroundColor[0],
             });
-            console.log(chartData, "chart data");
           }
           this.isLoaded = true;
         });
@@ -170,7 +169,7 @@ export default {
     },
     getUserExchanges() {
       const exchangeList = this.$store.getters.exchangeList;
-      if (exchangeList.length == 0) {
+      if (exchangeList === undefined || exchangeList.length === 0) {
         this.$router.push({ name: "exchange" });
       }
     },
@@ -246,6 +245,7 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
+
 .Dashboard {
   @include e(symbol-icon) {
     max-width: 24px;

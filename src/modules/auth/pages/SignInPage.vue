@@ -20,13 +20,16 @@ export default {
       passwordIsNotValid: false,
       emailValidation: "",
       passwordValidation: "",
+      isButtonLoading: false,
     };
   },
   methods: {
     submit() {
+      this.isButtonLoading = true;
       this.$api.auth
         .loginUser(this.emailAddress, this.userPassword)
         .then((result) => {
+          this.isButtonLoading = false;
           storage.setItem("token", result.token);
           this.$store.commit("SET_USER", {
             id: result.id,
@@ -35,6 +38,7 @@ export default {
           this.$router.push({ name: "dashboard" });
         })
         .catch((error) => {
+          this.isButtonLoading = false;
           this.snackbar = true;
           this.errorMessage = error?.response?.data.message;
         });
@@ -82,7 +86,12 @@ export default {
         </p>
       </div>
 
-      <BaseButton class="w-1-1 m-t-3 Login__submit" text="Login" size="small" />
+      <BaseButton
+        class="w-1-1 m-t-3 Login__submit"
+        text="Login"
+        size="small"
+        :isLoading="isButtonLoading"
+      />
       <div class="d-flex m-t-4 jc-center fw-500">
         <p class="font-14-24 g-2 m-r-0-5">Forgot your password?</p>
         <RouterLink to="/forgot-password" class="Login__reset">

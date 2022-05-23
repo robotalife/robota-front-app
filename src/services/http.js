@@ -14,7 +14,6 @@ class Http {
 
   normalizeOptions(options) {
     const hasToken = storage.getItem("token");
-    // console.log(hasToken.token);
     return {
       options,
       ...options,
