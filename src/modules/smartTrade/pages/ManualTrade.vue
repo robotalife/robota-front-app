@@ -61,9 +61,9 @@ export default {
         ) {
           return "";
         }
-        const calculatedUnitFieldValue = (
-          Number(this.positionSizeFieldValue) / Number(this.price)
-        ).toFixed(8);
+        const calculatedUnitFieldValue = parseFloat(
+          (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
+        );
         this.$emit("update", Number(calculatedUnitFieldValue));
         return String(calculatedUnitFieldValue);
       },
@@ -74,7 +74,7 @@ export default {
         const calculatedPositionSizeFieldValue =
           Number(unitFieldValue) * Number(this.price);
         this.positionSizeFieldValue = String(
-          calculatedPositionSizeFieldValue.toFixed(8)
+          parseFloat(calculatedPositionSizeFieldValue.toFixed(8))
         );
       },
     },

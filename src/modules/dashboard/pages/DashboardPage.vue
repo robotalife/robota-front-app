@@ -45,6 +45,34 @@ export default {
       percentageList: [],
       isPercentageListLoaded: false,
       showBalance: false,
+      chartOptions: {
+        series: [
+          {
+            type: "treemap",
+            // layoutAlgorithm: "stripes",
+            // alternateStartingDirection: true,
+            // levels: [
+            //   {
+            //     level: 1,
+            //     layoutAlgorithm: "sliceAndDice",
+            //     dataLabels: {
+            //       enabled: true,
+            //       align: "left",
+            //       verticalAlign: "top",
+            //       style: {
+            //         fontSize: "15px",
+            //         fontWeight: "bold",
+            //       },
+            //     },
+            //   },
+            // ],
+            data: [],
+          },
+        ],
+        title: {
+          text: "Balances Chart",
+        },
+      },
     };
   },
   computed: {
@@ -83,6 +111,16 @@ export default {
           this.datacollection.labels = result.labels;
           this.datacollection.datasets[0].data = result.data;
           this.datacollection.datasets[0].backgroundColor = result.colors;
+          const dataLength = this.datacollection.datasets[0].data.length;
+          const chartData = this.chartOptions.series[0].data;
+          for (let i = 0; i < dataLength; i++) {
+            chartData.push({
+              name: this.datacollection.labels[i],
+              value: Number(this.datacollection.datasets[0].data[i]),
+              color: this.datacollection.datasets[0].backgroundColor[0],
+            });
+            console.log(chartData, "chart data");
+          }
           this.isLoaded = true;
         });
       }
@@ -167,6 +205,12 @@ export default {
           </div>
         </div>
       </div>
+      <highcharts
+        v-if="isLoaded"
+        class="hc"
+        :options="chartOptions"
+        ref="chart"
+      ></highcharts>
       <div
         v-if="isBalancesLoaded"
         class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"

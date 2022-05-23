@@ -41,6 +41,10 @@ export default {
       type: String,
       default: "",
     },
+    isLoading: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
@@ -58,7 +62,8 @@ export default {
       'BaseButton p-x-2 font',
       size === 'normal' ? 'p-y-0-5' : 'p-y-1 BaseButton--small',
     ]"
-    :disabled="disabled"
+    :disabled="isLoading || disabled"
+    :loading="isLoading"
     depressed
   >
     <VIcon v-if="beforeIcon" :class="[text && 'm-r-1']" dark>{{
@@ -79,6 +84,11 @@ export default {
 
   @include m(small) {
     height: 40px !important;
+  }
+
+  &:disabled {
+    background-color: $gray-6 !important;
+    background-image: none !important;
   }
 }
 </style>
