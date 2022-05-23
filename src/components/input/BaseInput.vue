@@ -63,6 +63,10 @@ export default {
       type: Number,
       default: 0,
     },
+    validationRules: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
     changeValue() {
@@ -98,11 +102,13 @@ export default {
         :disabled="disabled"
         :step="step"
         :min="minValue"
+        v-validate="'required|email'"
         @input="(e) => $emit('input', e.target.value)"
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>
     </div>
+    <p class="red font-12-16 m-t-1">{{ errors.first(`${name}`) }}</p>
   </div>
 </template>
 
