@@ -1,10 +1,14 @@
 <script>
 import BaseInput from "@/components/input/BaseInput.vue";
+// import TextField from "@/components/input/TextFiled.vue";
+// import { VueRecaptcha } from 'vue-recaptcha';
 import BaseButton from "@/components/button/BaseButton.vue";
 export default {
   name: "SignUp",
   components: {
     BaseInput,
+    // TextField,
+    // VueRecaptcha,
     BaseButton,
   },
   data() {
@@ -21,60 +25,75 @@ export default {
       emailValidation: "",
       passwordValidation: "",
       termsAndConditions: false,
+      required: (value) => !!value || "the field is required.",
+      email: function (value) {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "e-mail is not valid.";
+      },
     };
   },
   methods: {
     submit() {
-      console.log(this.emailAddress, this.userPassword, this.rpPassword);
-      this.$api.auth
-        .registerUser(this.emailAddress, this.userPassword)
-        .then(() => {
-          this.snackbar = true;
-          this.snackbarColor = "green";
-          this.errorMessage =
-            "Please check your email for the activation email.";
-          setTimeout(() => this.$router.push({ name: "signIn" }), 15000);
-        })
-        .catch((error) => {
-          this.snackbar = true;
-          this.errorMessage = error?.response?.data.message;
-        });
+      console.log("submit");
+      if (
+        this.emailAddress &&
+        this.userPassword &&
+        this.rpPassword &&
+        this.termsAndConditions
+      ) {
+        this.$api.auth
+          .registerUser(this.emailAddress, this.userPassword)
+          .then(() => {
+            this.$router.push({ name: "signIn" });
+          })
+          .catch((error) => {
+            this.snackbar = true;
+            this.errorMessage = error?.response?.data.message;
+          });
+      } else {
+        this.changeValues();
+      }
     },
     changeValues(e) {
-      const value = e.target.value;
-      const name = e.target.name;
-      const emailRegex = new RegExp(/.+@.+\..+/);
-      if (name === "email") {
-        if (value === "") {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is required";
-        } else if (emailRegex.test(value)) {
-          this.emailAddress = value;
-          this.emailIsNotValid = false;
-        } else {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is not valid";
-        }
-      } else if (name === "password") {
-        if (value === "") {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "password is required";
-        } else {
-          this.userPassword = value;
-          this.passwordIsNotValid = false;
-        }
-      } else {
-        if (value === "") {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "password is required";
-        } else if (value !== this.userPassword) {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "passwords are not matched";
-        } else {
-          this.rpPassword = value;
-          this.passwordIsNotValid = false;
-        }
-      }
+      const value = e?.target.value;
+      // const name = e?.target.name;
+      // const emailRegex = new RegExp(/.+@.+\..+/);
+      console.log(this.email(value));
+      // if (name === "email") {
+      //   if (value === "") {
+      //     this.emailIsNotValid = true;
+      //     this.emailValidation = "email is required";
+      //   } else if (emailRegex.test(value)) {
+      //     this.emailAddress = value;
+      //     this.emailIsNotValid = false;
+      //   } else {
+      //     this.emailIsNotValid = true;
+      //     this.emailValidation = "email is not valid";
+      //   }
+      // } else if (name === "password") {
+      //   if (value === "") {
+      //     this.passwordIsNotValid = true;
+      //     this.passwordValidation = "password is required";
+      //   } else {
+      //     this.userPassword = value;
+      //     this.passwordIsNotValid = false;
+      //   }
+      // } else {
+      //   if (value === "") {
+      //     this.passwordIsNotValid = true;
+      //     this.passwordValidation = "password is required";
+      //   } else if (value !== this.userPassword) {
+      //     this.passwordIsNotValid = true;
+      //     this.passwordValidation = "passwords are not matched";
+      //   } else {
+      //     this.rpPassword = value;
+      //     this.passwordIsNotValid = false;
+      //   }
+      // }
+    },
+    checkReCaptcha() {
+      console.log("Checking");
+      this.$refs.recaptcha.execute();
     },
   },
 };
@@ -84,9 +103,9 @@ export default {
     <p class="font-h-3 brand-purple fw-700">Sign Up</p>
     <form class="m-t-3" @submit.prevent="submit" @change="changeValues">
       <BaseInput label="Email" type="email" name="email" />
-      <p v-if="emailIsNotValid" class="SignUp__error font-12-16">
-        {{ emailValidation }}
-      </p>
+      <!-- <p v-if="emailIsNotValid" class="SignUp__error font-12-16">
+        {{ errors.first("email") }}
+      </p> -->
       <div class="m-t-2">
         <BaseInput label="Password" type="password" name="password" />
         <p v-if="passwordIsNotValid" class="SignUp__error font-12-16">
@@ -106,8 +125,11 @@ export default {
           I agree to the <a href="#" class="SignUp__link">Term & Conditions</a>
         </p>
       </label>
-
+      <div>
+        <!-- <vue-recaptcha ref="recaptcha" sitekey="" /> -->
+      </div>
       <BaseButton
+        :disabled="false"
         class="w-1-1 m-t-3 SignUp__submit"
         text="Sign Up"
         size="small"
