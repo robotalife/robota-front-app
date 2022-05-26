@@ -31,9 +31,7 @@ export default {
   },
   watch: {
     checkExchangeListRequest(state) {
-      console.log(state, "check status");
       if (state === "success") {
-        console.log("call fetch orders");
         this.fetchOrders();
       }
     },
@@ -48,11 +46,9 @@ export default {
   methods: {
     fetchOrders() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.smartTrade
         .fetchOrderHistory(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.openOrders = result.orders;
           this.isOpenOrdersLoaded = true;
         })

@@ -56,6 +56,7 @@ export default {
       },
       selectedExchange: "",
       value: 0,
+      isLoading: false,
     };
   },
   computed: {
@@ -113,7 +114,6 @@ export default {
   },
   methods: {
     updateQuantityValue(value) {
-      console.log(typeof value);
       this.orderRequest.quantity = value;
     },
     initTradingView() {
@@ -160,7 +160,6 @@ export default {
       const name = e.target.name;
       const value = e.target.value;
       this.orderRequest[name] = Number(value);
-      console.log(this.orderRequest, name, value);
     },
     changeExchange(value) {
       this.orderRequest.exchangeId = value;
@@ -195,14 +194,17 @@ export default {
       this.tab = value;
     },
     submitOrderRequest() {
+      this.isLoading = true;
       this.$api.smartTrade
         .creatOrder(this.orderRequest)
         .then(() => {
+          this.isLoading = false;
           this.errorMessage = "Order Submitted";
           this.snackbarColor = "green";
           this.snackbar = true;
         })
         .catch((error) => {
+          this.isLoading = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
         });
@@ -260,6 +262,7 @@ export default {
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
                 :availableAsset="availableAsset"
+                :isFormLoading="isLoading"
               />
               <ManualTrade
                 text="Sell"
@@ -267,8 +270,9 @@ export default {
                 @changed="changeOrderType"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
+                :isFormLoading="isLoading"
               />
-              <ManualTrade />
+              <ManualTrade :isFormLoading="true" />
             </v-tabs-items>
           </div>
         </form>

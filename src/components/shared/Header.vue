@@ -54,8 +54,10 @@ export default {
             (item) => item.exchangeId === this.$store.getters.selectedExchange
           );
           this.isLoading = false;
-          //if the list is empty then the drop down should not be shown
-          if (this.selectedExchange.length === 0) {
+          if (
+            this.selectedExchange === undefined ||
+            this.selectedExchange.length === 0
+          ) {
             this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
             const defaultExchangeValue = {
               exchangeName: "Create an exchange",

@@ -17,6 +17,7 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
+      isButtonLoading: false,
     };
   },
   methods: {
@@ -42,17 +43,18 @@ export default {
       }
     },
     submit() {
-      this.resetkey = this.$route.query.key;
       if (!this.validatePassword(this.password)) {
         return;
       }
+      this.isButtonLoading = true;
       this.$api.auth
         .finishResetPassword(this.password, this.$route.query.key)
         .then(() => {
+          this.isButtonLoading = false;
           this.$router.push({ name: "signIn" });
         })
         .catch((error) => {
-          console.log(error, "er");
+          this.isButtonLoading = false;
           this.snackbar = true;
           this.errorMessage = error?.response?.data.message;
         });
@@ -77,6 +79,7 @@ export default {
         class="w-1-1 m-t-3 bg-primary ChangePassword__submit"
         text="Change Password"
         size="small"
+        :isLoading="isButtonLoading"
       />
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
         {{ errorMessage }}

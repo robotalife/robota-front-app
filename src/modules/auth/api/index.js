@@ -5,6 +5,8 @@ const REGISTER_ENDPOINT = "/signup";
 const ACTIVATE_USER_ENDPOINT = (id) => `/user/activate?key=${id}`;
 const INITIATE_FORGET_PASSWORD = "/user/reset-password/init";
 const FINISH_FORGET_PASSWORD = "/user/reset-password/finish";
+const UNSUBSCRIBE_ENDPOINT = (id) =>
+  `/notification/email/unsubscribe?data=${id}`;
 export default {
   loginUser(email, password) {
     return $http.post(LOGIN_ENDPOINT, {
@@ -31,5 +33,8 @@ export default {
       password: password,
       resetKey: resetKey,
     });
+  },
+  unsubscribeViaEmail(id) {
+    return $http.post(UNSUBSCRIBE_ENDPOINT(id));
   },
 };
