@@ -14,7 +14,6 @@ class Http {
 
   normalizeOptions(options) {
     const hasToken = storage.getItem("token");
-    // console.log(hasToken.token);
     return {
       options,
       ...options,
@@ -42,8 +41,10 @@ class Http {
       .then(transformRes);
   }
 
-  delete(endpoint) {
-    return this.$http.delete(endpoint).then(transformRes);
+  delete(endpoint, body, options = {}) {
+    return this.$http
+      .delete(endpoint, this.normalizeOptions(options))
+      .then(transformRes);
   }
 }
 

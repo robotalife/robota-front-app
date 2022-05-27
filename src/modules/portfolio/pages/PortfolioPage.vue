@@ -87,11 +87,9 @@ export default {
     },
     fetchBalances() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.portfolio
         .fetchBalances(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.balances = result.balances;
           this.isBalancesLoaded = true;
         })
@@ -102,11 +100,9 @@ export default {
     },
     fetchBalance() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.portfolio
         .fetchBalance(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.balance = result.balance;
           // this.isBalanceLoaded = true;
         })
@@ -117,11 +113,9 @@ export default {
     },
     fetchPercentageList() {
       const selectedExchange = this.$store.getters.selectedExchange;
-      console.log(selectedExchange, "selected");
       this.$api.portfolio
         .fetchPercentageList(selectedExchange)
         .then((result) => {
-          console.log(result);
           this.percentageList = result.assetPercentageValueList;
           this.isPercentageListLoaded = true;
         })

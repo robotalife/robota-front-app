@@ -70,4 +70,15 @@ export const authRouter = [
       requiresAuth: false,
     },
   },
+  {
+    path: "/notification/unsubscribe",
+    name: "unsubscribeViaEmail",
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "Auth" */ "@/modules/auth/pages/UnsubscribeViaEmailPage"
+        ),
+      requiresAuth: false,
+    },
+  },
 ];

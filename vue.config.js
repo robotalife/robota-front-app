@@ -1,5 +1,3 @@
-const vtkChainWebpack = require('vtk.js/Utilities/config/chainWebpack');
-
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== "production",
   productionSourceMap: false,
@@ -18,10 +16,10 @@ module.exports = {
     },
   },
 
-  transpileDependencies: ['vuetify'],
-
-  chainWebpack: (config) => {
-    vtkChainWebpack(config);
-    config.module.rule('js').exclude.add(/\.worker\.js$/);
+  transpileDependencies: ["vuetify"],
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false,
+    },
   },
 };

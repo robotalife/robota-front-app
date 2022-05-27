@@ -21,14 +21,16 @@ export default {
       emailValidation: "",
       passwordValidation: "",
       termsAndConditions: false,
+      isButtonLoading: false,
     };
   },
   methods: {
     submit() {
-      console.log(this.emailAddress, this.userPassword, this.rpPassword);
+      this.isButtonLoading = true;
       this.$api.auth
         .registerUser(this.emailAddress, this.userPassword)
         .then(() => {
+          this.isButtonLoading = false;
           this.snackbar = true;
           this.snackbarColor = "green";
           this.errorMessage =
@@ -36,6 +38,7 @@ export default {
           setTimeout(() => this.$router.push({ name: "signIn" }), 15000);
         })
         .catch((error) => {
+          this.isButtonLoading = false;
           this.snackbar = true;
           this.errorMessage = error?.response?.data.message;
         });
@@ -111,6 +114,7 @@ export default {
         class="w-1-1 m-t-3 SignUp__submit"
         text="Sign Up"
         size="small"
+        :isLoading="isButtonLoading"
       />
       <div class="d-flex m-t-5 jc-center fw-500">
         <p class="font-14-24 g-65 m-r-0-5">
