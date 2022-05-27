@@ -41,8 +41,10 @@ class Http {
       .then(transformRes);
   }
 
-  delete(endpoint) {
-    return this.$http.delete(endpoint).then(transformRes);
+  delete(endpoint, body, options = {}) {
+    return this.$http
+      .delete(endpoint, this.normalizeOptions(options))
+      .then(transformRes);
   }
 }
 
