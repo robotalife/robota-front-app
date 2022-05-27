@@ -49,23 +49,6 @@ export default {
         series: [
           {
             type: "treemap",
-            // layoutAlgorithm: "stripes",
-            // alternateStartingDirection: true,
-            // levels: [
-            //   {
-            //     level: 1,
-            //     layoutAlgorithm: "sliceAndDice",
-            //     dataLabels: {
-            //       enabled: true,
-            //       align: "left",
-            //       verticalAlign: "top",
-            //       style: {
-            //         fontSize: "15px",
-            //         fontWeight: "bold",
-            //       },
-            //     },
-            //   },
-            // ],
             data: [],
           },
         ],
