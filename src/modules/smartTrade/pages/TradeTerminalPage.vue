@@ -106,10 +106,9 @@ export default {
     if (exchangeListCurrentStatus === "success") {
       this.getUserExchanges();
       const selectedExchangeIdInStore = this.$store.getters.selectedExchange;
-      const selectedExchangeObj = this.exchangeItems.filter((item) => {
-        return item.value == selectedExchangeIdInStore;
+      this.selectedExchange = this.exchangeItems.filter((item) => {
+        return item.value === selectedExchangeIdInStore;
       });
-      this.selectedExchange = selectedExchangeObj;
     }
   },
   methods: {
@@ -159,13 +158,20 @@ export default {
     changeBuyForm(e) {
       const name = e.target.name;
       const value = e.target.value;
-      this.orderRequest[name] = Number(value);
+      //everything other than symbol here is a number
+      //symbol and other properties are going to be updated in other parts of code
+      if (name === "symbol") {
+        return;
+      } else {
+        this.orderRequest[name] = Number(value);
+      }
     },
     changeExchange(value) {
       this.orderRequest.exchangeId = value;
       this.fetchSymbols(value);
     },
     changesymbol(value) {
+      console.log(value, "symbol change");
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },
