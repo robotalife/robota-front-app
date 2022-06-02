@@ -116,20 +116,20 @@ export default {
     />
     <BaseInput
       type="Number"
+      label="Unit"
+      :unit="Base"
+      name="quantity"
+      class="m-t-3"
+      v-model="unitFieldValue"
+    />
+    <BaseInput
+      type="Number"
       label="Position Size (Total)"
       name="Total"
       class="m-t-3"
       :unitMetadata="availableAsset + Quote"
       :unit="Quote"
       v-model="positionSizeFieldValue"
-    />
-    <BaseInput
-      type="Number"
-      label="Unit"
-      :unit="Base"
-      name="quantity"
-      class="m-t-3"
-      v-model="unitFieldValue"
     />
     <BaseButton
       :text="text"
