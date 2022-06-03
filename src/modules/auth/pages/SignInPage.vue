@@ -10,16 +10,18 @@ export default {
   },
   data() {
     return {
-      emailAddress: "",
-      userPassword: "",
+      formData: {
+        email: "",
+        password: "",
+      },
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      emailRules: this.$rules.email,
-      emailIsNotValid: false,
-      passwordIsNotValid: false,
-      emailValidation: "",
-      passwordValidation: "",
+      isFormValid: false,
+      feildsValidation: {
+        email: false,
+        password: false,
+      },
       isButtonLoading: false,
     };
   },
@@ -27,7 +29,7 @@ export default {
     submit() {
       this.isButtonLoading = true;
       this.$api.auth
-        .loginUser(this.emailAddress, this.userPassword)
+        .loginUser(this.formData.email, this.formData.password)
         .then((result) => {
           this.isButtonLoading = false;
           storage.setItem("token", result.token);
@@ -43,30 +45,17 @@ export default {
           this.errorMessage = error?.response?.data.message;
         });
     },
-    changeValues(e) {
-      const value = e.target.value;
-      const name = e.target.name;
-      const emailRegex = new RegExp(/.+@.+\..+/);
-      if (name === "email") {
-        if (value === "") {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is required";
-        } else if (emailRegex.test(value)) {
-          this.emailAddress = value;
-          this.emailIsNotValid = false;
-        } else {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is not valid";
-        }
-      } else {
-        if (value === "") {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "password is required";
-        } else {
-          this.userPassword = value;
-          this.passwordIsNotValid = false;
-        }
-      }
+    changeForm() {
+      // const value = e.target.value;
+      // const name = e.target.name;
+      // this.formData[name] = value;
+    },
+    validateInput(value) {
+      this.feildsValidation[value.feildName] = value.validtionStatus;
+      const feildsValidationStatus = Object.values(this.feildsValidation);
+      feildsValidationStatus.includes(false)
+        ? (this.isFormValid = false)
+        : (this.isFormValid = true);
     },
   },
 };
@@ -74,22 +63,29 @@ export default {
 <template>
   <div>
     <p class="font-h-3 brand-purple fw-700">Sign In</p>
-    <form class="m-t-3" @submit.prevent="submit" @change="changeValues">
-      <BaseInput label="Email Address" type="email" name="email" />
-      <p v-if="emailIsNotValid" class="Login__error font-12-16">
-        {{ emailValidation }}
-      </p>
-      <div class="m-t-2">
-        <BaseInput label="Password" type="password" name="password" />
-        <p v-if="passwordIsNotValid" class="Login__error font-12-16">
-          {{ passwordValidation }}
-        </p>
-      </div>
-
+    <form class="m-t-3" @submit.prevent="submit" @change="changeForm">
+      <BaseInput
+        label="Email Address"
+        type="email"
+        name="email"
+        rules="email"
+        v-model="formData.email"
+        @validate="validateInput"
+      />
+      <BaseInput
+        class="m-t-2"
+        label="Password"
+        type="password"
+        name="password"
+        rules="required"
+        v-model="formData.password"
+        @validate="validateInput"
+      />
       <BaseButton
         class="w-1-1 m-t-3 Login__submit"
         text="Login"
         size="small"
+        :disabled="!isFormValid"
         :isLoading="isButtonLoading"
       />
       <div class="d-flex m-t-4 jc-center fw-500">
