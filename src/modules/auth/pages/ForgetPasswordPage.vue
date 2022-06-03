@@ -16,7 +16,7 @@ export default {
       snackbarColor: "pink",
       snackbar: false,
       isFormValid: false,
-      feildsValidation: {
+      fieldsValidation: {
         email: false,
       },
       isButtonLoading: false,
@@ -42,9 +42,9 @@ export default {
     },
     changeValues() {},
     validateInput(value) {
-      this.feildsValidation[value.feildName] = value.validtionStatus;
-      const feildsValidationStatus = Object.values(this.feildsValidation);
-      feildsValidationStatus.includes(false)
+      this.fieldsValidation[value.feildName] = value.validtionStatus;
+      const fieldsValidationStatus = Object.values(this.fieldsValidation);
+      fieldsValidationStatus.includes(false)
         ? (this.isFormValid = false)
         : (this.isFormValid = true);
     },

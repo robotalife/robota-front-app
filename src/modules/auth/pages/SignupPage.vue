@@ -14,7 +14,7 @@ export default {
       snackbar: false,
       termsAndConditions: false,
       isFormValid: false,
-      feildsValidation: {
+      fieldsValidation: {
         email: false,
         password: false,
         "rp-password": false,
@@ -53,9 +53,9 @@ export default {
       // this.formData[name] = value;
     },
     validateInput(value) {
-      this.feildsValidation[value.feildName] = value.validtionStatus;
-      const feildsValidationStatus = Object.values(this.feildsValidation);
-      feildsValidationStatus.includes(false)
+      this.fieldsValidation[value.feildName] = value.validtionStatus;
+      const fieldsValidationStatus = Object.values(this.fieldsValidation);
+      fieldsValidationStatus.includes(false)
         ? (this.isFormValid = false)
         : (this.isFormValid = true);
     },
@@ -102,9 +102,9 @@ export default {
           name="terms"
           @change="
             () => {
-              this.feildsValidation.terms = !this.feildsValidation.terms;
+              this.fieldsValidation.terms = !this.fieldsValidation.terms;
               validateInput({
-                validtionStatus: this.feildsValidation.terms,
+                validtionStatus: this.fieldsValidation.terms,
                 feildName: 'terms',
               });
             }

@@ -18,7 +18,7 @@ export default {
       snackbarColor: "pink",
       snackbar: false,
       isFormValid: false,
-      feildsValidation: {
+      fieldsValidation: {
         email: false,
         password: false,
       },
@@ -45,15 +45,10 @@ export default {
           this.errorMessage = error?.response?.data.message;
         });
     },
-    changeForm() {
-      // const value = e.target.value;
-      // const name = e.target.name;
-      // this.formData[name] = value;
-    },
     validateInput(value) {
-      this.feildsValidation[value.feildName] = value.validtionStatus;
-      const feildsValidationStatus = Object.values(this.feildsValidation);
-      feildsValidationStatus.includes(false)
+      this.fieldsValidation[value.feildName] = value.validtionStatus;
+      const fieldsValidationStatus = Object.values(this.fieldsValidation);
+      fieldsValidationStatus.includes(false)
         ? (this.isFormValid = false)
         : (this.isFormValid = true);
     },
@@ -63,7 +58,7 @@ export default {
 <template>
   <div>
     <p class="font-h-3 brand-purple fw-700">Sign In</p>
-    <form class="m-t-3" @submit.prevent="submit" @change="changeForm">
+    <form class="m-t-3" @submit.prevent="submit">
       <BaseInput
         label="Email Address"
         type="email"
