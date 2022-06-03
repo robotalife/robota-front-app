@@ -143,7 +143,7 @@ export default {
     >
       <div class="d-flex jc-between">
         <p class="gray-2 font-body fw-700">{{ exchange.exchangeName }}</p>
-        <!--        <p class="gray-2 font-body fw-400">$ UST</p>-->
+        <p class="gray-2 font-body fw-400 green--text">Connected</p>
       </div>
       <div
         v-if="exchangeList.length"

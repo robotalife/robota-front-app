@@ -1,10 +1,17 @@
 <script>
 // ToDo: change input to text field
 import VIcon from "vuetify/lib/components/VIcon";
+import { validation } from "@/validation/index";
 export default {
   name: "BaseInput",
   components: {
     VIcon,
+  },
+  data() {
+    return {
+      errorMessage: "",
+      inputValue: this.value,
+    };
   },
   props: {
     placeholder: {
@@ -63,10 +70,37 @@ export default {
       type: Number,
       default: 0,
     },
+    rules: {
+      type: String,
+      default: "",
+    },
+    siblingData: {
+      type: String,
+      default: "",
+    },
   },
   methods: {
-    changeValue() {
-      return this.$emit("changed", this.value);
+    validation(value) {
+      if (this.rules) {
+        const validationFunction = validation[this.rules];
+        let validationResult;
+        if (this.rules === "repeatPassword") {
+          validationResult = validationFunction(value, this.siblingData);
+        } else {
+          validationResult = validationFunction(value);
+        }
+        this.errorMessage = validationResult;
+        this.$emit("validate", {
+          validtionStatus: validationResult === true ? true : false,
+          feildName: this.name,
+        });
+        this.inputValue = value;
+      }
+    },
+  },
+  watch: {
+    siblingData: function (value) {
+      this.validation(this.inputValue, value);
     },
   },
 };
@@ -88,7 +122,7 @@ export default {
       ]"
     >
       <input
-        :value="value"
+        :value="inputValue"
         :placeholder="placeholder"
         :name="name"
         class="w-1-1"
@@ -98,11 +132,19 @@ export default {
         :disabled="disabled"
         :step="step"
         :min="minValue"
-        @input="(e) => $emit('input', e.target.value)"
+        @input="
+          (e) => {
+            validation(e.target.value);
+            $emit('input', e.target.value);
+          }
+        "
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>
     </div>
+    <span v-if="errorMessage.length" class="tomato-red m-t-0-5">
+      {{ errorMessage }}
+    </span>
   </div>
 </template>
 
