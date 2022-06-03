@@ -4,6 +4,7 @@ import AutoCompleteSelect from "@/components/select/AutoCompleteSelect.vue";
 import Tabs from "@/components/tabs/Tabs.vue";
 import ManualTrade from "./ManualTrade.vue";
 import storage from "@/utils/storage";
+
 export default {
   name: "TradingTerminal",
   components: {
@@ -49,7 +50,8 @@ export default {
         price: -1,
       },
       currentPrice: "",
-      availableAsset: 0,
+      availableBaseAsset: 0,
+      availableQouteAsset: 0,
       screenSize: {
         height: window.screen.availHeight,
         width: window.screen.availWidth,
@@ -179,8 +181,10 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
+          console.log("result", result);
           this.currentPrice = String(result.price);
-          this.availableAsset = result.available;
+          this.availableBaseAsset = result.baseAsset.availableToTrade;
+          this.availableQouteAsset = result.qouteAsset.availableToTrade;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -267,13 +271,16 @@ export default {
                 @update="updateQuantityValue"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
-                :availableAsset="availableAsset"
+                :availableQouteAsset="availableQouteAsset"
+                :availableBaseAsset="availableBaseAsset"
                 :isFormLoading="isLoading"
               />
               <ManualTrade
                 text="Sell"
                 @update="updateQuantityValue"
                 @changed="changeOrderType"
+                :availableQouteAsset="availableQouteAsset"
+                :availableBaseAsset="availableBaseAsset"
                 :selectedCoin="orderRequest.symbol"
                 :selectedCoinPrice="currentPrice"
                 :isFormLoading="isLoading"
