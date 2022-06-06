@@ -9,16 +9,13 @@ export default {
   },
   data() {
     return {
-      formData: {
-        email: "",
-      },
+      emailAddress: "",
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      isFormValid: false,
-      fieldsValidation: {
-        email: false,
-      },
+      emailRules: this.$rules.email,
+      emailIsNotValid: false,
+      emailValidation: "",
       isButtonLoading: false,
     };
   },
@@ -26,7 +23,7 @@ export default {
     submit() {
       this.isButtonLoading = true;
       this.$api.auth
-        .initiateResetPassword(this.formData.email)
+        .initiateResetPassword(this.emailAddress)
         .then(() => {
           this.isButtonLoading = false;
           this.errorMessage = `Rest Password link, sent to ${this.emailAddress}`;
@@ -40,13 +37,19 @@ export default {
           this.errorMessage = error?.response?.data.message;
         });
     },
-    changeValues() {},
-    validateInput(value) {
-      this.fieldsValidation[value.feildName] = value.validtionStatus;
-      const fieldsValidationStatus = Object.values(this.fieldsValidation);
-      fieldsValidationStatus.includes(false)
-        ? (this.isFormValid = false)
-        : (this.isFormValid = true);
+    changeValues(e) {
+      const value = e.target.value;
+      const emailRegex = new RegExp(/.+@.+\..+/);
+      if (value === "") {
+        this.emailIsNotValid = true;
+        this.emailValidation = "email is required";
+      } else if (emailRegex.test(value)) {
+        this.emailAddress = value;
+        this.emailIsNotValid = false;
+      } else {
+        this.emailIsNotValid = true;
+        this.emailValidation = "email is not valid";
+      }
     },
   },
 };
@@ -55,21 +58,15 @@ export default {
   <div>
     <p class="font-h-3 brand-purple fw-700">Reset Password</p>
     <form @submit.prevent="submit" @change="changeValues">
-      <BaseInput
-        label="Email Address"
-        type="email"
-        name="email"
-        rules="email"
-        v-model="formData.email"
-        @validate="validateInput"
-        :isLoading="isButtonLoading"
-      />
+      <BaseInput label="Email" type="email" name="email" />
+      <p v-if="emailIsNotValid" class="ForgetPassword__error font-12-16">
+        {{ emailValidation }}
+      </p>
 
       <BaseButton
         class="w-1-1 m-t-3 ForgetPassword__submit"
         text="Reset Password"
         size="small"
-        :disabled="!isFormValid"
         :isLoading="isButtonLoading"
       />
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
