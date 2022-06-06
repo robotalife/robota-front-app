@@ -216,6 +216,7 @@ export default {
           this.isLoading = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
+          this.snackbarColor = "red";
         });
     },
     toOrderSide(tab) {

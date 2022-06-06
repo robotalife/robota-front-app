@@ -1,7 +1,7 @@
 export const portfolioRouter = [
   {
     path: "/portfolio",
-    name: "dashboard",
+    name: "portfolio",
     component: () =>
       import(
         /* webpackChunkName: "Main" */ "@/modules/portfolio/pages/PortfolioPage"
