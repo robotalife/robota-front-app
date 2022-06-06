@@ -1,19 +1,12 @@
-function Required(value) {
-  return !!value || "The field is required.";
-}
+import Vue from "vue";
 
-function EmailRule(value) {
-  // eslint-disable-next-line no-control-regex
-  const pattern = /^\w+([\\.-]?\w+)*@\w+([\\.-]?\w+)*(\.\w{2,3})+$/;
-  return pattern.test(value) || "Email address is invalid";
-}
-
-function RepeatPasswordRule(value, repeatValue) {
-  return value === repeatValue || "passwords aren't matched";
-}
-
-export const validation = {
-  required: Required,
-  email: EmailRule,
-  repeatPassword: RepeatPasswordRule,
+const requiredFactory = (message) => {
+  return (v) => !!v || message;
+};
+Vue.prototype.$rules = {
+  email: [
+    requiredFactory("email is required"),
+    (v) => /.+@.+\..+/.test(v) || "email is not valid",
+  ],
+  required: requiredFactory("its required"),
 };
