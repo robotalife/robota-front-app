@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run serve --mode $NODE_ENV",
-    "serve": "vue-cli-service serve --mode $NODE_ENV",
+    "start": "npm run serve --mode development",
+    "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build --mode $NODE_ENV",
     "lint": "vue-cli-service lint"
   },

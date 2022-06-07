@@ -53,11 +53,19 @@ export default {
       Quote: "",
       positionSizeFieldValue: "",
       price: "",
+      positionSizeSliderValue: null,
     };
   },
   methods: {
     changeSwitch(value) {
       this.selectedSwitch = value;
+    },
+    changePositionSlider(value) {
+      console.log(value, "change");
+      const calculatePositionValue = (this.availableQouteAsset * value) / 100;
+      this.positionSizeFieldValue = parseFloat(
+        calculatePositionValue.toFixed(8)
+      );
     },
   },
   computed: {
@@ -136,9 +144,27 @@ export default {
       :unit="Quote"
       v-model="positionSizeFieldValue"
     />
+
+    <v-slider
+      v-model="positionSizeSliderValue"
+      color="purple"
+      track-color="gray"
+      thumb-label="always"
+      :max="100"
+      :min="0"
+      step="25"
+      label=""
+      @change="changePositionSlider"
+    >
+      <template v-slot:thumb-label="{ value }">
+        <span class="ManualTrade__thumb-label">
+          {{ value + "%" }}
+        </span>
+      </template>
+    </v-slider>
+
     <BaseButton
       :text="text"
-      :isLoading="isFormLoading"
       class="w-1-1 m-t-3 font-body ManualTrade__submit"
     />
   </v-tab-item>
@@ -153,5 +179,15 @@ export default {
     background-image: $horizental;
     border-radius: 30px;
   }
+
+  @include e(thumb-label) {
+    color: $purple;
+  }
+}
+
+::v-deep .v-slider__thumb-label {
+  position: relative !important;
+  bottom: -30px !important;
+  background: none !important;
 }
 </style>
