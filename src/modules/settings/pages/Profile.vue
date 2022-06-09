@@ -15,6 +15,11 @@ export default {
       userEmail: storage.getItem("user")?.email,
     };
   },
+  mounted() {
+    this.$api.exchange.fetchBasicInfo().then((result) => {
+      console.log(result, "result");
+    });
+  },
   methods: {},
 };
 </script>

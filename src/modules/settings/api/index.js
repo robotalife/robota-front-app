@@ -2,12 +2,16 @@ import $http from "@/services/http";
 
 const EXCHANGE_LIST_ENDPOINT = "/exchange/list";
 const EXCHANGE_ENDPOINT = "/exchange";
+const BASIC_INFO_ENDPOINT = "/user/basic-info";
 
 export default {
   fetchExchangeList(id) {
     return $http.post(EXCHANGE_LIST_ENDPOINT, {
       userId: id,
     });
+  },
+  fetchBasicInfo() {
+    return $http.get(BASIC_INFO_ENDPOINT);
   },
   addExchange(data) {
     return $http.post(EXCHANGE_ENDPOINT, data);
