@@ -9,18 +9,22 @@ export default {
   },
   data() {
     return {
-      emailAddress: "",
-      userPassword: "",
-      rpPassword: "",
       errorMessage: "",
       snackbarColor: "pink",
       snackbar: false,
-      emailRules: this.$rules.email,
-      emailIsNotValid: false,
-      passwordIsNotValid: false,
-      emailValidation: "",
-      passwordValidation: "",
       termsAndConditions: false,
+      isFormValid: false,
+      feildsValidation: {
+        email: false,
+        password: false,
+        "rp-password": false,
+        terms: false,
+      },
+      formData: {
+        email: "",
+        password: "",
+        "rp-password": "",
+      },
       isButtonLoading: false,
     };
   },
@@ -28,7 +32,7 @@ export default {
     submit() {
       this.isButtonLoading = true;
       this.$api.auth
-        .registerUser(this.emailAddress, this.userPassword)
+        .registerUser(this.formData.email, this.formData.password)
         .then(() => {
           this.isButtonLoading = false;
           this.snackbar = true;
@@ -43,41 +47,17 @@ export default {
           this.errorMessage = error?.response?.data.message;
         });
     },
-    changeValues(e) {
-      const value = e.target.value;
-      const name = e.target.name;
-      const emailRegex = new RegExp(/.+@.+\..+/);
-      if (name === "email") {
-        if (value === "") {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is required";
-        } else if (emailRegex.test(value)) {
-          this.emailAddress = value;
-          this.emailIsNotValid = false;
-        } else {
-          this.emailIsNotValid = true;
-          this.emailValidation = "email is not valid";
-        }
-      } else if (name === "password") {
-        if (value === "") {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "password is required";
-        } else {
-          this.userPassword = value;
-          this.passwordIsNotValid = false;
-        }
-      } else {
-        if (value === "") {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "password is required";
-        } else if (value !== this.userPassword) {
-          this.passwordIsNotValid = true;
-          this.passwordValidation = "passwords are not matched";
-        } else {
-          this.rpPassword = value;
-          this.passwordIsNotValid = false;
-        }
-      }
+    changeForm() {
+      // const value = e.target.value;
+      // const name = e.target.name;
+      // this.formData[name] = value;
+    },
+    validateInput(value) {
+      this.feildsValidation[value.feildName] = value.validtionStatus;
+      const feildsValidationStatus = Object.values(this.feildsValidation);
+      feildsValidationStatus.includes(false)
+        ? (this.isFormValid = false)
+        : (this.isFormValid = true);
     },
   },
 };
@@ -85,26 +65,51 @@ export default {
 <template>
   <div>
     <p class="font-h-3 brand-purple fw-700">Sign Up</p>
-    <form class="m-t-3" @submit.prevent="submit" @change="changeValues">
-      <BaseInput label="Email" type="email" name="email" />
-      <p v-if="emailIsNotValid" class="SignUp__error font-12-16">
-        {{ emailValidation }}
-      </p>
-      <div class="m-t-2">
-        <BaseInput label="Password" type="password" name="password" />
-        <p v-if="passwordIsNotValid" class="SignUp__error font-12-16">
-          {{ passwordValidation }}
-        </p>
-      </div>
-      <div class="m-t-2">
-        <BaseInput label="Reapet Password" type="password" name="rp-password" />
-        <p v-if="passwordIsNotValid" class="SignUp__error font-12-16">
-          {{ passwordValidation }}
-        </p>
-      </div>
+    <form class="m-t-3" @submit.prevent="submit" @change="changeForm">
+      <BaseInput
+        label="Email Address"
+        type="email"
+        name="email"
+        v-model="formData.email"
+        rules="email"
+        @validate="validateInput"
+      />
+      <BaseInput
+        class="m-t-2"
+        label="Password"
+        type="password"
+        name="password"
+        rules="repeatPassword"
+        v-model="formData.password"
+        :siblingData="formData['rp-password']"
+        @validate="validateInput"
+      />
+      <BaseInput
+        class="m-t-2"
+        label="Reapet Password"
+        type="password"
+        name="rp-password"
+        rules="repeatPassword"
+        v-model="formData['rp-password']"
+        :siblingData="formData.password"
+        @validate="validateInput"
+      />
 
       <label class="d-flex ai-center m-t-3">
-        <input type="checkbox" value="termsAndConditions" />
+        <input
+          type="checkbox"
+          value="termsAndConditions"
+          name="terms"
+          @change="
+            () => {
+              this.feildsValidation.terms = !this.feildsValidation.terms;
+              validateInput({
+                validtionStatus: this.feildsValidation.terms,
+                feildName: 'terms',
+              });
+            }
+          "
+        />
         <p class="m-l-0-5 font-text-small">
           I agree to the <a href="#" class="SignUp__link">Term & Conditions</a>
         </p>
@@ -115,6 +120,7 @@ export default {
         text="Sign Up"
         size="small"
         :isLoading="isButtonLoading"
+        :disabled="!isFormValid"
       />
       <div class="d-flex m-t-5 jc-center fw-500">
         <p class="font-14-24 g-65 m-r-0-5">

@@ -49,6 +49,23 @@ export default {
         series: [
           {
             type: "treemap",
+            // layoutAlgorithm: "stripes",
+            // alternateStartingDirection: true,
+            // levels: [
+            //   {
+            //     level: 1,
+            //     layoutAlgorithm: "sliceAndDice",
+            //     dataLabels: {
+            //       enabled: true,
+            //       align: "left",
+            //       verticalAlign: "top",
+            //       style: {
+            //         fontSize: "15px",
+            //         fontWeight: "bold",
+            //       },
+            //     },
+            //   },
+            // ],
             data: [],
           },
         ],
@@ -87,7 +104,7 @@ export default {
     fillData() {
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
-          this.$store.state.exchangeListRequestStatus;
+        this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
         this.$api.dashboard.fetchPieChartData(exchangeId).then((result) => {
@@ -228,7 +245,6 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
-
 .Dashboard {
   @include e(symbol-icon) {
     max-width: 24px;
