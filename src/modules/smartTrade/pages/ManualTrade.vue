@@ -53,7 +53,7 @@ export default {
       Quote: "",
       positionSizeFieldValue: "",
       price: "",
-      positionSizeSliderValue: null,
+      positionSizeSliderValue: 0,
     };
   },
   methods: {
@@ -62,7 +62,12 @@ export default {
     },
     changePositionSlider(value) {
       console.log(value, "change");
-      const calculatePositionValue = (this.availableQouteAsset * value) / 100;
+      let calculatePositionValue;
+      if (this.text === "Buy") {
+        calculatePositionValue = (this.availableQouteAsset * value) / 100;
+      } else {
+        calculatePositionValue = (this.availableBaseAsset * value) / 100;
+      }
       this.positionSizeFieldValue = parseFloat(
         calculatePositionValue.toFixed(8)
       );
@@ -152,7 +157,6 @@ export default {
       thumb-label="always"
       :max="100"
       :min="0"
-      step="25"
       label=""
       @change="changePositionSlider"
     >

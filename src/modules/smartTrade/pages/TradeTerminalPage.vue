@@ -309,11 +309,12 @@ export default {
               </p>
             </div>
             <div class="d-flex jc-between">
+              <p>Price</p>
               <p>
-                {{ orderRequest.orderSide === "SELL" ? "Sell" : "Buy" }}
-                Price
+                {{
+                  orderRequest.price + " " + orderRequest.symbol.split("_")[1]
+                }}
               </p>
-              <p>{{ orderRequest.price }}</p>
             </div>
             <div class="d-flex jc-between">
               <p>Total</p>
@@ -321,7 +322,9 @@ export default {
                 {{
                   parseFloat(
                     (orderRequest.quantity * orderRequest.price).toFixed(8)
-                  )
+                  ) +
+                  " " +
+                  orderRequest.symbol.split("_")[1]
                 }}
               </p>
             </div>
