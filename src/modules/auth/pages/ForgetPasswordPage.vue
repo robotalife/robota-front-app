@@ -29,7 +29,7 @@ export default {
         .initiateResetPassword(this.formData.email)
         .then(() => {
           this.isButtonLoading = false;
-          this.errorMessage = `Rest Password link, sent to ${this.emailAddress}`;
+          this.errorMessage = `Rest Password link, sent to ${this.formData.email}`;
           this.snackbarColor = "green";
           this.snackbar = true;
         })

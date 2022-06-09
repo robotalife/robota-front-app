@@ -102,6 +102,9 @@ export default {
     siblingData: function (value) {
       this.validation(this.inputValue, value);
     },
+    value: function (value) {
+      this.inputValue = value;
+    },
   },
 };
 </script>
