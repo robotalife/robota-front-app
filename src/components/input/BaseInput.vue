@@ -91,8 +91,8 @@ export default {
         }
         this.errorMessage = validationResult;
         this.$emit("validate", {
-          validationStatus: validationResult === true,
-          fieldName: this.name,
+          validtionStatus: validationResult === true ? true : false,
+          feildName: this.name,
         });
         this.inputValue = value;
       }
