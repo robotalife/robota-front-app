@@ -13,21 +13,41 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       userEmail: storage.getItem("user")?.email,
+      firstName: "",
+      lastName: "",
     };
   },
   mounted() {
     this.$api.exchange.fetchBasicInfo().then((result) => {
       console.log(result, "result");
+      this.firstName = result.firstName === null ? "" : result.firstName;
+      this.lastName = result.lastName === null ? "" : result.lastName;
     });
   },
-  methods: {},
+  methods: {
+    updateProfile(e) {
+      e.preventDefault();
+      this.$api.updateProfile();
+    },
+  },
 };
 </script>
 
 <template>
   <div class="d-flex flex-col w-1-4">
-    <form>
-      <BaseInput label="Name & Family Name" type="text" name="customerName" />
+    <form @submit.prevent="updateProfile">
+      <BaseInput
+        label="First Name"
+        type="text"
+        name="customerName"
+        :value="firstName"
+      />
+      <BaseInput
+        label="Last Name"
+        type="text"
+        name="customerName"
+        :value="lastName"
+      />
       <BaseInput
         label="Email"
         type="email"
