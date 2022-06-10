@@ -2,6 +2,7 @@
 import BaseSelect from "@/components/select/BaseSelect.vue";
 import AutoCompleteSelect from "@/components/select/AutoCompleteSelect.vue";
 import Tabs from "@/components/tabs/Tabs.vue";
+import BaseButton from "@/components/button/BaseButton.vue";
 import ManualTrade from "./ManualTrade.vue";
 import storage from "@/utils/storage";
 export default {
@@ -10,6 +11,7 @@ export default {
     BaseSelect,
     AutoCompleteSelect,
     Tabs,
+    BaseButton,
     ManualTrade,
   },
   data() {
@@ -58,6 +60,7 @@ export default {
       selectedExchange: "",
       value: 0,
       isLoading: false,
+      confirmationModal: false,
     };
   },
   computed: {
@@ -241,7 +244,7 @@ export default {
         <!-- TradingView Widget END -->
         <form
           @change="changeBuyForm"
-          @submit.prevent="submitOrderRequest"
+          @submit.prevent="confirmationModal = true"
           class="TradingTerminal__trading-form"
         >
           <div class="bg-white p-2">
@@ -290,6 +293,59 @@ export default {
           </div>
         </form>
       </div>
+      <v-dialog v-model="confirmationModal" width="400" height="327">
+        <div class="p-3 bg-white TradingTerminal__confirmation">
+          <VIcon size="48" dark>$alert</VIcon>
+          <p class="gray-2 m-t-2 font-h-2 fw-700">Confirm of a transaction</p>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Units</p>
+              <p>
+                {{
+                  orderRequest.quantity +
+                  " " +
+                  orderRequest.symbol.split("_")[0]
+                }}
+              </p>
+            </div>
+            <div class="d-flex jc-between">
+              <p>Price</p>
+              <p>
+                {{
+                  orderRequest.price + " " + orderRequest.symbol.split("_")[1]
+                }}
+              </p>
+            </div>
+            <div class="d-flex jc-between">
+              <p>Total</p>
+              <p>
+                {{
+                  parseFloat(
+                    (orderRequest.quantity * orderRequest.price).toFixed(8)
+                  ) +
+                  " " +
+                  orderRequest.symbol.split("_")[1]
+                }}
+              </p>
+            </div>
+          </div>
+          <div class="d-flex jc-between m-t-7">
+            <div @click="confirmationModal = false" class="w-1-2">
+              <BaseButton
+                text="Cancel"
+                class="TradingTerminal__confirmation-btn m-t-2 w-1-1"
+              />
+            </div>
+            <div @click="submitOrderRequest" class="w-1-2 m-l-1">
+              <BaseButton
+                text="Confirm"
+                :isLoading="isLoading"
+                class="TradingTerminal__confirmation-btn TradingTerminal__confirmation-btn--confirm bg-purple m-t-2 w-1-1"
+              />
+            </div>
+          </div>
+        </div>
+      </v-dialog>
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
         {{ errorMessage }}
         <template v-slot:action="{ attrs }">
@@ -326,6 +382,19 @@ export default {
 
     > div {
       border-radius: 6px;
+    }
+  }
+
+  @include e(confirmation) {
+    border-radius: 12px;
+
+    &-btn {
+      border-radius: 32px;
+
+      @include m(confirm) {
+        color: $white;
+        background: #7f56d9;
+      }
     }
   }
 }
