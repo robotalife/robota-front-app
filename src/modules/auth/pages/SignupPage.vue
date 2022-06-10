@@ -120,7 +120,6 @@ export default {
         text="Sign Up"
         size="small"
         :isLoading="isButtonLoading"
-        :disabled="!isFormValid"
       />
       <div class="d-flex m-t-5 jc-center fw-500">
         <p class="font-14-24 g-65 m-r-0-5">

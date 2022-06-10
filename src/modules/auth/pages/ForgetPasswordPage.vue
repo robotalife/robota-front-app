@@ -69,7 +69,6 @@ export default {
         text="Reset Password"
         size="small"
         :isLoading="isButtonLoading"
-        :disabled="!isFormValid"
       />
       <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
         {{ errorMessage }}

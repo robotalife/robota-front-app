@@ -86,7 +86,6 @@ export default {
         text="Login"
         size="small"
         :isLoading="isButtonLoading"
-        :disabled="!isFormValid"
       />
       <div class="d-flex m-t-4 jc-center fw-500">
         <p class="font-14-24 g-2 m-r-0-5">Forgot your password?</p>

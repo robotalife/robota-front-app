@@ -61,6 +61,12 @@ export default {
       value: 0,
       isLoading: false,
       confirmationModal: false,
+      feildsValidation: {
+        price: false,
+        quantity: false,
+        Total: false,
+      },
+      isButtonLoading: false,
     };
   },
   computed: {
@@ -197,7 +203,7 @@ export default {
       const orderSide = this.toOrderSide(this.tab);
       this.orderType[orderSide] = value;
       this.orderRequest.orderType = value;
-      this.orderRequest.price = -1;
+      this.orderRequest.price = this.currentPrice;
     },
     changeOrderSide(value) {
       const orderSide = this.toOrderSide(value);
@@ -225,6 +231,13 @@ export default {
     toOrderSide(tab) {
       const tabTitle = this.tabsItem[tab].title;
       return tabTitle.toUpperCase();
+    },
+    validateInput(value) {
+      this.feildsValidation[value.feildName] = value.validtionStatus;
+      const feildsValidationStatus = Object.values(this.feildsValidation);
+      feildsValidationStatus.includes(false)
+        ? (this.isFormValid = false)
+        : (this.isFormValid = true);
     },
   },
 };
@@ -277,6 +290,9 @@ export default {
                 :availableQouteAsset="availableQouteAsset"
                 :availableBaseAsset="availableBaseAsset"
                 :isFormLoading="isLoading"
+                rules="email"
+                v-model="formData.email"
+                @validate="validateInput"
               />
               <ManualTrade
                 text="Sell"
