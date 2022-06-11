@@ -13,6 +13,9 @@ export default {
   fetchBasicInfo() {
     return $http.get(BASIC_INFO_ENDPOINT);
   },
+  updateBasicInfo(data) {
+    return $http.post(BASIC_INFO_ENDPOINT, data);
+  },
   addExchange(data) {
     return $http.post(EXCHANGE_ENDPOINT, data);
   },

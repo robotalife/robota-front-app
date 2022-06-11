@@ -15,19 +15,41 @@ export default {
       userEmail: storage.getItem("user")?.email,
       firstName: "",
       lastName: "",
+      basicInfo: {
+        firstName: "",
+        lastName: "",
+      },
     };
   },
   mounted() {
     this.$api.exchange.fetchBasicInfo().then((result) => {
       console.log(result, "result");
-      this.firstName = result.firstName === null ? "" : result.firstName;
-      this.lastName = result.lastName === null ? "" : result.lastName;
+      this.firstName = result.firstName;
+      this.lastName = result.lastName;
+      console.log(this.firstName, "first");
     });
   },
   methods: {
+    changeValues(e) {
+      const value = e.target.value;
+      const name = e.target.name;
+      this.basicInfo[name] = value;
+    },
     updateProfile(e) {
       e.preventDefault();
-      this.$api.updateProfile();
+      console.log(this.basicInfo, "basicInfo");
+      this.$api.exchange
+        .updateBasicInfo(this.basicInfo)
+        .then(() => {
+          this.errorMessage = "Details have been updated.";
+          this.snackbar = true;
+          this.snackbarColor = "green";
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+          this.snackbarColor = "red";
+        });
     },
   },
 };
@@ -35,17 +57,17 @@ export default {
 
 <template>
   <div class="d-flex flex-col w-1-4">
-    <form @submit.prevent="updateProfile">
+    <form @submit.prevent="updateProfile" @change="changeValues">
       <BaseInput
         label="First Name"
         type="text"
-        name="customerName"
+        name="firstName"
         :value="firstName"
       />
       <BaseInput
         label="Last Name"
         type="text"
-        name="customerName"
+        name="lastName"
         :value="lastName"
       />
       <BaseInput
