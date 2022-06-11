@@ -34,12 +34,16 @@ import telegram from "@/assets/icons/telegram.vue";
 import twitter from "@/assets/icons/twitter.vue";
 import robotaLogo from "@/assets/icons/robotaLogo.vue";
 import trash from "@/assets/icons/trash.vue";
+import alert from "@/assets/icons/alert.vue";
 
 Vue.use(Vuetify);
 const options = {
   ltr: true,
   icons: {
     values: {
+      alert: {
+        component: alert,
+      },
       robota: {
         component: robota,
       },
