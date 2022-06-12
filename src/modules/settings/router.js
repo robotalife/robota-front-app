@@ -14,7 +14,7 @@ export const settingsRouter = [
   },
   {
     path: "/settings/security",
-    name: "profile",
+    name: "security",
     component: () =>
       import(
         /* webpackChunkName: "Main" */ "@/modules/settings/pages/Security"
@@ -29,7 +29,7 @@ export const settingsRouter = [
   },
   {
     path: "/settings/notification",
-    name: "profile",
+    name: "notification",
     component: () =>
       import(
         /* webpackChunkName: "Main" */ "@/modules/settings/pages/Notification"
