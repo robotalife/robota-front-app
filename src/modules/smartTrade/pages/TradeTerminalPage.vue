@@ -214,12 +214,14 @@ export default {
           this.errorMessage = "Order Submitted";
           this.snackbarColor = "green";
           this.snackbar = true;
+          this.confirmationModal = false;
         })
         .catch((error) => {
           this.isLoading = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
           this.snackbarColor = "red";
+          this.confirmationModal = true;
         });
     },
     toOrderSide(tab) {
