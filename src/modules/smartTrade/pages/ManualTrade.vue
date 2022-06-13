@@ -137,7 +137,7 @@ export default {
       :unit="Base"
       name="quantity"
       class="m-t-3"
-      :unitMetadata="availableBaseAsset + ' ' + Base"
+      :unitMetadata="availableBaseAsset + ''"
       v-model="unitFieldValue"
     />
     <BaseInput
@@ -145,7 +145,7 @@ export default {
       label="Position Size (Total)"
       name="Total"
       class="m-t-3"
-      :unitMetadata="availableQouteAsset + ' ' + Quote"
+      :unitMetadata="availableQouteAsset + ''"
       :unit="Quote"
       v-model="positionSizeFieldValue"
     />
