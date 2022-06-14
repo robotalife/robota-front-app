@@ -59,6 +59,7 @@ export default {
   methods: {
     changeSwitch(value) {
       this.selectedSwitch = value;
+      this.price = this.selectedCoinPrice;
     },
     changePositionSlider(value) {
       console.log(value, "change");
