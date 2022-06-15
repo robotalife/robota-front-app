@@ -54,6 +54,9 @@ export default {
       positionSizeFieldValue: "",
       price: "",
       positionSizeSliderValue: 0,
+      isUnitChanging: false,
+      eventTarget: [],
+      unitTemp: "",
     };
   },
   methods: {
@@ -62,20 +65,35 @@ export default {
       this.price = this.selectedCoinPrice;
     },
     changePositionSlider(value) {
-      console.log(value, "change");
       let calculatePositionValue;
       if (this.text === "Buy") {
         calculatePositionValue = (this.availableQouteAsset * value) / 100;
+        this.positionSizeFieldValue = String(
+          parseFloat(calculatePositionValue.toFixed(8))
+        );
       } else {
-        calculatePositionValue = (this.availableBaseAsset * value) / 100;
+        const calculateUnitFieldValue = (this.availableBaseAsset * value) / 100;
+        this.unitFieldValue = String(
+          parseFloat(calculateUnitFieldValue.toFixed(8))
+        );
       }
-      this.positionSizeFieldValue = parseFloat(
-        calculatePositionValue.toFixed(8)
-      );
     },
   },
   computed: {
     unitFieldValue: {
+      /*
+      every time the manual trade form is being updated as follows:
+      1. if position size get updated :
+        1.a. get() method would be called
+        1.b. since the position field is the starter, unit field should get calculated and updated
+      2. else unit get updated:
+        2.a. set() method would be called
+        2.b. "unit" will push into array
+        2.c. since position got updated, get() function also get a call
+        2.d. if unit is already being pushed into the array then there is no need for calculation of unit and will
+            return temp
+        2.e. array of events gets cleared in the end.
+       */
       get: function () {
         if (
           !this.positionSizeFieldValue ||
@@ -83,6 +101,12 @@ export default {
         ) {
           return "";
         }
+        if (this.eventTarget.includes("unit")) {
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.eventTarget = [];
+          return this.unitTemp;
+        }
+
         const calculatedUnitFieldValue = parseFloat(
           (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
         );
@@ -93,6 +117,8 @@ export default {
         if (!unitFieldValue || unitFieldValue === "") {
           return "";
         }
+        this.eventTarget.push("unit");
+        this.unitTemp = unitFieldValue;
         const calculatedPositionSizeFieldValue =
           Number(unitFieldValue) * Number(this.price);
         this.positionSizeFieldValue = String(
