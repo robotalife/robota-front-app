@@ -64,9 +64,15 @@ export default {
       default: 0,
     },
   },
+  data() {
+    return {
+      inputValue: this.value,
+    };
+  },
   methods: {
-    changeValue() {
-      return this.$emit("changed", this.value);
+    setMetaDataValueToInput() {
+      this.inputValue = this.unitMetadata;
+      this.$emit("input", this.unitMetadata);
     },
   },
   watch: {
@@ -81,7 +87,7 @@ export default {
   <div :class="['font-14-24 g-100', isHorizontal ? 'd-flex' : '']">
     <label :class="['m-b-0 d-flex jc-between', isHorizontal ? 'm-r-5' : '']">
       <span :class="[isHorizontal ? 'd-flex ai-center' : '']">{{ label }}</span>
-      <span class="d-flex" v-if="unitMetadata">
+      <span class="d-flex" v-if="unitMetadata" @click="setMetaDataValueToInput">
         <VIcon class="BaseInput__metadata-icon">$portfolio</VIcon>
         {{ unitMetadata }}
       </span>
@@ -93,7 +99,7 @@ export default {
       ]"
     >
       <input
-        :value="value"
+        :value="inputValue"
         :placeholder="placeholder"
         :name="name"
         class="w-1-1"
@@ -103,7 +109,11 @@ export default {
         :disabled="disabled"
         :step="step"
         :min="minValue"
-        @input="(e) => $emit('input', e.target.value)"
+        @input="
+          (e) => {
+            $emit('input', e.target.value);
+          }
+        "
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>
