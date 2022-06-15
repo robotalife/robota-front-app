@@ -101,6 +101,7 @@ export default {
         ) {
           return "";
         }
+        //if buy -> after position update -> calcuate the percentage of position size and update the value
         if (this.eventTarget.includes("unit")) {
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           this.eventTarget = [];
@@ -118,6 +119,7 @@ export default {
           return "";
         }
         this.eventTarget.push("unit");
+        // if sell -> calculate the amount of unit percentage and update the slider
         this.unitTemp = unitFieldValue;
         const calculatedPositionSizeFieldValue =
           Number(unitFieldValue) * Number(this.price);
