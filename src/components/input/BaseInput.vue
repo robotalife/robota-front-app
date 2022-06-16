@@ -140,7 +140,7 @@ export default {
   }
 
   @include e(disabled) {
-    border: solid 1px $dark-blue-20;
+    border: solid 1px #e5e7eb;
     background-color: #d2d6db;
   }
 
