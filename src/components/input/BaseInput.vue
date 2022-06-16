@@ -95,6 +95,7 @@ export default {
     <div
       :class="[
         'BaseInput p-y-1 p-l-2 d-flex',
+        disabled ? 'BaseInput__disabled' : '',
         { icon: 'p-r-0-5', unit: 'p-r-2' },
       ]"
     >
@@ -138,9 +139,9 @@ export default {
     border-color: $gray-50;
   }
 
-  .disabled {
+  @include e(disabled) {
     border: solid 1px $dark-blue-20;
-    background-color: $dark-blue-05;
+    background-color: #d2d6db;
   }
 
   @include e(metadata-icon) {
