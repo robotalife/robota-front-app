@@ -78,6 +78,24 @@ export default {
         );
       }
     },
+    calculatedSlider(unitValue) {
+      if (this.text === "Buy") {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        const calculatedSlider = parseFloat(
+          (this.positionSizeFieldValue * 100) / this.availableQouteAsset
+        );
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.positionSizeSliderValue =
+          calculatedSlider > 100 ? 100 : calculatedSlider;
+      } else {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        const calculatedSlider = parseFloat(
+          (unitValue * 100) / this.availableBaseAsset
+        );
+        this.positionSizeSliderValue =
+          calculatedSlider > 100 ? 100 : calculatedSlider;
+      }
+    },
   },
   computed: {
     unitFieldValue: {
@@ -101,16 +119,16 @@ export default {
         ) {
           return "";
         }
-        //if buy -> after position update -> calcuate the percentage of position size and update the value
+
         if (this.eventTarget.includes("unit")) {
           // eslint-disable-next-line vue/no-side-effects-in-computed-properties
           this.eventTarget = [];
           return this.unitTemp;
         }
-
         const calculatedUnitFieldValue = parseFloat(
           (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
         );
+        this.calculatedSlider(calculatedUnitFieldValue);
         this.$emit("update", Number(calculatedUnitFieldValue));
         return String(calculatedUnitFieldValue);
       },
@@ -119,13 +137,13 @@ export default {
           return "";
         }
         this.eventTarget.push("unit");
-        // if sell -> calculate the amount of unit percentage and update the slider
         this.unitTemp = unitFieldValue;
         const calculatedPositionSizeFieldValue =
           Number(unitFieldValue) * Number(this.price);
         this.positionSizeFieldValue = String(
           parseFloat(calculatedPositionSizeFieldValue.toFixed(8))
         );
+        this.calculatedSlider(unitFieldValue);
       },
     },
   },
