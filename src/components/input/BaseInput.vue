@@ -80,11 +80,6 @@ export default {
       this.inputValue = value;
     },
   },
-  watch: {
-    value: function (value) {
-      this.inputValue = value;
-    },
-  },
 };
 </script>
 
