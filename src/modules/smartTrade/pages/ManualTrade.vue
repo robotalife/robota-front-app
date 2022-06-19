@@ -129,7 +129,6 @@ export default {
           (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
         );
         this.calculatedSlider(calculatedUnitFieldValue);
-        this.$emit("update", Number(calculatedUnitFieldValue));
         return String(calculatedUnitFieldValue);
       },
       set: function (unitFieldValue) {
@@ -144,6 +143,7 @@ export default {
           parseFloat(calculatedPositionSizeFieldValue.toFixed(8))
         );
         this.calculatedSlider(unitFieldValue);
+        this.$emit("update", Number(unitFieldValue));
       },
     },
   },
