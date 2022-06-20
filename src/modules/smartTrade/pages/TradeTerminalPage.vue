@@ -79,8 +79,9 @@ export default {
     },
     checkSelectedExchange(state) {
       const selectedExchangeObj = this.exchangeItems.filter((item) => {
-        return item.value == state;
+        return item.value === state;
       });
+      this.orderRequest.exchangeId = selectedExchangeObj[0].value;
       this.selectedExchange = selectedExchangeObj[0].text;
     },
     currentPrice(value) {
@@ -137,8 +138,7 @@ export default {
       });
     },
     getUserExchanges() {
-      const exchanges = this.$store.getters.exchangeListItem;
-      this.exchangeItems = exchanges;
+      this.exchangeItems = this.$store.getters.exchangeListItem;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
       this.fetchSymbols(this.exchangeItems[0].value);
