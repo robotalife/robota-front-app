@@ -46,9 +46,9 @@ export default {
         exchangeId: "",
         orderSide: "",
         orderType: "LIMIT",
-        quantity: -1,
+        quantity: 0,
         symbol: "",
-        price: -1,
+        price: 0,
       },
       currentPrice: "",
       availableBaseAsset: 0,
@@ -79,8 +79,9 @@ export default {
     },
     checkSelectedExchange(state) {
       const selectedExchangeObj = this.exchangeItems.filter((item) => {
-        return item.value == state;
+        return item.value === state;
       });
+      this.orderRequest.exchangeId = selectedExchangeObj[0].value;
       this.selectedExchange = selectedExchangeObj[0].text;
     },
     currentPrice(value) {
@@ -117,6 +118,7 @@ export default {
   },
   methods: {
     updateQuantityValue(value) {
+      console.log("updateQuantityValue ", value);
       this.orderRequest.quantity = value;
     },
     initTradingView() {
@@ -136,8 +138,7 @@ export default {
       });
     },
     getUserExchanges() {
-      const exchanges = this.$store.getters.exchangeListItem;
-      this.exchangeItems = exchanges;
+      this.exchangeItems = this.$store.getters.exchangeListItem;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
       this.fetchSymbols(this.exchangeItems[0].value);
@@ -183,8 +184,8 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
-          console.log("result", result);
           this.currentPrice = String(result.price);
+          this.orderRequest.price = result.price;
           this.availableBaseAsset = result.baseAsset.availableToTrade;
           this.availableQouteAsset = result.qouteAsset.availableToTrade;
         })
