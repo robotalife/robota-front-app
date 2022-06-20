@@ -141,7 +141,7 @@ export default {
 
   @include e(disabled) {
     border: solid 1px #e5e7eb;
-    background-color: #d2d6db;
+    background-color: #f9fafb;
   }
 
   @include e(metadata-icon) {
