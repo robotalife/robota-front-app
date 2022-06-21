@@ -159,6 +159,12 @@ export default {
     selectedCoinPrice(value) {
       this.price = value;
     },
+    price: function (value) {
+      this.eventTarget.push("unit");
+      this.positionSizeFieldValue = String(
+        Number(this.unitFieldValue) * Number(value)
+      );
+    },
   },
 };
 </script>
