@@ -198,7 +198,7 @@ export default {
       const orderSide = this.toOrderSide(this.tab);
       this.orderType[orderSide] = value;
       this.orderRequest.orderType = value;
-      this.orderRequest.price = -1;
+      this.orderRequest.price = this.currentPrice;
     },
     changeOrderSide(value) {
       const orderSide = this.toOrderSide(value);

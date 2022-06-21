@@ -129,6 +129,7 @@ export default {
           (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
         );
         this.calculatedSlider(calculatedUnitFieldValue);
+        this.$emit("update", calculatedUnitFieldValue);
         return String(calculatedUnitFieldValue);
       },
       set: function (unitFieldValue) {
