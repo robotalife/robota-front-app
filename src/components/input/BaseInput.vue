@@ -87,7 +87,11 @@ export default {
   <div :class="['font-14-24 g-100', isHorizontal ? 'd-flex' : '']">
     <label :class="['m-b-0 d-flex jc-between', isHorizontal ? 'm-r-5' : '']">
       <span :class="[isHorizontal ? 'd-flex ai-center' : '']">{{ label }}</span>
-      <span class="d-flex" v-if="unitMetadata" @click="setMetaDataValueToInput">
+      <span
+        class="d-flex pointer"
+        v-if="unitMetadata"
+        @click="setMetaDataValueToInput"
+      >
         <VIcon class="BaseInput__metadata-icon">$portfolio</VIcon>
         {{ unitMetadata }}
       </span>
