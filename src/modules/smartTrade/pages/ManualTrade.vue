@@ -160,6 +160,11 @@ export default {
       this.price = value;
     },
     price: function (value) {
+      if (this.unitTemp) {
+        this.unitTemp = this.unitFieldValue;
+      } else {
+        this.unitTemp = "0";
+      }
       this.eventTarget.push("unit");
       this.positionSizeFieldValue = String(
         Number(this.unitFieldValue) * Number(value)
