@@ -129,6 +129,7 @@ export default {
           (Number(this.positionSizeFieldValue) / Number(this.price)).toFixed(8)
         );
         this.calculatedSlider(calculatedUnitFieldValue);
+        this.$emit("update", calculatedUnitFieldValue);
         return String(calculatedUnitFieldValue);
       },
       set: function (unitFieldValue) {
@@ -157,6 +158,17 @@ export default {
     },
     selectedCoinPrice(value) {
       this.price = value;
+    },
+    price: function (value) {
+      if (this.unitTemp) {
+        this.unitTemp = this.unitFieldValue;
+      } else {
+        this.unitTemp = "0";
+      }
+      this.eventTarget.push("unit");
+      this.positionSizeFieldValue = String(
+        Number(this.unitFieldValue) * Number(value)
+      );
     },
   },
 };
