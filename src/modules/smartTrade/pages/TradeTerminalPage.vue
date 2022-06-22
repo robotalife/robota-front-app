@@ -118,7 +118,6 @@ export default {
   },
   methods: {
     updateQuantityValue(value) {
-      console.log("updateQuantityValue ", value);
       this.orderRequest.quantity = value;
     },
     initTradingView() {
@@ -176,7 +175,6 @@ export default {
       this.fetchSymbols(value);
     },
     changesymbol(value) {
-      console.log(value, "symbol change");
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },
@@ -266,7 +264,7 @@ export default {
               v-if="coinMarketItems[0]"
               label="Symbol"
               name="symbol"
-              :selected="coinMarketItems[0].text"
+              :selected="coinMarketItems[0]"
               @changed="changesymbol"
             />
             <Tabs :items="tabsItem" @clicked="changeOrderSide" />
