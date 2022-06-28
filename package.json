@@ -16,7 +16,7 @@
     "dotenv": "^8.2.0",
     "highcharts": "^10.0.0",
     "highcharts-vue": "^1.4.0",
-    "swiper": "5.x",
+    "swiper": "6.x",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-chartjs": "^3.5.1",
