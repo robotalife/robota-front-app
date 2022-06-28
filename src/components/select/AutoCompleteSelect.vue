@@ -11,8 +11,8 @@ export default {
       default: "",
     },
     selected: {
-      type: String,
-      default: "Select a template",
+      type: Object,
+      default: () => {},
     },
     name: {
       type: String,
@@ -22,12 +22,15 @@ export default {
   data() {
     return {
       value: "",
-      select: this.selected,
+      select: this.selected.value,
     };
   },
   watch: {
-    select: function () {
-      return this.$emit("changed", this.select);
+    select: function (value) {
+      return this.$emit("changed", value);
+    },
+    selected: function (value) {
+      this.select = value.value;
     },
   },
 };
@@ -39,7 +42,7 @@ export default {
     <v-autocomplete
       v-model="select"
       :items="items"
-      :label="selected"
+      :label="selected.text"
       :name="name"
       class="font-12-24"
       dense

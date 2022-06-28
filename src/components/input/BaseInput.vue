@@ -64,9 +64,15 @@ export default {
       default: 0,
     },
   },
+  data() {
+    return {
+      inputValue: this.value,
+    };
+  },
   methods: {
-    changeValue() {
-      return this.$emit("changed", this.value);
+    setMetaDataValueToInput() {
+      this.inputValue = this.unitMetadata;
+      this.$emit("input", this.unitMetadata);
     },
   },
   watch: {
@@ -81,7 +87,11 @@ export default {
   <div :class="['font-14-24 g-100', isHorizontal ? 'd-flex' : '']">
     <label :class="['m-b-0 d-flex jc-between', isHorizontal ? 'm-r-5' : '']">
       <span :class="[isHorizontal ? 'd-flex ai-center' : '']">{{ label }}</span>
-      <span class="d-flex" v-if="unitMetadata">
+      <span
+        class="d-flex pointer"
+        v-if="unitMetadata"
+        @click="setMetaDataValueToInput"
+      >
         <VIcon class="BaseInput__metadata-icon">$portfolio</VIcon>
         {{ unitMetadata }}
       </span>
@@ -89,11 +99,12 @@ export default {
     <div
       :class="[
         'BaseInput p-y-1 p-l-2 d-flex',
+        disabled ? 'BaseInput__disabled' : '',
         { icon: 'p-r-0-5', unit: 'p-r-2' },
       ]"
     >
       <input
-        :value="value"
+        :value="inputValue"
         :placeholder="placeholder"
         :name="name"
         class="w-1-1"
@@ -103,7 +114,11 @@ export default {
         :disabled="disabled"
         :step="step"
         :min="minValue"
-        @input="(e) => $emit('input', e.target.value)"
+        @input="
+          (e) => {
+            $emit('input', e.target.value);
+          }
+        "
       />
       <VIcon v-if="icon" dark>{{ icon }}</VIcon>
       <span v-if="unit" class="font-14-24 g-65 p-r-2 nowrap">{{ unit }}</span>
@@ -128,9 +143,9 @@ export default {
     border-color: $gray-50;
   }
 
-  .disabled {
-    border: solid 1px $dark-blue-20;
-    background-color: $dark-blue-05;
+  @include e(disabled) {
+    border: solid 1px #e5e7eb;
+    background-color: #f9fafb;
   }
 
   @include e(metadata-icon) {

@@ -46,9 +46,9 @@ export default {
         exchangeId: "",
         orderSide: "",
         orderType: "LIMIT",
-        quantity: -1,
+        quantity: 0,
         symbol: "",
-        price: -1,
+        price: 0,
       },
       currentPrice: "",
       availableBaseAsset: 0,
@@ -79,8 +79,9 @@ export default {
     },
     checkSelectedExchange(state) {
       const selectedExchangeObj = this.exchangeItems.filter((item) => {
-        return item.value == state;
+        return item.value === state;
       });
+      this.orderRequest.exchangeId = selectedExchangeObj[0].value;
       this.selectedExchange = selectedExchangeObj[0].text;
     },
     currentPrice(value) {
@@ -136,8 +137,7 @@ export default {
       });
     },
     getUserExchanges() {
-      const exchanges = this.$store.getters.exchangeListItem;
-      this.exchangeItems = exchanges;
+      this.exchangeItems = this.$store.getters.exchangeListItem;
       this.orderRequest.exchangeId = this.exchangeItems[0].value;
       this.orderRequest.orderSide = this.toOrderSide(this.tab);
       this.fetchSymbols(this.exchangeItems[0].value);
@@ -175,7 +175,6 @@ export default {
       this.fetchSymbols(value);
     },
     changesymbol(value) {
-      console.log(value, "symbol change");
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },
@@ -183,8 +182,8 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
-          console.log("result", result);
           this.currentPrice = String(result.price);
+          this.orderRequest.price = result.price;
           this.availableBaseAsset = result.baseAsset.availableToTrade;
           this.availableQouteAsset = result.qouteAsset.availableToTrade;
         })
@@ -197,7 +196,7 @@ export default {
       const orderSide = this.toOrderSide(this.tab);
       this.orderType[orderSide] = value;
       this.orderRequest.orderType = value;
-      this.orderRequest.price = -1;
+      this.orderRequest.price = this.currentPrice;
     },
     changeOrderSide(value) {
       const orderSide = this.toOrderSide(value);
@@ -214,12 +213,14 @@ export default {
           this.errorMessage = "Order Submitted";
           this.snackbarColor = "green";
           this.snackbar = true;
+          this.confirmationModal = false;
         })
         .catch((error) => {
           this.isLoading = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
           this.snackbarColor = "red";
+          this.confirmationModal = true;
         });
     },
     toOrderSide(tab) {
@@ -263,7 +264,7 @@ export default {
               v-if="coinMarketItems[0]"
               label="Symbol"
               name="symbol"
-              :selected="coinMarketItems[0].text"
+              :selected="coinMarketItems[0]"
               @changed="changesymbol"
             />
             <Tabs :items="tabsItem" @clicked="changeOrderSide" />
