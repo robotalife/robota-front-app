@@ -13,8 +13,6 @@ export default {
       errorMessage: "",
       snackbarColor: "pink",
       userEmail: storage.getItem("user")?.email,
-      firstName: "",
-      lastName: "",
       basicInfo: {
         firstName: "",
         lastName: "",
@@ -23,10 +21,8 @@ export default {
   },
   mounted() {
     this.$api.exchange.fetchBasicInfo().then((result) => {
-      console.log(result, "result");
-      this.firstName = result.firstName;
-      this.lastName = result.lastName;
-      console.log(this.firstName, "first");
+      this.basicInfo.firstName = result.firstName;
+      this.basicInfo.lastName = result.lastName;
     });
   },
   methods: {
@@ -37,7 +33,6 @@ export default {
     },
     updateProfile(e) {
       e.preventDefault();
-      console.log(this.basicInfo, "basicInfo");
       this.$api.exchange
         .updateBasicInfo(this.basicInfo)
         .then(() => {
@@ -62,13 +57,13 @@ export default {
         label="First Name"
         type="text"
         name="firstName"
-        :value="firstName"
+        :value="basicInfo.firstName"
       />
       <BaseInput
         label="Last Name"
         type="text"
         name="lastName"
-        :value="lastName"
+        :value="basicInfo.lastName"
       />
       <BaseInput
         label="Email"

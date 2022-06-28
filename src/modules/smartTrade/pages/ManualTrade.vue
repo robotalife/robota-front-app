@@ -228,6 +228,7 @@ export default {
 
     <BaseButton
       :text="text"
+      :isLoading="isFormLoading"
       class="w-1-1 m-t-3 font-body ManualTrade__submit"
     />
   </v-tab-item>
