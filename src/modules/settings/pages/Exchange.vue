@@ -70,12 +70,8 @@ export default {
   methods: {
     changeExchangeForm(e) {
       const name = e.target.name;
-      const value = e.target.value;
-      this.exchangeObj[name] = value;
+      this.exchangeObj[name] = e.target.value;
     },
-    // updateExchanges () {
-    //   let exchanges = store.
-    // },
     addExchange(e) {
       e.preventDefault();
       this.$api.exchange

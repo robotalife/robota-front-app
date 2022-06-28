@@ -2,6 +2,7 @@
 import VIcon from "vuetify/lib/components/VIcon";
 import BaseSelect from "@/components/select/BaseSelect.vue";
 import storage from "@/utils/storage";
+
 export default {
   name: "Header",
   components: {
@@ -40,46 +41,109 @@ export default {
       storage.removeItem("user");
       this.$router.push({ name: "signIn" });
     },
-    fetchExchangeList() {
+    setExchangeListRequestStatus(state) {
+      this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", state);
+    },
+    routeToExchangePage() {
+      const exchangeRoute = "exchange";
+      console.log(this.$route, "$route");
+      if (this.$route.name !== exchangeRoute) {
+        console.log(
+          this.$route.name,
+          "routeToExchangePage() -> this.$route.name"
+        );
+        this.$router.push({ name: exchangeRoute });
+      }
+    },
+    mapExchangeResponseToBaseSelectItems(exchanges) {
+      return exchanges.map((item) => {
+        return {
+          text: item.exchangeName,
+          value: item.exchangeId,
+        };
+      });
+    },
+    handleExchangeList(result) {
+      const exchanges = result.exchanges;
+      //if customer does not have an exchange she should only go to settings/exchange page
+      if (exchanges.length === 0) {
+        this.routeToExchangePage();
+        this.removeLoadingBar();
+        return;
+      }
+      this.exchangeList = this.mapExchangeResponseToBaseSelectItems(exchanges);
+      this.storeExchangeListInStore(exchanges);
+      this.setExchangeListRequestStatus("success");
+      this.selectedExchange = this.findDefaultExchange();
+      console.log("this.selectedExchange", this.selectedExchange);
+      this.removeLoadingBar();
+      if (
+        this.selectedExchange === undefined ||
+        this.selectedExchange.length === 0
+      ) {
+        this.setExchangeListRequestStatus("failed");
+        this.addDefaultItemToBaseSelect();
+      }
+    },
+    catch(error) {
+      if (error.response.status === 401) {
+        this.logout();
+      } else {
+        this.snackbar = true;
+        this.errorMessage = error.response.data.message;
+      }
+      this.setExchangeListRequestStatus("failed");
+      this.removeLoadingBar();
+    },
+    showLoadingBar() {
       this.isLoading = true;
-      this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "pending");
+    },
+    removeLoadingBar() {
+      this.isLoading = false;
+    },
+    fetchExchangeListAndUpdateList() {
       this.$api.exchange
         .fetchExchangeList(this.$store.state.user?.id)
-        .then((result) => {
-          const exchanges = result.exchanges;
-          this.$store.commit("SET_EXCHANGE_LIST", exchanges);
-          this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "success");
-          this.exchangeList = this.$store.getters.exchangeListItem;
-          this.selectedExchange = exchanges.filter(
-            (item) => item.exchangeId === this.$store.getters.selectedExchange
-          );
-          this.isLoading = false;
-          if (
-            this.selectedExchange === undefined ||
-            this.selectedExchange.length === 0
-          ) {
-            this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
-            const defaultExchangeValue = {
-              exchangeName: "Create an exchange",
-              exchangeId: "",
-            };
-            this.selectedExchange.push(defaultExchangeValue);
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 401) {
-            this.logout();
-          } else {
-            this.snackbar = true;
-            this.errorMessage = error.response.data.message;
-          }
-          this.$store.commit("SET_EXCHANGE_LIST_REQUEST_STATUS", "failed");
-          this.isLoading = false;
-        });
+        .then((result) => this.handleExchangeList(result))
+        .catch((error) => this.catch(error));
+    },
+    fetchExchangeList() {
+      this.showLoadingBar();
+      this.setExchangeListRequestStatus("pending");
+      this.fetchExchangeListAndUpdateList();
     },
     changeExchange(value) {
+      console.log(
+        this.$store.getters.selectedExchange,
+        "selectedExchange from store" + value
+      );
+      this.changeDefaultExchange(value);
       this.$store.commit("SET_SELECTED_EXCHANGE", value);
+      //this.changeDefaultExchange(value);
       location.reload();
+    },
+    findDefaultExchange() {
+      return this.exchangeList.filter((item) => item.isDefault);
+    },
+    addDefaultItemToBaseSelect() {
+      const defaultExchangeValue = {
+        exchangeName: "Select an exchange",
+        exchangeId: "",
+      };
+      this.selectedExchange.push(defaultExchangeValue);
+    },
+    storeExchangeListInStore(exchanges) {
+      this.$store.commit("SET_EXCHANGE_LIST", exchanges);
+    },
+    changeDefaultExchange(value) {
+      this.$api.exchange
+        .updateDefaultExchange(value)
+        .catch((error) => this.catchChangeDefaultExchange(error));
+    },
+    catchChangeDefaultExchange(error) {
+      this.snackbar = true;
+      this.errorMessage = error.response.data.message;
+      this.removeLoadingBar();
     },
   },
 };
@@ -140,7 +204,7 @@ export default {
     background-color: $gray-65;
     width: 32px;
     height: 32px;
-    padding: 2px 0px 0px 6px;
+    padding: 2px 0 0 6px;
     border-radius: 18px;
 
     > svg > path {
