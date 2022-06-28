@@ -115,9 +115,12 @@ export default {
         v-model="formData.terms"
         class="m-t-2"
         :rules="[(v) => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
         required
-      ></v-checkbox>
+      >
+        <template v-slot:label>
+          <p>I agree to the <a href="#">Terms & Conditions</a></p>
+        </template>
+      </v-checkbox>
 
       <BaseButton
         class="w-1-1 m-t-3 SignUp__submit"
