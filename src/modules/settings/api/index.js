@@ -3,7 +3,7 @@ import $http from "@/services/http";
 const EXCHANGE_LIST_ENDPOINT = "/exchange/list";
 const EXCHANGE_ENDPOINT = "/exchange";
 const BASIC_INFO_ENDPOINT = "/user/basic-info";
-const EXCHANGE_UPDATE_DEFAULT_ENDPOINT = "/exchange/default/";
+const EXCHANGE_UPDATE_DEFAULT_ENDPOINT = "/exchange/default";
 
 export default {
   fetchExchangeList(id) {

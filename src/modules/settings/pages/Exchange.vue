@@ -94,6 +94,7 @@ export default {
         });
     },
     deleteExchange() {
+      //todo: update the header object
       const id = this.selectedExchange.exchangeId;
       this.$api.exchange
         .deleteExchange(id)

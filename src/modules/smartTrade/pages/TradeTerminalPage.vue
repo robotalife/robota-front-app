@@ -5,6 +5,7 @@ import Tabs from "@/components/tabs/Tabs.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 import ManualTrade from "./ManualTrade.vue";
 import storage from "@/utils/storage";
+
 export default {
   name: "TradingTerminal",
   components: {
@@ -65,6 +66,10 @@ export default {
   },
   computed: {
     checkExchangeListRequest() {
+      console.log(
+        "checkExchangeListRequest()->state",
+        this.$store.state.exchangeListRequestStatus
+      );
       return this.$store.state.exchangeListRequestStatus;
     },
     checkSelectedExchange() {
@@ -73,16 +78,22 @@ export default {
   },
   watch: {
     checkExchangeListRequest(state) {
+      console.log("checkExchangeListRequest()->state", state);
       if (state === "success") {
         this.getUserExchanges();
       }
     },
     checkSelectedExchange(state) {
+      console.log("checkSelectedExchange-> state", state);
       const selectedExchangeObj = this.exchangeItems.filter((item) => {
         return item.value === state;
       });
       this.orderRequest.exchangeId = selectedExchangeObj[0].value;
       this.selectedExchange = selectedExchangeObj[0].text;
+      console.log(
+        "checkSelectedExchange->this.selectedExchange",
+        this.selectedExchange
+      );
     },
     currentPrice(value) {
       this.orderRequest.price = Number(value);
@@ -108,12 +119,17 @@ export default {
   created() {
     const exchangeListCurrentStatus = this.$store.state
       .exchangeListRequestStatus;
+    console.log(
+      "created()->exchangeListCurrentStatus",
+      exchangeListCurrentStatus
+    );
     if (exchangeListCurrentStatus === "success") {
       this.getUserExchanges();
       const selectedExchangeIdInStore = this.$store.getters.selectedExchange;
       this.selectedExchange = this.exchangeItems.filter((item) => {
         return item.value === selectedExchangeIdInStore;
       });
+      console.log("created->this.selectedExchange", this.selectedExchange);
     }
   },
   methods: {
@@ -175,6 +191,7 @@ export default {
       this.fetchSymbols(value);
     },
     changesymbol(value) {
+      console.log(value, "change symbol");
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },

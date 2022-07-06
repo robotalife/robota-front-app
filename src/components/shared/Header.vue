@@ -46,12 +46,7 @@ export default {
     },
     routeToExchangePage() {
       const exchangeRoute = "exchange";
-      console.log(this.$route, "$route");
       if (this.$route.name !== exchangeRoute) {
-        console.log(
-          this.$route.name,
-          "routeToExchangePage() -> this.$route.name"
-        );
         this.$router.push({ name: exchangeRoute });
       }
     },
@@ -74,8 +69,9 @@ export default {
       this.exchangeList = this.mapExchangeResponseToBaseSelectItems(exchanges);
       this.storeExchangeListInStore(exchanges);
       this.setExchangeListRequestStatus("success");
-      this.selectedExchange = this.findDefaultExchange();
-      console.log("this.selectedExchange", this.selectedExchange);
+      //todo : change object to get default directly not from the filter
+      this.selectedExchange = this.findDefaultExchange(exchanges);
+      this.storeDefaultExchange(this.selectedExchange);
       this.removeLoadingBar();
       if (
         this.selectedExchange === undefined ||
@@ -113,17 +109,12 @@ export default {
       this.fetchExchangeListAndUpdateList();
     },
     changeExchange(value) {
-      console.log(
-        this.$store.getters.selectedExchange,
-        "selectedExchange from store" + value
-      );
       this.changeDefaultExchange(value);
-      this.$store.commit("SET_SELECTED_EXCHANGE", value);
-      //this.changeDefaultExchange(value);
+      this.storeDefaultExchange(value);
       location.reload();
     },
-    findDefaultExchange() {
-      return this.exchangeList.filter((item) => item.isDefault);
+    findDefaultExchange(exchanges) {
+      return exchanges.filter((item) => item.default);
     },
     addDefaultItemToBaseSelect() {
       const defaultExchangeValue = {
@@ -144,6 +135,9 @@ export default {
       this.snackbar = true;
       this.errorMessage = error.response.data.message;
       this.removeLoadingBar();
+    },
+    storeDefaultExchange(selectedExchange) {
+      this.$store.commit("SET_SELECTED_EXCHANGE", selectedExchange);
     },
   },
 };
