@@ -62,25 +62,25 @@ export default {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
     },
+    checkSelectedExchange() {
+      return this.initiateDashboard();
+    },
   },
   watch: {
     checkExchangeListRequest(state) {
       this.getUserExchanges();
       if (state === "success") {
-        this.fillData();
-        this.fetchBalances();
-        this.fetchBalance();
-        this.fetchPercentageList();
+        this.initiateDashboard();
       }
+    },
+    checkSelectedExchange() {
+      return this.$store.getters.selectedExchange;
     },
   },
   created() {
     const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
     if (exchangeListRequestStatus === "success") {
-      this.fillData();
-      this.fetchBalances();
-      this.fetchBalance();
-      this.fetchPercentageList();
+      this.initiateDashboard();
     }
   },
   methods: {
@@ -156,6 +156,12 @@ export default {
         this.$router.push({ name: "exchange" });
       }
     },
+    initiateDashboard() {
+      this.fillData();
+      this.fetchBalances();
+      this.fetchBalance();
+      this.fetchPercentageList();
+    },
   },
 };
 </script>
@@ -187,12 +193,12 @@ export default {
           </div>
         </div>
       </div>
-      <highcharts
-        v-if="isLoaded"
-        class="hc"
-        :options="chartOptions"
-        ref="chart"
-      ></highcharts>
+      <!--      <highcharts-->
+      <!--        v-if="isLoaded"-->
+      <!--        class="hc"-->
+      <!--        :options="chartOptions"-->
+      <!--        ref="chart"-->
+      <!--      ></highcharts>-->
       <div
         v-if="isBalancesLoaded"
         class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"

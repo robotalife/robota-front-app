@@ -27,12 +27,10 @@ export default {
       userInfo: storage.getItem("user")?.email,
       exchangeList: [],
       isLoading: false,
-      selectedExchange: [
-        {
-          exchangeName: "Create an exchange",
-          exchangeId: "",
-        },
-      ],
+      selectedExchange: {
+        exchangeName: "Create an exchange",
+        exchangeId: "",
+      },
     };
   },
   methods: {
@@ -71,12 +69,9 @@ export default {
       this.setExchangeListRequestStatus("success");
       //todo : change object to get default directly not from the filter
       this.selectedExchange = this.findDefaultExchange(exchanges);
-      this.storeDefaultExchange(this.selectedExchange);
+      this.storeDefaultExchange(this.selectedExchange.exchangeId);
       this.removeLoadingBar();
-      if (
-        this.selectedExchange === undefined ||
-        this.selectedExchange.length === 0
-      ) {
+      if (!this.selectedExchange) {
         this.setExchangeListRequestStatus("failed");
         this.addDefaultItemToBaseSelect();
       }
@@ -111,17 +106,17 @@ export default {
     changeExchange(value) {
       this.changeDefaultExchange(value);
       this.storeDefaultExchange(value);
-      location.reload();
+      //location.reload();
     },
     findDefaultExchange(exchanges) {
-      return exchanges.filter((item) => item.default);
+      return exchanges.find((item) => item.default === true);
     },
     addDefaultItemToBaseSelect() {
       const defaultExchangeValue = {
         exchangeName: "Select an exchange",
         exchangeId: "",
       };
-      this.selectedExchange.push(defaultExchangeValue);
+      this.selectedExchange = defaultExchangeValue;
     },
     storeExchangeListInStore(exchanges) {
       this.$store.commit("SET_EXCHANGE_LIST", exchanges);
@@ -152,7 +147,7 @@ export default {
         <BaseSelect
           :items="exchangeList"
           name="exchange"
-          :selected="selectedExchange[0].exchangeName"
+          :selected="selectedExchange.exchangeName"
           class="Header__exchange m-r-2"
           @changed="changeExchange"
         />
