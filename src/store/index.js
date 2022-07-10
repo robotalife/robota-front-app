@@ -27,6 +27,7 @@ export default new Vuex.Store({
       state.exchangeListRequestStatus = status;
     },
     SET_SELECTED_EXCHANGE(state, selected) {
+      //todo : either use state as persistent storage or use storage completely
       state.selectedExchange = selected;
       storage.setItem("selectedExchange", selected);
     },
@@ -35,15 +36,15 @@ export default new Vuex.Store({
     exchangeList: (state) => {
       return state.exchangeList;
     },
-    exchangeListItem: (state) => {
-      const exchanges = state.exchangeList;
-      return exchanges.map((item) => {
-        return {
-          text: item.exchangeName,
-          value: item.exchangeId,
-        };
-      });
-    },
+    // exchangeListItem: (state) => {
+    //   const exchanges = state.exchangeList;
+    //   return exchanges.map((item) => {
+    //     return {
+    //       text: item.exchangeName,
+    //       value: item.exchangeId,
+    //     };
+    //   });
+    // },
     selectedExchange: (state) => {
       return state.selectedExchange;
     },

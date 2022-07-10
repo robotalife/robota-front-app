@@ -65,46 +65,48 @@ export default {
     };
   },
   computed: {
-    checkExchangeListRequest() {
-      console.log(
-        "checkExchangeListRequest()->state",
-        this.$store.state.exchangeListRequestStatus
-      );
-      return this.$store.state.exchangeListRequestStatus;
-    },
-    checkSelectedExchange() {
-      return this.$store.state.selectedExchange;
-    },
+    // checkExchangeListRequest() {
+    //   console.log(
+    //     "checkExchangeListRequest()->state",
+    //     this.$store.state.exchangeListRequestStatus
+    //   );
+    //   return this.$store.state.exchangeListRequestStatus;
+    // },
+    // checkSelectedExchange() {
+    //   return this.$store.state.selectedExchange;
+    // },
   },
   watch: {
-    checkExchangeListRequest(state) {
-      console.log("checkExchangeListRequest()->state", state);
-      if (state === "success") {
-        this.getUserExchanges();
-      }
-    },
-    checkSelectedExchange(state) {
-      console.log("checkSelectedExchange-> state", state);
-      const selectedExchangeObj = this.exchangeItems.filter((item) => {
-        return item.value === state;
-      });
-      this.orderRequest.exchangeId = selectedExchangeObj[0].value;
-      this.selectedExchange = selectedExchangeObj[0].text;
-      console.log(
-        "checkSelectedExchange->this.selectedExchange",
-        this.selectedExchange
-      );
-    },
+    // checkExchangeListRequest(state) {
+    //   console.log("checkExchangeListRequest()->state", state);
+    //   if (state === "success") {
+    //     this.initPage();
+    //   }
+    // },
+    // checkSelectedExchange(state) {
+    //   console.log("checkSelectedExchange-> state", state);
+    //   const selectedExchangeObj = this.exchangeItems.filter((item) => {
+    //     return item.value === state;
+    //   });
+    //   this.orderRequest.exchangeId = selectedExchangeObj[0].value;
+    //   this.selectedExchange = selectedExchangeObj[0].text;
+    //   console.log(
+    //     "checkSelectedExchange->this.selectedExchange",
+    //     this.selectedExchange
+    //   );
+    // },
     currentPrice(value) {
       this.orderRequest.price = Number(value);
     },
   },
   mounted() {
+    console.log("mounted");
     let tradingViewScript = document.createElement("script");
     tradingViewScript.setAttribute("src", "https://s3.tradingview.com/tv.js");
     document.head.appendChild(tradingViewScript);
   },
   updated: function () {
+    console.log("updated");
     this.$nextTick(function () {
       this.initTradingView();
       const tradingViewContainer = document.getElementById(
@@ -117,22 +119,32 @@ export default {
     });
   },
   created() {
-    const exchangeListCurrentStatus = this.$store.state
-      .exchangeListRequestStatus;
-    console.log(
-      "created()->exchangeListCurrentStatus",
-      exchangeListCurrentStatus
-    );
-    if (exchangeListCurrentStatus === "success") {
-      this.getUserExchanges();
-      const selectedExchangeIdInStore = this.$store.getters.selectedExchange;
-      this.selectedExchange = this.exchangeItems.filter((item) => {
-        return item.value === selectedExchangeIdInStore;
-      });
-      console.log("created->this.selectedExchange", this.selectedExchange);
-    }
+    this.initPage();
+    //const selectedExchangeIdInStore =
+    // this.selectedExchange = this.exchangeItems.find((item) => {
+    //   return item.value === selectedExchangeIdInStore;
+    // });
   },
   methods: {
+    initPage() {
+      console.log("initPage()");
+      this.selectedExchange = storage.getItem("selectedExchange");
+      console.log("initPage()-> this.selectedExchange", this.selectedExchange);
+      this.exchangeItems = this.mapExchangeResponseToBaseSelectItems(
+        storage.getItem("exchanges")
+      );
+      this.orderRequest.exchangeId = this.selectedExchange; //this.$store.getters.selectedExchange;//todo : change to storage object
+      this.orderRequest.orderSide = this.toOrderSide(this.tab);
+      this.fetchSymbols(this.orderRequest.exchangeId);
+    },
+    mapExchangeResponseToBaseSelectItems(exchanges) {
+      return exchanges.map((item) => {
+        return {
+          text: item.exchangeName,
+          value: item.exchangeId,
+        };
+      });
+    },
     updateQuantityValue(value) {
       this.orderRequest.quantity = value;
     },
@@ -151,12 +163,6 @@ export default {
         allow_symbol_change: true,
         container_id: "tradingviewContainer",
       });
-    },
-    getUserExchanges() {
-      this.exchangeItems = this.$store.getters.exchangeListItem;
-      this.orderRequest.exchangeId = this.exchangeItems[0].value;
-      this.orderRequest.orderSide = this.toOrderSide(this.tab);
-      this.fetchSymbols(this.exchangeItems[0].value);
     },
     fetchSymbols(id) {
       this.$api.smartTrade
@@ -191,7 +197,6 @@ export default {
       this.fetchSymbols(value);
     },
     changesymbol(value) {
-      console.log(value, "change symbol");
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },

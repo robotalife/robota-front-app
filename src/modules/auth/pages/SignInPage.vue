@@ -33,7 +33,6 @@ export default {
   methods: {
     submit() {
       this.isFormValid = this.$refs.form.validate();
-      console.log(this.isFormValid, "check validation");
       if (this.isFormValid) {
         this.isButtonLoading = true;
         this.$api.auth
@@ -55,18 +54,6 @@ export default {
       }
       return false;
     },
-    // changeForm() {
-    // const value = e.target.value;
-    // const name = e.target.name;
-    // this.formData[name] = value;
-    // },
-    // validateInput(value) {
-    //   this.feildsValidation[value.feildName] = value.validtionStatus;
-    //   const feildsValidationStatus = Object.values(this.feildsValidation);
-    //   feildsValidationStatus.includes(false)
-    //     ? (this.isFormValid = false)
-    //     : (this.isFormValid = true);
-    // },
   },
 };
 </script>
