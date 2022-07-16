@@ -20,7 +20,7 @@ export default {
     },
   },
   created() {
-    this.fetchExchangeList();
+    this.initHeader();
   },
   data() {
     return {
@@ -36,6 +36,8 @@ export default {
   methods: {
     logout() {
       storage.removeItem("token");
+      storage.removeItem("exchanges");
+      storage.removeItem("selectedExchange");
       storage.removeItem("user");
       this.$router.push({ name: "signIn" });
     },
@@ -67,7 +69,6 @@ export default {
       this.exchangeList = this.mapExchangeResponseToBaseSelectItems(exchanges);
       this.storeExchangeListInStore(exchanges);
       this.setExchangeListRequestStatus("success");
-      //todo : change object to get default directly not from the filter
       this.selectedExchange = this.findDefaultExchange(exchanges);
       this.storeDefaultExchange(this.selectedExchange.exchangeId);
       this.removeLoadingBar();
@@ -98,15 +99,9 @@ export default {
         .then((result) => this.handleExchangeList(result))
         .catch((error) => this.catch(error));
     },
-    fetchExchangeList() {
-      this.showLoadingBar();
-      this.setExchangeListRequestStatus("pending");
-      this.fetchExchangeListAndUpdateList();
-    },
     changeExchange(value) {
       this.changeDefaultExchange(value);
       this.storeDefaultExchange(value);
-      //location.reload();
     },
     findDefaultExchange(exchanges) {
       return exchanges.find((item) => item.default === true);
@@ -133,6 +128,11 @@ export default {
     },
     storeDefaultExchange(selectedExchange) {
       this.$store.commit("SET_SELECTED_EXCHANGE", selectedExchange);
+    },
+    initHeader() {
+      this.showLoadingBar();
+      this.setExchangeListRequestStatus("pending");
+      this.fetchExchangeListAndUpdateList();
     },
   },
 };
