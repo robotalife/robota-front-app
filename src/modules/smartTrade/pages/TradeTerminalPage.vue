@@ -226,6 +226,29 @@ export default {
       const tabTitle = this.tabsItem[tab].title;
       return tabTitle.toUpperCase();
     },
+    findPrecisionOfNumber(value) {
+      const unitArray = (value + "").split(".");
+      if (unitArray.length === 1) {
+        return 0;
+      } else {
+        return unitArray[1].length;
+      }
+    },
+    calculateUnitFieldByPrecision() {
+      const precision = this.findPrecisionOfNumber(this.orderRequest.quantity);
+      if (precision > this.maxPrecision) {
+        return String(
+          Number(this.orderRequest.quantity).toFixed(this.maxPrecision)
+        );
+      } else {
+        return this.orderRequest.quantity;
+      }
+    },
+    calculateOrderAndShowConfirmationDialog() {
+      console.log("calculateOrderAndShowConfirmationDialog()");
+      this.orderRequest.quantity = this.calculateUnitFieldByPrecision();
+      this.confirmationModal = true;
+    },
   },
 };
 </script>
@@ -244,7 +267,7 @@ export default {
         <!-- TradingView Widget END -->
         <form
           @change="changeBuyForm"
-          @submit.prevent="confirmationModal = true"
+          @submit.prevent="calculateOrderAndShowConfirmationDialog"
           class="TradingTerminal__trading-form"
         >
           <div class="bg-white p-2">
@@ -276,7 +299,6 @@ export default {
                 :selectedCoinPrice="currentPrice"
                 :availableQouteAsset="availableQouteAsset"
                 :availableBaseAsset="availableBaseAsset"
-                :baseAssetStep="baseAssetStep"
                 :isFormLoading="isLoading"
               />
               <ManualTrade

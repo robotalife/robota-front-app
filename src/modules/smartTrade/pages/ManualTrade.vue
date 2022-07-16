@@ -30,10 +30,6 @@ export default {
       type: Number,
       default: 0,
     },
-    baseAssetStep: {
-      type: String,
-      default: "any",
-    },
     isFormLoading: {
       type: Boolean,
       default: false,
@@ -202,7 +198,6 @@ export default {
       class="m-t-3"
       :unitMetadata="availableBaseAsset + ''"
       v-model="unitFieldValue"
-      :step="baseAssetStep"
     />
     <BaseInput
       type="Number"
