@@ -45,6 +45,7 @@ export default {
       percentageList: [],
       isPercentageListLoaded: false,
       showBalance: false,
+      isLoading: false,
       chartOptions: {
         series: [
           {
@@ -85,26 +86,34 @@ export default {
   },
   methods: {
     fillData() {
+      this.isLoading = true;
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
           this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
-        this.$api.dashboard.fetchPieChartData(exchangeId).then((result) => {
-          this.datacollection.labels = result.labels;
-          this.datacollection.datasets[0].data = result.data;
-          this.datacollection.datasets[0].backgroundColor = result.colors;
-          const dataLength = this.datacollection.datasets[0].data.length;
-          const chartData = this.chartOptions.series[0].data;
-          for (let i = 0; i < dataLength; i++) {
-            chartData.push({
-              name: this.datacollection.labels[i],
-              value: Number(this.datacollection.datasets[0].data[i]),
-              color: this.datacollection.datasets[0].backgroundColor[0],
-            });
-          }
-          this.isLoaded = true;
-        });
+        this.$api.dashboard
+          .fetchPieChartData(exchangeId)
+          .then((result) => {
+            this.datacollection.labels = result.labels;
+            this.datacollection.datasets[0].data = result.data;
+            this.datacollection.datasets[0].backgroundColor = result.colors;
+            const dataLength = this.datacollection.datasets[0].data.length;
+            const chartData = this.chartOptions.series[0].data;
+            for (let i = 0; i < dataLength; i++) {
+              chartData.push({
+                name: this.datacollection.labels[i],
+                value: Number(this.datacollection.datasets[0].data[i]),
+                color: this.datacollection.datasets[0].backgroundColor[0],
+              });
+            }
+            this.isLoaded = true;
+            this.isLoading = false;
+          })
+          .catch(() => {
+            this.isLoaded = false;
+            this.isLoading = false;
+          });
       }
     },
     fetchBalances() {
@@ -229,6 +238,9 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
+    <v-overlay :value="isLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <style scoped lang="scss">
