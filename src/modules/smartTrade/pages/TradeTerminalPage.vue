@@ -54,6 +54,8 @@ export default {
       currentPrice: "",
       availableBaseAsset: 0,
       availableQouteAsset: 0,
+      maxPrecision: 0,
+      baseAssetStep: "any",
       screenSize: {
         height: window.screen.availHeight,
         width: window.screen.availWidth,
@@ -64,57 +66,32 @@ export default {
       confirmationModal: false,
     };
   },
-  computed: {
-    // checkExchangeListRequest() {
-    //   console.log(
-    //     "checkExchangeListRequest()->state",
-    //     this.$store.state.exchangeListRequestStatus
-    //   );
-    //   return this.$store.state.exchangeListRequestStatus;
-    // },
-    // checkSelectedExchange() {
-    //   return this.$store.state.selectedExchange;
-    // },
-  },
+  computed: {},
   watch: {
-    // checkExchangeListRequest(state) {
-    //   console.log("checkExchangeListRequest()->state", state);
-    //   if (state === "success") {
-    //     this.initPage();
-    //   }
-    // },
-    // checkSelectedExchange(state) {
-    //   console.log("checkSelectedExchange-> state", state);
-    //   const selectedExchangeObj = this.exchangeItems.filter((item) => {
-    //     return item.value === state;
-    //   });
-    //   this.orderRequest.exchangeId = selectedExchangeObj[0].value;
-    //   this.selectedExchange = selectedExchangeObj[0].text;
-    //   console.log(
-    //     "checkSelectedExchange->this.selectedExchange",
-    //     this.selectedExchange
-    //   );
-    // },
     currentPrice(value) {
       this.orderRequest.price = Number(value);
     },
   },
   mounted() {
-    console.log("mounted");
     let tradingViewScript = document.createElement("script");
     tradingViewScript.setAttribute("src", "https://s3.tradingview.com/tv.js");
     document.head.appendChild(tradingViewScript);
   },
   updated: function () {
-    console.log("updated");
     this.$nextTick(function () {
-      this.initTradingView();
-      const tradingViewContainer = document.getElementById(
-        "tradingviewContainer"
-      );
-      if (tradingViewContainer) {
-        tradingViewContainer.children[0].style.width = "100%";
-        tradingViewContainer.children[0].children[0].style.width = "100%";
+      try {
+        this.initTradingView();
+        const tradingViewContainer = document.getElementById(
+          "tradingviewContainer"
+        );
+        if (tradingViewContainer) {
+          tradingViewContainer.children[0].style.width = "100%";
+          tradingViewContainer.children[0].children[0].style.width = "100%";
+        }
+      } catch (e) {
+        console.warn(
+          "trading view is not working properly,waiting for state to be updated"
+        );
       }
     });
   },
@@ -127,9 +104,7 @@ export default {
   },
   methods: {
     initPage() {
-      console.log("initPage()");
       this.selectedExchange = storage.getItem("selectedExchange");
-      console.log("initPage()-> this.selectedExchange", this.selectedExchange);
       this.exchangeItems = this.mapExchangeResponseToBaseSelectItems(
         storage.getItem("exchanges")
       );
@@ -186,9 +161,7 @@ export default {
       const value = e.target.value;
       //everything other than symbol here is a number
       //symbol and other properties are going to be updated in other parts of code
-      if (name === "symbol") {
-        return;
-      } else {
+      if (name !== "symbol") {
         this.orderRequest[name] = Number(value);
       }
     },
@@ -196,7 +169,7 @@ export default {
       this.orderRequest.exchangeId = value;
       this.fetchSymbols(value);
     },
-    changesymbol(value) {
+    changeSymbol(value) {
       this.orderRequest.symbol = value;
       this.fetchSelectedSymbolDetails(value);
     },
@@ -204,10 +177,14 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
+          console.log("fetchSelectedSymbolDetails(),result", result);
           this.currentPrice = String(result.price);
           this.orderRequest.price = result.price;
+          console.log("price in form", this.currentPrice);
           this.availableBaseAsset = result.baseAsset.availableToTrade;
           this.availableQouteAsset = result.qouteAsset.availableToTrade;
+          this.maxPrecision = result.maxPrecision;
+          this.baseAssetStep = result.baseAssetStep;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -287,7 +264,7 @@ export default {
               label="Symbol"
               name="symbol"
               :selected="coinMarketItems[0]"
-              @changed="changesymbol"
+              @changed="changeSymbol"
             />
             <Tabs :items="tabsItem" @clicked="changeOrderSide" />
             <v-tabs-items v-model="tab" class="w-1-1 m-t-1">
@@ -299,6 +276,7 @@ export default {
                 :selectedCoinPrice="currentPrice"
                 :availableQouteAsset="availableQouteAsset"
                 :availableBaseAsset="availableBaseAsset"
+                :baseAssetStep="baseAssetStep"
                 :isFormLoading="isLoading"
               />
               <ManualTrade
