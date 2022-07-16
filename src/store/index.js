@@ -13,7 +13,7 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USER(state, user) {
-      state.user = user;
+      state.user = user; //todo : remove store part and only store in storage
       storage.setItem("user", user);
     },
     SET_EXCHANGE_LIST(state, list) {
@@ -36,15 +36,6 @@ export default new Vuex.Store({
     exchangeList: (state) => {
       return state.exchangeList;
     },
-    // exchangeListItem: (state) => {
-    //   const exchanges = state.exchangeList;
-    //   return exchanges.map((item) => {
-    //     return {
-    //       text: item.exchangeName,
-    //       value: item.exchangeId,
-    //     };
-    //   });
-    // },
     selectedExchange: (state) => {
       return state.selectedExchange;
     },
