@@ -45,6 +45,7 @@ export default {
       percentageList: [],
       isPercentageListLoaded: false,
       showBalance: false,
+      isLoading: false,
       chartOptions: {
         series: [
           {
@@ -62,49 +63,57 @@ export default {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
     },
+    checkSelectedExchange() {
+      return this.initiateDashboard();
+    },
   },
   watch: {
     checkExchangeListRequest(state) {
       this.getUserExchanges();
       if (state === "success") {
-        this.fillData();
-        this.fetchBalances();
-        this.fetchBalance();
-        this.fetchPercentageList();
+        this.initiateDashboard();
       }
+    },
+    checkSelectedExchange() {
+      return this.$store.getters.selectedExchange;
     },
   },
   created() {
     const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
     if (exchangeListRequestStatus === "success") {
-      this.fillData();
-      this.fetchBalances();
-      this.fetchBalance();
-      this.fetchPercentageList();
+      this.initiateDashboard();
     }
   },
   methods: {
     fillData() {
+      this.isLoading = true;
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
           this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
-        this.$api.dashboard.fetchPieChartData(exchangeId).then((result) => {
-          this.datacollection.labels = result.labels;
-          this.datacollection.datasets[0].data = result.data;
-          this.datacollection.datasets[0].backgroundColor = result.colors;
-          const dataLength = this.datacollection.datasets[0].data.length;
-          const chartData = this.chartOptions.series[0].data;
-          for (let i = 0; i < dataLength; i++) {
-            chartData.push({
-              name: this.datacollection.labels[i],
-              value: Number(this.datacollection.datasets[0].data[i]),
-              color: this.datacollection.datasets[0].backgroundColor[0],
-            });
-          }
-          this.isLoaded = true;
-        });
+        this.$api.dashboard
+          .fetchPieChartData(exchangeId)
+          .then((result) => {
+            this.datacollection.labels = result.labels;
+            this.datacollection.datasets[0].data = result.data;
+            this.datacollection.datasets[0].backgroundColor = result.colors;
+            const dataLength = this.datacollection.datasets[0].data.length;
+            const chartData = this.chartOptions.series[0].data;
+            for (let i = 0; i < dataLength; i++) {
+              chartData.push({
+                name: this.datacollection.labels[i],
+                value: Number(this.datacollection.datasets[0].data[i]),
+                color: this.datacollection.datasets[0].backgroundColor[0],
+              });
+            }
+            this.isLoaded = true;
+            this.isLoading = false;
+          })
+          .catch(() => {
+            this.isLoaded = false;
+            this.isLoading = false;
+          });
       }
     },
     fetchBalances() {
@@ -156,6 +165,12 @@ export default {
         this.$router.push({ name: "exchange" });
       }
     },
+    initiateDashboard() {
+      this.fillData();
+      this.fetchBalances();
+      this.fetchBalance();
+      this.fetchPercentageList();
+    },
   },
 };
 </script>
@@ -187,12 +202,12 @@ export default {
           </div>
         </div>
       </div>
-      <highcharts
-        v-if="isLoaded"
-        class="hc"
-        :options="chartOptions"
-        ref="chart"
-      ></highcharts>
+      <!--      <highcharts-->
+      <!--        v-if="isLoaded"-->
+      <!--        class="hc"-->
+      <!--        :options="chartOptions"-->
+      <!--        ref="chart"-->
+      <!--      ></highcharts>-->
       <div
         v-if="isBalancesLoaded"
         class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"
@@ -223,6 +238,9 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
+    <v-overlay :value="isLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 <style scoped lang="scss">
