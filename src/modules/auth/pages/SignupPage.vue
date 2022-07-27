@@ -1,10 +1,8 @@
 <script>
-// import BaseInput from "@/components/input/BaseInput.vue";
 import BaseButton from "@/components/button/BaseButton.vue";
 export default {
   name: "SignUp",
   components: {
-    // BaseInput,
     BaseButton,
   },
   data() {
@@ -60,18 +58,6 @@ export default {
           });
       }
     },
-    // changeForm() {
-    // const value = e.target.value;
-    // const name = e.target.name;
-    // this.formData[name] = value;
-    // },
-    // validateInput(value) {
-    //   this.feildsValidation[value.feildName] = value.validtionStatus;
-    //   const feildsValidationStatus = Object.values(this.feildsValidation);
-    //   feildsValidationStatus.includes(false)
-    //     ? (this.isFormValid = false)
-    //     : (this.isFormValid = true);
-    // },
   },
 };
 </script>
@@ -129,62 +115,6 @@ export default {
         :isLoading="isButtonLoading"
       />
     </v-form>
-    <!-- <form class="m-t-3" @submit.prevent="submit" @change="changeForm">
-      <BaseInput
-        label="Email Address"
-        type="email"
-        name="email"
-        v-model="formData.email"
-        rules="email"
-        @validate="validateInput"
-      />
-      <BaseInput
-        class="m-t-2"
-        label="Password"
-        type="password"
-        name="password"
-        rules="repeatPassword"
-        v-model="formData.password"
-        :siblingData="formData['rp-password']"
-        @validate="validateInput"
-      />
-      <BaseInput
-        class="m-t-2"
-        label="Reapet Password"
-        type="password"
-        name="rp-password"
-        rules="repeatPassword"
-        v-model="formData['rp-password']"
-        :siblingData="formData.password"
-        @validate="validateInput"
-      />
-
-      <label class="d-flex ai-center m-t-3">
-        <input
-          type="checkbox"
-          value="termsAndConditions"
-          name="terms"
-          @change="
-            () => {
-              this.feildsValidation.terms = !this.feildsValidation.terms;
-              validateInput({
-                validtionStatus: this.feildsValidation.terms,
-                feildName: 'terms',
-              });
-            }
-          "
-        />
-        <p class="m-l-0-5 font-text-small">
-          I agree to the <a href="#" class="SignUp__link">Term & Conditions</a>
-        </p>
-      </label>
-
-      <BaseButton
-        class="w-1-1 m-t-3 SignUp__submit"
-        text="Sign Up"
-        size="small"
-        :isLoading="isButtonLoading"
-      /> -->
     <div class="d-flex m-t-5 jc-center fw-500">
       <p class="font-14-24 g-65 m-r-0-5">
         Already have an account?
@@ -204,7 +134,6 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
-    <!-- </form> -->
   </div>
 </template>
 

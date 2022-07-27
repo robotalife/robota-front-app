@@ -10,11 +10,10 @@ export default new Vuex.Store({
     exchangeList: [],
     exchangeListRequestStatus: "start",
     selectedExchange: "",
-    // isLoading: true,
   },
   mutations: {
     SET_USER(state, user) {
-      state.user = user;
+      state.user = user; //todo : remove store part and only store in storage
       storage.setItem("user", user);
     },
     SET_EXCHANGE_LIST(state, list) {
@@ -28,39 +27,17 @@ export default new Vuex.Store({
       state.exchangeListRequestStatus = status;
     },
     SET_SELECTED_EXCHANGE(state, selected) {
+      //todo : either use state as persistent storage or use storage completely
       state.selectedExchange = selected;
       storage.setItem("selectedExchange", selected);
     },
-    // CHANGE_LOADING_STATUS(state, loading) {
-    //   state.isLoading = loading;
-    // },
   },
   getters: {
     exchangeList: (state) => {
       return state.exchangeList;
     },
-    exchangeListItem: (state) => {
-      const exchanges = state.exchangeList;
-      const listItems = exchanges.map((item) => {
-        return {
-          text: item.exchangeName,
-          value: item.exchangeId,
-        };
-      });
-      return listItems;
-    },
     selectedExchange: (state) => {
-      if (state.selectedExchange) {
-        return state.selectedExchange;
-      } else if (state.exchangeList.length > 0) {
-        const exchangeId =
-          storage.getItem("selectedExchange") ||
-          state.exchangeList[0].exchangeId;
-        state.selectedExchange = exchangeId;
-        return exchangeId;
-      } else {
-        return "";
-      }
+      return state.selectedExchange;
     },
     exchangeListStatus: (state) => {
       return state.exchangeListRequestStatus;
