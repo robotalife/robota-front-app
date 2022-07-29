@@ -1,5 +1,5 @@
 <script>
-// import storage from "@/utils/storage";
+import storage from "@/utils/storage";
 import BaseButton from "@/components/button/BaseButton";
 export default {
   name: "OpenOrders",
@@ -22,7 +22,6 @@ export default {
         { text: "Volume", value: "volume", sortable: true },
         { text: "Side", value: "side", sortable: true },
         { text: "Type", value: "type" },
-        // { text: "Source", value: "source" },
         { text: "Creation date", value: "creationDate" },
         { text: "Action", value: "action" },
       ],
@@ -30,39 +29,56 @@ export default {
       isLoading: false,
       confirmationModal: false,
       selectedOrderId: "",
+      deleteButtonLoading: false,
     };
   },
   computed: {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
     },
+    checkSelectedExchange() {
+      return this.initOpenOrderPage();
+    },
   },
   watch: {
     checkExchangeListRequest(state) {
       if (state === "success") {
-        this.fetchOrders();
+        this.initOpenOrderPage();
       }
+    },
+    checkSelectedExchange() {
+      return this.$store.getters.selectedExchange;
     },
   },
   created() {
-    const exchangeListCurrentStatus = this.$store.state
-      .exchangeListRequestStatus;
-    if (exchangeListCurrentStatus === "success") {
-      this.fetchOrders();
+    const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
+    if (exchangeListRequestStatus === "success") {
+      this.initOpenOrderPage();
     }
+    //should check if the servers have ability to handle the load of this or not
+    //setInterval(this.initOpenOrderPage, 15000);
   },
   methods: {
-    fetchOrders() {
-      const selectedExchange = this.$store.getters.selectedExchange;
+    initOpenOrderPage() {
+      this.isLoading = true;
+      // if I don't use the store here those computed elements may not work properly
+      //so, I access the store object here to enforce a check on the store state, but I use storage as backup
+      const selectedExchangeInStore = this.$store.getters.selectedExchange;
+      const selectedExchange =
+        selectedExchangeInStore === ""
+          ? storage.getItem("selectedExchange")
+          : selectedExchangeInStore;
       this.$api.smartTrade
         .fetchOpenOrders(selectedExchange)
         .then((result) => {
           this.openOrders = result.openOrders;
           this.isOpenOrdersLoaded = true;
+          this.isLoading = false;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
+          this.isLoading = false;
         });
     },
     deleteConfirmation(id) {
@@ -70,19 +86,19 @@ export default {
       this.confirmationModal = true;
     },
     deleteOrder() {
-      this.isLoading = true;
+      this.deleteButtonLoading = true;
       this.$api.smartTrade
         .deleteOpenOrder(this.selectedOrderId)
         .then(() => {
-          this.fetchOrders();
-          this.isLoading = false;
+          this.initOpenOrderPage("deleteOrder");
+          this.deleteButtonLoading = false;
           this.confirmationModal = false;
           this.snackbar = true;
           this.snackbarColor = "green";
           this.errorMessage = `order deleted successfully`;
         })
         .catch(() => {
-          this.isLoading = false;
+          this.deleteButtonLoading = false;
           this.confirmationModal = false;
           this.snackbar = true;
           this.snackbarColor = "pink";
@@ -165,6 +181,9 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
+    <v-overlay :value="isLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 

@@ -1,6 +1,5 @@
 <script>
 import Doughnut from "./SampleChart";
-// import BaseButton from "../../../components/button/BaseButton.vue";
 
 export default {
   components: {
@@ -79,10 +78,7 @@ export default {
     },
   },
   created() {
-    const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
-    if (exchangeListRequestStatus === "success") {
-      this.initiateDashboard();
-    }
+    this.initiateDashboard();
   },
   methods: {
     fillData() {
@@ -166,10 +162,13 @@ export default {
       }
     },
     initiateDashboard() {
-      this.fillData();
-      this.fetchBalances();
-      this.fetchBalance();
-      this.fetchPercentageList();
+      const exchangeListRequestStatus = this.$store.getters.exchangeListStatus;
+      if (exchangeListRequestStatus === "success") {
+        this.fillData();
+        this.fetchBalances();
+        this.fetchBalance();
+        this.fetchPercentageList();
+      }
     },
   },
 };

@@ -1,5 +1,7 @@
 <script>
 // import storage from "@/utils/storage";
+import storage from "@/utils/storage";
+
 export default {
   name: "OrderHistory",
   components: {},
@@ -22,11 +24,15 @@ export default {
         { text: "Closed On", value: "closedOn" },
       ],
       openOrders: [],
+      isLoading: false,
     };
   },
   computed: {
     checkExchangeListRequest() {
       return this.$store.state.exchangeListRequestStatus;
+    },
+    checkSelectedExchange() {
+      return this.fetchOrders();
     },
   },
   watch: {
@@ -34,6 +40,9 @@ export default {
       if (state === "success") {
         this.fetchOrders();
       }
+    },
+    checkSelectedExchange() {
+      return this.$store.getters.selectedExchange;
     },
   },
   created() {
@@ -45,14 +54,21 @@ export default {
   },
   methods: {
     fetchOrders() {
-      const selectedExchange = this.$store.getters.selectedExchange;
+      this.isLoading = true;
+      const selectedExchangeInStore = this.$store.getters.selectedExchange;
+      const selectedExchange =
+        selectedExchangeInStore === ""
+          ? storage.getItem("selectedExchange")
+          : selectedExchangeInStore;
       this.$api.smartTrade
         .fetchOrderHistory(selectedExchange)
         .then((result) => {
+          this.isLoading = false;
           this.openOrders = result.orders;
           this.isOpenOrdersLoaded = true;
         })
         .catch((error) => {
+          this.isLoading = false;
           this.errorMessage = error.response.data.message;
           this.snackbar = true;
         });
@@ -87,6 +103,9 @@ export default {
         </v-btn>
       </template>
     </v-snackbar>
+    <v-overlay :value="isLoading">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </div>
 </template>
 
