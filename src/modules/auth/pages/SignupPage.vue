@@ -104,7 +104,12 @@ export default {
         required
       >
         <template v-slot:label>
-          <p>I agree to the <a href="#">Terms & Conditions</a></p>
+          <p>
+            I agree to the
+            <a href="https://robotalife.com/terms-conditions/"
+              >Terms & Conditions</a
+            >
+          </p>
         </template>
       </v-checkbox>
 
