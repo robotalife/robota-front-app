@@ -177,10 +177,8 @@ export default {
       this.$api.smartTrade
         .fetchSymbolDetails(value, this.orderRequest.exchangeId)
         .then((result) => {
-          console.log("fetchSelectedSymbolDetails(),result", result);
           this.currentPrice = String(result.price);
           this.orderRequest.price = result.price;
-          console.log("price in form", this.currentPrice);
           this.availableBaseAsset = result.baseAsset.availableToTrade;
           this.availableQouteAsset = result.qouteAsset.availableToTrade;
           this.maxPrecision = result.maxPrecision;
