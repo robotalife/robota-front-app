@@ -25,7 +25,7 @@ export default {
 };
 </script>
 <template>
-  <div class="h-1-1 w-1-1 d-flex ai-center jc-center">{{ message }}</div>
+  <div class="h-1-1 w-1-1 d-flex items-center jc-center">{{ message }}</div>
 </template>
 
 <style scoped lang="scss"></style>

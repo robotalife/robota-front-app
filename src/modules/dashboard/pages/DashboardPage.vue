@@ -188,7 +188,7 @@ export default {
         </div>
         <div
           v-if="isPercentageListLoaded"
-          class="m-l-4 ai-center d-flex flex-col flex-wrap ai-start"
+          class="m-l-4 items-center d-flex flex-col flex-wrap items-start"
         >
           <div
             class="m-t-1 m-r-4 d-flex"
@@ -209,7 +209,7 @@ export default {
       <!--      ></highcharts>-->
       <div
         v-if="isBalancesLoaded"
-        class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"
+        class="h-1-1 d-flex flex-col items-center jc-center m-t-3"
       >
         <v-data-table
           :headers="headers"

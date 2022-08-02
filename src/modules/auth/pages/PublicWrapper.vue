@@ -13,10 +13,10 @@ export default {
 };
 </script>
 <template>
-  <main class="Auth d-flex flex-col ai-center jc-center">
+  <main class="Auth d-flex flex-col items-center jc-center">
     <VIcon dark class="Auth__logo">$robotaLogo</VIcon>
     <div class="Auth__card m-t-12 p-8 bg-white">
-      <!-- <div class="d-flex ai-center"> -->
+      <!-- <div class="d-flex items-center"> -->
       <!-- <VIcon size="32" dark>$darsim</VIcon> -->
       <!-- <span class="g-100 font-18-24 fw-500 m-l-1">Robota</span> -->
       <!-- </div> -->

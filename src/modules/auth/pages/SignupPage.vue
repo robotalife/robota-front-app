@@ -88,30 +88,12 @@ export default {
         required
       ></v-text-field>
 
-      <v-text-field
-        v-model="formData.confirmPassword"
-        class="m-t-2 SignUp__input"
-        :rules="confirmPasswordRules"
-        label="Repeat Password"
-        type="password"
-        required
-      ></v-text-field>
-
-      <v-checkbox
-        v-model="formData.terms"
-        class="m-t-2"
-        :rules="[(v) => !!v || 'You must agree to continue!']"
-        required
-      >
-        <template v-slot:label>
-          <p>
-            I agree to the
-            <a href="https://robotalife.com/terms-conditions/"
-              >Terms & Conditions</a
-            >
-          </p>
-        </template>
-      </v-checkbox>
+      <label class="d-flex items-center m-t-3">
+        <input type="checkbox" value="termsAndConditions" />
+        <p class="m-l-0-5 font-text-small">
+          I agree to the <a href="#" class="SignUp__link">Term & Conditions</a>
+        </p>
+      </label>
 
       <BaseButton
         class="w-1-1 m-t-3 SignUp__submit"

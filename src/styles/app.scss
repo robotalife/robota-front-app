@@ -1,3 +1,8 @@
+// Tailwind directives
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 //objects
 @import './objects/objects.color';
 @import './objects/objects.spacing';
