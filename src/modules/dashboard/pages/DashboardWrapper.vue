@@ -86,7 +86,7 @@ export default {
     border-radius: 10px;
     max-height: 188px;
     min-width: 170px;
-    cursor: cursor-pointer;
+    cursor: pointer;
 
     &-title {
       color: $white;

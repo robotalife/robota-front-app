@@ -11,7 +11,7 @@ export default {
       <v-card elevation="0" class="m-t-3 SettingsWrapper__tabs">
         <div class="d-flex jc-between">
           <div class="d-flex">
-            <RouterLink to="/settings/profile" class="d-flex items-start p-y-3">
+            <RouterLink to="/settings/profile" class="d-flex ai-start p-y-3">
               <div class="h-1-1">
                 <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
                   Edit Profile
@@ -20,7 +20,7 @@ export default {
             </RouterLink>
             <RouterLink
               to="/settings/security"
-              class="d-flex items-start p-y-3 m-l-3"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
                 <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
@@ -30,7 +30,7 @@ export default {
             </RouterLink>
             <RouterLink
               to="/settings/notification"
-              class="d-flex items-start p-y-3 m-l-3"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
                 <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
@@ -40,7 +40,7 @@ export default {
             </RouterLink>
             <RouterLink
               to="/settings/exchange"
-              class="d-flex items-start p-y-3 m-l-3"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
                 <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">

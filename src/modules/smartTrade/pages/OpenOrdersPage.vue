@@ -114,7 +114,7 @@ export default {
   <div class="d-flex w-1-1 flex-col">
     <div
       v-if="isOpenOrdersLoaded"
-      class="h-1-1 d-flex flex-col items-center jc-start"
+      class="h-1-1 d-flex flex-col ai-center jc-start"
     >
       <v-data-table
         :headers="headers"

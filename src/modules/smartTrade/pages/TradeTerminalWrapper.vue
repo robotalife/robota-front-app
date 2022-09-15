@@ -13,7 +13,7 @@ export default {
           <div class="d-flex">
             <RouterLink
               to="/smart-trade/trading-terminal"
-              class="d-flex items-start p-y-3"
+              class="d-flex ai-start p-y-3"
             >
               <div class="h-1-1">
                 <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">
@@ -23,7 +23,7 @@ export default {
             </RouterLink>
             <RouterLink
               to="/smart-trade/open-orders"
-              class="d-flex items-start p-y-3 m-l-3"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
                 <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">
@@ -33,7 +33,7 @@ export default {
             </RouterLink>
             <RouterLink
               to="/smart-trade/order-history"
-              class="d-flex items-start p-y-3 m-l-3"
+              class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
                 <span class="TradingTerminalWrapper__tab font-16-24 g-2 fw-500">

@@ -255,9 +255,9 @@ export default {
   <div class="TradingTerminal d-flex flex-col w-1-1">
     <div
       v-if="isExchangeListLoaded"
-      class="h-1-1 w-1-1 d-flex flex-col items-center jc-center"
+      class="h-1-1 w-1-1 d-flex flex-col ai-center jc-center"
     >
-      <div class="d-flex w-1-1 jc-center items-start m-t-4">
+      <div class="d-flex w-1-1 jc-center ai-start m-t-4">
         <!-- TradingView Widget BEGIN -->
         <div class="TradingTerminal__trading-view m-r-2 w-1-1">
           <div id="tradingviewContainer" class="w-1-1"></div>

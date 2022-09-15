@@ -46,8 +46,8 @@ export default {
     },
   },
   created() {
-    const exchangeListCurrentStatus = this.$store.state
-      .exchangeListRequestStatus;
+    const exchangeListCurrentStatus =
+      this.$store.state.exchangeListRequestStatus;
     if (exchangeListCurrentStatus === "success") {
       this.fetchOrders();
     }
@@ -81,7 +81,7 @@ export default {
   <div class="d-flex flex-col w-1-1">
     <div
       v-if="isOpenOrdersLoaded"
-      class="h-1-1 d-flex flex-col items-center jc-center"
+      class="h-1-1 d-flex flex-col ai-center jc-center"
     >
       <v-data-table
         :headers="headers"

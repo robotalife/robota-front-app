@@ -9,8 +9,8 @@ export default {
 </script>
 
 <template>
-  <div class="SideBar px-4 py-8 d-flex flex-col jc-between">
-    <div class="d-flex flex-col px-3 py-3">
+  <div class="SideBar p-x-4 p-y-6 d-flex flex-col jc-between">
+    <div class="d-flex flex-col">
       <RouterLink to="/dashboard">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
@@ -44,7 +44,7 @@ export default {
         </v-tooltip>
       </RouterLink>
     </div>
-    <div class="d-flex flex-col px-3 py-3">
+    <div class="d-flex flex-col">
       <a href="https://www.instagram.com/robotalife/" class="m-t-5">
         <VIcon dark>$instagram</VIcon>
       </a>
@@ -52,9 +52,9 @@ export default {
         <VIcon dark>$twitter</VIcon>
       </a>
       <VIcon dark class="m-t-5">$telegram</VIcon>
-      <!-- <RouterLink to="/settings" class="m-t-5">
+      <RouterLink to="/settings" class="m-t-5">
         <VIcon dark>$robota</VIcon>
-      </RouterLink> -->
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -64,6 +64,6 @@ export default {
 @import "@/styles/utils/bem";
 .SideBar {
   border-right: 2px solid $gray-10;
-  height: calc(100vh - 74px);
+  height: 90vh;
 }
 </style>

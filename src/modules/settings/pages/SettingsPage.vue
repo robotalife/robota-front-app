@@ -51,7 +51,7 @@ export default {
 
 <template>
   <div class="h-1-1 w-1-1">
-    <div class="Setting h-1-1 d-flex flex-col items-center jc-center">
+    <div class="Setting h-1-1 d-flex flex-col ai-center jc-center">
       <Tabs :items="tabItems" />
       <v-tabs-items v-model="tab" class="w-1-3">
         <Exchange />

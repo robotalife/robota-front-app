@@ -85,7 +85,7 @@ export default {
       this.isLoading = true;
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
-          this.$store.state.exchangeListRequestStatus;
+        this.$store.state.exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
         this.$api.dashboard
@@ -188,7 +188,7 @@ export default {
         </div>
         <div
           v-if="isPercentageListLoaded"
-          class="m-l-4 items-center d-flex flex-col flex-wrap items-start"
+          class="m-l-4 ai-center d-flex flex-col flex-wrap ai-start"
         >
           <div
             class="m-t-1 m-r-4 d-flex"
@@ -209,7 +209,7 @@ export default {
       <!--      ></highcharts>-->
       <div
         v-if="isBalancesLoaded"
-        class="h-1-1 d-flex flex-col items-center jc-center m-t-3"
+        class="h-1-1 d-flex flex-col ai-center jc-center m-t-3"
       >
         <v-data-table
           :headers="headers"

@@ -23,7 +23,7 @@ export default {
 <template>
   <div class="d-flex">
     <label v-for="item in items" :key="item.value" class="m-r-7 m-t-1 d-flex">
-      <div class="RadioButton d-flex jc-center items-center">
+      <div class="RadioButton d-flex jc-center ai-center">
         <input
           v-model="radioGroup"
           :value="item.value"

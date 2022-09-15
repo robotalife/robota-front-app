@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "npm run serve --mode development",
-    "serve": "vue-cli-service serve --mode development",
+    "start": "npm run serve --mode $NODE_ENV",
+    "serve": "vue-cli-service serve --mode $NODE_ENV",
     "build": "vue-cli-service build --mode $NODE_ENV",
     "lint": "vue-cli-service lint"
   },
@@ -17,7 +17,6 @@
     "highcharts": "^10.0.0",
     "highcharts-vue": "^1.4.0",
     "swiper": "5.x",
-    "tailwindcss": "^3.1.6",
     "vue": "^2.6.12",
     "vue-awesome-swiper": "^4.1.1",
     "vue-chartjs": "^3.5.1",
