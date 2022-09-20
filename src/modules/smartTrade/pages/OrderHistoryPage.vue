@@ -46,8 +46,8 @@ export default {
     },
   },
   created() {
-    const exchangeListCurrentStatus =
-      this.$store.state.exchangeListRequestStatus;
+    const exchangeListCurrentStatus = this.$store.state
+      .exchangeListRequestStatus;
     if (exchangeListCurrentStatus === "success") {
       this.fetchOrders();
     }
