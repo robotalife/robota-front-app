@@ -25,14 +25,8 @@ export default {
           sortable: false,
           value: "logo",
         },
-        {
-          text: "Name",
-          align: "start",
-          sortable: true,
-          value: "assetName",
-        },
-        { text: "Total", value: "assetTotal", sortable: true },
-        { text: "Available", value: "assetAvailable", sortable: true },
+        // { text: "Total", value: "assetTotal", sortable: true },
+        { text: "Total Available", value: "assetAvailable", sortable: true },
         { text: "Value(BTC)", value: "assetValue" },
         { text: "Last Price", value: "lastPrice" },
       ],
@@ -84,8 +78,8 @@ export default {
     fillData() {
       this.isLoading = true;
       // eslint-disable-next-line prettier/prettier
-      const exchangeListCurrentStatus =
-        this.$store.state.exchangeListRequestStatus;
+      const exchangeListCurrentStatus = this.$store.state
+        .exchangeListRequestStatus;
       if (exchangeListCurrentStatus === "success") {
         const exchangeId = this.$store.getters.selectedExchange;
         this.$api.dashboard
@@ -219,7 +213,15 @@ export default {
           class="elevation-1 w-1-1"
         >
           <template v-slot:item.logo="{ item }">
-            <img class="Dashboard__symbol-icon" :src="item.logo" />
+            <div class="d-flex ai-center py-7">
+              <img class="Dashboard__symbol-icon" :src="item.logo" />
+              <div class="ml-3">
+                <p class="fw-500 font-text-sm gray-900">{{ item.assetName }}</p>
+                <p class="mt-1 fw-500 font-text-sm gray-500">
+                  {{ item.assetName }}
+                </p>
+              </div>
+            </div>
           </template>
         </v-data-table>
       </div>
