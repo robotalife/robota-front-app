@@ -52,8 +52,8 @@ export default {
         <VIcon dark>$twitter</VIcon>
       </a>
       <VIcon dark class="m-t-5">$telegram</VIcon>
-      <RouterLink to="/settings" class="m-t-5">
-        <VIcon dark>$robota</VIcon>
+      <RouterLink to="/settings/profile" class="m-t-5">
+        <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
       </RouterLink>
     </div>
   </div>

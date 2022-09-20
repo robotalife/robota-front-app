@@ -151,32 +151,6 @@ export default {
           class="Header__exchange m-r-2"
           @changed="changeExchange"
         />
-        <v-menu rounded="lg" offset-y transition="scale-transition">
-          <template v-slot:activator="{ attrs, on }">
-            <div class="d-flex" v-bind="attrs" v-on="on">
-              <span class="m-r-2 font-14-24 g-100 d-flex ai-center">
-                {{ userInfo }}
-              </span>
-              <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
-            </div>
-          </template>
-          <v-list>
-            <v-list-item @click="logout">
-              <v-list-item-title>
-                <!-- <VIcon dark>$logout</VIcon> -->
-                <span class="g-65 font-14-24 fw-500 m-l-1">Logout</span>
-              </v-list-item-title>
-            </v-list-item>
-            <router-link to="/settings/exchange">
-              <v-list-item>
-                <v-list-item-title>
-                  <!-- <VIcon dark>$admin</VIcon> -->
-                  <span class="g-65 font-14-24 fw-500 m-l-1">My Exchanges</span>
-                </v-list-item-title>
-              </v-list-item>
-            </router-link>
-          </v-list>
-        </v-menu>
       </div>
     </div>
   </v-card>
