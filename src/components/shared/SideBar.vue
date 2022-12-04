@@ -11,28 +11,36 @@ export default {
 <template>
   <div class="SideBar p-x-4 p-y-6 d-flex flex-col jc-between">
     <div class="d-flex flex-col">
-      <RouterLink to="/dashboard">
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <VIcon v-bind="attrs" v-on="on">$dashboard</VIcon>
-          </template>
-          <span>Dashboard</span>
-        </v-tooltip>
-      </RouterLink>
-      <RouterLink to="/smart-trade/trading-terminal" class="m-t-5">
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <VIcon v-bind="attrs" v-on="on">$smartTrade</VIcon>
-          </template>
-          <span>Trading Terminal</span>
-        </v-tooltip>
-      </RouterLink>
-      <RouterLink to="/portfolio" class="m-t-5">
+      <!--      <RouterLink to="/dashboard">-->
+      <!--        <v-tooltip top>-->
+      <!--          <template v-slot:activator="{ on, attrs }">-->
+      <!--            <VIcon v-bind="attrs" v-on="on">$dashboard</VIcon>-->
+      <!--          </template>-->
+      <!--          <span>Dashboard</span>-->
+      <!--        </v-tooltip>-->
+      <!--      </RouterLink>-->
+      <!--      <RouterLink to="/smart-trade/trading-terminal" class="m-t-5">-->
+      <!--        <v-tooltip top>-->
+      <!--          <template v-slot:activator="{ on, attrs }">-->
+      <!--            <VIcon v-bind="attrs" v-on="on">$smartTrade</VIcon>-->
+      <!--          </template>-->
+      <!--          <span>Trading Terminal</span>-->
+      <!--        </v-tooltip>-->
+      <!--      </RouterLink>-->
+      <RouterLink to="/portfolio">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <VIcon v-bind="attrs" v-on="on">$portfolio</VIcon>
           </template>
           <span>Portfolio</span>
+        </v-tooltip>
+      </RouterLink>
+      <RouterLink to="/bots/market" class="m-t-5">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$bots</VIcon>
+          </template>
+          <span>Bots</span>
         </v-tooltip>
       </RouterLink>
       <RouterLink to="/settings/profile" class="m-t-5">
