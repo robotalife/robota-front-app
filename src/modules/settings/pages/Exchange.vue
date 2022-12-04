@@ -56,6 +56,7 @@ export default {
       selectedExchange: null,
       exchangeTypeList: [
         { text: "Binance", value: "BINANCE" },
+        { text: "Binance Futures", value: "BINANCE_FUTURES" },
         { text: "KuCoin", value: "KUCOIN" },
       ],
       passphrase: "",

@@ -5,6 +5,7 @@ const BALANCES_ENDPOINT = (id) => `/portfolio/balances?exchangeId=${id}`;
 const BALANCE_ENDPOINT = (id) => `/portfolio/balance?exchangeId=${id}`;
 const PERCENTAGE_LIST_ENDPOINT = (id) =>
   `/portfolio/percentageList?exchangeId=${id}`;
+const LINECHART_ENDPOINT = (id) => `/portfolio/overview?exchangeId=${id}`;
 
 export default {
   fetchPieChartData(id) {
@@ -18,5 +19,8 @@ export default {
   },
   fetchPercentageList(id) {
     return $http.get(PERCENTAGE_LIST_ENDPOINT(id));
+  },
+  fetchLineChartData(id) {
+    return $http.get(LINECHART_ENDPOINT(id));
   },
 };

@@ -35,6 +35,7 @@ import twitter from "@/assets/icons/twitter.vue";
 import robotaLogo from "@/assets/icons/robotaLogo.vue";
 import trash from "@/assets/icons/trash.vue";
 import alert from "@/assets/icons/alert.vue";
+import bots from "@/assets/icons/bots.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -142,6 +143,9 @@ const options = {
       },
       list: {
         component: list,
+      },
+      bots: {
+        component: bots,
       },
     },
   },

@@ -1,10 +1,11 @@
 <script>
 import Doughnut from "./SampleChart";
-// import BaseButton from "../../../components/button/BaseButton.vue";
+import LineChart from "./LineChart";
 
 export default {
   components: {
     Doughnut,
+    LineChart,
   },
   data() {
     return {
@@ -18,22 +19,36 @@ export default {
           },
         ],
       },
+      lineChartCollection: {
+        labels: [],
+        datasets: [
+          {
+            label: "Overview",
+            data: [],
+            fill: false,
+            cubicInterpolationMode: "monotone",
+            borderColor: "#7F56D9",
+            tension: 0.5,
+          },
+        ],
+      },
       isLoaded: false,
+      showLineChart: false,
       headers: [
         {
-          text: "",
+          text: "Asset",
           align: "start",
           sortable: false,
           value: "logo",
         },
-        {
-          text: "Name",
-          align: "start",
-          sortable: true,
-          value: "assetName",
-        },
+        // {
+        //   text: "Name",
+        //   align: "start",
+        //   sortable: true,
+        //   value: "assetName",
+        // },
         { text: "Total", value: "assetTotal", sortable: true },
-        { text: "Available", value: "assetAvailable", sortable: true },
+        // { text: "Available", value: "assetAvailable", sortable: true },
         { text: "Value(BTC)", value: "assetValue" },
         { text: "Last Price", value: "lastPrice" },
       ],
@@ -58,6 +73,7 @@ export default {
         this.fetchBalances();
         this.fetchBalance();
         this.fetchPercentageList();
+        this.fillLineChart();
       }
     },
   },
@@ -68,9 +84,21 @@ export default {
       this.fetchBalances();
       this.fetchBalance();
       this.fetchPercentageList();
+      this.fillLineChart();
     }
   },
   methods: {
+    fillLineChart() {
+      const selectedExchange = this.$store.getters.selectedExchange;
+      this.$api.portfolio
+        .fetchLineChartData(selectedExchange)
+        .then((result) => {
+          console.log("line chart data=>", result);
+          this.lineChartCollection.labels = result.labels;
+          this.lineChartCollection.datasets[0].data = result.data;
+          this.showLineChart = true;
+        });
+    },
     fillData() {
       // eslint-disable-next-line prettier/prettier
       const exchangeListCurrentStatus =
@@ -157,6 +185,12 @@ export default {
             <p>{{ item.percentage }}</p>
           </div>
         </div>
+        <div class="Portfolio__line-container w-1-1 m-b-2">
+          <LineChart
+            v-if="showLineChart"
+            :chart-data="lineChartCollection"
+          ></LineChart>
+        </div>
       </div>
       <div
         v-if="isBalancesLoaded"
@@ -170,7 +204,27 @@ export default {
           class="elevation-1 w-1-1"
         >
           <template v-slot:item.logo="{ item }">
-            <img class="Portfolio__symbol-icon" :src="item.logo" />
+            <div class="d-flex ai-center py-7">
+              <img class="Portfolio__symbol-icon" :src="item.logo" />
+              <div class="ml-3">
+                <p class="fw-500 font-text-sm gray-900">{{ item.assetName }}</p>
+                <p class="mt-1 fw-500 font-text-sm gray-500">
+                  {{ item.assetName }}
+                </p>
+              </div>
+            </div>
+          </template>
+          <template v-slot:item.assetTotal="{ item }">
+            <div class="d-flex ai-center py-7">
+              <div class="ml-3">
+                <p class="fw-500 font-text-sm gray-900">
+                  {{ item.assetTotal }}
+                </p>
+                <p class="mt-1 fw-500 font-text-sm gray-500">
+                  {{ item.assetAvailable }}
+                </p>
+              </div>
+            </div>
           </template>
         </v-data-table>
       </div>
@@ -193,6 +247,7 @@ export default {
 <style scoped lang="scss">
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
+
 .Portfolio {
   @include e(symbol-icon) {
     max-width: 24px;
@@ -209,6 +264,11 @@ export default {
 
   @include e(symbol-name) {
     width: 40px;
+  }
+
+  @include e(line-container) {
+    max-height: 500px;
+    max-width: 500px;
   }
 }
 </style>

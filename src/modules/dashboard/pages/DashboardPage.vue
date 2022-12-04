@@ -29,6 +29,7 @@ export default {
         { text: "Total Available", value: "assetAvailable", sortable: true },
         { text: "Value(BTC)", value: "assetValue" },
         { text: "Last Price", value: "lastPrice" },
+        { text: "24Hr change", value: "dailyPercentageChange" },
       ],
       balances: [],
       balance: "N/A",

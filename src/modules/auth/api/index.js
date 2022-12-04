@@ -1,7 +1,7 @@
 import $http from "@/services/http";
 
-const LOGIN_ENDPOINT = "/signin";
-const REGISTER_ENDPOINT = "/signup";
+const LOGIN_ENDPOINT = "/user/signin";
+const REGISTER_ENDPOINT = "/user";
 const ACTIVATE_USER_ENDPOINT = (id) => `/user/activate?key=${id}`;
 const INITIATE_FORGET_PASSWORD = "/user/reset-password/init";
 const FINISH_FORGET_PASSWORD = "/user/reset-password/finish";
