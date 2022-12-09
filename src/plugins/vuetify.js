@@ -36,6 +36,7 @@ import robotaLogo from "@/assets/icons/robotaLogo.vue";
 import trash from "@/assets/icons/trash.vue";
 import alert from "@/assets/icons/alert.vue";
 import bots from "@/assets/icons/bots.vue";
+import refresh from "@/assets/icons/refresh.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -146,6 +147,9 @@ const options = {
       },
       bots: {
         component: bots,
+      },
+      refresh: {
+        component: refresh,
       },
     },
   },

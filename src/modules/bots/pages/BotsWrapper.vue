@@ -18,6 +18,13 @@ export default {
                 </span>
               </div>
             </RouterLink>
+            <RouterLink to="/bots/mine" class="d-flex ai-start p-y-3 m-l-3">
+              <div class="h-1-1">
+                <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
+                  My Bots
+                </span>
+              </div>
+            </RouterLink>
           </div>
         </div>
       </v-card>
