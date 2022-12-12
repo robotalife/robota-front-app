@@ -22,7 +22,7 @@ export default {
       selectedExchange: "",
       leverageValue: 1,
       confirmationModal: false,
-      orderTypeSwitchItems: [
+      orderStrategySwitchItems: [
         {
           title: "Short",
           value: "SHORT",
@@ -32,7 +32,7 @@ export default {
           value: "LONG",
         },
       ],
-      orderSideSwitchItems: [
+      orderTypeSwitchItems: [
         {
           title: "Market",
           value: "Market",
@@ -48,6 +48,7 @@ export default {
       ],
       botRequest: {
         name: "",
+        exchangeId: "",
         description: "",
         configuration: {},
       },
@@ -60,6 +61,12 @@ export default {
     initPage() {
       this.confirmationModal = false;
       this.selectedExchange = storage.getItem("selectedExchange");
+      this.botRequest.configuration["orderStrategy"] = "SHORT";
+      this.botRequest.configuration["orderType"] = "MARKET";
+      this.botRequest.configuration["leverageType"] = "ISOLATED";
+      this.botRequest.configuration["maxOrderSize"] = "10";
+      this.botRequest.configuration["leverageValue"] = this.leverageValue;
+      this.botRequest.exchangeId = this.selectedExchange;
       console.log(this.selectedExchange, "selectedExchange");
       this.fetchSymbols(this.selectedExchange);
     },
@@ -68,6 +75,7 @@ export default {
         .fetchSymbols(id)
         .then((result) => {
           this.coinMarketItems = result.symbols;
+          this.botRequest.configuration["pair"] = this.coinMarketItems[0].value;
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -75,25 +83,20 @@ export default {
         });
     },
     changeSymbol(value) {
-      console.log("symbol has changed", value);
       this.botRequest.configuration["pair"] = value;
     },
-    changeTypeSwitch(value) {
-      console.log("switch has changed", value);
+    changeStrategySwitch(value) {
+      this.botRequest.configuration["orderStrategy"] =
+        this.orderStrategySwitchItems[value].value;
+    },
+    changeOrderTypeSwitch(value) {
       this.botRequest.configuration["orderType"] =
         this.orderTypeSwitchItems[value].value;
     },
-    changeSideSwitch(value) {
-      console.log("switch has changed", value);
-      this.botRequest.configuration["orderSide"] =
-        this.orderSideSwitchItems[value].value;
-    },
     changeLeverageType(value) {
-      console.log("changed leverage", value);
       this.botRequest.configuration["leverageType"] = value;
     },
     changeLeverageValue(value) {
-      console.log("leverage value has changed", value);
       this.botRequest.configuration["leverageValue"] = value;
     },
     changeCreateForm(e) {
@@ -108,7 +111,15 @@ export default {
     },
     createBot() {
       console.log("submitted the form", this.botRequest);
-      this.confirmationModal = false;
+      this.$api.bots
+        .createBot(this.botRequest)
+        .then(() => {
+          this.confirmationModal = false;
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data.message;
+          this.snackbar = true;
+        });
     },
   },
 };
@@ -139,21 +150,21 @@ export default {
         @changed="changeSymbol"
       />
       <SwitchRadioGroup
-        :items="orderTypeSwitchItems"
+        :items="orderStrategySwitchItems"
         class="m-t-2"
-        @clicked="changeTypeSwitch"
+        @clicked="changeStrategySwitch"
       />
       <SwitchRadioGroup
-        :items="orderSideSwitchItems"
+        :items="orderTypeSwitchItems"
         class="m-t-2"
-        @clicked="changeSideSwitch"
+        @clicked="changeOrderTypeSwitch"
       />
       <BaseInput
         label="Base Order Size"
         type="number"
         name="baseOrderSize"
         placeholder="Minimum Order value"
-        v-model="botRequest.configuration['orderSize']"
+        v-model="botRequest.configuration['maxOrderSize']"
       ></BaseInput>
       <BaseSelect
         label="Leverage Type"
@@ -208,20 +219,20 @@ export default {
         </div>
         <div>
           <div class="d-flex jc-between">
+            <p>Strategy</p>
+            <p>{{ this.botRequest.configuration.orderStrategy }}</p>
+          </div>
+        </div>
+        <div>
+          <div class="d-flex jc-between">
             <p>Type</p>
             <p>{{ this.botRequest.configuration.orderType }}</p>
           </div>
         </div>
         <div>
           <div class="d-flex jc-between">
-            <p>Side</p>
-            <p>{{ this.botRequest.configuration.orderSide }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
             <p>Order Size</p>
-            <p>{{ this.botRequest.configuration.orderSize }}</p>
+            <p>{{ this.botRequest.configuration.maxOrderSize }}</p>
           </div>
         </div>
         <div>

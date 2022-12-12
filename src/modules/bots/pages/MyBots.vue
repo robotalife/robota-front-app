@@ -1,5 +1,6 @@
 <script>
 import BaseButton from "@/components/button/BaseButton";
+import storage from "@/utils/storage";
 
 export default {
   name: "MyBots",
@@ -13,15 +14,14 @@ export default {
       selectedBot: null,
       selectedExchange: null,
       confirmDeleteDialogSwitch: false,
-      botList: [
-        {
-          id: "1096742",
-          name: "Your bot1",
-          desc: "Feature Robotalife Bot",
-          profit: "+ 6.2 %",
-        },
-      ],
+      botList: [],
     };
+  },
+  mounted() {
+    this.selectedExchange = storage.getItem("selectedExchange");
+    this.$api.bots.getOwnBots(this.selectedExchange).then((result) => {
+      this.botList = result;
+    });
   },
   methods: {
     showConfirmDeleteDialog(bot) {
@@ -59,11 +59,11 @@ export default {
         <p class="gray-2 font-body fw-700">{{ bot.name }}</p>
       </div>
       <div class="d-flex jc-between">
-        <p class="gray-4 font-body fw-500">{{ bot.desc }}</p>
+        <p class="gray-4 font-body fw-500">{{ bot.description }}</p>
       </div>
-      <div class="d-flex jc-between">
-        <p class="font-body fw-500">Profit : {{ bot.profit }}</p>
-      </div>
+      <!--      <div class="d-flex jc-between">-->
+      <!--        <p class="font-body fw-500">Profit : {{ bot.profit }}</p>-->
+      <!--      </div>-->
       <div
         class="d-flex jc-end m-t-5"
         @click="() => showConfirmDeleteDialog(bot)"

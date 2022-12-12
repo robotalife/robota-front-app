@@ -20,20 +20,18 @@ export default {
         fixedAmountPerOrder: "",
       },
       connectDialogSwitch: false,
-      botList: [
-        {
-          id: "1096742",
-          name: "Robotalife Special Bot",
-          desc: "Feature Robotalife Bot",
-          profit: "5.2 %",
-        },
-      ],
+      botList: [],
     };
+  },
+  mounted() {
+    this.selectedExchange = storage.getItem("selectedExchange");
+    this.$api.bots.getMarketBots(this.selectedExchange).then((result) => {
+      this.botList = result;
+    });
   },
   methods: {
     connectToBot() {
       //selectedBot, selectedExchange, overrides
-      this.selectedExchange = storage.getItem("selectedExchange");
       console.log(
         "sending {}, bot,selectedExchange,overrides",
         this.selectedBot,
