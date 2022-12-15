@@ -38,7 +38,7 @@ export default {
       <RouterLink to="/bots/market" class="m-t-5">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
-            <VIcon v-bind="attrs" v-on="on">$bots</VIcon>
+            <VIcon v-bind="attrs" v-on="on">$store</VIcon>
           </template>
           <span>Bots</span>
         </v-tooltip>

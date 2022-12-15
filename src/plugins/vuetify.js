@@ -37,6 +37,7 @@ import trash from "@/assets/icons/trash.vue";
 import alert from "@/assets/icons/alert.vue";
 import bots from "@/assets/icons/bots.vue";
 import refresh from "@/assets/icons/refresh.vue";
+import store from "@/assets/icons/store.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -150,6 +151,9 @@ const options = {
       },
       refresh: {
         component: refresh,
+      },
+      store: {
+        component: store,
       },
     },
   },
