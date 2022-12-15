@@ -5,7 +5,7 @@ import BaseInput from "@/components/input/BaseInput.vue";
 import storage from "@/utils/storage";
 
 export default {
-  name: "Market",
+  name: "Store",
   components: { BaseButton, BaseInput },
   computed: {},
   data() {
@@ -25,7 +25,7 @@ export default {
   },
   mounted() {
     this.selectedExchange = storage.getItem("selectedExchange");
-    this.$api.bots.getMarketBots(this.selectedExchange).then((result) => {
+    this.$api.bots.getBotsInStore(this.selectedExchange).then((result) => {
       this.botList = result;
     });
   },
@@ -70,12 +70,12 @@ export default {
 };
 </script>
 <template>
-  <div class="Market__cartesian-grid w-1-2">
+  <div class="Store__cartesian-grid w-1-2">
     <v-card
       v-for="(bot, index) in botList"
       :key="index"
       elevation="0"
-      class="Market__card p-3"
+      class="Store__card p-3"
       outlined
     >
       <div class="d-flex jc-between">
@@ -113,7 +113,7 @@ export default {
           />
           <BaseButton
             text="Follow Bot"
-            class="w-1-1 Market__dialog-submit m-t-2"
+            class="w-1-1 Store__dialog-submit m-t-2"
           />
         </form>
       </div>
@@ -137,7 +137,7 @@ export default {
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 
-.Market {
+.Store {
   @include e(cartesian-grid) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;

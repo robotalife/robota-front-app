@@ -11,10 +11,10 @@ export default {
       <v-card elevation="0" class="m-t-3 SettingsWrapper__tabs">
         <div class="d-flex jc-between">
           <div class="d-flex">
-            <RouterLink to="/bots/market" class="d-flex ai-start p-y-3">
+            <RouterLink to="/bots/store" class="d-flex ai-start p-y-3">
               <div class="h-1-1">
                 <span class="SettingsWrapper__tab font-16-24 g-2 fw-500">
-                  Market
+                  Store
                 </span>
               </div>
             </RouterLink>

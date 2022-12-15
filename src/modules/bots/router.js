@@ -1,13 +1,13 @@
 export const botsRouter = [
   {
-    path: "/bots/market",
-    name: "market",
+    path: "/bots/store",
+    name: "store",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/bots/pages/BotsMarket"),
+      import(/* webpackChunkName: "Store" */ "@/modules/bots/pages/BotStore"),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotsWrapper"
+          /* webpackChunkName: "BotDefaultWrapper" */ "@/modules/bots/pages/BotDefaultWrapper"
         ),
       requiresAuth: true,
     },

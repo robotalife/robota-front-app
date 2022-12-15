@@ -35,12 +35,12 @@ export default {
           <span>Portfolio</span>
         </v-tooltip>
       </RouterLink>
-      <RouterLink to="/bots/market" class="m-t-5">
+      <RouterLink to="/bots/store" class="m-t-5">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <VIcon v-bind="attrs" v-on="on">$store</VIcon>
           </template>
-          <span>Bots</span>
+          <span>Bot Store</span>
         </v-tooltip>
       </RouterLink>
       <RouterLink to="/settings/profile" class="m-t-5">
