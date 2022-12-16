@@ -1,12 +1,11 @@
 <script>
 import BaseButton from "@/components/button/BaseButton";
 import BaseInput from "@/components/input/BaseInput.vue";
-import RobotaButton from "@/components/button/RobotaButton";
 import storage from "@/utils/storage";
 
 export default {
   name: "Store",
-  components: { BaseButton, BaseInput, RobotaButton },
+  components: { BaseButton, BaseInput },
   computed: {},
   data() {
     return {
