@@ -8,22 +8,5 @@
 @import "@/styles/global/color";
 @import "@/styles/utils/bem";
 .Store {
-  overflow-y: scroll;
-  height: 90vh;
-
-  &::-webkit-scrollbar {
-    width: 4px;
-    background-color: #f5f7fa;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 2px;
-    background-color: #bec4cb;
-  }
-
-  &::-webkit-scrollbar-track {
-    border-radius: 2px;
-    //-webkit-box-shadow: inset 0 0 0 1px #fff;
-  }
 }
 </style>

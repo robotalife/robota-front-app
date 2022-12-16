@@ -1,12 +1,12 @@
 <script>
 import BaseButton from "@/components/button/BaseButton";
 import BaseInput from "@/components/input/BaseInput.vue";
-
+import RobotaButton from "@/components/button/RobotaButton";
 import storage from "@/utils/storage";
 
 export default {
   name: "Store",
-  components: { BaseButton, BaseInput },
+  components: { BaseButton, BaseInput, RobotaButton },
   computed: {},
   data() {
     return {
@@ -70,28 +70,54 @@ export default {
 };
 </script>
 <template>
-  <div class="Store__cartesian-grid w-1-2">
-    <v-card
-      v-for="(bot, index) in botList"
-      :key="index"
-      elevation="0"
-      class="Store__card p-3"
-      outlined
-    >
-      <div class="d-flex jc-between">
-        <p class="gray-2 font-body fw-700">{{ bot.name }}</p>
-      </div>
-      <div class="d-flex jc-between">
-        <p class="gray-4 font-body fw-500">{{ bot.desc }}</p>
-      </div>
-      <div class="d-flex jc-between">
-        <p class="font-body fw-500">Profit : {{ bot.profit }}</p>
-      </div>
-      <div class="d-flex jc-start m-t-5" @click="() => showConnectDialog(bot)">
-        <base-button class="bg-brand-purple Market__connect" text="Connect">
-        </base-button>
-      </div>
-    </v-card>
+  <div class="Store d-flex flex-col w-1-1">
+    <p class="brand-purple font-h-1 fw-700 m-b-3">Bot Store</p>
+    <div class="d-flex flex-col m-b-3">
+      <v-alert prominent outlined color="#7F56D9" v-if="!selectedExchange">
+        <v-row align="center">
+          <v-col class="grow">
+            <b>Welcome to RobotaLife !</b> To begin, connect Robota to your
+            exchange account.
+          </v-col>
+          <v-col class="shrink">
+            <BaseButton
+              before-icon="$add"
+              text="Add Exchange"
+              class="Store__add-exchange"
+            />
+          </v-col>
+        </v-row>
+      </v-alert>
+    </div>
+
+    <div class="m-b-3">
+      <p class="gray-900 font-h-2 fw-500">Bots Store</p>
+      <p class="gray-500 fw-400">
+        Trade strategies automatically, overcome emotions with bots, and never
+        miss market opportunities.
+      </p>
+    </div>
+    <!--    <v-card-->
+    <!--      v-for="(bot, index) in botList"-->
+    <!--      :key="index"-->
+    <!--      elevation="0"-->
+    <!--      class="Store__card p-3"-->
+    <!--      outlined-->
+    <!--    >-->
+    <!--      <div class="d-flex jc-between">-->
+    <!--        <p class="gray-2 font-body fw-700">{{ bot.name }}</p>-->
+    <!--      </div>-->
+    <!--      <div class="d-flex jc-between">-->
+    <!--        <p class="gray-4 font-body fw-500">{{ bot.desc }}</p>-->
+    <!--      </div>-->
+    <!--      <div class="d-flex jc-between">-->
+    <!--        <p class="font-body fw-500">Profit : {{ bot.profit }}</p>-->
+    <!--      </div>-->
+    <!--      <div class="d-flex jc-start m-t-5" @click="() => showConnectDialog(bot)">-->
+    <!--        <base-button class="bg-brand-purple Market__connect" text="Connect">-->
+    <!--        </base-button>-->
+    <!--      </div>-->
+    <!--    </v-card>-->
     <v-dialog v-model="connectDialogSwitch" width="550" height="600">
       <div class="p-2 bg-white">
         <p class="gray-2 font-h-2 fw-700">Connect to bot</p>
@@ -168,6 +194,22 @@ export default {
     font-size: 12px;
     line-height: 24px;
     border-radius: 30px;
+  }
+  @include e(add-exchange) {
+    border: 2px solid $gray-10;
+    box-sizing: border-box;
+    border-radius: 30px;
+    color: $white;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 24px;
+    background-color: $brand-purple !important;
+    padding: 0 22px;
+    ::v-deep .v-icon__component,
+    .v-icon__svg {
+      height: 12px !important;
+      width: 12px !important;
+    }
   }
 }
 </style>
