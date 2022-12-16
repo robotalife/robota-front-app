@@ -38,6 +38,9 @@ import alert from "@/assets/icons/alert.vue";
 import bots from "@/assets/icons/bots.vue";
 import refresh from "@/assets/icons/refresh.vue";
 import store from "@/assets/icons/store.vue";
+import exchange from "@/assets/icons/exchange.vue";
+import pair from "@/assets/icons/pair.vue";
+import copy from "@/assets/icons/copy.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -154,6 +157,15 @@ const options = {
       },
       store: {
         component: store,
+      },
+      exchange: {
+        component: exchange,
+      },
+      pair: {
+        component: pair,
+      },
+      copy: {
+        component: copy,
       },
     },
   },

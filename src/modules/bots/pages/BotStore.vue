@@ -19,14 +19,71 @@ export default {
         fixedAmountPerOrder: "",
       },
       connectDialogSwitch: false,
-      botList: [],
+      botList: [
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+        {
+          name: "DYDX-USDT",
+          profit: "+18.5%",
+          exchange: "Binance Futures USDT-M",
+          pair: "BNBUSDT",
+          icon: "",
+          price: "15$/Month",
+        },
+      ],
     };
   },
   mounted() {
     this.selectedExchange = storage.getItem("selectedExchange");
-    this.$api.bots.getBotsInStore(this.selectedExchange).then((result) => {
-      this.botList = result;
-    });
+    // this.$api.bots.getBotsInStore(this.selectedExchange).then((result) => {
+    //   this.botList = result;
+    // });
   },
   methods: {
     connectToBot() {
@@ -96,27 +153,66 @@ export default {
         miss market opportunities.
       </p>
     </div>
-    <!--    <v-card-->
-    <!--      v-for="(bot, index) in botList"-->
-    <!--      :key="index"-->
-    <!--      elevation="0"-->
-    <!--      class="Store__card p-3"-->
-    <!--      outlined-->
-    <!--    >-->
-    <!--      <div class="d-flex jc-between">-->
-    <!--        <p class="gray-2 font-body fw-700">{{ bot.name }}</p>-->
-    <!--      </div>-->
-    <!--      <div class="d-flex jc-between">-->
-    <!--        <p class="gray-4 font-body fw-500">{{ bot.desc }}</p>-->
-    <!--      </div>-->
-    <!--      <div class="d-flex jc-between">-->
-    <!--        <p class="font-body fw-500">Profit : {{ bot.profit }}</p>-->
-    <!--      </div>-->
-    <!--      <div class="d-flex jc-start m-t-5" @click="() => showConnectDialog(bot)">-->
-    <!--        <base-button class="bg-brand-purple Market__connect" text="Connect">-->
-    <!--        </base-button>-->
-    <!--      </div>-->
-    <!--    </v-card>-->
+    <div class="Store__cartesian-grid">
+      <v-card
+        v-for="(bot, index) in botList"
+        :key="index"
+        class="Store__card p-3"
+        outlined
+      >
+        <div class="d-flex flex-col m-t-2">
+          <div class="d-flex">
+            <p class="gray-900 font-18-28 fw-600">{{ bot.name }}</p>
+          </div>
+          <div class="d-flex">
+            <div class="d-flex flex-col">
+              <div class="m-t-2">
+                <p class="grey-500 text-sm">Net Profit last month</p>
+              </div>
+              <div class="m-t-1">
+                <p class="grey-900 fw-600 font-36-44">{{ bot.profit }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="m-t-2 m-b-2" />
+        <div class="d-flex jc-between ai-center" style="gap: 9px">
+          <div>
+            <VIcon>$exchange</VIcon>
+            <span>{{ bot.exchange }}</span>
+          </div>
+          <div>
+            <VIcon>$pair</VIcon>
+            <span>{{ bot.pair }}</span>
+          </div>
+        </div>
+        <hr class="m-y-2" />
+        <div class="d-flex jc-between ai-center">
+          <div>
+            <div @click="() => showConnectDialog(bot)">
+              <BaseButton
+                before-icon="$copy"
+                class="bg-brand-purple Store__copy"
+                text="Copy Bot"
+              >
+              </BaseButton>
+            </div>
+          </div>
+          <div>
+            <p class="gray-500">View Bot Detail</p>
+          </div>
+          <div class="Store__badge">
+            <p
+              class="fw-500 font-12-18 success-700"
+              style="mix-blend-mode: multiply"
+            >
+              {{ bot.price }}
+            </p>
+          </div>
+        </div>
+      </v-card>
+    </div>
+
     <v-dialog v-model="connectDialogSwitch" width="550" height="600">
       <div class="p-2 bg-white">
         <p class="gray-2 font-h-2 fw-700">Connect to bot</p>
@@ -163,22 +259,47 @@ export default {
 @import "@/styles/utils/bem";
 
 .Store {
+  overflow-y: scroll;
+  height: 90vh;
+  &::-webkit-scrollbar {
+    width: 4px;
+    background-color: #f5f7fa;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #bec4cb;
+  }
+
+  &::-webkit-scrollbar-track {
+    border-radius: 2px;
+    //-webkit-box-shadow: inset 0 0 0 1px #fff;
+  }
   @include e(cartesian-grid) {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: 16px;
     grid-row-gap: 24px;
   }
-
+  @include e(badge) {
+    background: #ecfdf3;
+    border-radius: 16px;
+    padding: 2px 8px;
+  }
   @include e(card) {
     border: 2px solid $gray-10;
     box-sizing: border-box;
     border-radius: 8px;
     min-width: 312px;
   }
-  @include e(connect) {
-    color: $white;
-    border-radius: 16px;
+  @include e(copy) {
+    color: $gray-700;
+    font-weight: 500;
+    order: 1;
+    border-radius: 32px;
+    background: $white !important;
+    box-sizing: border-box;
+    border: 1px solid $gray-300;
 
     ::v-deep .v-btn__content {
       font-size: 12px;
