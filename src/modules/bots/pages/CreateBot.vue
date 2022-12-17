@@ -5,6 +5,7 @@ import storage from "@/utils/storage";
 import AutoCompleteSelect from "@/components/select/AutoCompleteSelect.vue";
 import SwitchRadioGroup from "@/components/switch/SwitchRadioGroup";
 import BaseSelect from "@/components/select/BaseSelect.vue";
+import PageTitle from "@/components/title/PageTitle";
 
 export default {
   name: "CreateBot",
@@ -14,10 +15,28 @@ export default {
     SwitchRadioGroup,
     BaseSelect,
     BaseButton,
+    PageTitle,
   },
   computed: {},
   data() {
     return {
+      items: [
+        {
+          text: "Dashboard",
+          disabled: false,
+          href: "breadcrumbs_dashboard",
+        },
+        {
+          text: "Link 1",
+          disabled: false,
+          href: "breadcrumbs_link_1",
+        },
+        {
+          text: "Link 2",
+          disabled: true,
+          href: "breadcrumbs_link_2",
+        },
+      ],
       coinMarketItems: [],
       selectedExchange: "",
       leverageValue: 1,
@@ -125,144 +144,147 @@ export default {
 };
 </script>
 <template>
-  <div class="d-flex flex-col w-1-4">
-    <form @change="changeCreateForm" @submit.prevent="showDialog">
-      <BaseInput
-        label="Name"
-        type="text"
-        name="botName"
-        placeholder="Bot Name"
-        v-model="botRequest.name"
-      ></BaseInput>
-      <BaseInput
-        label="Description"
-        type="text"
-        name="botDesc"
-        placeholder="Bot Description"
-        v-model="botRequest.description"
-      ></BaseInput>
-      <AutoCompleteSelect
-        :items="coinMarketItems"
-        v-if="coinMarketItems[0]"
-        label="Symbol"
-        name="symbol"
-        :selected="coinMarketItems[0]"
-        @changed="changeSymbol"
-      />
-      <SwitchRadioGroup
-        :items="orderStrategySwitchItems"
-        class="m-t-2"
-        @clicked="changeStrategySwitch"
-      />
-      <SwitchRadioGroup
-        :items="orderTypeSwitchItems"
-        class="m-t-2"
-        @clicked="changeOrderTypeSwitch"
-      />
-      <BaseInput
-        label="Base Order Size"
-        type="number"
-        name="baseOrderSize"
-        placeholder="Minimum Order value"
-        v-model="botRequest.configuration['maxOrderSize']"
-      ></BaseInput>
-      <BaseSelect
-        label="Leverage Type"
-        :items="leverageTypeList"
-        name="leverageType"
-        :selected="leverageTypeList[0].text"
-        class="CreateBot__leverage-type m-r-2"
-        @changed="changeLeverageType"
-      />
-      <v-slider
-        v-model="leverageValue"
-        color="purple"
-        track-color="gray"
-        thumb-label="always"
-        :max="100"
-        :min="1"
-        label="Leverage Custom Value"
-        @change="changeLeverageValue"
-      >
-        <template v-slot:thumb-label="{ value }">
-          <span class="CreateBot__thumb-label">
-            {{ value + "x" }}
-          </span>
-        </template>
-      </v-slider>
-      <BaseButton
-        text="Submit"
-        class="w-1-1 m-t-3 font-body CreateBot__submit"
-      />
-    </form>
-    <v-dialog v-model="confirmationModal" width="400" height="327">
-      <div class="p-3 bg-white CreateBot__confirmation">
-        <VIcon size="48" dark>$alert</VIcon>
-        <p class="gray-2 m-t-2 font-h-2 fw-700">Confirm creating the bot</p>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Name</p>
-            <p>{{ this.botRequest.name }}</p>
+  <div>
+    <PageTitle text="Add New Bot" />
+    <div class="d-flex flex-col w-1-4">
+      <form @change="changeCreateForm" @submit.prevent="showDialog">
+        <BaseInput
+          label="Name"
+          type="text"
+          name="botName"
+          placeholder="Bot Name"
+          v-model="botRequest.name"
+        ></BaseInput>
+        <BaseInput
+          label="Description"
+          type="text"
+          name="botDesc"
+          placeholder="Bot Description"
+          v-model="botRequest.description"
+        ></BaseInput>
+        <AutoCompleteSelect
+          :items="coinMarketItems"
+          v-if="coinMarketItems[0]"
+          label="Symbol"
+          name="symbol"
+          :selected="coinMarketItems[0]"
+          @changed="changeSymbol"
+        />
+        <SwitchRadioGroup
+          :items="orderStrategySwitchItems"
+          class="m-t-2"
+          @clicked="changeStrategySwitch"
+        />
+        <SwitchRadioGroup
+          :items="orderTypeSwitchItems"
+          class="m-t-2"
+          @clicked="changeOrderTypeSwitch"
+        />
+        <BaseInput
+          label="Base Order Size"
+          type="number"
+          name="baseOrderSize"
+          placeholder="Minimum Order value"
+          v-model="botRequest.configuration['maxOrderSize']"
+        ></BaseInput>
+        <BaseSelect
+          label="Leverage Type"
+          :items="leverageTypeList"
+          name="leverageType"
+          :selected="leverageTypeList[0].text"
+          class="CreateBot__leverage-type m-r-2"
+          @changed="changeLeverageType"
+        />
+        <v-slider
+          v-model="leverageValue"
+          color="purple"
+          track-color="gray"
+          thumb-label="always"
+          :max="100"
+          :min="1"
+          label="Leverage Custom Value"
+          @change="changeLeverageValue"
+        >
+          <template v-slot:thumb-label="{ value }">
+            <span class="CreateBot__thumb-label">
+              {{ value + "x" }}
+            </span>
+          </template>
+        </v-slider>
+        <BaseButton
+          text="Submit"
+          class="w-1-1 m-t-3 font-body CreateBot__submit"
+        />
+      </form>
+      <v-dialog v-model="confirmationModal" width="400" height="327">
+        <div class="p-3 bg-white CreateBot__confirmation">
+          <VIcon size="48" dark>$alert</VIcon>
+          <p class="gray-2 m-t-2 font-h-2 fw-700">Confirm creating the bot</p>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Name</p>
+              <p>{{ this.botRequest.name }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Description</p>
+              <p>{{ this.botRequest.description }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Pair</p>
+              <p>{{ this.botRequest.configuration.pair }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Strategy</p>
+              <p>{{ this.botRequest.configuration.orderStrategy }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Type</p>
+              <p>{{ this.botRequest.configuration.orderType }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Order Size</p>
+              <p>{{ this.botRequest.configuration.maxOrderSize }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Leverage Type</p>
+              <p>{{ this.botRequest.configuration.leverageType }}</p>
+            </div>
+          </div>
+          <div>
+            <div class="d-flex jc-between">
+              <p>Leverage Value</p>
+              <p>{{ this.botRequest.configuration.leverageValue + "x" }}</p>
+            </div>
+          </div>
+          <div class="d-flex jc-between m-t-7">
+            <div @click="confirmationModal = false" class="w-1-2">
+              <BaseButton
+                text="Cancel"
+                class="TradingTerminal__confirmation-btn m-t-2 w-1-1"
+              />
+            </div>
+            <div @click="createBot" class="w-1-2 m-l-1">
+              <BaseButton
+                text="Confirm"
+                class="CreateBot__confirmation-btn CreateBot__confirmation-btn--confirm bg-purple m-t-2 w-1-1"
+              />
+            </div>
           </div>
         </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Description</p>
-            <p>{{ this.botRequest.description }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Pair</p>
-            <p>{{ this.botRequest.configuration.pair }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Strategy</p>
-            <p>{{ this.botRequest.configuration.orderStrategy }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Type</p>
-            <p>{{ this.botRequest.configuration.orderType }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Order Size</p>
-            <p>{{ this.botRequest.configuration.maxOrderSize }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Leverage Type</p>
-            <p>{{ this.botRequest.configuration.leverageType }}</p>
-          </div>
-        </div>
-        <div>
-          <div class="d-flex jc-between">
-            <p>Leverage Value</p>
-            <p>{{ this.botRequest.configuration.leverageValue + "x" }}</p>
-          </div>
-        </div>
-        <div class="d-flex jc-between m-t-7">
-          <div @click="confirmationModal = false" class="w-1-2">
-            <BaseButton
-              text="Cancel"
-              class="TradingTerminal__confirmation-btn m-t-2 w-1-1"
-            />
-          </div>
-          <div @click="createBot" class="w-1-2 m-l-1">
-            <BaseButton
-              text="Confirm"
-              class="CreateBot__confirmation-btn CreateBot__confirmation-btn--confirm bg-purple m-t-2 w-1-1"
-            />
-          </div>
-        </div>
-      </div>
-    </v-dialog>
+      </v-dialog>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">

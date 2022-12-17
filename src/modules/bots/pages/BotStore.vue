@@ -1,11 +1,12 @@
 <script>
 import BaseButton from "@/components/button/BaseButton";
 import BaseInput from "@/components/input/BaseInput.vue";
+import PageTitle from "@/components/title/PageTitle.vue";
 import storage from "@/utils/storage";
 
 export default {
   name: "Store",
-  components: { BaseButton, BaseInput },
+  components: { BaseButton, BaseInput, PageTitle },
   computed: {},
   data() {
     return {
@@ -127,7 +128,7 @@ export default {
 </script>
 <template>
   <div class="Store d-flex flex-col w-1-1">
-    <p class="brand-purple font-h-1 fw-700 m-b-3">Bot Store</p>
+    <PageTitle text="Bot Store" />
     <div class="d-flex flex-col m-b-3">
       <v-alert prominent outlined color="#7F56D9" v-if="!selectedExchange">
         <v-row align="center">
