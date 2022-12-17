@@ -11,28 +11,19 @@ export default {
 <template>
   <div class="SideBar p-x-4 p-y-6 d-flex flex-col jc-between">
     <div class="d-flex flex-col">
-      <!--      <RouterLink to="/dashboard">-->
-      <!--        <v-tooltip top>-->
-      <!--          <template v-slot:activator="{ on, attrs }">-->
-      <!--            <VIcon v-bind="attrs" v-on="on">$dashboard</VIcon>-->
-      <!--          </template>-->
-      <!--          <span>Dashboard</span>-->
-      <!--        </v-tooltip>-->
-      <!--      </RouterLink>-->
-      <!--      <RouterLink to="/smart-trade/trading-terminal" class="m-t-5">-->
-      <!--        <v-tooltip top>-->
-      <!--          <template v-slot:activator="{ on, attrs }">-->
-      <!--            <VIcon v-bind="attrs" v-on="on">$smartTrade</VIcon>-->
-      <!--          </template>-->
-      <!--          <span>Trading Terminal</span>-->
-      <!--        </v-tooltip>-->
-      <!--      </RouterLink>-->
       <RouterLink to="/portfolio">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <VIcon v-bind="attrs" v-on="on">$portfolio</VIcon>
           </template>
           <span>Portfolio</span>
+        </v-tooltip>
+      </RouterLink>
+      <RouterLink to="/bots/mine" class="m-t-5">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$mybots</VIcon>
+          </template>
         </v-tooltip>
       </RouterLink>
       <RouterLink to="/bots/store" class="m-t-5">
@@ -49,6 +40,14 @@ export default {
             <VIcon v-bind="attrs" v-on="on">$setting</VIcon>
           </template>
           <span>Settings</span>
+        </v-tooltip>
+      </RouterLink>
+      <RouterLink to="/bots/create" class="m-t-5">
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <VIcon v-bind="attrs" v-on="on">$addbot</VIcon>
+          </template>
+          <span>Add New Bot</span>
         </v-tooltip>
       </RouterLink>
     </div>

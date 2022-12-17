@@ -33,7 +33,7 @@ export const botsRouter = [
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotsWrapper"
+          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotDefaultWrapper"
         ),
       requiresAuth: true,
     },

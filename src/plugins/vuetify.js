@@ -41,6 +41,8 @@ import store from "@/assets/icons/store.vue";
 import exchange from "@/assets/icons/exchange.vue";
 import pair from "@/assets/icons/pair.vue";
 import copy from "@/assets/icons/copy.vue";
+import mybots from "@/assets/icons/mybots.vue";
+import addbot from "@/assets/icons/addbot.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -166,6 +168,12 @@ const options = {
       },
       copy: {
         component: copy,
+      },
+      mybots: {
+        component: mybots,
+      },
+      addbot: {
+        component: addbot,
       },
     },
   },

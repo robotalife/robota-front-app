@@ -1,13 +1,13 @@
 <template>
   <svg
     width="24"
-    height="24"
-    viewBox="0 0 24 24"
+    height="20"
+    viewBox="0 0 24 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M18 20V10M12 20V4M6 20V14"
+      d="M4 19V12M4 8V1M12 19V10M12 6V1M20 19V14M20 10V1M1 12H7M9 6H15M17 14H23"
       stroke="#667085"
       stroke-width="2"
       stroke-linecap="round"
