@@ -29,11 +29,13 @@ export const botsRouter = [
     path: "/bots/create",
     name: "create",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/bots/pages/CreateBot"),
+      import(
+        /* webpackChunkName: "CreateBot" */ "@/modules/bots/pages/CreateBot"
+      ),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotDefaultWrapper"
+          /* webpackChunkName: "AddNewBotWrapper" */ "@/modules/bots/pages/AddNewBotWrapper"
         ),
       requiresAuth: true,
     },
