@@ -83,11 +83,11 @@ export default {
 
   &__item[aria-selected="true"] {
     border-radius: 30px;
-    background-color: $brand-purple;
+    background-color: $gray-50;
     max-height: 24px;
 
     p {
-      color: $white !important;
+      color: $gray-800 !important;
       font-size: 12px;
       line-height: 24px;
     }

@@ -27,7 +27,7 @@ export default {
                 </span>
               </div>
             </RouterLink>
-            <RouterLink to="/bots/featured" class="d-flex ai-start p-y-3 m-l-3">
+            <RouterLink to="/bots/mine" class="d-flex ai-start p-y-3 m-l-3">
               <div class="h-1-1">
                 <span
                   class="AddNewBotWrapper__tab gray-500 font-text-sm g-2 fw-500"
