@@ -18,6 +18,9 @@ export default {
   computed: {},
   data() {
     return {
+      errorMessage: "",
+      snackbar: false,
+      snackbarColor: "red",
       exchangeItems: [
         {
           value: "ebb84d68-8966-4f39-ac10-1ab8d353e6d6",
@@ -40,27 +43,27 @@ export default {
       confirmationModal: false,
       orderStrategySwitchItems: [
         {
-          title: "Short",
-          value: "SHORT",
-        },
-        {
           title: "Long",
           value: "LONG",
         },
+        {
+          title: "Short",
+          value: "SHORT",
+        },
       ],
-      // orderTypeSwitchItems: [
-      //   {
-      //     title: "Market",
-      //     value: "Market",
-      //   },
-      //   {
-      //     title: "Limit",
-      //     value: "LIMIT",
-      //   },
-      // ],
       leverageTypeList: [
-        { text: "Isolated", value: "ISOLATED" },
-        { text: "Cross", value: "CROSS" },
+        { title: "Not Specified", value: "NONE" },
+        { title: "Isolated", value: "ISOLATED" },
+        { title: "Cross", value: "CROSS" },
+      ],
+      leverageValueList: [
+        { title: "1x", value: "1" },
+        { title: "2x", value: "2" },
+        { title: "3x", value: "3" },
+        { title: "5x", value: "5" },
+        { title: "10x", value: "10" },
+        { title: "25x", value: "25" },
+        { title: "100xx", value: "100" },
       ],
       botRequest: {
         name: "",
@@ -117,7 +120,8 @@ export default {
     //     this.orderTypeSwitchItems[value].value;
     // },
     changeLeverageType(value) {
-      this.botRequest.configuration["leverageType"] = value;
+      this.botRequest.configuration["leverageType"] =
+        this.leverageTypeList[value].value;
     },
     changeLeverageValue(value) {
       this.botRequest.configuration["leverageValue"] = value;
@@ -146,6 +150,10 @@ export default {
         .createBot(this.botRequest)
         .then(() => {
           this.confirmationModal = false;
+          this.snackbar = true;
+          this.errorMessage =
+            "The bot has been created, you can view it in the Bots tab.";
+          this.snackbarColor = "green";
         })
         .catch((error) => {
           this.errorMessage = error.response.data.message;
@@ -227,12 +235,17 @@ export default {
         </div>
         <!-- /.Pair -->
         <hr style="width: 846px; height: 1px" class="m-y-2" />
+
+        <p class="m-t-4 gray-900 fw-500 font-18-28 m-t-3">Strategy</p>
+        <hr style="width: 846px; height: 1px" class="m-y-2" />
+
         <!-- Strategy -->
         <div class="d-flex jc-start form-content">
           <div class="d-flex flex-col CreateBot__form-label-group">
             <p class="CreateBot__form-label">Strategy</p>
             <p class="CreateBot__label-support">
-              Please select the Strategy this bot can use.
+              PleaLong bots profit when asset prices rise, Short bots profit
+              when asset prices fall.
             </p>
           </div>
           <div class="d-flex">
@@ -263,6 +276,45 @@ export default {
         </div>
         <!-- /.Access -->
         <hr style="width: 846px; height: 1px" class="m-y-2" />
+        <!-- Leverage Type -->
+        <div class="d-flex jc-start form-content">
+          <div class="d-flex flex-col CreateBot__form-label-group">
+            <p class="CreateBot__form-label">Leverage Type</p>
+            <p class="CreateBot__label-support text-decoration-underline">
+              What is leverage type?
+            </p>
+          </div>
+          <div class="d-flex">
+            <SwitchRadioGroup
+              :items="leverageTypeList"
+              class="m-t-2"
+              @clicked="changeLeverageType"
+            />
+          </div>
+        </div>
+        <!-- /.Leverage Type -->
+        <hr style="width: 846px; height: 1px" class="m-y-2" />
+        <!-- Leverage Value -->
+        <div class="d-flex jc-start form-content">
+          <div class="d-flex flex-col CreateBot__form-label-group">
+            <p class="CreateBot__form-label">Leverage Value</p>
+            <p class="CreateBot__label-support text-decoration-underline">
+              What is leverage?
+            </p>
+          </div>
+          <div class="d-flex" style="width: 383px">
+            <SwitchRadioGroup
+              :items="leverageValueList"
+              class="m-t-2"
+              @clicked="changeLeverageType"
+            />
+          </div>
+        </div>
+        <!-- /.Leverage Value -->
+        <hr style="width: 846px; height: 1px" class="m-y-2" />
+        <p class="m-t-4 gray-900 fw-500 font-18-28 m-t-3">Usage</p>
+        <hr style="width: 846px; height: 1px" class="m-y-2" />
+
         <!-- Min Amount -->
         <div class="d-flex jc-start form-content">
           <div class="d-flex flex-col CreateBot__form-label-group">
@@ -297,6 +349,8 @@ export default {
           </div>
         </div>
         <!-- /.Max Amount -->
+        <hr style="width: 846px; height: 1px" class="m-y-2" />
+        <p class="m-t-4 gray-900 fw-500 font-18-28 m-t-3">Price</p>
         <hr style="width: 846px; height: 1px" class="m-y-2" />
         <!-- Monthly Bot Price-->
         <div class="d-flex jc-start form-content">
@@ -337,109 +391,95 @@ export default {
           class="m-t-3 m-r-2 font-body CreateBot__submit"
         />
       </form>
-      <!--      <form>-->
-      <!--        &lt;!&ndash; form  &ndash;&gt;-->
-      <!--        <div class="d-flex flex-col"></div>-->
-
-      <!--        <BaseInput-->
-      <!--          label="Base Order Size"-->
-      <!--          type="number"-->
-      <!--          name="baseOrderSize"-->
-      <!--          placeholder="Minimum Order value"-->
-      <!--          v-model="botRequest.configuration['maxOrderSize']"-->
-      <!--        ></BaseInput>-->
-      <!--        <BaseSelect-->
-      <!--          label="Leverage Type"-->
-      <!--          :items="leverageTypeList"-->
-      <!--          name="leverageType"-->
-      <!--          :selected="leverageTypeList[0].text"-->
-      <!--          class="CreateBot__leverage-type m-r-2"-->
-      <!--          @changed="changeLeverageType"-->
-      <!--        />-->
-      <!--        <v-slider-->
-      <!--          v-model="leverageValue"-->
-      <!--          color="purple"-->
-      <!--          track-color="gray"-->
-      <!--          thumb-label="always"-->
-      <!--          :max="100"-->
-      <!--          :min="1"-->
-      <!--          label="Leverage Custom Value"-->
-      <!--          @change="changeLeverageValue"-->
-      <!--        >-->
-      <!--          <template v-slot:thumb-label="{ value }">-->
-      <!--            <span class="CreateBot__thumb-label">-->
-      <!--              {{ value + "x" }}-->
-      <!--            </span>-->
-      <!--          </template>-->
-      <!--        </v-slider>-->
-      <!--        <BaseButton-->
-      <!--          text="Submit"-->
-      <!--          class="w-1-1 m-t-3 font-body CreateBot__submit"-->
-      <!--        />-->
-      <!--      </form>-->
       <v-dialog v-model="confirmationModal" width="400" height="327">
         <div class="p-3 bg-white CreateBot__confirmation">
-          <VIcon size="48" dark>$alert</VIcon>
-          <p class="gray-2 m-t-2 font-h-2 fw-700">Confirm creating the bot</p>
+          <div class="d-flex ai-center jc-center">
+            <VIcon size="48" dark>$zap</VIcon>
+          </div>
+          <div class="d-flex ai-center jc-center">
+            <p class="gray-2 m-t-2 font-h-2 fw-700">Save Changes?</p>
+          </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Name</p>
-              <p>{{ this.botRequest.name }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Name</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.name }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Pair</p>
-              <p>{{ this.botRequest.configuration.pair }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Pair</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.pair }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Strategy</p>
-              <p>{{ this.botRequest.configuration.orderStrategy }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Strategy</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.orderStrategy }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Min amount for bot usage</p>
-              <p>{{ this.botRequest.configuration.minAmountForBotUsage }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">
+                Min amount for bot usage
+              </p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.minAmountForBotUsage }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Max amount for bot usage</p>
-              <p>{{ this.botRequest.configuration.maxAmountForBotUsage }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">
+                Max amount for bot usage
+              </p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.maxAmountForBotUsage }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Monthly Price</p>
-              <p>{{ this.botRequest.configuration.monthlyPrice }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Monthly Price</p>
+              <p class="CreateBot__dialog-info-text">
+                {{ this.botRequest.configuration.monthlyPrice }}
+              </p>
             </div>
           </div>
           <div>
-            <div class="d-flex jc-between">
-              <p>Yearly Price</p>
-              <p>{{ this.botRequest.configuration.yearlyPrice }}</p>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Yearly Price</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.yearlyPrice }}
+              </p>
             </div>
           </div>
-          <!--          <div>-->
-          <!--            <div class="d-flex jc-between">-->
-          <!--              <p>Leverage Type</p>-->
-          <!--              <p>{{ this.botRequest.configuration.leverageType }}</p>-->
-          <!--            </div>-->
-          <!--          </div>-->
-          <!--          <div>-->
-          <!--            <div class="d-flex jc-between">-->
-          <!--              <p>Leverage Value</p>-->
-          <!--              <p>{{ this.botRequest.configuration.leverageValue + "x" }}</p>-->
-          <!--            </div>-->
-          <!--          </div>-->
+          <div>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Leverage Type</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.leverageType }}
+              </p>
+            </div>
+          </div>
+          <div>
+            <div class="CreateBot__dialog-info">
+              <p class="CreateBot__dialog-info-text-title">Leverage Value</p>
+              <p class="CreateBot__dialog-info-text-value">
+                {{ this.botRequest.configuration.leverageValue + "x" }}
+              </p>
+            </div>
+          </div>
           <div class="d-flex jc-between m-t-7">
             <div @click="confirmationModal = false" class="w-1-2">
               <BaseButton
                 text="Cancel"
-                class="TradingTerminal__confirmation-btn m-t-2 w-1-1"
+                class="CreateBot__confirmation-btn m-t-2 w-1-1"
               />
             </div>
             <div @click="createBot" class="w-1-2 m-l-1">
@@ -452,6 +492,19 @@ export default {
         </div>
       </v-dialog>
     </div>
+    <v-snackbar v-model="snackbar" :right="true" :multi-line="true">
+      {{ errorMessage }}
+      <template v-slot:action="{ attrs }">
+        <v-btn
+          :color="snackbarColor"
+          text
+          v-bind="attrs"
+          @click="snackbar = false"
+        >
+          close
+        </v-btn>
+      </template>
+    </v-snackbar>
   </div>
 </template>
 <style scoped lang="scss">
@@ -465,6 +518,24 @@ export default {
 }
 
 .CreateBot {
+  @include e(dialog-info-text-title) {
+    font-weight: 500;
+    font-size: 14px;
+    font-height: 20px;
+    color: $gray-700;
+    width: 50%;
+  }
+  @include e(dialog-info-text-value) {
+    font-weight: 400;
+    font-size: 14px;
+    font-height: 20px;
+    color: $gray-700;
+  }
+  @include e(dialog-info) {
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-start;
+  }
   @include e(form-label-group) {
     width: 280px;
     height: 60px;

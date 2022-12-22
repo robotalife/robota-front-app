@@ -24,6 +24,7 @@ export default {
           <template v-slot:activator="{ on, attrs }">
             <VIcon v-bind="attrs" v-on="on">$mybots</VIcon>
           </template>
+          <span>My Bots</span>
         </v-tooltip>
       </RouterLink>
       <RouterLink to="/bots/store" class="m-t-5">
@@ -34,12 +35,12 @@ export default {
           <span>Bot Store</span>
         </v-tooltip>
       </RouterLink>
-      <RouterLink to="/settings/profile" class="m-t-5">
+      <RouterLink to="/settings/exchange" class="m-t-5">
         <v-tooltip top>
           <template v-slot:activator="{ on, attrs }">
             <VIcon v-bind="attrs" v-on="on">$setting</VIcon>
           </template>
-          <span>Settings</span>
+          <span>Exchange</span>
         </v-tooltip>
       </RouterLink>
       <RouterLink to="/bots/create" class="m-t-5">

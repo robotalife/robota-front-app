@@ -13,6 +13,19 @@ export const botsRouter = [
     },
   },
   {
+    path: "/bots/admin/mine",
+    name: "adminBots",
+    component: () =>
+      import(/* webpackChunkName: "Main" */ "@/modules/bots/pages/MyBots"),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/AddNewBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/bots/mine",
     name: "mine",
     component: () =>
@@ -20,7 +33,7 @@ export const botsRouter = [
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/AddNewBotWrapper"
+          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotDefaultWrapper"
         ),
       requiresAuth: true,
     },

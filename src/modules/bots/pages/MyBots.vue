@@ -14,71 +14,14 @@ export default {
       selectedBot: null,
       selectedExchange: null,
       confirmDeleteDialogSwitch: false,
-      botList: [
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-        {
-          name: "DYDX-USDT",
-          profit: "+18.5%",
-          exchange: "Binance Futures USDT-M",
-          pair: "BNBUSDT",
-          icon: "",
-          price: "15$/Month",
-        },
-      ],
+      botList: [],
     };
   },
   mounted() {
     this.selectedExchange = storage.getItem("selectedExchange");
-    // this.$api.bots.getOwnBots(this.selectedExchange).then((result) => {
-    //   this.botList = result;
-    // });
+    this.$api.bots.getOwnBots(this.selectedExchange).then((result) => {
+      this.botList = result;
+    });
   },
   methods: {
     showConfirmDeleteDialog(bot) {
@@ -143,7 +86,7 @@ export default {
       <div class="d-flex jc-between ai-center" style="gap: 9px">
         <div>
           <VIcon>$exchange</VIcon>
-          <span>{{ bot.exchange }}</span>
+          <span>{{ bot.exchangeType }}</span>
         </div>
         <div>
           <VIcon>$pair</VIcon>

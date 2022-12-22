@@ -82,9 +82,9 @@ export default {
   },
   mounted() {
     this.selectedExchange = storage.getItem("selectedExchange");
-    // this.$api.bots.getBotsInStore(this.selectedExchange).then((result) => {
-    //   this.botList = result;
-    // });
+    this.$api.bots.getBotsInStore(this.selectedExchange).then((result) => {
+      this.botList = result;
+    });
   },
   methods: {
     connectToBot() {

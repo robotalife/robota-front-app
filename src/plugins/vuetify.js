@@ -43,6 +43,7 @@ import pair from "@/assets/icons/pair.vue";
 import copy from "@/assets/icons/copy.vue";
 import mybots from "@/assets/icons/mybots.vue";
 import addbot from "@/assets/icons/addbot.vue";
+import zap from "@/assets/icons/zap.vue";
 
 Vue.use(Vuetify);
 const options = {
@@ -174,6 +175,9 @@ const options = {
       },
       addbot: {
         component: addbot,
+      },
+      zap: {
+        component: zap,
       },
     },
   },

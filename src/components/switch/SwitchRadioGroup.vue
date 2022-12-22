@@ -83,7 +83,7 @@ export default {
 
   &__item[aria-selected="true"] {
     border-radius: 30px;
-    background-color: $gray-50;
+    background-color: $gray-100;
     max-height: 24px;
 
     p {
