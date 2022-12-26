@@ -168,7 +168,7 @@ export default {
           <div class="d-flex">
             <div class="d-flex flex-col">
               <div class="m-t-2">
-                <p class="grey-500 text-sm">Net Profit last month</p>
+                <p class="gray-500 text-sm">Net Profit last month</p>
               </div>
               <div class="m-t-1">
                 <p class="grey-900 fw-600 font-36-44">{{ bot.profit }}</p>

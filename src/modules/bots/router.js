@@ -16,11 +16,11 @@ export const botsRouter = [
     path: "/bots/admin/mine",
     name: "adminBots",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/bots/pages/MyBots"),
+      import(/* webpackChunkName: "MyBots" */ "@/modules/bots/pages/MyBots"),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/AddNewBotWrapper"
+          /* webpackChunkName: "AddNewBotWrapper" */ "@/modules/bots/pages/AddNewBotWrapper"
         ),
       requiresAuth: true,
     },
@@ -29,11 +29,11 @@ export const botsRouter = [
     path: "/bots/mine",
     name: "mine",
     component: () =>
-      import(/* webpackChunkName: "Main" */ "@/modules/bots/pages/MyBots"),
+      import(/* webpackChunkName: "MineBots" */ "@/modules/bots/pages/MyBots"),
     meta: {
       layout: () =>
         import(
-          /* webpackChunkName: "Bots" */ "@/modules/bots/pages/BotDefaultWrapper"
+          /* webpackChunkName: "BotDefaultWrapper" */ "@/modules/bots/pages/BotDefaultWrapper"
         ),
       requiresAuth: true,
     },
@@ -49,6 +49,36 @@ export const botsRouter = [
       layout: () =>
         import(
           /* webpackChunkName: "AddNewBotWrapper" */ "@/modules/bots/pages/AddNewBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/bots/:id/overview",
+    name: "Overview" /* used in page title */,
+    component: () =>
+      import(
+        /* webpackChunkName: "SingleBot" */ "@/modules/bots/pages/SingleBotPage"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SingleBotWrapper" */ "@/modules/bots/pages/SingleBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/bots/:id/tokens",
+    name: "TV Tokens" /* used in page title */,
+    component: () =>
+      import(
+        /* webpackChunkName: "SingleBot" */ "@/modules/bots/pages/BotTokensPage"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SingleBotWrapper" */ "@/modules/bots/pages/SingleBotWrapper"
         ),
       requiresAuth: true,
     },

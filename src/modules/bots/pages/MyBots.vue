@@ -74,7 +74,7 @@ export default {
         <div class="d-flex">
           <div class="d-flex flex-col">
             <div class="m-t-2">
-              <p class="grey-500 text-sm">Net Profit last month</p>
+              <p class="gray-500 text-sm">Net Profit last month</p>
             </div>
             <div class="m-t-1">
               <p class="grey-900 fw-600 font-36-44">{{ bot.profit }}</p>
@@ -85,24 +85,28 @@ export default {
       <hr class="m-t-2 m-b-2" />
       <div class="d-flex jc-between ai-center" style="gap: 9px">
         <div>
-          <VIcon>$exchange</VIcon>
+          <VIcon style="margin-right: 4px">$exchange</VIcon>
           <span>{{ bot.exchangeType }}</span>
         </div>
-        <div>
-          <VIcon>$pair</VIcon>
+        <div class="d-flex">
+          <img
+            :src="bot.logo"
+            class="Mine__symbol-icon"
+            style="margin-right: 4px"
+          />
           <span>{{ bot.pair }}</span>
         </div>
       </div>
       <hr class="m-y-2" />
       <div class="d-flex jc-between ai-center">
         <div>
-          <div @click="() => showConnectDialog(bot)">
+          <RouterLink :to="{ path: '/bots/' + bot.id + '/overview' }">
             <BaseButton
               class="bg-brand-purple Mine__view-detail"
               text="View Bot Detail"
             >
             </BaseButton>
-          </div>
+          </RouterLink>
         </div>
         <div class="Mine__badge">
           <p
@@ -139,16 +143,17 @@ export default {
   }
   @include e(cartesian-grid) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 16px;
     grid-row-gap: 24px;
+    margin-top: 24px;
   }
 
   @include e(card) {
     border: 2px solid $gray-10;
     box-sizing: border-box;
     border-radius: 8px;
-    min-width: 425px;
+    max-width: 425px;
   }
   @include e(edit) {
     color: $blue;
@@ -226,6 +231,11 @@ export default {
     background-color: $white !important;
     border-radius: 30px;
     border: 1px $gray-300 solid;
+  }
+
+  @include e(symbol-icon) {
+    max-width: 24px;
+    max-height: 24px;
   }
 }
 </style>

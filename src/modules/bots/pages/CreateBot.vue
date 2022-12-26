@@ -5,6 +5,7 @@ import storage from "@/utils/storage";
 import AutoCompleteSelect from "@/components/select/AutoCompleteSelect.vue";
 import SwitchRadioGroup from "@/components/switch/SwitchRadioGroup";
 import BaseSelect from "@/components/select/BaseSelect.vue";
+import CreateBotDialogInfo from "@/modules/bots/components/CreateBotDialogInfo";
 
 export default {
   name: "CreateBot",
@@ -14,6 +15,7 @@ export default {
     SwitchRadioGroup,
     BaseSelect,
     BaseButton,
+    CreateBotDialogInfo,
   },
   computed: {},
   data() {
@@ -51,8 +53,7 @@ export default {
           value: "SHORT",
         },
       ],
-      leverageTypeList: [
-        { title: "Not Specified", value: "NONE" },
+      marginTypeList: [
         { title: "Isolated", value: "ISOLATED" },
         { title: "Cross", value: "CROSS" },
       ],
@@ -81,7 +82,7 @@ export default {
       this.selectedExchange = storage.getItem("selectedExchange");
       this.botRequest.configuration["orderStrategy"] = "SHORT";
       //this.botRequest.configuration["orderType"] = "MARKET";
-      this.botRequest.configuration["leverageType"] = "ISOLATED";
+      this.botRequest.configuration["marginType"] = "ISOLATED";
       this.botRequest.configuration["leverageValue"] = this.leverageValue;
       this.botRequest.configuration["access"] = "PRIVATE";
       this.botRequest.exchangeId = this.selectedExchange;
@@ -119,9 +120,9 @@ export default {
     //   this.botRequest.configuration["orderType"] =
     //     this.orderTypeSwitchItems[value].value;
     // },
-    changeLeverageType(value) {
-      this.botRequest.configuration["leverageType"] =
-        this.leverageTypeList[value].value;
+    changeMarginType(value) {
+      this.botRequest.configuration["marginType"] =
+        this.marginTypeList[value].value;
     },
     changeLeverageValue(value) {
       this.botRequest.configuration["leverageValue"] = value;
@@ -286,9 +287,9 @@ export default {
           </div>
           <div class="d-flex">
             <SwitchRadioGroup
-              :items="leverageTypeList"
+              :items="marginTypeList"
               class="m-t-2"
-              @clicked="changeLeverageType"
+              @clicked="changeMarginType"
             />
           </div>
         </div>
@@ -306,7 +307,7 @@ export default {
             <SwitchRadioGroup
               :items="leverageValueList"
               class="m-t-2"
-              @clicked="changeLeverageType"
+              @clicked="changeLeverageValue"
             />
           </div>
         </div>
@@ -399,82 +400,39 @@ export default {
           <div class="d-flex ai-center jc-center">
             <p class="gray-2 m-t-2 font-h-2 fw-700">Save Changes?</p>
           </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Name</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.name }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Pair</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.pair }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Strategy</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.orderStrategy }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">
-                Min amount for bot usage
-              </p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.minAmountForBotUsage }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">
-                Max amount for bot usage
-              </p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.maxAmountForBotUsage }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Monthly Price</p>
-              <p class="CreateBot__dialog-info-text">
-                {{ this.botRequest.configuration.monthlyPrice }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Yearly Price</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.yearlyPrice }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Leverage Type</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.leverageType }}
-              </p>
-            </div>
-          </div>
-          <div>
-            <div class="CreateBot__dialog-info">
-              <p class="CreateBot__dialog-info-text-title">Leverage Value</p>
-              <p class="CreateBot__dialog-info-text-value">
-                {{ this.botRequest.configuration.leverageValue + "x" }}
-              </p>
-            </div>
-          </div>
+          <CreateBotDialogInfo title="Name" :value="botRequest.name" />
+          <CreateBotDialogInfo
+            title="Pair"
+            :value="botRequest.configuration.pair"
+          />
+          <CreateBotDialogInfo
+            title="Strategy"
+            :value="botRequest.configuration.orderStrategy"
+          /><CreateBotDialogInfo
+            title="Min amount for bot usage"
+            :value="botRequest.configuration.minAmountForBotUsage"
+          />
+          <CreateBotDialogInfo
+            title="Max amount for bot usage"
+            :value="botRequest.configuration.maxAmountForBotUsage"
+          />
+          <CreateBotDialogInfo
+            title="Monthly Price"
+            :value="botRequest.configuration.monthlyPrice"
+          />
+          <CreateBotDialogInfo
+            title="Yearly Price"
+            :value="botRequest.configuration.yearlyPrice"
+          />
+          <CreateBotDialogInfo
+            title="Margin Type"
+            :value="botRequest.configuration.marginType"
+          />
+          <CreateBotDialogInfo
+            title="Leverage Value"
+            :value="botRequest.configuration.leverageValue + 'x'"
+          />
+
           <div class="d-flex jc-between m-t-7">
             <div @click="confirmationModal = false" class="w-1-2">
               <BaseButton
@@ -518,24 +476,6 @@ export default {
 }
 
 .CreateBot {
-  @include e(dialog-info-text-title) {
-    font-weight: 500;
-    font-size: 14px;
-    font-height: 20px;
-    color: $gray-700;
-    width: 50%;
-  }
-  @include e(dialog-info-text-value) {
-    font-weight: 400;
-    font-size: 14px;
-    font-height: 20px;
-    color: $gray-700;
-  }
-  @include e(dialog-info) {
-    margin-top: 16px;
-    display: flex;
-    align-items: flex-start;
-  }
   @include e(form-label-group) {
     width: 280px;
     height: 60px;
