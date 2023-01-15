@@ -1,6 +1,6 @@
 export const dashboardRouter = [
   {
-    path: "/",
+    path: "/dashboard",
     name: "dashboard",
     component: () =>
       import(

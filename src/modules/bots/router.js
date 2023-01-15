@@ -69,6 +69,21 @@ export const botsRouter = [
     },
   },
   {
+    path: "/bots/:id/logs",
+    name: "Event Log" /* used in page title */,
+    component: () =>
+      import(
+        /* webpackChunkName: "SingleBot" */ "@/modules/bots/pages/BotLogsPage"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SingleBotWrapper" */ "@/modules/bots/pages/SingleBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
     path: "/bots/:id/tokens",
     name: "TV Tokens" /* used in page title */,
     component: () =>

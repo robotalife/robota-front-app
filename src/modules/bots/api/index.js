@@ -8,6 +8,7 @@ const FOLLOW_BOT_ENDPOINT = (botId, exchangeId) =>
 const BOTS_STORE_ENDPOINT = "/bots/store";
 const BOT_TOKEN_ENDPOINT = (botId) => `/bots/${botId}/tokens`;
 const OWN_BOTS_ENDPOINT = (exchangeId) => `/bots?exchangeId=${exchangeId}`;
+const BOT_LOGS = (botId) => `/bots/${botId}/logs/`;
 
 export default {
   createBot(data) {
@@ -30,5 +31,8 @@ export default {
   },
   getBotTokens(botId) {
     return $http.get(BOT_TOKEN_ENDPOINT(botId));
+  },
+  getBotLogs(botId) {
+    return $http.get(BOT_LOGS(botId));
   },
 };

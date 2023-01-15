@@ -114,7 +114,7 @@ export default {
                 <span
                   class="SingleBotWrapper__tab gray-500 font-text-sm g-2 fw-500"
                 >
-                  Log
+                  Event Log
                 </span>
               </div>
             </RouterLink>
