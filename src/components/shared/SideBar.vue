@@ -53,13 +53,19 @@ export default {
       </RouterLink>
     </div>
     <div class="d-flex flex-col">
-      <a href="https://www.instagram.com/robotalife/" class="m-t-5">
+      <a
+        target="_blank"
+        href="https://www.instagram.com/robotalife/"
+        class="m-t-5"
+      >
         <VIcon dark>$instagram</VIcon>
       </a>
-      <a href="https://twitter.com/RobotaLife" class="m-t-5">
+      <a target="_blank" href="https://twitter.com/RobotaLife" class="m-t-5">
         <VIcon dark>$twitter</VIcon>
       </a>
-      <VIcon dark class="m-t-5">$telegram</VIcon>
+      <a target="_blank" href="https://t.me/robotalife" class="m-t-5">
+        <VIcon dark>$telegram</VIcon>
+      </a>
       <RouterLink to="/settings/profile" class="m-t-5">
         <VIcon color="grey" class="Header__profile" dark>$user</VIcon>
       </RouterLink>
