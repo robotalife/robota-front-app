@@ -42,7 +42,7 @@ export default {
               id: result.id,
               email: this.emailAddress,
             });
-            this.$router.push({ name: "dashboard" });
+            this.$router.push({ name: "portfolio" });
           })
           .catch((error) => {
             this.isButtonLoading = false;
