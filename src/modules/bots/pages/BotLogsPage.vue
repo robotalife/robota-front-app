@@ -5,22 +5,6 @@ export default {
   computed: {},
   created() {
     this.$api.bots.getBotLogs(this.$route.params.id).then((response) => {
-      console.log("response of bot logs ", response);
-      // botId
-      //     :
-      //     8
-      // createdAt
-      //     :
-      //     "2023-01-14T22:42:30.000+00:00"
-      // id
-      //     :
-      //     1
-      // logType
-      //     :
-      //     "BOT_CREATION"
-      // message
-      //     :
-      //     "Bot has been created."
       this.logs = response;
     });
   },
@@ -48,17 +32,35 @@ export default {
       <v-data-table
         :headers="headers"
         :items="logs"
-        :items-per-page="5"
+        :items-per-page="15"
         class="elevation-1"
       >
         <template v-slot:item.createdAt="{ item }">
           <div class="d-flex ai-center py-7">
             <div class="ml-3">
               <p class="fw-500 font-text-sm gray-900">
-                {{ new Date(item.createdAt).toDateString() }}
+                {{
+                  item.createdAt ? new Date(item.createdAt).toDateString() : ""
+                }}
               </p>
               <p class="mt-1 fw-500 font-text-sm gray-500">
-                {{ new Date(item.createdAt).toLocaleTimeString() }}
+                {{
+                  item.createdAt
+                    ? new Date(item.createdAt).toLocaleTimeString()
+                    : ""
+                }}
+              </p>
+            </div>
+          </div>
+        </template>
+        <template v-slot:item.message="{ item }">
+          <div class="d-flex ai-center py-7">
+            <div class="ml-3 BotLogs__badge-log">
+              <p
+                class="fw-500 font-text-sm gray-700"
+                style="mix-blend-mode: multiply"
+              >
+                {{ item.message }}
               </p>
             </div>
           </div>
@@ -79,6 +81,12 @@ th {
     box-sizing: border-box;
     border-radius: 8px;
     max-width: 425px;
+  }
+
+  @include e(badge-log) {
+    background: $gray-100;
+    border-radius: 16px;
+    padding: 2px 8px;
   }
 }
 </style>

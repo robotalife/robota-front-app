@@ -81,7 +81,7 @@ export default {
               </div>
             </RouterLink>
             <RouterLink
-              :to="{ path: '/bots/' + $route.params.id + '/active-trades' }"
+              :to="{ path: '/bots/' + $route.params.id + '/trades/active' }"
               class="d-flex ai-start p-y-3 m-l-3"
             >
               <div class="h-1-1">
@@ -94,7 +94,7 @@ export default {
             </RouterLink>
             <RouterLink
               :to="{
-                path: '/bots/bot/' + $route.params.id + '/trades-history',
+                path: '/bots/' + $route.params.id + '/trades/history',
               }"
               class="d-flex ai-start p-y-3 m-l-3"
             >

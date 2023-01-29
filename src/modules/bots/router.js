@@ -98,4 +98,34 @@ export const botsRouter = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/bots/:id/trades/active",
+    name: "Active Trades" /* used in page title */,
+    component: () =>
+      import(
+        /* webpackChunkName: "ActiveTrade" */ "@/modules/bots/pages/ActiveTradePage"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SingleBotWrapper" */ "@/modules/bots/pages/SingleBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/bots/:id/trades/history",
+    name: "Trade History" /* used in page title */,
+    component: () =>
+      import(
+        /* webpackChunkName: "TradeHistory" */ "@/modules/bots/pages/TradeHistoryPage"
+      ),
+    meta: {
+      layout: () =>
+        import(
+          /* webpackChunkName: "SingleBotWrapper" */ "@/modules/bots/pages/SingleBotWrapper"
+        ),
+      requiresAuth: true,
+    },
+  },
 ];

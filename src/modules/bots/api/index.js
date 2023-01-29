@@ -9,6 +9,8 @@ const BOTS_STORE_ENDPOINT = "/bots/store";
 const BOT_TOKEN_ENDPOINT = (botId) => `/bots/${botId}/tokens`;
 const OWN_BOTS_ENDPOINT = (exchangeId) => `/bots?exchangeId=${exchangeId}`;
 const BOT_LOGS = (botId) => `/bots/${botId}/logs/`;
+const BOT_ACTIVE_TRADE = (botId) => `/bots/${botId}/trades/active`;
+const BOT_TRADE_HISTORY = (botId) => `/bots/${botId}/trades/history`;
 
 export default {
   createBot(data) {
@@ -34,5 +36,11 @@ export default {
   },
   getBotLogs(botId) {
     return $http.get(BOT_LOGS(botId));
+  },
+  getActiveBot(botId) {
+    return $http.get(BOT_ACTIVE_TRADE(botId));
+  },
+  getTradeHistory(botId) {
+    return $http.get(BOT_TRADE_HISTORY(botId));
   },
 };
