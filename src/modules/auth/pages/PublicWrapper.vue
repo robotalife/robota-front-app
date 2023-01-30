@@ -44,8 +44,8 @@ export default {
 
   @include e(logo) {
     ::v-deep .v-icon__component {
-      width: 185px !important;
-      height: 42px !important;
+      width: 265.5px !important;
+      height: 49.5px !important;
     }
   }
 }
