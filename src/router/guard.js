@@ -12,7 +12,7 @@ export default async (to, from, next) => {
     }
   } else {
     if (isAuthenticated) {
-      next({ name: "dashboard" });
+      next({ name: "portfolio" });
     } else {
       next();
     }

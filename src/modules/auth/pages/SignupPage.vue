@@ -29,10 +29,6 @@ export default {
         (v) => /.+@.+\..+/.test(v) || "E-mail must be valid",
       ],
       passwordRules: [(v) => !!v || "Password is required"],
-      confirmPasswordRules: [
-        [(v) => !!v || "Password is required"],
-        this.password === this.confirmPassword || "Password must match",
-      ],
       isButtonLoading: false,
     };
   },
@@ -84,15 +80,6 @@ export default {
         class="m-t-2 SignUp__input"
         :rules="passwordRules"
         label="Password"
-        type="password"
-        required
-      ></v-text-field>
-
-      <v-text-field
-        v-model="formData.confirmPassword"
-        class="m-t-2 SignUp__input"
-        :rules="confirmPasswordRules"
-        label="Repeat Password"
         type="password"
         required
       ></v-text-field>
