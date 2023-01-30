@@ -7,7 +7,7 @@ import { botsRouter } from "@/modules/bots/router";
 export default [
   {
     path: "/",
-    redirect: "signIn",
+    redirect: "portfolio",
   },
   ...authRouter,
   ...dashboardRouter,
