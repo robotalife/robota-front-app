@@ -1,9 +1,9 @@
 FROM node:14.15.4 as build-stage
 WORKDIR /app
 COPY package*.json ./
-RUN yarn install
+RUN npm install
 COPY ./ .
-RUN yarn build
+RUN npm run build
 
 FROM nginx as production-stage
 RUN mkdir /app
