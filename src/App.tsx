@@ -1,10 +1,12 @@
 import RoutingComp from "./routes/Routes";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
+    <>
+      <CssBaseline />
       <RoutingComp />
-    </div>
+    </>
   );
 }
 
