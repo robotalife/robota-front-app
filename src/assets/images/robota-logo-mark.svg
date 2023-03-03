@@ -1,0 +1,94 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+    viewBox="0 0 1331.06 1030.59">
+    <defs>
+        <style>
+            .cls-1 {
+                fill: #fff;
+            }
+
+            .cls-1,
+            .cls-2,
+            .cls-4,
+            .cls-6 {
+                fill-rule: evenodd;
+            }
+
+            .cls-2,
+            .cls-3 {
+                fill: #f0f;
+            }
+
+            .cls-4 {
+                fill: #3c2e7d;
+            }
+
+            .cls-5 {
+                mask: url(#mask);
+            }
+
+            .cls-6 {
+                fill: url(#linear-gradient);
+            }
+        </style>
+        <mask id="mask" x="281.43" y="982.59" width="48" height="48" maskUnits="userSpaceOnUse">
+            <g transform="translate(281.43 982.59)">
+                <g id="mask0_5682_420141" data-name="mask0 5682 420141">
+                    <path class="cls-1"
+                        d="M16.72,1.83,7.28,7A13.65,13.65,0,0,0,0,18.86V29.14A13.65,13.65,0,0,0,7.28,41l9.44,5.14a15.4,15.4,0,0,0,14.56,0L40.72,41A13.65,13.65,0,0,0,48,29.14V18.86A13.65,13.65,0,0,0,40.72,7L31.28,1.83a15.4,15.4,0,0,0-14.56,0Zm2,41.12L9.25,37.81a9.94,9.94,0,0,1-5.32-8.67V18.86a9.94,9.94,0,0,1,5.32-8.67l9.44-5.14a11.19,11.19,0,0,1,10.62,0l9.44,5.14a9.94,9.94,0,0,1,5.32,8.67V29.14a9.94,9.94,0,0,1-5.32,8.67L29.31,43a11.19,11.19,0,0,1-10.62,0Z" />
+                </g>
+            </g>
+        </mask>
+        <linearGradient id="linear-gradient" x1="-263" y1="264.26" x2="-263" y2="216.26"
+            gradientTransform="matrix(1, 0, 0, -1, 287, 264.26)" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#d2468c" />
+            <stop offset="1" stop-color="#3c3c9b" />
+        </linearGradient>
+        <symbol id="New_Symbol" data-name="New Symbol" viewBox="0 0 29.44 31.14">
+            <path class="cls-2"
+                d="M24.2,25.58l-5.54,3.2a7.92,7.92,0,0,1-7.88,0l-5.54-3.2A7.93,7.93,0,0,1,1.3,18.74v-6.4A7.91,7.91,0,0,1,5.24,5.5l5.54-3.2a7.85,7.85,0,0,1,7.88,0L24.2,5.5a7.91,7.91,0,0,1,3.94,6.84v6.4A7.93,7.93,0,0,1,24.2,25.58ZM14.07,0a9,9,0,0,0-3.94,1.17L4.59,4.37a9.23,9.23,0,0,0-4.59,8v6.41a9.16,9.16,0,0,0,.94,4l.66,1.13a9.11,9.11,0,0,0,3,2.83l5.54,3.2a9.18,9.18,0,0,0,9.18,0l5.54-3.2a9.24,9.24,0,0,0,3-2.83l.65-1.13a9.16,9.16,0,0,0,.94-4V12.33a9.23,9.23,0,0,0-4.59-8l-5.54-3.2A9,9,0,0,0,15.37,0Z" />
+        </symbol>
+        <symbol id="New_Symbol_1" data-name="New Symbol 1" viewBox="0 0 1.3 19.15">
+            <rect class="cls-3" width="1.3" height="19.15" />
+        </symbol>
+        <symbol id="New_Symbol_2" data-name="New Symbol 2" viewBox="0 0 116.32 106.51">
+            <use width="29.44" height="31.14" transform="translate(43.44 50.24)" xlink:href="#New_Symbol" />
+            <use width="29.44" height="31.14" transform="translate(43.44)" xlink:href="#New_Symbol" />
+            <use width="29.44" height="31.14" transform="translate(86.88 75.37)" xlink:href="#New_Symbol" />
+            <use width="29.44" height="31.14" transform="translate(0 75.37)" xlink:href="#New_Symbol" />
+            <use width="1.3" height="19.15" transform="translate(57.51 31.09)" xlink:href="#New_Symbol_1" />
+            <use width="1.3" height="19.15" transform="translate(28.48 83.74) rotate(-120)"
+                xlink:href="#New_Symbol_1" />
+            <use width="1.3" height="19.15" transform="translate(88.48 82.61) rotate(120)" xlink:href="#New_Symbol_1" />
+        </symbol>
+    </defs>
+    <use width="116.32" height="106.51" transform="translate(284.93 0) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(284.93 164.33) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(0 164.33) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(142.32 82.05) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(142.32 246.38) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(284.93 328.66) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(570.21 0) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(570.21 164.33) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(427.6 82.05) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(427.6 246.38) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(570.21 328.66) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(855.49 0) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(855.49 164.33) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(712.88 82.05) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(712.88 246.38) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(855.49 328.66) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(1140.77 164.33) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(998.16 82.05) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <use width="116.32" height="106.51" transform="translate(998.16 246.38) scale(1.64)" xlink:href="#New_Symbol_2" />
+    <path class="cls-1"
+        d="M24,46.25a14.18,14.18,0,0,1-6.75-1.7L8.5,39.78a12.63,12.63,0,0,1-6.75-11V19.24a12.64,12.64,0,0,1,6.75-11l8.75-4.77a14.29,14.29,0,0,1,13.5,0L39.5,8.22a12.64,12.64,0,0,1,6.75,11v9.53a12.63,12.63,0,0,1-6.75,11l-8.75,4.77A14.18,14.18,0,0,1,24,46.25Z"
+        transform="translate(281.43 982.59)" />
+    <path class="cls-4"
+        d="M39.33,22.53a2.93,2.93,0,0,1-2.21,2.74c-1.07.1-1.83-1-1.69-2.37a2.93,2.93,0,0,1,2.21-2.74C38.71,20.05,39.47,21.12,39.33,22.53Zm-9.06,4.93a2.92,2.92,0,0,1-2.2,2.74c-1.08.1-1.83-1-1.69-2.37a2.93,2.93,0,0,1,2.2-2.74C29.66,25,30.42,26,30.27,27.46ZM37.9,16.75a3.88,3.88,0,0,0-1.41.45h0l-9,4.9h0A7.66,7.66,0,0,0,24,28.05c-.31,3.3,1.38,5.79,3.76,5.55a3.57,3.57,0,0,0,1.42-.45h0l9-4.89h0a7.66,7.66,0,0,0,3.46-6C42,19,40.29,16.52,37.9,16.75Z"
+        transform="translate(281.43 982.59)" />
+    <g class="cls-5">
+        <path class="cls-6"
+            d="M16.72,1.83,7.28,7A13.65,13.65,0,0,0,0,18.86V29.14A13.65,13.65,0,0,0,7.28,41l9.44,5.14a15.4,15.4,0,0,0,14.56,0L40.72,41A13.65,13.65,0,0,0,48,29.14V18.86A13.65,13.65,0,0,0,40.72,7L31.28,1.83a15.4,15.4,0,0,0-14.56,0Zm2,41.12L9.25,37.81a9.94,9.94,0,0,1-5.32-8.67V18.86a9.94,9.94,0,0,1,5.32-8.67l9.44-5.14a11.19,11.19,0,0,1,10.62,0l9.44,5.14a9.94,9.94,0,0,1,5.32,8.67V29.14a9.94,9.94,0,0,1-5.32,8.67L29.31,43a11.19,11.19,0,0,1-10.62,0Z"
+            transform="translate(281.43 982.59)" />
+    </g>
+</svg>
