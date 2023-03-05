@@ -34,10 +34,10 @@ import routes from "../consts/routes";
 // );
 
 const AccountControlLayout = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className="">
       <Container>
         <Grid container>
           <Grid item xs={12} md={"auto"}>
