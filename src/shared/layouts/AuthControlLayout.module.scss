@@ -1,0 +1,69 @@
+.authControlWrapper {
+  align-items: center;
+  background: url("../../assets/images/account-control-mobile-bg.svg") no-repeat
+    center -10%;
+  background-size: 123%;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.desktop-logo {
+  display: none;
+}
+
+.mobileLogo {
+  height: $mobile-logo-size;
+  width: $mobile-logo-size;
+  margin-bottom: 24px;
+}
+
+.authControlCard {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding-top: 160px;
+}
+
+:global {
+  .pageTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .pageSubtitle {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .authControlWrapper {
+    background: url("../../assets/images/account-control-desktop-bg.svg")
+      no-repeat;
+    background-position: center center;
+    background-size: 1230px;
+  }
+
+  .mobileLogo {
+    display: none;
+  }
+
+  .desktop-logo {
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 100px;
+    width: 280px;
+  }
+
+  .authControlCard {
+    background: $white;
+    height: auto;
+    padding: 30px 40px;
+    width: 440px;
+  }
+}
