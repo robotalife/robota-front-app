@@ -1,38 +1,130 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-    viewBox="0 0 463.6 206.83">
-    <defs>
-        <style>
-            .cls-1,
-            .cls-2 {
-                fill: #E1E1E1;
-            }
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.4.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	y="0px" viewBox="0 0 463.6 206.8" style="enable-background:new 0 0 463.6 206.8;" xml:space="preserve">
+	<style type="text/css">
+		.st0 {
+			fill-rule: evenodd;
+			clip-rule: evenodd;
+			fill: #E1E1E1;
+		}
 
-            .cls-1 {
-                fill-rule: evenodd;
-            }
-        </style>
-        <symbol id="New_Symbol" data-name="New Symbol" viewBox="0 0 29.44 31.14">
-            <path class="cls-1"
-                d="M24.2,25.58l-5.54,3.2a7.92,7.92,0,0,1-7.88,0l-5.54-3.2A7.93,7.93,0,0,1,1.3,18.74v-6.4A7.91,7.91,0,0,1,5.24,5.5l5.54-3.2a7.85,7.85,0,0,1,7.88,0L24.2,5.5a7.91,7.91,0,0,1,3.94,6.84v6.4A7.93,7.93,0,0,1,24.2,25.58ZM14.07,0a9,9,0,0,0-3.94,1.17L4.59,4.37a9.23,9.23,0,0,0-4.59,8v6.41a9.16,9.16,0,0,0,.94,4l.66,1.13a9.11,9.11,0,0,0,3,2.83l5.54,3.2a9.18,9.18,0,0,0,9.18,0l5.54-3.2a9.24,9.24,0,0,0,3-2.83l.65-1.13a9.16,9.16,0,0,0,.94-4V12.33a9.23,9.23,0,0,0-4.59-8l-5.54-3.2A9,9,0,0,0,15.37,0Z" />
-        </symbol>
-        <symbol id="New_Symbol_1" data-name="New Symbol 1" viewBox="0 0 1.3 19.15">
-            <rect class="cls-2" width="1.3" height="19.15" />
-        </symbol>
-        <symbol id="New_Symbol_2" data-name="New Symbol 2" viewBox="0 0 116.32 106.51">
-            <use width="29.44" height="31.14" transform="translate(43.44 50.24)" xlink:href="#New_Symbol" />
-            <use width="29.44" height="31.14" transform="translate(43.44)" xlink:href="#New_Symbol" />
-            <use width="29.44" height="31.14" transform="translate(86.88 75.37)" xlink:href="#New_Symbol" />
-            <use width="29.44" height="31.14" transform="translate(0 75.37)" xlink:href="#New_Symbol" />
-            <use width="1.3" height="19.15" transform="translate(57.51 31.09)" xlink:href="#New_Symbol_1" />
-            <use width="1.3" height="19.15" transform="translate(28.48 83.74) rotate(-120)"
-                xlink:href="#New_Symbol_1" />
-            <use width="1.3" height="19.15" transform="translate(88.48 82.61) rotate(120)" xlink:href="#New_Symbol_1" />
-        </symbol>
-    </defs>
-    <use width="116.32" height="106.51" transform="translate(173.64)" xlink:href="#New_Symbol_2" />
-    <use width="116.32" height="106.51" transform="translate(173.64 100.32)" xlink:href="#New_Symbol_2" />
-    <use width="116.32" height="106.51" transform="translate(260.52 50.16)" xlink:href="#New_Symbol_2" />
-    <use width="116.32" height="106.51" xlink:href="#New_Symbol_2" />
-    <use width="116.32" height="106.51" transform="translate(86.88 50.16)" xlink:href="#New_Symbol_2" />
-    <use width="116.32" height="106.51" transform="translate(347.28)" xlink:href="#New_Symbol_2" />
+		.st1 {
+			fill: #E1E1E1;
+		}
+	</style>
+	<symbol id="New_Symbol" viewBox="-14.7 -15.6 29.5 31.2">
+		<path class="st0"
+			d="M9.5,10l-5.5,3.2c-2.4,1.4-5.4,1.4-7.9,0L-9.5,10c-2.4-1.4-3.9-4-3.9-6.8v-6.4c0-2.8,1.5-5.4,3.9-6.8l5.5-3.2
+		c2.4-1.4,5.4-1.4,7.9,0l5.5,3.2c2.4,1.4,3.9,4,3.9,6.8v6.4C13.4,6,11.9,8.6,9.5,10z M-0.7-15.6c-1.4,0.1-2.7,0.5-3.9,1.2l-5.5,3.2
+		c-2.8,1.7-4.6,4.7-4.6,8v6.4c0,1.4,0.3,2.8,0.9,4l0.7,1.1c0.8,1.2,1.8,2.1,3,2.8l5.5,3.2c2.8,1.6,6.3,1.6,9.2,0l5.5-3.2
+		c1.2-0.7,2.2-1.7,3-2.8l0.6-1.1c0.6-1.2,0.9-2.6,0.9-4v-6.4c0-3.3-1.7-6.3-4.6-8l-5.5-3.2c-1.2-0.7-2.6-1.1-3.9-1.1H-0.7z" />
+	</symbol>
+	<symbol id="New_Symbol_1" viewBox="-0.6 -9.6 1.3 19.1">
+		<rect x="-0.6" y="-9.6" class="st1" width="1.3" height="19.1" />
+	</symbol>
+	<symbol id="New_Symbol_3" viewBox="-14.7 -15.6 29.5 31.2">
+		<g>
+			<g>
+				<g>
+					<g>
+						<path class="st0" d="M9.5,10l-5.5,3.2c-2.4,1.4-5.4,1.4-7.9,0L-9.5,10c-2.4-1.4-3.9-4-3.9-6.8v-6.4c0-2.8,1.5-5.4,3.9-6.8
+						l5.5-3.2c2.4-1.4,5.4-1.4,7.9,0l5.5,3.2c2.4,1.4,3.9,4,3.9,6.8v6.4C13.4,6,11.9,8.6,9.5,10z M-0.7-15.6
+						c-1.4,0.1-2.7,0.5-3.9,1.2l-5.5,3.2c-2.8,1.7-4.6,4.7-4.6,8v6.4c0,1.4,0.3,2.8,0.9,4l0.7,1.1c0.8,1.2,1.8,2.1,3,2.8l5.5,3.2
+						c2.8,1.6,6.3,1.6,9.2,0l5.5-3.2c1.2-0.7,2.2-1.7,3-2.8l0.6-1.1c0.6-1.2,0.9-2.6,0.9-4v-6.4c0-3.3-1.7-6.3-4.6-8l-5.5-3.2
+						c-1.2-0.7-2.6-1.1-3.9-1.1H-0.7z" />
+					</g>
+				</g>
+			</g>
+		</g>
+	</symbol>
+	<symbol id="New_Symbol_4" viewBox="-58.2 -53.3 116.3 106.5">
+		<g>
+			<defs>
+				<rect id="SVGID_1_" x="-14.7" y="-3" width="29.4" height="31.1" />
+			</defs>
+			<clipPath id="SVGID_00000047752453444198743110000014595735870246998703_">
+				<use xlink:href="#SVGID_1_" style="overflow:visible;" />
+			</clipPath>
+			<g style="clip-path:url(#SVGID_00000047752453444198743110000014595735870246998703_);">
+
+				<use xlink:href="#New_Symbol_3" width="29.5" height="31.2" x="-14.7" y="-15.6"
+					transform="matrix(1 0 0 1 0 12.555)" style="overflow:visible;" />
+			</g>
+		</g>
+		<g>
+			<defs>
+				<rect id="SVGID_00000094583417355160800460000000886902621921998742_" x="-14.7" y="-53.3" width="29.4"
+					height="31.1" />
+			</defs>
+			<clipPath id="SVGID_00000054961945583523958600000016594024827913159826_">
+				<use xlink:href="#SVGID_00000094583417355160800460000000886902621921998742_"
+					style="overflow:visible;" />
+			</clipPath>
+			<g style="clip-path:url(#SVGID_00000054961945583523958600000016594024827913159826_);">
+
+				<use xlink:href="#New_Symbol_3" width="29.5" height="31.2"
+					id="XMLID_00000039818287374849393580000012872718364768590263_" x="-14.7" y="-15.6"
+					transform="matrix(1 0 0 1 0 -37.685)" style="overflow:visible;" />
+			</g>
+		</g>
+		<g>
+			<defs>
+				<rect id="SVGID_00000181046838105193558740000005563433544767896472_" x="28.7" y="22.1" width="29.4"
+					height="31.1" />
+			</defs>
+			<clipPath id="SVGID_00000077316527842677500850000010330011350263192231_">
+				<use xlink:href="#SVGID_00000181046838105193558740000005563433544767896472_"
+					style="overflow:visible;" />
+			</clipPath>
+			<g style="clip-path:url(#SVGID_00000077316527842677500850000010330011350263192231_);">
+
+				<use xlink:href="#New_Symbol_3" width="29.5" height="31.2" x="-14.7" y="-15.6"
+					transform="matrix(1 0 0 1 43.44 37.685)" style="overflow:visible;" />
+			</g>
+		</g>
+		<g>
+			<defs>
+				<rect id="SVGID_00000054983187371769826950000002950442821414614157_" x="-58.2" y="22.1" width="29.4"
+					height="31.1" />
+			</defs>
+			<clipPath id="SVGID_00000073683315506960100150000002585108799741734833_">
+				<use xlink:href="#SVGID_00000054983187371769826950000002950442821414614157_"
+					style="overflow:visible;" />
+			</clipPath>
+			<g style="clip-path:url(#SVGID_00000073683315506960100150000002585108799741734833_);">
+
+				<use xlink:href="#New_Symbol_3" width="29.5" height="31.2" x="-14.7" y="-15.6"
+					transform="matrix(1 0 0 1 -43.44 37.685)" style="overflow:visible;" />
+			</g>
+		</g>
+
+		<use xlink:href="#New_Symbol_1" width="1.3" height="19.1"
+			id="XMLID_00000041268982533054808160000013563381372367892656_" x="-0.6" y="-9.6"
+			transform="matrix(1 0 0 1 2.491834e-03 -12.6049)" style="overflow:visible;" />
+
+		<use xlink:href="#New_Symbol_1" width="1.3" height="19.1" x="-0.6" y="-9.6"
+			transform="matrix(-0.5 -0.866 0.866 -0.5 -21.7103 25.1196)" style="overflow:visible;" />
+
+		<use xlink:href="#New_Symbol_1" width="1.3" height="19.1" x="-0.6" y="-9.6"
+			transform="matrix(-0.5 0.866 -0.866 -0.5 21.7053 25.1155)" style="overflow:visible;" />
+	</symbol>
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000033354208272358827880000004101951988622442625_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 231.8 53.255)" style="overflow:visible;" />
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000019672433367061614480000000861745267482903447_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 405.4513 53.255)" style="overflow:visible;" />
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000175288639219117739920000002682529287018785722_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 58.1487 53.255)" style="overflow:visible;" />
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000171697849200375560850000005951361576240044965_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 318.6256 103.415)" style="overflow:visible;" />
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000006680219490967774510000013721313694339374759_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 144.9743 103.415)" style="overflow:visible;" />
+	<use xlink:href="#New_Symbol_4" width="116.3" height="106.5"
+		id="XMLID_00000027600880831364970020000012709387035466512051_" x="-58.2" y="-53.3"
+		transform="matrix(0.9997 0 0 0.9997 231.8 153.575)" style="overflow:visible;" />
 </svg>

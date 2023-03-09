@@ -6,6 +6,7 @@ const routes = {
   resetPassword: "/account/reset-password",
   404: "/404",
   portfoilio: "/portfolio",
+  terms: "/terms",
 } as const;
 
 export default routes;
