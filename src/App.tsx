@@ -2,12 +2,7 @@ import RoutingComp from "./routes/Routes";
 import { CssBaseline } from "@mui/material";
 
 function App() {
-  return (
-    <>
-      <CssBaseline />
-      <RoutingComp />
-    </>
-  );
+  return <RoutingComp />;
 }
 
 export default App;
