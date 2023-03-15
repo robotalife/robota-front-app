@@ -25,6 +25,17 @@
   align-items: center;
   height: 100vh;
   padding-top: 160px;
+
+  :global {
+    .pageDescription {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    a {
+      color: $primary-700;
+    }
+  }
 }
 
 :global {

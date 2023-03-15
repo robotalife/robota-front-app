@@ -1,3 +1,32 @@
-.formInput {
+.label {
+  color: $gray-700;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  width: auto;
+}
+
+.inputWrapper {
   margin-bottom: 20px;
+}
+
+.input {
+  :global {
+    .MuiInputBase-root {
+      border-color: $gray-300;
+      border-radius: 8px;
+      box-shadow: $input-shadow;
+    }
+
+    .MuiInputBase-input {
+      padding: 10.5px 14px;
+      padding-left: 0;
+    }
+  }
+}
+
+.helperText {
+  font-size: 14px;
+  font-weight: 400;
 }

@@ -6,12 +6,14 @@ import TextField from "../../components/formElements/TextField";
 import routes from "../../shared/consts/routes";
 
 const Signin = () => {
+
+
   return (
     <div>
       <div className={"pageTitle"}>Sign In</div>
       <div className={"pageSubtitle"}>Welcome back! </div>
       <TextField label="Email Address" />
-      <TextField label="Password" />
+      <TextField label="Password" type="Password" />
       <Typography sx={{ mb: 1, mt: 1 }}>
         <Link to={routes.resetPassword}>Forget Password?</Link>
       </Typography>
