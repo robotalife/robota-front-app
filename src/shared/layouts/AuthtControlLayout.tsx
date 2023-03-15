@@ -9,7 +9,7 @@ const AuthControlLayout = () => {
     <div className={classes.authControlWrapper}>
       <Container maxWidth="xl" sx={{ paddingX: { xs: 0, md: 3 } }}>
         <Grid container justifyContent={"center"}>
-          <Grid item xs={12} md={6} xl={"auto"}>
+          <Grid item xs={10} md={6} xl={"auto"}>
             <img src={robotaLogoType} className={classes.desktopLogo} />
             <Card className={classes.authControlCard}>
               <img src={robotaLogoMark} className={classes.mobileLogo} />

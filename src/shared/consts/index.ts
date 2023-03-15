@@ -1,3 +1,3 @@
-const process = import.meta.env.VITE_XX;
+const process = import.meta.env;
 
-export const API_BASE_URL = process.REACT_APP_DEVELOPMENT_ASE_URL;
+export const API_BASE_URL = process.VITE_DEVELOPMENT_BASE_URL;

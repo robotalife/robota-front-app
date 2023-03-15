@@ -1,15 +1,9 @@
 import {
-  Grid,
-  Input,
-  FormControl,
   FormHelperText,
   IconButton,
   InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField as MUITextField,
   StandardTextFieldProps,
-  InputBase,
 } from "@mui/material";
 import { ReactNode, useId, useState } from "react";
 import { IconEye, IconEyeOff } from "../../shared/icons/Icons";
@@ -20,10 +14,14 @@ interface Props extends StandardTextFieldProps {
   startIcon?: ReactNode;
   message?: string | string[];
   messageType?: Message;
-  className?: string;
 }
 
-const TextField = (props: Props) => {
+const TextField = ({
+  startIcon,
+  message,
+  messageType,
+  ...textFieldProps
+}: Props) => {
   const tmpId = useId();
   // If the input type is password then this is the to handle show password
   const [showPassword, setShowPassword] = useState(false);
@@ -38,29 +36,30 @@ const TextField = (props: Props) => {
 
   return (
     <div className={classes.inputWrapper}>
-      {props.label && (
-        <label htmlFor={props.id || tmpId} className={classes.label}>
-          {props.label}
+      {textFieldProps.label && (
+        <label htmlFor={textFieldProps.id || tmpId} className={classes.label}>
+          {textFieldProps.label}
         </label>
       )}
       <MUITextField
-        {...{ props }}
-        id={props.id || tmpId}
-        className={`${props.className} ${classes.input}`}
-        sx={{ width: "100%", ...props.sx }}
+        {...textFieldProps}
+        label={undefined}
+        id={textFieldProps.id || tmpId}
+        className={`${textFieldProps.className} ${classes.input}`}
+        sx={{ width: "100%", ...textFieldProps.sx }}
         type={
-          props.type === "password"
+          textFieldProps.type === "password"
             ? showPassword
               ? "text"
               : "password"
-            : props.type
+            : textFieldProps.type
         }
         InputProps={{
-          startAdornment: props.startIcon ? (
-            <InputAdornment position="start">{props.startIcon}</InputAdornment>
+          startAdornment: startIcon ? (
+            <InputAdornment position="start">{startIcon}</InputAdornment>
           ) : undefined,
           endAdornment:
-            props.type === "password" ? (
+            textFieldProps.type === "password" ? (
               <InputAdornment position="end">
                 <IconButton
                   aria-label="toggle password visibility"
@@ -74,12 +73,12 @@ const TextField = (props: Props) => {
             ) : undefined,
         }}
       />
-      {props.message && (
+      {message && (
         <FormHelperText
           className={classes.helperText}
-          error={props.messageType === "error"}
+          error={messageType === "error"}
         >
-          {props.message}
+          {message}
         </FormHelperText>
       )}
     </div>
