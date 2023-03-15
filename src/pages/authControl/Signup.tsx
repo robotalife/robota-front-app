@@ -1,6 +1,5 @@
-import { Grid, IconButton, Typography } from "@mui/material";
-import { FormEvent, FormEventHandler, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Grid, Typography } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/formElements/Button";
 import Checkbox from "../../components/formElements/Checkbox";
 import TextField from "../../components/formElements/TextField";
@@ -8,8 +7,10 @@ import routes from "../../shared/consts/routes";
 import useAxios from "../../shared/hooks/useAxios";
 import { IconKey, IconMail } from "../../shared/icons/Icons";
 
-import { Form, Formik, useFormik } from "formik";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
+import { AxiosResponse } from "axios";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -19,6 +20,11 @@ const validationSchema = Yup.object().shape({
   agree: Yup.boolean().oneOf([true], "Must agree to terms"),
 });
 
+interface SignupData {
+  email: string;
+  password: string;
+}
+
 const initialValues = {
   email: "",
   password: "",
@@ -26,16 +32,28 @@ const initialValues = {
 };
 
 const Signup = () => {
+  const navigate = useNavigate();
   const { axios, Snackbar } = useAxios();
 
-  const handleSubmit = async (values: any) => {
-    console.log(values);
-    // try {
-    //   const response = await axios.post("/data", values);
-    //   // Handle successful response
-    // } catch (error) {
-    //   // Handle error
-    // }
+  const handleSubmit = async (values: SignupData) => {
+    const userData = {
+      email: values.email,
+      password: values.password,
+    };
+
+    try {
+      const response: AxiosResponse<
+        {
+          id: string;
+          email: string;
+        },
+        any
+      > = await axios.post(apiEndPoints.signup, userData);
+      navigate(`${routes.activate}/${response.data.id}`);
+      // Handle successful response
+    } catch (error) {
+      // Handle error
+    }
   };
 
   return (

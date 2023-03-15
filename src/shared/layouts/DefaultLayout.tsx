@@ -15,7 +15,7 @@ export const DefaultLayout = () => {
           <Link to={routes.resetPassword}>Reset</Link>
         </li>
         <li>
-          <Link to={routes.verifyEmail}>Verify</Link>
+          <Link to={routes.activate}>Verify</Link>
         </li>
         <li>
           <Link to={routes.portfoilio}>portfolio</Link>

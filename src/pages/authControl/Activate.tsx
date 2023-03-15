@@ -1,13 +1,34 @@
 import { Grid, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Button from "../../components/formElements/Button";
 import Checkbox from "../../components/formElements/Checkbox";
 import TextField from "../../components/formElements/TextField";
 import routes from "../../shared/consts/routes";
 
 import circleCheck from "@images/green-circle-check.svg";
+import { useEffect } from "react";
+import useAxios from "../../shared/hooks/useAxios";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
+import { AxiosResponse } from "axios";
 
-const VerifyEmail = () => {
+const Activate = () => {
+  const { id } = useParams();
+  const { axios, Snackbar } = useAxios();
+
+  const handleSubmit = async () => {
+    try {
+      const response: AxiosResponse<any, any> = await axios.post(
+        `${apiEndPoints.activate}${id}`
+      );
+
+      console.log(response);
+
+      // Handle successful response
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   return (
     <div>
       <div style={{ textAlign: "center" }}>
@@ -35,7 +56,7 @@ const VerifyEmail = () => {
         <Grid container spacing={2}>
           <Grid item>Didn’t receive the email? </Grid>
           <Grid item xs={"auto"}>
-            <Button variant="text" sx={{ m: 0, p: 0 }}>
+            <Button variant="text" sx={{ m: 0, p: 0, display: "none" }}>
               Click to resend
             </Button>
           </Grid>
@@ -48,4 +69,4 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
+export default Activate;

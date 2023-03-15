@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import VerifyEmail from "../pages/authControl/EmailVerify";
+import Activate from "../pages/authControl/Activate";
 import ResetPassword from "../pages/authControl/ResetPassword";
 import Signin from "../pages/authControl/Signin";
 import Signup from "../pages/authControl/Signup";
@@ -17,7 +17,7 @@ const RoutingComp = () => {
         <Route path={routes.account} element={<AuthControlLayout />}>
           <Route path={routes.signin} element={<Signin />} />
           <Route path={routes.signup} element={<Signup />} />
-          <Route path={routes.verifyEmail} element={<VerifyEmail />} />
+          <Route path={`${routes.activate}/:id`} element={<Activate />} />
           <Route path={routes.resetPassword} element={<ResetPassword />} />
         </Route>
         <Route element={<DefaultLayout />}>
