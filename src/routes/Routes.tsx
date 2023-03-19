@@ -20,7 +20,10 @@ const RoutingComp = () => {
           <Route path={routes.signup} element={<Signup />} />
           <Route path={`${routes.activate}/:id`} element={<Activate />} />
           <Route path={routes.resetInit} element={<ResetInit />} />
-          <Route path={routes.resetFinish} element={<ResetFinish />} />
+          <Route
+            path={`${routes.resetFinish}/:resetKey`}
+            element={<ResetFinish />}
+          />
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Portfolio />} />
