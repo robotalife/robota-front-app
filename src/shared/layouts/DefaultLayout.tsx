@@ -12,7 +12,7 @@ export const DefaultLayout = () => {
           <Link to={routes.signup}>Signup</Link>
         </li>
         <li>
-          <Link to={routes.resetPassword}>Reset</Link>
+          <Link to={routes.resetInit}>Reset</Link>
         </li>
         <li>
           <Link to={routes.activate}>Verify</Link>

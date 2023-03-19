@@ -3,29 +3,39 @@ import TextField from "../../components/formElements/TextField";
 import { IconKey, IconMail } from "../../shared/icons/Icons";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
+import useAxios from "../../shared/hooks/useAxios";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
+import { AxiosResponse } from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
+import routes from "../../shared/consts/routes";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-const handleSubmit = async (values: { email: string }) => {
-  console.log(values);
-  // try {
-  //   const response: AxiosResponse<
-  //     {
-  //       id: string;
-  //       email: string;
-  //     },
-  //     any
-  //   > = await axios.post(apiEndPoints.signup, userData);
-  //   navigate(`${routes.activate}/${response.data.id}`);
-  //   // Handle successful response
-  // } catch (error) {
-  //   // Handle error
-  // }
-};
+const ResetInit = () => {
+  const navigate = useNavigate();
+  const { axios, Snackbar } = useAxios();
 
-const ResetPassword = () => {
+  const handleSubmit = async (values: { email: string }) => {
+    const userData = {
+      email: values.email,
+    };
+
+    try {
+      const response: AxiosResponse<
+        {
+          id: string;
+          token: string;
+        },
+        any
+      > = await axios.post(apiEndPoints.resetInit, userData);
+      navigate(routes.resetFinish);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   return (
     <Formik
       initialValues={{ email: "" }}
@@ -59,4 +69,4 @@ const ResetPassword = () => {
   );
 };
 
-export default ResetPassword;
+export default ResetInit;

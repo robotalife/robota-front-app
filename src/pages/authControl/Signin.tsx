@@ -40,11 +40,16 @@ const Signin = () => {
       const response: AxiosResponse<
         {
           id: string;
-          email: string;
+          token: string;
         },
         any
       > = await axios.post(apiEndPoints.signin, userData);
-      // Handle successful response
+
+      const { token } = response.data;
+      localStorage.setItem("token", token); // save token in local storage
+      console.log(axios.defaults.headers);
+      axios.defaults.headers.common["Authorization"] = token; // set token as default authorization header for axios requests
+      navigate(routes.portfoilio);
     } catch (error) {
       // Handle error
     }
@@ -87,7 +92,7 @@ const Signin = () => {
           />
 
           <Typography sx={{ mb: 3, mt: 3 }} className="pageDescription">
-            <Link to={routes.resetPassword}>Forget Password?</Link>
+            <Link to={routes.resetInit}>Forget Password?</Link>
           </Typography>
 
           <Button type="submit" variant="contained">
