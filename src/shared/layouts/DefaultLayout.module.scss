@@ -1,0 +1,47 @@
+.layout {
+  display: grid;
+  grid-template-rows: 64px auto;
+  grid-template-areas:
+    "header"
+    "content";
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  grid-area: header;
+  border-bottom: 1px solid #eaecf0;
+}
+
+.content {
+  grid-area: content;
+}
+
+.sidebar {
+  border-right: 1px solid #eaecf0;
+  display: none;
+}
+
+@media (min-width: $breakpoint-md) {
+  .layout {
+    grid-template-columns: 80px auto;
+    grid-template-rows: 90px auto;
+    grid-template-areas:
+      "header header"
+      "sidebar content";
+    height: 100vh;
+  }
+
+  .header {
+  }
+
+  .content {
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .sidebar {
+    display: block;
+    grid-area: sidebar;
+  }
+}

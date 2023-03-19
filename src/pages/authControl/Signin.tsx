@@ -49,6 +49,18 @@ const Signin = () => {
       localStorage.setItem("token", token); // save token in local storage
       console.log(axios.defaults.headers);
       axios.defaults.headers.common["Authorization"] = token; // set token as default authorization header for axios requests
+      getUserData();
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const getUserData = async () => {
+    try {
+      const response: AxiosResponse<any, any> = await axios.get(
+        apiEndPoints.userInfo
+      );
+
       navigate(routes.portfoilio);
     } catch (error) {
       // Handle error

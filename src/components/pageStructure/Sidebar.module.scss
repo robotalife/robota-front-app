@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+
+  :global {
+    .MuiButtonBase-root {
+      height: 40px;
+      margin: 4px 0;
+      width: 40px;
+    }
+  }
+}
+
+.nav,
+.sharing,
+.profile {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  flex-basis: 0;
+  flex-grow: 1;
+  padding-top: 30px;
+}
+
+.sharing {
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.profile {
+  flex-basis: auto;
+  flex-shrink: 0;
+  flex-grow: 0;
+}

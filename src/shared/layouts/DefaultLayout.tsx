@@ -1,28 +1,21 @@
-import { Link, Outlet } from "react-router-dom";
-import routes from "../consts/routes";
+import { Outlet } from "react-router-dom";
+import Header from "../../components/pageStructure/Header";
+import Sidebar from "../../components/pageStructure/Sidebar";
+import classes from "./DefaultLayout.module.scss";
 
 export const DefaultLayout = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to={routes.signin}>Signin</Link>
-        </li>
-        <li>
-          <Link to={routes.signup}>Signup</Link>
-        </li>
-        <li>
-          <Link to={routes.resetInit}>Reset</Link>
-        </li>
-        <li>
-          <Link to={routes.activate}>Verify</Link>
-        </li>
-        <li>
-          <Link to={routes.portfoilio}>portfolio</Link>
-        </li>
-      </ul>
-      DefaultLayout
-      <Outlet />
+    <div className={classes.layout}>
+      <header className={classes.header}>
+        <Header />
+      </header>
+      <aside className={classes.sidebar}>
+        <Sidebar />
+      </aside>
+      <main className={classes.content}>
+        constent
+        <Outlet />
+      </main>
     </div>
   );
 };
