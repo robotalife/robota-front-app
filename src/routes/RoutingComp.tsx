@@ -1,11 +1,19 @@
-import { useContext } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import Loader from "../components/Loader";
 import Activate from "../pages/authControl/Activate";
 import ResetFinish from "../pages/authControl/ResetFinish";
 import ResetInit from "../pages/authControl/ResetInit";
 import Signin from "../pages/authControl/Signin";
 import Signup from "../pages/authControl/Signup";
+import Bots from "../pages/bots/Bots";
+import NewBot from "../pages/bots/NewBot";
 import NotFound from "../pages/NotFound";
 import Portfolio from "../pages/Portfolio";
 import Terms from "../pages/Terms";
@@ -22,7 +30,7 @@ const RoutingComp = () => {
       <Routes>
         {!isAuthenticated && (
           // not logged in pages
-          <Route path={routes.account} element={<AuthControlLayout />}>
+          <Route element={<AuthControlLayout />}>
             <Route path={routes.signin} element={<Signin />} />
             <Route path={routes.signup} element={<Signup />} />
             <Route path={`${routes.activate}/:id`} element={<Activate />} />
@@ -34,17 +42,16 @@ const RoutingComp = () => {
           </Route>
         )}
         {/* logged in pages */}
-        <Route element={<DefaultLayout />}>
-          {isAuthenticated ? (
-            <>
-              <Route path="/" element={<Portfolio />} />
-              <Route path={routes.portfoilio} element={<Portfolio />} />
-              <Route path={routes.terms} element={<Terms />} />
-            </>
-          ) : (
-            <Route path={"*"} element={<Loader />} />
-          )}
-        </Route>
+        {isAuthenticated && (
+          <Route element={<DefaultLayout />}>
+            <Route path="/" element={<Portfolio />} />
+            <Route path={routes.portfoilio} element={<Portfolio />} />
+            <Route path={routes.terms} element={<Terms />} />
+            <Route path={routes.bots} element={<Bots />} />
+            <Route path={routes.bot} element={<Bots />} />
+            <Route path={routes.botsNew} element={<NewBot />} />
+          </Route>
+        )}
         {/* not found */}
         <Route path={routes.notFound} element={<NotFound />} />
         <Route path="*" element={<Navigate to={routes.notFound} replace />} />

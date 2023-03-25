@@ -1,4 +1,6 @@
 import { IconButton } from "@mui/material";
+import { NavLink } from "react-router-dom";
+import routes from "../../shared/consts/routes";
 import {
   IconBarChart,
   IconGear,
@@ -28,7 +30,19 @@ const Sidebar = () => {
           <IconGear />
         </IconButton>
         <IconButton>
-          <IconSliders />
+          <NavLink
+            style={({ isActive, isPending }) => {
+              return {
+                color: isActive ? "red" : "inherit",
+              };
+            }}
+            className={({ isActive, isPending }) => {
+              return isActive ? "active" : isPending ? "pending" : "";
+            }}
+            to={routes.bots}
+          >
+            <IconSliders />
+          </NavLink>
         </IconButton>
       </nav>
       <nav className={classes.sharing}>
