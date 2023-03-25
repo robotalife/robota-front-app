@@ -1,0 +1,23 @@
+.loader {
+  --loader-size: 3em;
+
+  animation: rotate infinite 1000ms linear;
+  border: 0.3em solid transparent;
+  border-top-color: $primary-700;
+  border-bottom-color: $primary-700;
+  border-radius: 50%;
+  display: block;
+  height: var(--loader-size);
+  margin: 0 auto;
+  width: var(--loader-size);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
