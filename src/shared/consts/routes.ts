@@ -8,6 +8,7 @@ const routes = {
   404: "/404",
   portfoilio: "/portfolio",
   terms: "/terms",
+  notFound: "/not-found",
 } as const;
 
 export default routes;

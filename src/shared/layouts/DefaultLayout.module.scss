@@ -41,7 +41,8 @@
   }
 
   .sidebar {
-    display: block;
+    display: flex;
+    justify-content: center;
     grid-area: sidebar;
   }
 }

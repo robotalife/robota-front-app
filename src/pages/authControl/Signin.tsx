@@ -10,6 +10,8 @@ import * as Yup from "yup";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../../shared/hooks/useAxios";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/providers/AuthProvider";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -29,6 +31,7 @@ const initialValues: SigninData = {
 const Signin = () => {
   const navigate = useNavigate();
   const { axios, Snackbar } = useAxios();
+  const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleSubmit = async (values: SigninData) => {
     const userData = {
@@ -47,7 +50,8 @@ const Signin = () => {
 
       const { token } = response.data;
       localStorage.setItem("token", token); // save token in local storage
-      console.log(axios.defaults.headers);
+      setIsAuthenticated(true);
+
       axios.defaults.headers.common["Authorization"] = token; // set token as default authorization header for axios requests
       getUserData();
     } catch (error) {

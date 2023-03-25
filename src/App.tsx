@@ -1,7 +1,12 @@
-import RoutingComp from "./routes/Routes";
+import RoutingComp from "./routes/RoutingComp";
+import { AuthProvider } from "./shared/providers/AuthProvider";
 
 function App() {
-  return <RoutingComp />;
+  return (
+    <AuthProvider>
+      <RoutingComp />
+    </AuthProvider>
+  );
 }
 
 export default App;
