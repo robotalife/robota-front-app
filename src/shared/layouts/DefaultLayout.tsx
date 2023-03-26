@@ -13,7 +13,6 @@ export const DefaultLayout = () => {
         <Sidebar />
       </aside>
       <main className={classes.content}>
-        constent
         <Outlet />
       </main>
     </div>
