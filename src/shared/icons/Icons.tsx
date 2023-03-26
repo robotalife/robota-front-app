@@ -282,3 +282,24 @@ export const IconBell = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconDollar = (props: IconProps) => {
+  return (
+    <svg
+      width="10"
+      height="16"
+      viewBox="0 0 10 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 0.666992V15.3337M8.33333 3.33366H3.33333C2.71449 3.33366 2.121 3.57949 1.68342 4.01708C1.24583 4.45466 1 5.04815 1 5.66699C1 6.28583 1.24583 6.87932 1.68342 7.31691C2.121 7.75449 2.71449 8.00033 3.33333 8.00033H6.66667C7.28551 8.00033 7.879 8.24616 8.31658 8.68374C8.75417 9.12133 9 9.71482 9 10.3337C9 10.9525 8.75417 11.546 8.31658 11.9836C7.879 12.4212 7.28551 12.667 6.66667 12.667H1"
+        stroke="currentColor"
+        strokeWidth="1.33333"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

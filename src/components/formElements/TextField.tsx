@@ -12,12 +12,14 @@ import classes from "./TextField.module.scss";
 
 interface Props extends StandardTextFieldProps {
   startIcon?: ReactNode;
+  endIcon?: ReactNode;
   message?: string | string[];
   messageType?: Message;
 }
 
 const TextField = ({
   startIcon,
+  endIcon,
   message,
   messageType,
   ...textFieldProps
@@ -32,6 +34,23 @@ const TextField = ({
     event: React.MouseEvent<HTMLButtonElement>
   ) => {
     event.preventDefault();
+  };
+
+  const EndIcon = (): ReactNode => {
+    if (endIcon) return endIcon;
+
+    return textFieldProps.type === "password" ? (
+      <InputAdornment position="end">
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={handleClickShowPassword}
+          onMouseDown={handleMouseDownPassword}
+          edge="end"
+        >
+          {showPassword ? <IconEye /> : <IconEyeOff />}
+        </IconButton>
+      </InputAdornment>
+    ) : undefined;
   };
 
   return (
@@ -58,19 +77,7 @@ const TextField = ({
           startAdornment: startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ) : undefined,
-          endAdornment:
-            textFieldProps.type === "password" ? (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                  edge="end"
-                >
-                  {showPassword ? <IconEye /> : <IconEyeOff />}
-                </IconButton>
-              </InputAdornment>
-            ) : undefined,
+          endAdornment: <EndIcon />,
         }}
       />
       {message && (
