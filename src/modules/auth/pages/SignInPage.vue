@@ -37,7 +37,7 @@ export default {
           .loginUser(this.formData.email, this.formData.password)
           .then((result) => {
             this.isButtonLoading = false;
-            storage.setItem("token", result.token);
+            storage.setItem("token", "Bearer " + result.token);
             this.$store.commit("SET_USER", {
               id: result.id,
               email: this.emailAddress,
