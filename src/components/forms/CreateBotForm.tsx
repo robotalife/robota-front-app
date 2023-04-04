@@ -152,25 +152,25 @@ const CreateBotForm = () => {
                   label="Strategy"
                   description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
                 >
-                  <ToggleButtonGroup options={startegy} selected="long" />
+                  <ToggleButtonGroup options={startegy} value="long" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Access"
                   description="bot is for your personal use or want to make it public ?"
                 >
-                  <ToggleButtonGroup options={access} selected="public" />
+                  <ToggleButtonGroup options={access} value="public" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Leverage type"
                   description="what is leverage type?"
                 >
-                  <ToggleButtonGroup options={leverageType} selected="cross" />
+                  <ToggleButtonGroup options={leverageType} value="cross" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Leverage custom value"
                   description="what is leverage?"
                 >
-                  <ToggleButtonGroup options={leverage} selected={10} />
+                  <ToggleButtonGroup options={leverage} value={10} />
                 </FieldsetElement>
               </Fieldset>
               <Fieldset legend="Usage">

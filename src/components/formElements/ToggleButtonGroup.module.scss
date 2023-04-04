@@ -1,0 +1,37 @@
+.toggleButtonGroup {
+  --border-radius: 32px;
+  --height: 40px;
+
+  :global {
+    .MuiButtonBase-root {
+      align-items: center;
+      display: flex;
+      font-size: 14px;
+      font-weight: 500;
+      height: var(--height);
+      justify-content: center;
+      padding: 0 16px;
+
+      &:first-child {
+        border-radius: var(--border-radius) 0 0 var(--border-radius);
+      }
+      &:last-child {
+        border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      }
+
+      .Mui-selected {
+        background-color: $gray-100;
+      }
+    }
+  }
+}
+
+.indicator {
+  --size: 8px;
+  background: $success-500;
+  border-radius: 50%;
+  display: block;
+  height: var(--size);
+  margin: 0 8px;
+  width: var(--size);
+}

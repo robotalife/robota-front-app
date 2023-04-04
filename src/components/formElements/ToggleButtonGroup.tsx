@@ -5,6 +5,8 @@ import {
 } from "@mui/material";
 import { MouseEvent, useState } from "react";
 
+import classes from "./ToggleButtonGroup.module.scss";
+
 interface Props<T extends string | number | boolean>
   extends ToggleButtonGroupProps {
   options: {
@@ -12,15 +14,13 @@ interface Props<T extends string | number | boolean>
     label: string;
     disabled?: boolean;
   }[];
-  selected?: T;
 }
 
 const ToggleButtonGroup = <T extends string | number | boolean>({
   options,
-  selected,
   ...props
 }: Props<T>) => {
-  const [value, setValue] = useState<T>(selected as NonNullable<T>);
+  const [value, setValue] = useState<T>(props.value as NonNullable<T>);
 
   const handleAlignment = (event: MouseEvent<HTMLElement>, newValue: T) => {
     console.log(event, newValue);
@@ -33,7 +33,7 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
       value={value}
       exclusive
       onChange={handleAlignment}
-      aria-label="text alignment"
+      className={`${classes.toggleButtonGroup} ${props.className}`}
     >
       {options.map((option) => (
         <MUIToggleButton
@@ -41,6 +41,7 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
           aria-label={option.label}
           key={option.label}
         >
+          {option.value === value && <span className={classes.indicator} />}
           {option.label}
         </MUIToggleButton>
       ))}
