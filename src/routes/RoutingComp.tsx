@@ -1,12 +1,5 @@
-import { useContext, useEffect } from "react";
-import {
-  BrowserRouter,
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
-import Loader from "../components/Loader";
+import { useContext } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import Activate from "../pages/authControl/Activate";
 import ResetFinish from "../pages/authControl/ResetFinish";
 import ResetInit from "../pages/authControl/ResetInit";

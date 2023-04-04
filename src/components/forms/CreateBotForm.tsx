@@ -1,10 +1,92 @@
-import { Grid } from "@mui/material";
+import Grid from "@mui/material/Grid";
 import { Form, Formik } from "formik";
 import { IconDollar, IconHexagon } from "../../shared/icons/Icons";
 import Button from "../formElements/Button";
 import Fieldset from "../formElements/Fieldset";
 import FieldsetElement from "../formElements/FieldsetElement";
 import TextField from "../formElements/TextField";
+import ToggleButtonGroup from "../formElements/ToggleButtonGroup";
+
+const dataTmp = {
+  name: "bot name",
+  exchangeId: "ebb84d68-8966-4f39-ac10-1ab8d353e6d6",
+  configuration: {
+    access: "PRIVATE",
+    botName: "132",
+    leverageType: "ISOLATED",
+    leverageValue: 1,
+    maxAmountForBotUsage: "4",
+    minAmountForBotUsage: "3",
+    monthlyPrice: "5",
+    orderStrategy: "SHORT",
+    pair: "BTC_USDT",
+    yearlyPrice: "6",
+  },
+};
+
+const startegy = [
+  {
+    value: "long",
+    label: "Long",
+  },
+  {
+    value: "short",
+    label: "Short",
+  },
+];
+
+const access = [
+  {
+    value: "private",
+    label: "Private",
+  },
+  {
+    value: "public",
+    label: "Public",
+  },
+];
+
+const leverageType = [
+  {
+    value: "cross",
+    label: "Cross",
+  },
+  {
+    value: "isolated",
+    label: "Isolated",
+  },
+];
+
+const leverage = [
+  {
+    value: 1,
+    label: "1x",
+  },
+  {
+    value: 2,
+    label: "2x",
+  },
+  {
+    value: 3,
+    label: "3x",
+  },
+  {
+    value: 5,
+    label: "5x",
+  },
+  {
+    value: 10,
+    label: "10x",
+  },
+  {
+    value: 25,
+    label: "25x",
+  },
+  {
+    value: 100,
+    label: "100x",
+  },
+];
 
 const CreateBotForm = () => {
   const handleSubmit = (values: any) => {
@@ -31,7 +113,7 @@ const CreateBotForm = () => {
                 >
                   <TextField
                     name="name"
-                    type="text"
+                    type={"text"}
                     startIcon={<IconHexagon />}
                     value={"sdfgsdfg"}
                     onChange={handleChange}
@@ -70,53 +152,25 @@ const CreateBotForm = () => {
                   label="Strategy"
                   description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
                 >
-                  <TextField
-                    name="email"
-                    type="email"
-                    startIcon={<IconHexagon />}
-                    value={"sdfgsdfg"}
-                    onChange={handleChange}
-                    required
-                  />
+                  <ToggleButtonGroup options={startegy} selected="long" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Access"
                   description="bot is for your personal use or want to make it public ?"
                 >
-                  <TextField
-                    name="email"
-                    type="email"
-                    startIcon={<IconHexagon />}
-                    value={"sdfgsdfg"}
-                    onChange={handleChange}
-                    required
-                  />
+                  <ToggleButtonGroup options={access} selected="public" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Leverage type"
                   description="what is leverage type?"
                 >
-                  <TextField
-                    name="email"
-                    type="email"
-                    startIcon={<IconHexagon />}
-                    value={"sdfgsdfg"}
-                    onChange={handleChange}
-                    required
-                  />
+                  <ToggleButtonGroup options={leverageType} selected="cross" />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Leverage custom value"
                   description="what is leverage?"
                 >
-                  <TextField
-                    name="email"
-                    type="email"
-                    startIcon={<IconHexagon />}
-                    value={"sdfgsdfg"}
-                    onChange={handleChange}
-                    required
-                  />
+                  <ToggleButtonGroup options={leverage} selected={10} />
                 </FieldsetElement>
               </Fieldset>
               <Fieldset legend="Usage">
