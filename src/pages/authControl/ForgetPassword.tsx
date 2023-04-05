@@ -8,14 +8,17 @@ import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import { useState } from "react";
+import { Typography } from "@mui/material";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
 });
 
-const ResetInit = () => {
+const ForgetPassword = () => {
   const navigate = useNavigate();
   const { axios, Snackbar } = useAxios();
+  const [isSent, setIsSent] = useState(false);
 
   const handleSubmit = async (values: { email: string }) => {
     const userData = {
@@ -30,11 +33,16 @@ const ResetInit = () => {
         },
         any
       > = await axios.post(apiEndPoints.resetInit, userData);
-      navigate(routes.resetFinish);
+      setIsSent(true);
     } catch (error) {
       // Handle error
     }
   };
+
+  if (isSent)
+    return (
+      <Typography variant="h3">Please check your email to continue.</Typography>
+    );
 
   return (
     <Formik
@@ -69,4 +77,4 @@ const ResetInit = () => {
   );
 };
 
-export default ResetInit;
+export default ForgetPassword;

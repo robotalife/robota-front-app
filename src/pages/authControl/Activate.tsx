@@ -62,7 +62,7 @@ const Activate = () => {
             helperText={errors.key && touched.key && errors.key}
           />
           <Typography sx={{ mb: 1, mt: 1 }}>
-            <Link to={routes.resetInit}>Forget Password?</Link>
+            <Link to={routes.forgetPassword}>Forget Password?</Link>
           </Typography>
 
           <Button

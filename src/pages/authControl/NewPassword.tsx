@@ -13,7 +13,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("Required"),
 });
 
-const ResetFinish = () => {
+const NewPassword = () => {
   const navigate = useNavigate();
   const { resetKey } = useParams();
   const { axios, Snackbar } = useAxios();
@@ -72,4 +72,4 @@ const ResetFinish = () => {
   );
 };
 
-export default ResetFinish;
+export default NewPassword;

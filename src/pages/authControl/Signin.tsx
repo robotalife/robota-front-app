@@ -52,7 +52,7 @@ const Signin = () => {
       localStorage.setItem("token", token); // save token in local storage
       setIsAuthenticated(true);
 
-      axios.defaults.headers.common["Authorization"] = token; // set token as default authorization header for axios requests
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
       getUserData();
     } catch (error) {
       // Handle error
@@ -65,7 +65,7 @@ const Signin = () => {
         apiEndPoints.userInfo
       );
 
-      navigate(routes.portfoilio);
+      navigate(routes.portfolio);
     } catch (error) {
       // Handle error
     }
@@ -108,7 +108,7 @@ const Signin = () => {
           />
 
           <Typography sx={{ mb: 3, mt: 3 }} className="pageDescription">
-            <Link to={routes.resetInit}>Forget Password?</Link>
+            <Link to={routes.forgetPassword}>Forget Password?</Link>
           </Typography>
 
           <Button type="submit" variant="contained">
