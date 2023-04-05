@@ -15,13 +15,13 @@ const validationSchema = Yup.object().shape({
 
 const NewPassword = () => {
   const navigate = useNavigate();
-  const { resetKey } = useParams();
+  const { key } = useParams();
   const { axios, Snackbar } = useAxios();
 
   const handleSubmit = async (values: { password: string }) => {
     const userData = {
       password: values.password,
-      resetKey: resetKey,
+      resetKey: key,
     };
 
     try {

@@ -3,7 +3,7 @@ const routes = {
   signup: "/signup",
   activate: "/verify-email",
   forgetPassword: "/forget-password",
-  newPassword: "/new-password",
+  newPassword: "/forgot-password/finish",
   "404": "/404",
   portfolio: "/portfolio",
   terms: "/terms",

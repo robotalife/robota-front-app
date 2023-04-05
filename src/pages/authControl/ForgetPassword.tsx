@@ -7,9 +7,9 @@ import useAxios from "../../shared/hooks/useAxios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-import routes from "../../shared/consts/routes";
 import { useState } from "react";
 import { Typography } from "@mui/material";
+import circleCheck from "@images/green-circle-check.svg";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Required"),
@@ -41,7 +41,14 @@ const ForgetPassword = () => {
 
   if (isSent)
     return (
-      <Typography variant="h3">Please check your email to continue.</Typography>
+      <>
+        <div style={{ textAlign: "center" }}>
+          <img src={circleCheck} />
+        </div>
+        <Typography component="div" className={"pageTitle"}>
+          Please check your email to continue.
+        </Typography>
+      </>
     );
 
   return (

@@ -34,7 +34,10 @@ const RoutingComp = () => {
           <Route path={routes.activate} element={<VerifyEmail />} />
           <Route path={`${routes.activate}/:key`} element={<VerifyEmail />} />
           <Route path={routes.forgetPassword} element={<ForgetPassword />} />
-          <Route path={routes.newPassword} element={<NewPassword />} />
+          <Route
+            path={`${routes.newPassword}/:key`}
+            element={<NewPassword />}
+          />
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Portfolio />} />
