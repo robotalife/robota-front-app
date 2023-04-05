@@ -81,7 +81,7 @@ const TextField = ({
           ) : undefined,
           endAdornment: (
             <>
-              <EndIcon />,
+              <EndIcon />
             </>
           ),
         }}
