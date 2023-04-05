@@ -11,8 +11,8 @@ import { Message } from "../../shared/interfaces/Message";
 import classes from "./TextField.module.scss";
 
 interface Props extends StandardTextFieldProps {
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
+  startIcon?: JSX.Element;
+  endIcon?: JSX.Element;
   message?: string | string[];
   messageType?: Message;
 }
@@ -36,7 +36,7 @@ const TextField = ({
     event.preventDefault();
   };
 
-  const EndIcon = (): ReactNode => {
+  const EndIcon = (): JSX.Element => {
     if (endIcon) return endIcon;
 
     return textFieldProps.type === "password" ? (
@@ -50,7 +50,9 @@ const TextField = ({
           {showPassword ? <IconEye /> : <IconEyeOff />}
         </IconButton>
       </InputAdornment>
-    ) : undefined;
+    ) : (
+      <></>
+    );
   };
 
   return (
@@ -77,7 +79,11 @@ const TextField = ({
           startAdornment: startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ) : undefined,
-          endAdornment: <EndIcon />,
+          endAdornment: (
+            <>
+              <EndIcon />,
+            </>
+          ),
         }}
       />
       {message && (
