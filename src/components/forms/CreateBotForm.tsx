@@ -152,7 +152,13 @@ const CreateBotForm = () => {
                   label="Strategy"
                   description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
                 >
-                  <ToggleButtonGroup options={startegy} value="long" />
+                  <ToggleButtonGroup
+                    options={startegy}
+                    value="long"
+                    onChange={(e) => {
+                      console.log(e);
+                    }}
+                  />
                 </FieldsetElement>
                 <FieldsetElement
                   label="Access"

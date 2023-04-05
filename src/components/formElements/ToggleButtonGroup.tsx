@@ -23,7 +23,6 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
   const [value, setValue] = useState<T>(props.value as NonNullable<T>);
 
   const handleAlignment = (event: MouseEvent<HTMLElement>, newValue: T) => {
-    console.log(event, newValue);
     setValue(newValue);
   };
 
