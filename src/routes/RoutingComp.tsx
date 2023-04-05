@@ -6,7 +6,7 @@ import {
   Routes,
   useLocation,
 } from "react-router-dom";
-import Activate from "../pages/authControl/Activate";
+import VerifyEmail from "../pages/authControl/VerifyEmail";
 import NewPassword from "../pages/authControl/NewPassword";
 import ForgetPassword from "../pages/authControl/ForgetPassword";
 import Signin from "../pages/authControl/Signin";
@@ -31,7 +31,8 @@ const RoutingComp = () => {
         <Route element={<AuthControlLayout />}>
           <Route path={routes.signin} element={<Signin />} />
           <Route path={routes.signup} element={<Signup />} />
-          <Route path={`${routes.activate}/:id`} element={<Activate />} />
+          <Route path={routes.activate} element={<VerifyEmail />} />
+          <Route path={`${routes.activate}/:key`} element={<VerifyEmail />} />
           <Route path={routes.forgetPassword} element={<ForgetPassword />} />
           <Route path={routes.newPassword} element={<NewPassword />} />
         </Route>

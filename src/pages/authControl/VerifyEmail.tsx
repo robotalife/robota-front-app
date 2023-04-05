@@ -1,5 +1,5 @@
 import { Grid, Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/formElements/Button";
 import TextField from "../../components/formElements/TextField";
 import routes from "../../shared/consts/routes";
@@ -10,19 +10,25 @@ import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
+import { useEffect } from "react";
 
 const validationSchema = Yup.object().shape({
   key: Yup.string().required("Required"),
 });
 
-const Activate = () => {
+const VerifyEmail = () => {
+  const { key } = useParams();
   const navigate = useNavigate();
   const { axios } = useAxios();
+
+  useEffect(() => {
+    console.log(key);
+  });
 
   const handleSubmit = async (values: { key: string }) => {
     try {
       const response: AxiosResponse<any, any> = await axios.post(
-        `${apiEndPoints.activate}${values.key}`
+        `${apiEndPoints.verifyEmail}${values.key}`
       );
 
       navigate(routes.signin);
@@ -34,7 +40,7 @@ const Activate = () => {
 
   return (
     <Formik
-      initialValues={{ key: "" }}
+      initialValues={{ key: key || "" }}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
@@ -95,4 +101,4 @@ const Activate = () => {
   );
 };
 
-export default Activate;
+export default VerifyEmail;

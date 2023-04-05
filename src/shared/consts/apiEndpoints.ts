@@ -1,7 +1,7 @@
 const apiEndPoints = {
   signup: "/signup",
   signin: "/user/signin",
-  activate: "/user/activate?key=",
+  verifyEmail: "/user/activate?key=",
   resetInit: "/user/reset-password/init",
   resetFinish: "/user/reset-password/finish",
   userInfo: "/user/basic-info",
