@@ -14,6 +14,7 @@ export default defineConfig({
     ],
   },
   css: {
+    devSourcemap: true,
     postcss: null,
     modules: {
       localsConvention: "camelCaseOnly",
