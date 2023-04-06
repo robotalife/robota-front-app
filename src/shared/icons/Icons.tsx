@@ -303,3 +303,24 @@ export const IconDollar = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconArrowLeft = (props: IconProps) => {
+  return (
+    <svg
+      width="14"
+      height="15"
+      viewBox="0 0 14 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12.8337 7.49984H1.16699M1.16699 7.49984L7.00033 13.3332M1.16699 7.49984L7.00033 1.6665"
+        stroke="#667085"
+        strokeWidth="1.67"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

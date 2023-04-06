@@ -14,6 +14,7 @@ import {
   validationSchema,
   verificationKey,
 } from "../../shared/consts/validations";
+import { IconArrowLeft } from "../../shared/icons/Icons";
 
 const validations = validationSchema({
   key: verificationKey,
@@ -83,15 +84,27 @@ const VerifyEmail = () => {
             sx={{ textAlign: "center" }}
             alignItems="center"
           >
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item>Didn’t receive the email? </Grid>
               <Grid item xs={"auto"}>
-                <Button variant="text" sx={{ m: 0, p: 0 }}>
-                  Click to resend
-                </Button>
+                <Typography className="pageSubtitle">
+                  <Link to="/" style={{ margin: 0, padding: 0 }}>
+                    Click to resend
+                  </Link>
+                </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Link to={routes.signup}>Back to Sign Up</Link>
+                <Link
+                  to={routes.signup}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <IconArrowLeft style={{ margin: "0 10px" }} />
+                  Back to Sign Up
+                </Link>
               </Grid>
             </Grid>
           </Typography>
