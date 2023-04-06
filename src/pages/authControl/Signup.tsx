@@ -108,17 +108,17 @@ const Signup = () => {
               Boolean(errors.agree && touched.agree) ? "error" : undefined
             }
           >
-            <Typography
-              sx={{ textAlign: "center" }}
-              className="pageDescription"
-            >
-              Already have an account? <Link to={routes.signin}>Sign In</Link>
+            <Typography className="pageDescription">
+              I agree to the <Link to={routes.terms}>Terms & Condotions</Link>
             </Typography>
           </Checkbox>
 
           <Button type="submit" variant="contained">
             Get started
           </Button>
+          <Typography sx={{ textAlign: "center" }} className="pageDescription">
+            Already have an account? <Link to={routes.signin}>Sign In</Link>
+          </Typography>
         </Form>
       )}
     </Formik>
