@@ -58,8 +58,9 @@
 
 @media (min-width: $breakpoint-md) {
   .authControlWrapper {
-    background: #fafafa
-      url("../../assets/images/account-control-desktop-bg.svg") no-repeat;
+    // background: #fafafa
+    //   url("../../assets/images/account-control-desktop-bg.svg") no-repeat;
+    background: #fafafa url("../../assets/images/auth-desktop.svg") no-repeat;
     background-position: center center;
     background-size: 1230px;
   }

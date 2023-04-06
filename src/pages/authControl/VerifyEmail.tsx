@@ -25,10 +25,6 @@ const VerifyEmail = () => {
   const navigate = useNavigate();
   const { axios } = useAxios();
 
-  useEffect(() => {
-    console.log(key);
-  });
-
   const handleSubmit = async (values: { key: string }) => {
     try {
       const response: AxiosResponse<any, any> = await axios.post(
@@ -84,7 +80,7 @@ const VerifyEmail = () => {
             sx={{ textAlign: "center" }}
             alignItems="center"
           >
-            <Grid container spacing={1}>
+            <Grid container spacing={1} justifyContent={"center"}>
               <Grid item>Didn’t receive the email? </Grid>
               <Grid item xs={"auto"}>
                 <Typography className="pageSubtitle">
