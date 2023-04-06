@@ -109,13 +109,14 @@ const Signup = () => {
             }
           >
             <Typography className="pageDescription">
-              I agree to the <Link to={routes.terms}>Terms & Condotions</Link>
+              I agree to the <Link to={routes.terms}>Terms & Conditions</Link>
             </Typography>
           </Checkbox>
 
           <Button type="submit" variant="contained">
             Get started
           </Button>
+
           <Typography sx={{ textAlign: "center" }} className="pageDescription">
             Already have an account? <Link to={routes.signin}>Sign In</Link>
           </Typography>
