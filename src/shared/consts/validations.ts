@@ -8,8 +8,8 @@ export const passwordSimple = Yup.string()
 
 export const passwordFull = Yup.string()
   .matches(
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d@$!%*?&]{8,}$/,
-    "Password must contain at least 8 characters, one uppercase, one lowercase, and one number. Special characters are optional."
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d@$!%*?&()]{8,}$/,
+    "Password must contain at least 8 characters, one uppercase, one lowercase, and one number and one special character."
   )
   .required("Required");
 
