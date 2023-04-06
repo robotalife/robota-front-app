@@ -1,16 +1,19 @@
 import Button from "../../components/formElements/Button";
 import TextField from "../../components/formElements/TextField";
-import { IconKey, IconMail } from "../../shared/icons/Icons";
-import * as Yup from "yup";
+import { IconMail } from "../../shared/icons/Icons";
 import { Form, Formik } from "formik";
 import useAxios from "../../shared/hooks/useAxios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import {
+  passwordSimple,
+  validationSchema,
+} from "../../shared/consts/validations";
 
-const validationSchema = Yup.object().shape({
-  password: Yup.string().required("Required"),
+const validations = validationSchema({
+  password: passwordSimple,
 });
 
 const NewPassword = () => {
@@ -42,7 +45,7 @@ const NewPassword = () => {
   return (
     <Formik
       initialValues={{ password: "", resetKey: "" }}
-      validationSchema={validationSchema}
+      validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);

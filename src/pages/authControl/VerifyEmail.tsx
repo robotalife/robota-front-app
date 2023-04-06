@@ -8,12 +8,15 @@ import circleCheck from "@images/green-circle-check.svg";
 import useAxios from "../../shared/hooks/useAxios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
-import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { useEffect } from "react";
+import {
+  validationSchema,
+  verificationKey,
+} from "../../shared/consts/validations";
 
-const validationSchema = Yup.object().shape({
-  key: Yup.string().required("Required"),
+const validations = validationSchema({
+  key: verificationKey,
 });
 
 const VerifyEmail = () => {
@@ -41,7 +44,7 @@ const VerifyEmail = () => {
   return (
     <Formik
       initialValues={{ key: key || "" }}
-      validationSchema={validationSchema}
+      validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);

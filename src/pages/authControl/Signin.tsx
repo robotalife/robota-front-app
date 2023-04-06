@@ -6,16 +6,20 @@ import routes from "../../shared/consts/routes";
 import { IconKey, IconMail } from "../../shared/icons/Icons";
 
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../../shared/hooks/useAxios";
 import { useContext } from "react";
 import { AuthContext } from "../../shared/providers/AuthProvider";
+import {
+  email,
+  passwordSimple,
+  validationSchema,
+} from "../../shared/consts/validations";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string().required("Required"),
+const validations = validationSchema({
+  email: email,
+  password: passwordSimple,
 });
 
 interface SigninData {
@@ -74,7 +78,7 @@ const Signin = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);

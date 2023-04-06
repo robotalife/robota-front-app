@@ -8,21 +8,25 @@ import useAxios from "../../shared/hooks/useAxios";
 import { IconKey, IconMail } from "../../shared/icons/Icons";
 
 import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
+import {
+  agreeCheckbox,
+  email,
+  passwordFull,
+  validationSchema,
+} from "../../shared/consts/validations";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
-  password: Yup.string()
-    .min(8, "Must be at least 8 characters")
-    .required("Required"),
-  agree: Yup.boolean().oneOf([true], "Must agree to terms"),
+const validations = validationSchema({
+  email: email,
+  password: passwordFull,
+  agree: agreeCheckbox,
 });
 
 interface SignupData {
   email: string;
   password: string;
+  agree: boolean;
 }
 
 const initialValues = {
@@ -59,7 +63,7 @@ const Signup = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
+      validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);
@@ -91,33 +95,30 @@ const Signup = () => {
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
           />
-
-          <Grid
-            container
-            alignItems={"center"}
-            justifyContent={"flex-start"}
-            mb={3}
+          <Checkbox
+            name="agree"
+            value={values.agree}
+            onChange={handleChange}
+            required
+            sx={{ mb: 3 }}
+            message={
+              Boolean(errors.agree && touched.agree) ? errors.agree : undefined
+            }
+            messageType={
+              Boolean(errors.agree && touched.agree) ? "error" : undefined
+            }
           >
-            <Grid item xs={"auto"}>
-              <Checkbox
-                name="agree"
-                value={values.agree}
-                onChange={handleChange}
-                required
-              />
-            </Grid>
-            <Grid item xs>
-              <Typography className="pageDescription">
-                I agree to the <Link to={routes.terms}>Terms & Condotions</Link>
-              </Typography>
-            </Grid>
-          </Grid>
+            <Typography
+              sx={{ textAlign: "center" }}
+              className="pageDescription"
+            >
+              Already have an account? <Link to={routes.signin}>Sign In</Link>
+            </Typography>
+          </Checkbox>
+
           <Button type="submit" variant="contained">
             Get started
           </Button>
-          <Typography sx={{ textAlign: "center" }} className="pageDescription">
-            Already have an account? <Link to={routes.signin}>Sign In</Link>
-          </Typography>
         </Form>
       )}
     </Formik>

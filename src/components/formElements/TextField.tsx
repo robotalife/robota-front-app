@@ -13,7 +13,7 @@ import classes from "./TextField.module.scss";
 interface Props extends StandardTextFieldProps {
   startIcon?: JSX.Element;
   endIcon?: JSX.Element;
-  message?: string | string[];
+  message?: string;
   messageType?: Message;
 }
 

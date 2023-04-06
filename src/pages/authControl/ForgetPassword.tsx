@@ -1,22 +1,21 @@
 import Button from "../../components/formElements/Button";
 import TextField from "../../components/formElements/TextField";
-import { IconKey, IconMail } from "../../shared/icons/Icons";
+import { IconMail } from "../../shared/icons/Icons";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import useAxios from "../../shared/hooks/useAxios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { AxiosResponse } from "axios";
-import { Navigate, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Typography } from "@mui/material";
 import circleCheck from "@images/green-circle-check.svg";
+import { email, validationSchema } from "../../shared/consts/validations";
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Required"),
+const validations = validationSchema({
+  email: email,
 });
 
 const ForgetPassword = () => {
-  const navigate = useNavigate();
   const { axios, Snackbar } = useAxios();
   const [isSent, setIsSent] = useState(false);
 
@@ -54,7 +53,7 @@ const ForgetPassword = () => {
   return (
     <Formik
       initialValues={{ email: "" }}
-      validationSchema={validationSchema}
+      validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);
