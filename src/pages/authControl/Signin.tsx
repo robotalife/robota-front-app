@@ -55,8 +55,8 @@ const Signin = () => {
       const { token } = response.data;
       localStorage.setItem("token", token); // save token in local storage
       setIsAuthenticated(true);
-
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
+
       getUserData();
     } catch (error) {
       // Handle error
