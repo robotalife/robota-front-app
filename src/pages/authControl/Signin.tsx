@@ -16,6 +16,7 @@ import {
   passwordSimple,
   validationSchema,
 } from "../../shared/consts/validations";
+import { UserContext } from "../../shared/providers/UserProvider";
 
 const validations = validationSchema({
   email: email,
@@ -36,6 +37,7 @@ const Signin = () => {
   const navigate = useNavigate();
   const { axios, Snackbar } = useAxios();
   const { setIsAuthenticated } = useContext(AuthContext);
+  const { getUser } = useContext(UserContext);
 
   const handleSubmit = async (values: SigninData) => {
     const userData = {
@@ -57,18 +59,7 @@ const Signin = () => {
       setIsAuthenticated(true);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
 
-      getUserData();
-    } catch (error) {
-      // Handle error
-    }
-  };
-
-  const getUserData = async () => {
-    try {
-      const response: AxiosResponse<any, any> = await axios.get(
-        apiEndPoints.userInfo
-      );
-
+      getUser();
       navigate(routes.portfolio);
     } catch (error) {
       // Handle error
