@@ -12,8 +12,11 @@ import {
   IconTwitter,
 } from "../../shared/icons/Icons";
 import classes from "./Sidebar.module.scss";
+import useLogout from "../../shared/hooks/useLogout";
 
 const Sidebar = () => {
+  const logout = useLogout();
+
   return (
     <div className={classes.wrapper}>
       <nav className={classes.nav}>
@@ -56,7 +59,11 @@ const Sidebar = () => {
           <IconTelegram />
         </IconButton>
       </nav>
-      <nav className={classes.profile}></nav>
+      <nav className={classes.profile}>
+        <IconButton onClick={logout} title="Log out">
+          M
+        </IconButton>
+      </nav>
     </div>
   );
 };

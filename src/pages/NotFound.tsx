@@ -1,17 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
-import routes from "../shared/consts/routes";
-import { MouseEvent, useContext } from "react";
-import { AuthContext } from "../shared/providers/AuthProvider";
+import useLogout from "../shared/hooks/useLogout";
 
 const NotFound = () => {
-  const navigate = useNavigate();
-  const { setIsAuthenticated } = useContext(AuthContext);
-
-  const logout = () => {
-    localStorage.clear();
-    setIsAuthenticated(false);
-    navigate(routes.signin);
-  };
+  const logout = useLogout();
 
   return (
     <>
