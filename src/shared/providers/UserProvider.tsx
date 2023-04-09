@@ -1,5 +1,4 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
-import { AuthContext } from "./AuthProvider";
 import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";

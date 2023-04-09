@@ -23,8 +23,6 @@ import { AuthContext } from "../shared/providers/AuthProvider";
 import CommonLayout from "../shared/layouts/CommonLayout";
 
 const RoutingComp = () => {
-  const { isAuthenticated } = useContext(AuthContext);
-
   return (
     <BrowserRouter>
       <Routes>
