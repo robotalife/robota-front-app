@@ -1,4 +1,4 @@
-import { Grid, Typography } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/formElements/Button";
 import Checkbox from "../../components/formElements/Checkbox";
@@ -16,6 +16,8 @@ import {
   passwordFull,
   validationSchema,
 } from "../../shared/consts/validations";
+
+import classes from "./Signup.module.scss";
 
 const validations = validationSchema({
   email: email,
@@ -95,6 +97,15 @@ const Signup = () => {
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
           />
+          <Paper elevation={0} className={classes.passwordRules}>
+            <ul className={classes.passwordCheckList}>
+              <li>Min. 8 characters</li>
+              <li>Not same as username</li>
+              <li>At least 1 alphabet, 1 number, and 1 punctuation</li>
+              <li>Differ from previous password</li>
+            </ul>
+          </Paper>
+
           <Checkbox
             name="agree"
             value={values.agree}
@@ -109,7 +120,12 @@ const Signup = () => {
             }
           >
             <Typography className="pageDescription">
-              I agree to the <Link to={routes.terms}>Terms & Conditions</Link>
+              I have read and agree to RobotaLife’s
+              <Link to={routes.terms}>
+                {" "}
+                Terms of Service and Privacy Policy
+              </Link>
+              .
             </Typography>
           </Checkbox>
 

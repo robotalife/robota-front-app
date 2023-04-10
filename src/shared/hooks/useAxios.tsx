@@ -14,7 +14,7 @@ const instance: AxiosInstance = axios.create({
 });
 
 export default function useAxios(): AxiosHookReturn {
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   instance.interceptors.response.use(
     (response: AxiosResponse) => {

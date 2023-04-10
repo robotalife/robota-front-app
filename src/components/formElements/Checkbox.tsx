@@ -17,7 +17,7 @@ const Checkbox = ({ message, messageType, className, sx, ...props }: Props) => {
     <>
       <Grid
         container
-        alignItems={"center"}
+        alignItems={"flex-start"}
         justifyContent={"flex-start"}
         className={className}
         sx={sx}
@@ -25,7 +25,7 @@ const Checkbox = ({ message, messageType, className, sx, ...props }: Props) => {
         <Grid item xs="auto">
           <MUICheckbox {...props} />
         </Grid>
-        <Grid item xs="auto">
+        <Grid item xs>
           {props.children}
         </Grid>
         <Grid item xs={12}>
