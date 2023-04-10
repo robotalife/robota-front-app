@@ -88,6 +88,7 @@ const Signup = () => {
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
+            placeholder="Enter your Email Address"
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
@@ -99,6 +100,7 @@ const Signup = () => {
             startIcon={<IconKey />}
             value={values.password}
             onChange={handleChange}
+            placeholder="Create a password"
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}

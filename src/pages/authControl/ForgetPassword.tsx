@@ -81,7 +81,7 @@ const ForgetPassword = () => {
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Enter your enmail address"
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
