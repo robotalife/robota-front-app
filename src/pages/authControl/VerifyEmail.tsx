@@ -16,15 +16,17 @@ import {
 } from "../../shared/consts/validations";
 import { IconArrowLeft } from "../../shared/icons/Icons";
 import DigitsInput from "../../components/formElements/DigitsInput";
+import { useSnackbar } from "notistack";
 
 const validations = validationSchema({
   key: verificationKey,
 });
 
 const VerifyEmail = () => {
-  const { key } = useParams();
+  const { key, userId } = useParams();
   const navigate = useNavigate();
   const { axios } = useAxios();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleSubmit = async (values: { key: string }) => {
     try {
@@ -33,6 +35,25 @@ const VerifyEmail = () => {
       );
 
       navigate(routes.signin);
+      // Handle successful response
+    } catch (error) {
+      // Handle error
+    }
+  };
+
+  const resendVerification = async () => {
+    try {
+      const response: AxiosResponse<
+        {
+          userId: string;
+        },
+        any
+      > = await axios.post(apiEndPoints.resendVerification, { userId: userId });
+
+      enqueueSnackbar("Verification email sent.", {
+        variant: "success",
+        preventDuplicate: true,
+      });
       // Handle successful response
     } catch (error) {
       // Handle error
@@ -64,7 +85,7 @@ const VerifyEmail = () => {
             name="key"
             type="text"
             value={values.key}
-            onChange={handleChange}
+            onChangeTmp={handleChange}
             required
             digitCounts={4}
             message={
@@ -91,7 +112,14 @@ const VerifyEmail = () => {
               <Grid item>Didn’t receive the email? </Grid>
               <Grid item xs={"auto"}>
                 <Typography className="pageSubtitle">
-                  <Link to="/" style={{ margin: 0, padding: 0 }}>
+                  <Link
+                    to="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      resendVerification();
+                    }}
+                    style={{ margin: 0, padding: 0 }}
+                  >
                     Click to resend
                   </Link>
                 </Typography>

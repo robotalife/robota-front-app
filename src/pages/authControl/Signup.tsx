@@ -61,7 +61,7 @@ const Signup = () => {
         },
         any
       > = await axios.post(apiEndPoints.signup, userData);
-      navigate(routes.activate);
+      navigate(`${routes.activate}/${response.data.id}`);
       // Handle successful response
     } catch (error) {
       // Handle error

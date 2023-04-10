@@ -1,0 +1,42 @@
+$input-size: 64px;
+
+.otpInputWrapper {
+  position: relative;
+
+  & > div {
+    &:first-child {
+      justify-content: center;
+    }
+  }
+}
+
+.mask {
+  background: transparent;
+  border: 1px solid $gray-300;
+  border-radius: 8px;
+  color: $gray-300;
+  display: block;
+  font-size: 48px;
+  font-weight: 500;
+  height: $input-size;
+  margin: 0 4px;
+  pointer-events: none;
+  width: $input-size !important;
+}
+
+.otpInput {
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+
+  :global {
+    .MuiInputBase-input {
+      height: 100%;
+      letter-spacing: 44px;
+      padding: 0px 25px;
+      text-align: start;
+    }
+  }
+}
