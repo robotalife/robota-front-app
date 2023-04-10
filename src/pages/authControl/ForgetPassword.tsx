@@ -16,8 +16,9 @@ const validations = validationSchema({
 });
 
 const ForgetPassword = () => {
-  const { axios, Snackbar } = useAxios();
+  const { axios } = useAxios();
   const [isSent, setIsSent] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | undefined>();
 
   const handleSubmit = async (values: { email: string }) => {
     const userData = {
@@ -32,6 +33,7 @@ const ForgetPassword = () => {
         },
         any
       > = await axios.post(apiEndPoints.resetInit, userData);
+      setUserEmail(values.email);
       setIsSent(true);
     } catch (error) {
       // Handle error
@@ -45,7 +47,17 @@ const ForgetPassword = () => {
           <img src={circleCheck} />
         </div>
         <Typography component="div" className={"pageTitle"}>
-          Please check your email to continue.
+          Check your email
+        </Typography>
+        <Typography
+          component="div"
+          className={"pageDescription"}
+          sx={{ marginTop: 2, textAlign: "center" }}
+        >
+          Reset Password email was sent to {userEmail && "email"}. If you do not
+          receive a Reset Password email, please check your spam folder. Also,
+          please verify that you entered a valid email address in our sign-up
+          form.
         </Typography>
       </>
     );
@@ -69,13 +81,14 @@ const ForgetPassword = () => {
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
+            placeholder="Create a password"
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
           />
 
           <Button type="submit" variant="contained">
-            Resset Password
+            Reset Password
           </Button>
         </Form>
       )}

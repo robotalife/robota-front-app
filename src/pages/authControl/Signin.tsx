@@ -35,7 +35,7 @@ const initialValues: SigninData = {
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { axios, Snackbar } = useAxios();
+  const { axios } = useAxios();
   const { setIsAuthenticated } = useContext(AuthContext);
   const { getUser } = useContext(UserContext);
 
@@ -110,7 +110,7 @@ const Signin = () => {
             Sign In
           </Button>
           <Typography sx={{ textAlign: "center" }} className="pageDescription">
-            Didn’t create an account? <Link to={routes.signup}>Sign Up</Link>
+            Don't have an account? <Link to={routes.signup}>Sign Up</Link>
           </Typography>
         </Form>
       )}

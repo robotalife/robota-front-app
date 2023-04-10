@@ -5,7 +5,7 @@ import {
   TextField as MUITextField,
   StandardTextFieldProps,
 } from "@mui/material";
-import { ReactNode, useId, useState } from "react";
+import { useId, useState } from "react";
 import { IconEye, IconEyeOff } from "../../shared/icons/Icons";
 import { Message } from "../../shared/interfaces/Message";
 import classes from "./TextField.module.scss";

@@ -16,8 +16,7 @@ import {
   passwordFull,
   validationSchema,
 } from "../../shared/consts/validations";
-
-import classes from "./Signup.module.scss";
+import GrayListBox from "../../components/shared/GrayListBox";
 
 const validations = validationSchema({
   email: email,
@@ -37,9 +36,16 @@ const initialValues = {
   agree: false,
 };
 
+const list = [
+  "Min. 8 characters",
+  "Not same as username",
+  "At least 1 alphabet, 1 number, and 1 punctuation",
+  "Differ from previous password",
+];
+
 const Signup = () => {
   const navigate = useNavigate();
-  const { axios, Snackbar } = useAxios();
+  const { axios } = useAxios();
 
   const handleSubmit = async (values: SignupData) => {
     const userData = {
@@ -97,14 +103,8 @@ const Signup = () => {
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
           />
-          <Paper elevation={0} className={classes.passwordRules}>
-            <ul className={classes.passwordCheckList}>
-              <li>Min. 8 characters</li>
-              <li>Not same as username</li>
-              <li>At least 1 alphabet, 1 number, and 1 punctuation</li>
-              <li>Differ from previous password</li>
-            </ul>
-          </Paper>
+
+          <GrayListBox list={list} />
 
           <Checkbox
             name="agree"
