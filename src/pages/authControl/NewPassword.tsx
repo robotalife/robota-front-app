@@ -83,7 +83,7 @@ const NewPassword = () => {
 
           <GrayListBox list={list} />
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" fullWidth>
             Resset Password
           </Button>
         </Form>

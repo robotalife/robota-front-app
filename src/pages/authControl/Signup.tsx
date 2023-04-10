@@ -131,7 +131,7 @@ const Signup = () => {
             </Typography>
           </Checkbox>
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" fullWidth>
             Get started
           </Button>
 

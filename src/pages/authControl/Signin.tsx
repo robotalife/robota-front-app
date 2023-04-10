@@ -108,7 +108,7 @@ const Signin = () => {
             <Link to={routes.forgetPassword}>Forget Password?</Link>
           </Typography>
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" fullWidth>
             Sign In
           </Button>
           <Typography sx={{ textAlign: "center" }} className="pageDescription">

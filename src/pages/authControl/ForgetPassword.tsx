@@ -87,7 +87,7 @@ const ForgetPassword = () => {
             helperText={errors.email && touched.email && errors.email}
           />
 
-          <Button type="submit" variant="contained">
+          <Button type="submit" variant="contained" fullWidth>
             Reset Password
           </Button>
         </Form>

@@ -30,7 +30,10 @@ const RoutingComp = () => {
           <Route path={routes.signin} element={<Signin />} />
           <Route path={routes.signup} element={<Signup />} />
           <Route path={routes.activate} element={<VerifyEmail />} />
-          <Route path={`${routes.activate}/:key`} element={<VerifyEmail />} />
+          <Route
+            path={`${routes.activate}/:verifyKey`}
+            element={<VerifyEmail />}
+          />
           <Route path={routes.forgetPassword} element={<ForgetPassword />} />
           <Route
             path={`${routes.newPassword}/:key`}

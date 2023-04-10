@@ -15,6 +15,7 @@ import {
   verificationKey,
 } from "../../shared/consts/validations";
 import { IconArrowLeft } from "../../shared/icons/Icons";
+import DigitsInput from "../../components/formElements/DigitsInput";
 
 const validations = validationSchema({
   key: verificationKey,
@@ -58,14 +59,20 @@ const VerifyEmail = () => {
             folder. Also, please verify that you entered a valid email address
             in our sign-up form.
           </div>
-          <TextField
+
+          <DigitsInput
             name="key"
             type="text"
             value={values.key}
             onChange={handleChange}
             required
-            error={Boolean(errors.key && touched.key)}
-            helperText={errors.key && touched.key && errors.key}
+            digitCounts={4}
+            message={
+              Boolean(errors.key && touched.key) ? errors.key : undefined
+            }
+            messageType={
+              Boolean(errors.key && touched.key) ? "error" : undefined
+            }
           />
 
           <Button
