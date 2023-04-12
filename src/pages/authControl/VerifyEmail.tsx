@@ -13,25 +13,46 @@ import DigitsInput from "../../components/formElements/DigitsInput";
 import { useSnackbar } from "notistack";
 
 const VerifyEmail = () => {
-  const { key, userId } = useParams();
-  const navigate = useNavigate();
+  const { id } = useParams();
   const { axios } = useAxios();
   const { enqueueSnackbar } = useSnackbar();
-  const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
+  const [otp, setOtp] = useState(id && id.length === 4 ? id : "");
   const [otpError, setOtpError] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (id && id.length === 4) {
+      verifyEmail(id);
+    }
+  }, []);
+
+  useEffect(() => {
+    setOtpError(otp.length !== 0 && otp.length !== 4);
+  }, [otp]);
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setOtpError(!!otp && otp.length < 4);
 
     if (otpError) return;
+    verifyEmail(otp);
+  };
 
+  const handleChange = (e: string) => {
+    setOtp(e);
+  };
+
+  const verifyEmail = async (verifyKey: string) => {
     try {
       const response: AxiosResponse<any, any> = await axios.post(
-        `${apiEndPoints.verifyEmail}${otp}`
+        `${apiEndPoints.verifyEmail}${verifyKey}`
       );
 
       navigate(routes.signin);
+      enqueueSnackbar("Your email is verified. You can sign in.", {
+        variant: "success",
+        preventDuplicate: true,
+      });
+
       // Handle successful response
     } catch (error) {
       // Handle error
@@ -45,7 +66,7 @@ const VerifyEmail = () => {
           userId: string;
         },
         any
-      > = await axios.post(apiEndPoints.resendVerification, { userId: userId });
+      > = await axios.post(apiEndPoints.resendVerification, { userId: id });
 
       enqueueSnackbar("Verification email sent.", {
         variant: "success",
@@ -58,7 +79,7 @@ const VerifyEmail = () => {
   };
 
   return (
-    <form noValidate onSubmit={(e) => handleSubmit(e)}>
+    <form noValidate onSubmit={handleSubmit}>
       <div style={{ textAlign: "center" }}>
         <img src={circleCheck} />
       </div>
@@ -71,7 +92,7 @@ const VerifyEmail = () => {
 
       <DigitsInput
         value={otp}
-        onChange={setOtp}
+        onChange={handleChange}
         digitCounts={4}
         message={otpError ? "OTP is required" : undefined}
         messageType={"error"}
