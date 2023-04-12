@@ -3,49 +3,38 @@ import { Message } from "../../shared/interfaces/Message";
 import OtpInput from "react-otp-input";
 
 import classes from "./DigitsInput.module.scss";
-import { ChangeEvent } from "react";
+import { HTMLProps, useState } from "react";
 
-interface Props extends InputBaseProps {
+interface Props {
   message?: string;
   messageType?: Message;
   digitCounts: number;
-  onChangeTmp: (e: string) => void;
+  onChange: (e: string) => void;
+  value: string;
 }
 
 const DigitsInput = ({
   message,
   messageType,
   digitCounts,
-  onChangeTmp,
-  ...inputProps
+  onChange,
+  value,
 }: Props) => {
-  // const handleChange = (
-  //   e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  // ) => {
-  //   onChange(e.currentTarget.value);
-  // };
-
   return (
-    <div className={classes.otpInputWrapper}>
+    <div
+      className={`${classes.otpInputWrapper} ${
+        value.length === digitCounts ? classes.filled : ""
+      }`}
+    >
       <OtpInput
-        value={inputProps.value as string}
-        onChange={(e) => onChangeTmp(e)}
+        value={value}
+        onChange={onChange}
+        renderSeparator={<span> </span>}
+        renderInput={(props) => <input {...props} className={classes.input} />}
         numInputs={digitCounts}
-        renderSeparator={<span />}
-        renderInput={(props) => <input {...props} className={classes.mask} />}
+        shouldAutoFocus
       />
-      {/* <InputBase
-        {...inputProps}
-        // eslint-disable-next-line
-        onChange={handleChange}
-        className={classes.otpInput}
-        inputProps={{
-          pattern: "\\d*",
-          inputMode: "numeric",
-          maxLength: 4,
-        }}
-      />
- */}
+
       {message && (
         <FormHelperText
           className={classes.helperText}

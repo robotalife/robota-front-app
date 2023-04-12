@@ -19,5 +19,3 @@ export const email = Yup.string()
   .required("Required");
 
 export const agreeCheckbox = Yup.boolean().oneOf([true], "Must agree to terms");
-
-export const verificationKey = Yup.string().required("Required");

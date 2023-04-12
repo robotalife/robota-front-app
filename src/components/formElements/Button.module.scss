@@ -1,11 +1,12 @@
 .button {
+  background-color: $primary-600;
   border-radius: 32px;
   margin-bottom: 24px;
   text-transform: none;
   padding: 8px 16px;
 
   &.customprimary {
-    background-color: $primary-700;
+    background-color: $primary-600;
   }
   .custominfo {
   }
