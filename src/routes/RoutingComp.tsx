@@ -13,6 +13,7 @@ import routes from "../shared/consts/routes";
 import AuthControlLayout from "../shared/layouts/AuthtControlLayout";
 import { DefaultLayout } from "../shared/layouts/DefaultLayout";
 import CommonLayout from "../shared/layouts/CommonLayout";
+import NewExchange from "../pages/exchanges/NewExchange";
 
 const RoutingComp = () => {
   return (
@@ -31,10 +32,13 @@ const RoutingComp = () => {
         </Route>
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Portfolio />} />
+          {/* Bots */}
           <Route path={routes.portfolio} element={<Portfolio />} />
           <Route path={routes.bots} element={<Bots />} />
           <Route path={routes.bot} element={<Bots />} />
           <Route path={routes.botsNew} element={<NewBot />} />
+          {/* Exchanges */}
+          <Route path={routes.exchangeNew} element={<NewExchange />} />
         </Route>
         <Route element={<CommonLayout />}>
           <Route path={routes.terms} element={<Terms />} />

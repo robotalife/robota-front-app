@@ -1,4 +1,5 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
+import useAxios from "../hooks/useAxios";
 
 export const AuthContext = createContext<{
   isAuthenticated: boolean;
@@ -9,11 +10,15 @@ export const AuthContext = createContext<{
 });
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [token, setToken] = useState(localStorage.getItem("token"));
+  const { axios } = useAxios();
+  const token = localStorage.getItem("token");
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    if (token) {
+      // set token as default authorization header for axios requests
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
   }, []);
 
   return (
