@@ -9,6 +9,7 @@ const routes = {
   bots: "/bots",
   bot: "/bots/:botId",
   botsNew: "/bots/new",
+  botToken: "/tokens/:botId",
   // Exchange
   exchangeNew: "/exchange/new",
   // Common

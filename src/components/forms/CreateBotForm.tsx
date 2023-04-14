@@ -60,7 +60,7 @@ interface INewBotInterface {
   name: string;
   exchangeId: string;
   access: "PUBLIC" | "PRIVATE";
-  marginType: "CROSS" | "ISOLATED";
+  marginType: "CROSSED" | "ISOLATED";
   leverageValue: number;
   maxAmountForBotUsage: number;
   minAmountForBotUsage: number;
@@ -76,7 +76,7 @@ const initialValues: INewBotInterface = {
   pair: "",
   orderStrategy: "LONG",
   access: "PRIVATE",
-  marginType: "CROSS",
+  marginType: "CROSSED",
   leverageValue: 1,
   minAmountForBotUsage: 1000,
   maxAmountForBotUsage: 5000,

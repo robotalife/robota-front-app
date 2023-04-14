@@ -22,7 +22,7 @@ export const newBotAccess = [
 
 export const newBotLeverageType = [
   {
-    value: "CROSS",
+    value: "CROSSED",
     label: "Cross",
   },
   {
