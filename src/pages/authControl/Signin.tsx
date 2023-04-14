@@ -16,7 +16,6 @@ import {
   passwordSimple,
   validationSchema,
 } from "../../shared/consts/validations";
-import { UserContext } from "../../shared/providers/UserProvider";
 
 const validations = validationSchema({
   email: email,

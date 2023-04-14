@@ -24,6 +24,9 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
 
   const handleAlignment = (event: MouseEvent<HTMLElement>, newValue: T) => {
     setValue(newValue);
+    if (props.onChange) {
+      props.onChange(event, newValue);
+    }
   };
 
   return (
