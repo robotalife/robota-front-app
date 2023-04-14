@@ -18,4 +18,10 @@
   }
   .customwarning {
   }
+
+  &:global {
+    &.MuiButton-outlined {
+      background: transparent;
+    }
+  }
 }

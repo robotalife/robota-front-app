@@ -22,7 +22,7 @@ interface Props
 const ComboBox = ({ message, messageType, ...props }: Props) => {
   return (
     <div className={classes.comboWrapper}>
-      <Autocomplete {...props} />
+      {/* <Autocomplete {...props} /> */}
 
       {message && (
         <FormHelperText

@@ -24,11 +24,31 @@ export interface IExchange extends IExchangeListResponseObj {
   value: string;
 }
 
+export interface IPair {
+  value: string;
+  text: string;
+  base: string;
+  quote: string;
+  symbolFilter: {
+    lotSizeFilter: {
+      minQty: string;
+      maxQty: string;
+      stepSize: string;
+      maxAllowedPrecision: number;
+    };
+    priceFilter: {
+      minPrice: string;
+      maxPrice: string;
+      tickSize: string;
+    };
+  };
+}
+
 interface IExchangeContext {
   exchangeList: IExchange[];
   selectedExchange: string | undefined;
   setSelectedExchange: (exchange: string) => void;
-  pairs: any[];
+  pairs: IPair[];
 }
 
 export const ExchangeContext = createContext<IExchangeContext>({
@@ -47,7 +67,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
   const [selectedExchange, setSelectedExchange] = useState(
     exchangeList.find((ex) => ex.default)?.exchangeId
   );
-  const [pairs, setPairs] = useState<any[]>([] as any[]);
+  const [pairs, setPairs] = useState<IPair[]>([] as IPair[]);
 
   const getList = async () => {
     try {
@@ -78,12 +98,15 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
 
   const getPairs = async (exchangeId: string) => {
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
-        `${apiEndPoints.symbolsList}${exchangeId}`
-      );
+      const response: AxiosResponse<
+        {
+          symbols: IPair[];
+        },
+        any
+      > = await axios.get(`${apiEndPoints.symbolsList}${exchangeId}`);
 
-      const data = response.data;
-      console.log(data);
+      const { symbols } = response.data;
+      setPairs(symbols);
     } catch (error) {
       // Handle error
     }

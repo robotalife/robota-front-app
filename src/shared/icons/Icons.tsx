@@ -345,3 +345,34 @@ export const IconClose = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconModalSave = (props: IconProps) => {
+  return (
+    <svg
+      width="57"
+      height="56"
+      viewBox="0 0 57 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="4.5" y="4" width="48" height="48" rx="24" fill="#F4EBFF" />
+      <path
+        d="M29.5 18L19.5 30H28.5L27.5 38L37.5 26H28.5L29.5 18Z"
+        stroke="#7F56D9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="4.5"
+        y="4"
+        width="48"
+        height="48"
+        rx="24"
+        stroke="#F9F5FF"
+        strokeWidth="8"
+      />
+    </svg>
+  );
+};
