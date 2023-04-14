@@ -15,11 +15,13 @@ import { DefaultLayout } from "../shared/layouts/DefaultLayout";
 import CommonLayout from "../shared/layouts/CommonLayout";
 import NewExchange from "../pages/exchanges/NewExchange";
 import TVTokens from "../pages/bots/TVTokens";
+import SettingsLayout from "../shared/layouts/SettingsLayout";
 
 const RoutingComp = () => {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Auth */}
         <Route element={<AuthControlLayout />}>
           <Route path={routes.signin} element={<Signin />} />
           <Route path={routes.signup} element={<Signup />} />
@@ -35,10 +37,13 @@ const RoutingComp = () => {
           <Route path="/" element={<Portfolio />} />
           <Route path={routes.portfolio} element={<Portfolio />} />
           {/* Bots */}
-          <Route path={routes.bots} element={<Bots />} />
-          <Route path={routes.bot} element={<Bots />} />
           <Route path={routes.botsNew} element={<NewBot />} />
-          <Route path={routes.botToken} element={<TVTokens />} />
+
+          <Route element={<SettingsLayout />}>
+            <Route path={routes.bots} element={<Bots />} />
+            <Route path={routes.bot} element={<Bots />} />
+            <Route path={routes.botToken} element={<TVTokens />} />
+          </Route>
           {/* Exchanges */}
           <Route path={routes.exchangeNew} element={<NewExchange />} />
         </Route>
