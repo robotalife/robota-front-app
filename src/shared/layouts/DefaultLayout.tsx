@@ -18,11 +18,11 @@ export const DefaultLayout = () => {
     }
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    if (exchangeList.length === 0) {
-      navigate(routes.exchangeNew);
-    }
-  }, [exchangeList]);
+  // useEffect(() => {
+  //   if (exchangeList.length === 0) {
+  //     navigate(routes.exchangeNew);
+  //   }
+  // }, [exchangeList]);
 
   return (
     <div className={classes.layout}>

@@ -46,8 +46,7 @@ const validations = validationSchema({
   name: newBotStringSchema,
   exchangeId: newBotStringSchema,
   access: newBotAccessSchema,
-  botName: newBotStringSchema,
-  leverageType: newBotLeverageTypeSchema,
+  marginType: newBotLeverageTypeSchema,
   leverageValue: newBotLeverageSchema,
   maxAmountForBotUsage: newBotNumberSchema,
   minAmountForBotUsage: newBotNumberSchema,
@@ -61,8 +60,7 @@ interface INewBotInterface {
   name: string;
   exchangeId: string;
   access: "PUBLIC" | "PRIVATE";
-  botName: string;
-  leverageType: "CROSS" | "ISOLATED";
+  marginType: "CROSS" | "ISOLATED";
   leverageValue: number;
   maxAmountForBotUsage: number;
   minAmountForBotUsage: number;
@@ -73,13 +71,12 @@ interface INewBotInterface {
 }
 
 const initialValues: INewBotInterface = {
-  botName: "",
   name: "",
   exchangeId: "",
   pair: "",
   orderStrategy: "LONG",
   access: "PRIVATE",
-  leverageType: "CROSS",
+  marginType: "CROSS",
   leverageValue: 1,
   minAmountForBotUsage: 1000,
   maxAmountForBotUsage: 5000,
@@ -93,11 +90,10 @@ const CreateBotForm = () => {
     useContext(ExchangeContext);
   const [formData, setFormData] = useState({
     name: "",
-    exchangeId: "",
+    exchangeId: "123",
     configuration: {
       access: "PRIVATE",
-      botName: "",
-      leverageType: "ISOLATED",
+      marginType: "ISOLATED",
       leverageValue: 1,
       maxAmountForBotUsage: "4",
       minAmountForBotUsage: "3",
@@ -261,14 +257,14 @@ const CreateBotForm = () => {
               >
                 <ToggleButtonGroup
                   options={newBotLeverageType}
-                  value={formData.configuration.leverageType}
-                  id="leverageType"
+                  value={formData.configuration.marginType}
+                  id="marginType"
                   onChange={(e, v) =>
                     setFormData({
                       ...formData,
                       configuration: {
                         ...formData.configuration,
-                        leverageType: v,
+                        marginType: v,
                       },
                     })
                   }
@@ -403,20 +399,17 @@ const CreateBotForm = () => {
                 }
               </TableCell>
             </TableRow>
-            {Object.keys(formData.configuration).map(
-              (config) =>
-                config !== "botName" && (
-                  <TableRow>
-                    <TableCell>{config}</TableCell>
-                    <TableCell>
-                      {
-                        // @ts-ignore
-                        formData.configuration[config]
-                      }
-                    </TableCell>
-                  </TableRow>
-                )
-            )}
+            {Object.keys(formData.configuration).map((config) => (
+              <TableRow key={config}>
+                <TableCell>{config}</TableCell>
+                <TableCell>
+                  {
+                    // @ts-ignore
+                    formData.configuration[config]
+                  }
+                </TableCell>
+              </TableRow>
+            ))}
           </Table>
           <Grid container spacing={2} mt={2}>
             <Grid item xs={6}>
