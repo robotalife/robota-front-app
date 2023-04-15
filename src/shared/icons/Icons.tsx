@@ -397,3 +397,23 @@ export const IconCopy = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconCircleCheck = (props: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11 5.54091V6.00091C10.9994 7.07912 10.6503 8.12825 10.0047 8.99182C9.35908 9.8554 8.45164 10.4871 7.41768 10.7929C6.38372 11.0986 5.27863 11.0619 4.26724 10.6882C3.25584 10.3145 2.39233 9.62396 1.80548 8.71944C1.21863 7.81493 0.939896 6.74494 1.01084 5.66907C1.08178 4.59319 1.4986 3.56907 2.19914 2.74945C2.89968 1.92982 3.84639 1.3586 4.89809 1.12098C5.9498 0.883364 7.05013 0.992077 8.035 1.43091M11 2.00091L6 7.00591L4.5 5.50591"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
