@@ -1,2 +1,14 @@
 .tableContainer {
+  :global {
+    .MuiTableHead-root {
+      background: $gray-50;
+
+      .MuiTableCell-root {
+        color: $gray-500;
+        font-size: 12px;
+        font-weight: 500;
+        padding: 10px;
+      }
+    }
+  }
 }
