@@ -16,8 +16,8 @@ const LinkBar = ({ links }: Props) => {
   return (
     <nav className={classes.linkBar}>
       <ul className={classes.linksWrapper}>
-        {links.map((link) => (
-          <li key={link.to} className={classes.linkItem}>
+        {links.map((link, i) => (
+          <li key={i.toString()} className={classes.linkItem}>
             <NavLink
               to={link.to}
               className={({
