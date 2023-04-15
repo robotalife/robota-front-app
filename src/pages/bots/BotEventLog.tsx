@@ -1,5 +1,5 @@
-import WrapperBox from "../../components/pageStructure/WrapperBox";
-import WrapperBoxHeader from "../../components/pageStructure/WrapperBoxHeader";
+import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
+import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 
 const tableData = [
   {
