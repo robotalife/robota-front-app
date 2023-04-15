@@ -6,7 +6,7 @@ const routes = {
   forgetPassword: "/forget-password",
   newPassword: "/forgot-password/finish",
   // Bots
-  bots: "/bots", // bot store
+  myBots: "/bots/my-bots", // my bots
   botsNew: "/bots/new", // create new bot
   botOverview: "/bots/overview", // bot overview
   botActiveTrades: "/bots/active-trades", // bot overview

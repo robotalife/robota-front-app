@@ -1,4 +1,5 @@
 import { Outlet, useLocation, useParams } from "react-router-dom";
+import HeadBand from "../../components/pageStructure/HeadBand";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import LinkBar from "../../components/pageStructure/LinkBar";
 import routes from "../consts/routes";
@@ -35,18 +36,36 @@ const data = [
   },
 ];
 
-const SettingsLayout = () => {
+const InnerSettingsLayout = () => {
+  const { botId } = useParams();
   const { pathname } = useLocation();
   const [pageTitle, setPageTitle] = useState("");
 
   const links = [
     {
-      label: "Add new bot",
-      to: routes.botsNew,
+      label: "Overview",
+      to: `${routes.botOverview}/${botId}`,
+      pageTitle: "",
     },
     {
-      label: "My bots",
-      to: routes.myBots,
+      label: "Active Trades",
+      to: `${routes.botActiveTrades}/${botId}`,
+      pageTitle: "",
+    },
+    {
+      label: "Trades History",
+      to: `${routes.botTradesHistory}/${botId}`,
+      pageTitle: "",
+    },
+    {
+      label: "Events Log",
+      to: `${routes.botLog}/${botId}`,
+      pageTitle: "",
+    },
+    {
+      label: "Trading View Tokens",
+      to: `${routes.botTVToken}/${botId}`,
+      pageTitle: "",
     },
   ];
 
@@ -58,10 +77,11 @@ const SettingsLayout = () => {
   return (
     <div>
       <PageTitle title={pageTitle} />
+      <HeadBand items={data} />
       <LinkBar links={links} />
       <Outlet />
     </div>
   );
 };
 
-export default SettingsLayout;
+export default InnerSettingsLayout;

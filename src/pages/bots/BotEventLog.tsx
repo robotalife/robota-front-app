@@ -8,6 +8,7 @@ import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import TableDateTime from "../../components/shared/table/TableDateCell";
+import { useEffect } from "react";
 
 const tableData = [
   {

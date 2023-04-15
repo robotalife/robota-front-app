@@ -20,6 +20,7 @@ import BotOverView from "../pages/bots/BotOverView";
 import BotActiveTrades from "../pages/bots/BotActiveTrades";
 import BotTradeHistory from "../pages/bots/BotTradeHistory";
 import BotEventLog from "../pages/bots/BotEventLog";
+import InnerSettingsLayout from "../shared/layouts/InnerSettingsLayout";
 
 const RoutingComp = () => {
   return (
@@ -43,14 +44,16 @@ const RoutingComp = () => {
 
           {/* Bots */}
 
-          {/* bot store */}
-          <Route path={routes.bots} element={<Bots />} />
-
-          {/* create new bot */}
-          <Route path={routes.botsNew} element={<NewBot />} />
-
-          {/* bot pages with sub-layout */}
+          {/* outer bot pages */}
           <Route element={<SettingsLayout />}>
+            {/* bot store */}
+            <Route path={routes.myBots} element={<Bots />} />
+
+            {/* create new bot */}
+            <Route path={routes.botsNew} element={<NewBot />} />
+          </Route>
+          {/* inner bot pages with sub-layout */}
+          <Route element={<InnerSettingsLayout />}>
             {/* bot overview */}
             <Route
               path={`${routes.botOverview}/:botId`}
