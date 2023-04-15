@@ -16,6 +16,10 @@ import CommonLayout from "../shared/layouts/CommonLayout";
 import NewExchange from "../pages/exchanges/NewExchange";
 import TVTokens from "../pages/bots/TVTokens";
 import SettingsLayout from "../shared/layouts/SettingsLayout";
+import BotOverView from "../pages/bots/BotOverView";
+import BotActiveTrades from "../pages/bots/BotActiveTrades";
+import BotTradeHistory from "../pages/bots/BotTradeHistory";
+import BotEventLog from "../pages/bots/BotEventLog";
 
 const RoutingComp = () => {
   return (
@@ -36,13 +40,43 @@ const RoutingComp = () => {
         <Route element={<DefaultLayout />}>
           <Route path="/" element={<Portfolio />} />
           <Route path={routes.portfolio} element={<Portfolio />} />
+
           {/* Bots */}
+
+          {/* bot store */}
+          <Route path={routes.bots} element={<Bots />} />
+
+          {/* create new bot */}
           <Route path={routes.botsNew} element={<NewBot />} />
 
+          {/* bot pages with sub-layout */}
           <Route element={<SettingsLayout />}>
-            <Route path={routes.bots} element={<Bots />} />
-            <Route path={routes.bot} element={<Bots />} />
-            <Route path={routes.botToken} element={<TVTokens />} />
+            {/* bot overview */}
+            <Route
+              path={`${routes.botOverview}/:botId`}
+              element={<BotOverView />}
+            />
+
+            {/* bot active trades */}
+            <Route
+              path={`${routes.botActiveTrades}/:botId`}
+              element={<BotActiveTrades />}
+            />
+
+            {/* bot trades history */}
+            <Route
+              path={`${routes.botTradesHistory}/:botId`}
+              element={<BotTradeHistory />}
+            />
+
+            {/* bot log */}
+            <Route path={`${routes.botLog}/:botId`} element={<BotEventLog />} />
+
+            {/* bot trading view tokens */}
+            <Route
+              path={`${routes.botTVToken}/:botId`}
+              element={<TVTokens />}
+            />
           </Route>
           {/* Exchanges */}
           <Route path={routes.exchangeNew} element={<NewExchange />} />
