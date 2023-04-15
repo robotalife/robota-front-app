@@ -7,6 +7,7 @@
   list-style: none;
   display: flex;
   margin: 0;
+  margin-bottom: -1px;
   padding: 0;
 }
 
@@ -15,13 +16,17 @@
   font-size: 14px;
   font-weight: 500;
 
-  a {
-    display: block;
-    padding: 16px 12px;
-    text-decoration: none;
+  :global {
+    a {
+      border-bottom: 2px solid transparent;
+      display: block;
+      padding: 16px 12px;
+      text-decoration: none;
 
-    &.isAtive {
-      color: $primary-700;
+      &.is-active {
+        border-color: $primary-700;
+        color: $primary-700;
+      }
     }
   }
 }

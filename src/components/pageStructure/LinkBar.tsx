@@ -26,9 +26,7 @@ const LinkBar = ({ links }: Props) => {
               }: {
                 isActive: boolean;
                 isPending: boolean;
-              }) =>
-                isPending ? classes.isPending : isActive ? classes.isActive : ""
-              }
+              }) => (isPending ? "is-pending" : isActive ? "is-active" : "")}
             >
               {link.label}
             </NavLink>

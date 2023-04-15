@@ -1,7 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import HeadBand from "../../components/pageStructure/HeadBand";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import LinkBar from "../../components/pageStructure/LinkBar";
+import routes from "../consts/routes";
 
 const data = [
   {
@@ -34,30 +35,32 @@ const data = [
   },
 ];
 
-const links = [
-  {
-    label: "Overview",
-    to: "/",
-  },
-  {
-    label: "Active Trades",
-    to: "/",
-  },
-  {
-    label: "Trades History",
-    to: "/",
-  },
-  {
-    label: "Events Log",
-    to: "/",
-  },
-  {
-    label: "Trading View Tokens",
-    to: "/",
-  },
-];
-
 const SettingsLayout = () => {
+  const { botId } = useParams();
+
+  const links = [
+    {
+      label: "Overview",
+      to: `${routes.botOverview}/${botId}`,
+    },
+    {
+      label: "Active Trades",
+      to: `${routes.botActiveTrades}/${botId}`,
+    },
+    {
+      label: "Trades History",
+      to: `${routes.botTradesHistory}/${botId}`,
+    },
+    {
+      label: "Events Log",
+      to: `${routes.botLog}/${botId}`,
+    },
+    {
+      label: "Trading View Tokens",
+      to: `${routes.botTVToken}/${botId}`,
+    },
+  ];
+
   return (
     <div>
       <PageTitle title="Trading View Tokens" />
