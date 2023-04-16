@@ -11,7 +11,7 @@ import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
 import { UserContext } from "./UserProvider";
 
-interface IMyBots {
+interface IBot {
   exchangeType: string;
   id: string;
   logo: string;
@@ -21,8 +21,18 @@ interface IMyBots {
   profit: string;
 }
 
+interface IMyBots {
+  currentPage: number;
+  data: IBot[];
+  nextPage: number | null;
+  perPage: number;
+  remainingCount: number;
+  total: number;
+  totalPages: number;
+}
+
 interface IMyBotsContext {
-  botsList: IMyBots[];
+  botsList: IBot[];
 }
 
 export const MyBotsContext = createContext<IMyBotsContext>({
@@ -33,17 +43,17 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   const { isAuthenticated } = useContext(AuthContext);
   const { axios } = useAxios();
 
-  const [myBotsList, setMyBotsList] = useState<IMyBots[]>([]);
+  const [myBotsList, setMyBotsList] = useState<IBot[]>([]);
 
   const getList = async () => {
     try {
-      const response: AxiosResponse<IMyBots[], any> = await axios.get(
+      const response: AxiosResponse<IMyBots, any> = await axios.get(
         apiEndPoints.bots
       );
 
       const list = response.data;
 
-      setMyBotsList(list);
+      setMyBotsList(list.data);
     } catch (error) {
       // Handle error
     }

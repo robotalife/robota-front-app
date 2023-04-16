@@ -9,9 +9,10 @@ export const AuthContext = createContext<{
   setIsAuthenticated: () => {},
 });
 
+const token = localStorage.getItem("token");
+
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { axios } = useAxios();
-  const token = localStorage.getItem("token");
   const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
   useEffect(() => {

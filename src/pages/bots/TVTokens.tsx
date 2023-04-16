@@ -24,7 +24,6 @@ const TVTokens = () => {
 
       const data = response.data;
       setTokens(data);
-      console.log(data);
     } catch (error) {
       // Handle error
     }
