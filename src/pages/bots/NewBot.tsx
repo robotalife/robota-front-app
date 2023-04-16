@@ -24,6 +24,10 @@ import Modal from "../../components/shared/Modal";
 import Table from "../../components/shared/table/Table";
 import TableRow from "../../components/shared/table/TableRow";
 import TableCell from "../../components/shared/table/TableCell";
+import { useNavigate } from "react-router-dom";
+import TableBody from "../../components/shared/table/TableBody";
+import routes from "../../shared/consts/routes";
+import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 
 // const validations = validationSchema({
 //   name: newBotStringSchema,
@@ -68,12 +72,14 @@ const initialValues: INewBotInterface = {
 };
 
 const NewBot = () => {
+  const { loadMyBots } = useContext(MyBotsContext);
   const { axios } = useAxios();
+  const navigate = useNavigate();
   const { exchangeList, setSelectedExchange, pairs } =
     useContext(ExchangeContext);
   const [formData, setFormData] = useState({
     name: "",
-    exchangeId: "123",
+    exchangeId: "",
     configuration: {
       access: "PRIVATE",
       marginType: "ISOLATED",
@@ -96,10 +102,13 @@ const NewBot = () => {
 
   const createBot = async () => {
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
-        apiEndPoints.bots,
-        formData
-      );
+      const response: AxiosResponse<{ botId: number; botName: string }, any> =
+        await axios.post(apiEndPoints.bots, formData);
+
+      const { botId } = response.data;
+      loadMyBots();
+      setShowModal(false);
+      navigate(`${routes.botOverview}/${botId}`);
     } catch (error) {
       // Handle error
     }
@@ -368,31 +377,33 @@ const NewBot = () => {
             Save Changes?
           </Typography>
           <Table>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>{formData.name}</TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>Exchange</TableCell>
-              <TableCell>
-                {
-                  exchangeList.find(
-                    (ex) => ex.exchangeId === formData.exchangeId
-                  )?.exchangeName
-                }
-              </TableCell>
-            </TableRow>
-            {Object.keys(formData.configuration).map((config) => (
-              <TableRow key={config}>
-                <TableCell>{config}</TableCell>
+            <TableBody>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>{formData.name}</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Exchange</TableCell>
                 <TableCell>
                   {
-                    // @ts-ignore
-                    formData.configuration[config]
+                    exchangeList.find(
+                      (ex) => ex.exchangeId === formData.exchangeId
+                    )?.exchangeName
                   }
                 </TableCell>
               </TableRow>
-            ))}
+              {Object.keys(formData.configuration).map((config) => (
+                <TableRow key={config}>
+                  <TableCell>{config}</TableCell>
+                  <TableCell>
+                    {
+                      // @ts-ignore
+                      formData.configuration[config]
+                    }
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
           </Table>
           <Grid container spacing={2} mt={2}>
             <Grid item xs={6}>

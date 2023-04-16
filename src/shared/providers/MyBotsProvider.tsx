@@ -33,10 +33,12 @@ interface IMyBots {
 
 interface IMyBotsContext {
   botsList: IBot[];
+  loadMyBots: () => void;
 }
 
 export const MyBotsContext = createContext<IMyBotsContext>({
   botsList: [],
+  loadMyBots: () => {},
 });
 
 export const MyBotsProvider = ({ children }: PropsWithChildren) => {
@@ -45,7 +47,7 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
 
   const [myBotsList, setMyBotsList] = useState<IBot[]>([]);
 
-  const getList = async () => {
+  const loadMyBots = async () => {
     try {
       const response: AxiosResponse<IMyBots, any> = await axios.get(
         apiEndPoints.bots
@@ -61,12 +63,12 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      getList();
+      loadMyBots();
     }
   }, [isAuthenticated]);
 
   return (
-    <MyBotsContext.Provider value={{ botsList: myBotsList }}>
+    <MyBotsContext.Provider value={{ botsList: myBotsList, loadMyBots }}>
       {children}
     </MyBotsContext.Provider>
   );
