@@ -3,6 +3,7 @@ import RoutingComp from "./routes/RoutingComp";
 import { AuthProvider } from "./shared/providers/AuthProvider";
 import { UserProvider } from "./shared/providers/UserProvider";
 import { ExchangeProvider } from "./shared/providers/ExchangeProvider";
+import { MyBotsProvider } from "./shared/providers/MyBotsProvider";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <AuthProvider>
         <UserProvider>
           <ExchangeProvider>
-            <RoutingComp />
+            <MyBotsProvider>
+              <RoutingComp />
+            </MyBotsProvider>
           </ExchangeProvider>
         </UserProvider>
       </AuthProvider>

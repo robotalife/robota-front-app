@@ -1,0 +1,15 @@
+.badge {
+  align-items: flex-start;
+  background: $gray-100;
+  border-radius: 16px;
+  color: $gray-700;
+  display: flex;
+  font-size: 12px;
+  font-weight: 500;
+  height: 22px;
+  justify-content: flex-start;
+}
+
+.icon {
+  margin: 0 5px;
+}

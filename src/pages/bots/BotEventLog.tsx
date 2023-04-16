@@ -77,8 +77,8 @@ const BotEventLog = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData.map((row) => (
-              <TableRow key={`${row.date}_${row.time}`}>
+            {tableData.map((row, i) => (
+              <TableRow key={`${row.date}_${row.time}_${i}`}>
                 <TableCell>
                   <TableDateTime time={row.time} date={row.date} />
                 </TableCell>

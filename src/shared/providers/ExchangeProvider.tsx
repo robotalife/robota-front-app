@@ -10,8 +10,6 @@ import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
 import { UserContext } from "./UserProvider";
-import routes from "../consts/routes";
-import { useNavigate } from "react-router-dom";
 
 interface IExchangeListResponseObj {
   default: boolean;
