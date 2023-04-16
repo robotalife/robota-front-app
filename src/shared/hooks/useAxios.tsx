@@ -1,6 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { API_BASE_URL } from "../consts";
 import { useSnackbar } from "notistack";
+import routes from "../consts/routes";
 
 interface AxiosHookReturn {
   axios: AxiosInstance;
@@ -30,6 +31,12 @@ export default function useAxios(): AxiosHookReturn {
         variant: "error",
         preventDuplicate: true,
       });
+
+      if (error.response.status === 401) {
+        localStorage.clear();
+        delete instance.defaults.headers.common["Authorization"];
+        window.location.href = routes.signin;
+      }
       return Promise.reject(error);
     }
   );
