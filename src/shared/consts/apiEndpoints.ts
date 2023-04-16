@@ -14,6 +14,7 @@ const apiEndPoints = {
   symbolsList: "/symbols?exchangeId=",
   // Bots
   bots: "/bots",
+  getTokens: (botId: string) => `/bots/${botId}/tokens`,
 };
 
 export default apiEndPoints;

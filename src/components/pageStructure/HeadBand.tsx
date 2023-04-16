@@ -1,7 +1,11 @@
 import { Box, Grid, ListItem, Typography } from "@mui/material";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 import classes from "./HeadBand.module.scss";
+import { useParams } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import useAxios from "../../shared/hooks/useAxios";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
 
 interface Props {
   items: {
@@ -11,6 +15,27 @@ interface Props {
 }
 
 const HeadBand = ({ items }: Props) => {
+  const { botId } = useParams();
+  const { axios } = useAxios();
+
+  useEffect(() => {
+    getTokenData();
+    console.log(botId);
+  }, []);
+
+  const getTokenData = async () => {
+    try {
+      const response: AxiosResponse<any, any> = await axios.get(
+        apiEndPoints.getTokens(botId as string)
+      );
+
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      // Handle error
+    }
+  };
+
   return (
     <Box className={classes.headBand}>
       <Grid container>
