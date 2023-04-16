@@ -8,7 +8,11 @@ import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import TableDateTime from "../../components/shared/table/TableDateCell";
-import { useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import useAxios from "../../shared/hooks/useAxios";
+import { AxiosResponse } from "axios";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
 
 const tableData = [
   {
@@ -62,6 +66,27 @@ const tableData = [
 ];
 
 const BotEventLog = () => {
+  const { botId } = useParams();
+  const { axios } = useAxios();
+  const [tokens, setTokens] = useState("");
+
+  const getTokenData = useCallback(async () => {
+    try {
+      const response: AxiosResponse<any, any> = await axios.get(
+        apiEndPoints.getBotLog(botId as string)
+      );
+
+      const data = response.data;
+      setTokens(data);
+    } catch (error) {
+      // Handle error
+    }
+  }, [setTokens]);
+
+  useEffect(() => {
+    getTokenData();
+  }, [getTokenData]);
+
   return (
     <WrapperBox>
       <WrapperBoxHeader

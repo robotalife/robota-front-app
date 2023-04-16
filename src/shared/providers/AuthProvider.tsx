@@ -13,12 +13,13 @@ const token = localStorage.getItem("token");
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { axios } = useAxios();
-  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
     if (token) {
       // set token as default authorization header for axios requests
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      setIsAuthenticated(true);
     }
   }, []);
 
