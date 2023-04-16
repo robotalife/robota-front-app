@@ -15,6 +15,7 @@ const apiEndPoints = {
   // Bots
   bots: "/bots",
   getTokens: (botId: string) => `/bots/${botId}/tokens`,
+  getBot: (botId: string) => `/bots/${botId}`,
 };
 
 export default apiEndPoints;
