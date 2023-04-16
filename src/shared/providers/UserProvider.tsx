@@ -33,7 +33,7 @@ export const UserContext = createContext<IUserContext>({
 export const UserProvider = ({ children }: PropsWithChildren) => {
   const { isAuthenticated } = useContext(AuthContext);
   const { axios } = useAxios();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<IUser>({
     email: "",
     firstName: null,
