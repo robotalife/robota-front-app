@@ -11,16 +11,18 @@ const Bots = () => {
     <div>
       My Bots:
       <Grid container spacing={3}>
-        {Array.isArray(botsList) && botsList.length
-          ? botsList.map((bot) => (
-              <Grid item key={bot.id}>
-                <Link to={`${routes.botOverview}/${bot.id}`}>
-                  {bot.name}
-                  <br />
-                </Link>
-              </Grid>
-            ))
-          : "There is no bots for you"}
+        {Array.isArray(botsList) && botsList.length ? (
+          botsList.map((bot) => (
+            <Grid item key={bot.id}>
+              <Link to={`${routes.botOverview}/${bot.id}`}>
+                {bot.name}
+                <br />
+              </Link>
+            </Grid>
+          ))
+        ) : (
+          <Grid>"There is no bots for you"</Grid>
+        )}
       </Grid>
     </div>
   );
