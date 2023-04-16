@@ -10,4 +10,6 @@ const envs = {
   production: "VITE_PRODUCTION_BASE_URL",
 } as { [k in EnvironmentType]: string };
 
+export const appVersion = process.VITE_APP_VERSION;
+
 export const API_BASE_URL = process[envs[environment]];
