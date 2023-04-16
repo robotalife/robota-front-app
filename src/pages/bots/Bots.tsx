@@ -21,7 +21,7 @@ const Bots = () => {
             </Grid>
           ))
         ) : (
-          <Grid>"There is no bots for you"</Grid>
+          <Grid item>"There is no bots for you"</Grid>
         )}
       </Grid>
     </div>
