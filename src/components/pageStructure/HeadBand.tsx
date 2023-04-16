@@ -7,12 +7,6 @@ import { AxiosResponse } from "axios";
 import useAxios from "../../shared/hooks/useAxios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 
-interface Props {
-  items: {
-    title: string;
-  }[];
-}
-
 interface IBotData {
   createdAt: string;
   createdBy: string;
@@ -25,7 +19,7 @@ interface IBotData {
   strategy: "SHORT" | "LONG";
 }
 
-const HeadBand = ({ items }: Props) => {
+const HeadBand = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
   const [botData, setBotData] = useState<IBotData>({} as IBotData);
