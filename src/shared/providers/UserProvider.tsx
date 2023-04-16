@@ -17,7 +17,7 @@ interface IUserResponseObj {
   lastName: string | null;
 }
 interface IUser extends IUserResponseObj {
-  userId: string;
+  userId: string | null;
 }
 
 interface IUserContext {
@@ -33,14 +33,16 @@ export const UserContext = createContext<IUserContext>({
 export const UserProvider = ({ children }: PropsWithChildren) => {
   const { isAuthenticated } = useContext(AuthContext);
   const { axios } = useAxios();
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<IUser>({
     email: "",
     firstName: null,
     lastName: null,
-    userId: localStorage.getItem("userId"),
+    userId: null,
   } as IUser);
 
   const getUser = async () => {
+    setLoading(true);
     try {
       const response: AxiosResponse<IUserResponseObj, any> = await axios.get(
         apiEndPoints.userInfo
@@ -48,9 +50,11 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
 
       const userObj = response.data;
 
-      setUser({ ...user, ...userObj });
+      setUser({ ...user, ...userObj, userId: localStorage.getItem("userId") });
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -62,7 +66,7 @@ export const UserProvider = ({ children }: PropsWithChildren) => {
 
   return (
     <UserContext.Provider value={{ user, getUser }}>
-      {children}
+      {!loading && children}
     </UserContext.Provider>
   );
 };
