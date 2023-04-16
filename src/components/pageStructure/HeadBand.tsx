@@ -24,7 +24,7 @@ const HeadBand = () => {
   const { axios } = useAxios();
   const [botData, setBotData] = useState<IBotData>({} as IBotData);
 
-  const getTokenData = useCallback(async () => {
+  const getBotData = useCallback(async () => {
     try {
       const response: AxiosResponse<IBotData, any> = await axios.get(
         apiEndPoints.getBot(botId as string)
@@ -38,8 +38,8 @@ const HeadBand = () => {
   }, [setBotData]);
 
   useEffect(() => {
-    getTokenData();
-  }, [getTokenData]);
+    getBotData();
+  }, [getBotData]);
 
   return (
     <Box className={classes.headBand}>
