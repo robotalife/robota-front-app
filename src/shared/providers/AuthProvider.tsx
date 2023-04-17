@@ -15,7 +15,7 @@ export const AuthContext = createContext<{
 const token = localStorage.getItem("token");
 const userId = localStorage.getItem("userId");
 
-const noAuthRoutes: string[] = [
+const authRouts: string[] = [
   routes.signin,
   routes.signup,
   routes.activate,
@@ -28,14 +28,15 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
+    console.log("tokhmi", authRouts, token, window.location.pathname);
     if (token) {
       // set token as default authorization header for axios requests
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setIsAuthenticated(true);
-    } else if (noAuthRoutes.includes(window.location.href)) {
+    } else if (!authRouts.includes(window.location.pathname)) {
       window.location.href = routes.signin;
     }
-  }, []);
+  }, [setIsAuthenticated]);
 
   return (
     <AuthContext.Provider
