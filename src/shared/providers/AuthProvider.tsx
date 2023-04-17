@@ -1,17 +1,19 @@
 import { createContext, PropsWithChildren, useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
-import { useNavigate } from "react-router-dom";
 import routes from "../consts/routes";
 
 export const AuthContext = createContext<{
   isAuthenticated: boolean;
   setIsAuthenticated: (value: boolean) => void;
+  userId: string | null;
 }>({
   isAuthenticated: false,
   setIsAuthenticated: () => {},
+  userId: null,
 });
 
 const token = localStorage.getItem("token");
+const userId = localStorage.getItem("userId");
 
 const noAuthRoutes: string[] = [
   routes.signin,
@@ -36,7 +38,9 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, setIsAuthenticated, userId }}
+    >
       {children}
     </AuthContext.Provider>
   );

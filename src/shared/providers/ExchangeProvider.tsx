@@ -9,7 +9,6 @@ import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
-import { UserContext } from "./UserProvider";
 
 interface IExchangeListResponseObj {
   default: boolean;
@@ -57,8 +56,7 @@ export const ExchangeContext = createContext<IExchangeContext>({
 });
 
 export const ExchangeProvider = ({ children }: PropsWithChildren) => {
-  const { isAuthenticated } = useContext(AuthContext);
-  const { user } = useContext(UserContext);
+  const { isAuthenticated, userId } = useContext(AuthContext);
   const { axios } = useAxios();
 
   const [exchangeList, setExchangeList] = useState<IExchange[]>([]);
@@ -68,12 +66,13 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
   const [pairs, setPairs] = useState<IPair[]>([] as IPair[]);
 
   const getList = async () => {
+    if (!userId) return;
     try {
       const response: AxiosResponse<
         { exchanges: IExchangeListResponseObj[] },
         any
       > = await axios.post(apiEndPoints.exchangeList, {
-        userId: user.userId,
+        userId: userId,
       });
 
       const { exchanges } = response.data;

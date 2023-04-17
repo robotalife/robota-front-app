@@ -53,10 +53,10 @@ const Signin = () => {
       > = await axios.post(apiEndPoints.signin, userData);
 
       const { token, id } = response.data;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
       localStorage.setItem("token", token); // save token in local storage
       localStorage.setItem("userId", id); // save token in local storage
       setIsAuthenticated(true);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
 
       navigate(routes.portfolio);
     } catch (error) {

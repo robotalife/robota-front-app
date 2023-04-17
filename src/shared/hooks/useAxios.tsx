@@ -14,6 +14,8 @@ const instance: AxiosInstance = axios.create({
   },
 });
 
+const token = localStorage.getItem("token");
+
 export default function useAxios(): AxiosHookReturn {
   const { enqueueSnackbar } = useSnackbar();
 
@@ -40,6 +42,10 @@ export default function useAxios(): AxiosHookReturn {
       return Promise.reject(error);
     }
   );
+
+  if (token) {
+    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
 
   return {
     axios: instance,

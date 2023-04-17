@@ -9,7 +9,6 @@ import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
-import { UserContext } from "./UserProvider";
 
 interface IBot {
   exchangeType: string;
