@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    console.log("tokhmi", authRouts, token, window.location.pathname);
     if (token) {
       // set token as default authorization header for axios requests
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
