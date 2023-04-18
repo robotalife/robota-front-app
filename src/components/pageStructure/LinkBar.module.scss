@@ -12,7 +12,6 @@
 }
 
 .linkItem {
-  color: $gray-500;
   font-size: 14px;
   font-weight: 500;
 
@@ -22,6 +21,11 @@
       display: block;
       padding: 16px 12px;
       text-decoration: none;
+
+      &:active,
+      &:visited {
+        color: $gray-500;
+      }
 
       &.is-active {
         border-color: $primary-700;

@@ -42,7 +42,7 @@ const Sidebar = () => {
             className={({ isActive, isPending }) => {
               return isActive ? "active" : isPending ? "pending" : "";
             }}
-            to={routes.myBots}
+            to={routes.botsNew}
           >
             <IconSliders />
           </NavLink>
