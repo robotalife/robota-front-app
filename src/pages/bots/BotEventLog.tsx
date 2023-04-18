@@ -13,6 +13,15 @@ import { useParams } from "react-router-dom";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
+import getDateTime from "../../shared/helpers/getDateTimeObj";
+
+interface IEventLog {
+  id: number;
+  botId: number;
+  logtype: string;
+  createdAt: string;
+  message: string;
+}
 
 const tableData = [
   {
@@ -68,20 +77,20 @@ const tableData = [
 const BotEventLog = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [tokens, setTokens] = useState("");
+  const [logs, setLogs] = useState<IEventLog[]>([] as IEventLog[]);
 
   const getTokenData = useCallback(async () => {
     try {
-      const response: AxiosResponse<any, any> = await axios.get(
+      const response: AxiosResponse<IEventLog[], any> = await axios.get(
         apiEndPoints.getBotLog(botId as string)
       );
 
-      const data = response.data;
-      setTokens(data);
+      const log = response.data;
+      setLogs(log);
     } catch (error) {
       // Handle error
     }
-  }, [setTokens]);
+  }, [setLogs]);
 
   useEffect(() => {
     getTokenData();
@@ -102,14 +111,20 @@ const BotEventLog = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {tableData.map((row, i) => (
-              <TableRow key={`${row.date}_${row.time}_${i}`}>
-                <TableCell>
-                  <TableDateTime time={row.time} date={row.date} />
-                </TableCell>
-                <TableCell>{row.status}</TableCell>
+            {Array.isArray(logs) && logs.length ? (
+              logs.map((log) => (
+                <TableRow key={`${log.botId}_${log.id}_${log.createdAt}`}>
+                  <TableCell>
+                    <TableDateTime {...getDateTime(log.createdAt)} />
+                  </TableCell>
+                  <TableCell>{log.message}</TableCell>
+                </TableRow>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell colSpan={2}>There is no logs available</TableCell>
               </TableRow>
-            ))}
+            )}
           </TableBody>
         </Table>
       </WrapperBoxSection>
