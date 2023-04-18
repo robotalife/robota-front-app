@@ -17,7 +17,7 @@ import NewExchange from "../pages/exchanges/NewExchange";
 import TVTokens from "../pages/bots/TVTokens";
 import SettingsLayout from "../shared/layouts/SettingsLayout";
 import BotOverView from "../pages/bots/BotOverView";
-import BotActiveTrades from "../pages/bots/BotActiveTrades";
+import BotActiveTrade from "../pages/bots/BotActiveTrade";
 import BotTradeHistory from "../pages/bots/BotTradeHistory";
 import BotEventLog from "../pages/bots/BotEventLog";
 import InnerSettingsLayout from "../shared/layouts/InnerSettingsLayout";
@@ -63,7 +63,7 @@ const RoutingComp = () => {
             {/* bot active trades */}
             <Route
               path={`${routes.botActiveTrades}/:botId`}
-              element={<BotActiveTrades />}
+              element={<BotActiveTrade />}
             />
 
             {/* bot trades history */}

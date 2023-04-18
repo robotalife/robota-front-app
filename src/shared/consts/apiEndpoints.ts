@@ -18,6 +18,7 @@ const apiEndPoints = {
   getBot: (botId: string) => `/bots/${botId}`,
   getBotLog: (botId: string) => `/bots/${botId}/logs`,
   getBotHistory: (botId: string) => `/bots/${botId}/trades/history`,
+  getBotActiveTrade: (botId: string) => `/bots/${botId}/trades/active`,
   signal: "/signal",
 };
 

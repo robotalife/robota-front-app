@@ -70,7 +70,7 @@ const BotTradeHistory = () => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Pair/Bot</TableCell>
+              <TableCell>Pair / Bot</TableCell>
               <TableCell>Creation Date</TableCell>
               <TableCell>End Date</TableCell>
               <TableCell>Duration</TableCell>

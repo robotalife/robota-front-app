@@ -17,7 +17,7 @@ const InnerSettingsLayout = () => {
       pageTitle: "",
     },
     {
-      label: "Active Trades",
+      label: "Active Trade",
       to: `${routes.botActiveTrades}/${botId}`,
       pageTitle: "",
     },
