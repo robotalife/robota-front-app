@@ -10,11 +10,10 @@ const Bots = () => {
 
   return (
     <div>
-      My Bots:
       <Grid container spacing={3}>
         {Array.isArray(botsList) && botsList.length ? (
           botsList.map((bot) => (
-            <Grid item key={bot.id}>
+            <Grid item xs={12} sm={6} lg={4} xl={"auto"} key={bot.id}>
               <BotCard data={bot} />
             </Grid>
           ))

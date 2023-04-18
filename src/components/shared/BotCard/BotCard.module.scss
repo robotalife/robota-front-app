@@ -1,0 +1,76 @@
+.botCard {
+  background: #fff;
+  border: 1px solid $gray-200;
+  border-radius: 8px;
+  box-shadow: 0px 1px 3px rgba($gray-900, 10%), 0px 1px 2px rgba($gray-900, 6%);
+  padding: 24px;
+  width: 100%;
+}
+
+.pairTitle {
+  color: $gray-900;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.strategy {
+  color: $gray-400;
+  font-size: 14px;
+  text-align: end;
+}
+
+.profitTitle {
+  color: $gray-500;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profitPercentage {
+  font-size: 36px;
+  font-weight: 600;
+
+  &.red {
+    color: $success-600;
+  }
+
+  &.green {
+    color: $error-600;
+  }
+}
+
+.exchangePair {
+  color: $gray-700;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn {
+  border: 1px solid $gray-300;
+  color: $gray-700;
+}
+
+.badge {
+  background: $gray-100;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 8px;
+}
+
+.borderBottom {
+  border-bottom: 1px solid $gray-200;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+}
+
+@media (min-width: $breakpoint-lg) {
+  .botCard {
+    min-width: 300px;
+  }
+}
+
+@media (min-width: $breakpoint-xl) {
+  .botCard {
+    min-width: 425px;
+  }
+}

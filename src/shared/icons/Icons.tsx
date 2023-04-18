@@ -418,27 +418,80 @@ export const IconCircleCheck = (props: IconProps) => {
   );
 };
 
-export const TempChart = (props: IconProps) => {
+export const TempChartLong = (props: IconProps) => {
   return (
     <svg
-      width="129"
-      height="64"
-      viewBox="0 0 129 64"
+      width="131"
+      height="66"
+      viewBox="0 0 131 66"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        d="M128.5 0C107.704 1.73299 106.416 43.2218 85.8333 48C68.8602 51.9402 60.2655 29.5738 43.1667 32C24.6204 34.6316 18.6855 57.9382 0.5 64H128.5V0Z"
-        fill="url(#paint0_linear_8060_33823)"
+        d="M129.5 1C108.704 2.73299 107.416 44.2218 86.8333 49C69.8602 52.9402 61.2655 30.5738 44.1667 33C25.6204 35.6316 19.6855 58.9382 1.5 65H129.5V1Z"
+        fill="#ECFDF3"
+      />
+      <path
+        d="M129.5 1C108.704 2.73299 107.416 44.2218 86.8333 49C69.8602 52.9402 61.2655 30.5738 44.1667 33C25.6204 35.6316 19.6855 58.9382 1.5 65H129.5V1Z"
+        fill="url(#paint0_linear_8060_33821)"
+      />
+      <path
+        d="M1.5 65C19.6855 58.9382 25.6204 35.6316 44.1667 33C61.2655 30.5738 69.8602 52.9402 86.8333 49C107.416 44.2218 108.704 2.73299 129.5 1"
+        stroke="#12B76A"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <defs>
         <linearGradient
-          id="paint0_linear_8060_33823"
-          x1="64.5"
-          y1="0"
-          x2="64.5"
-          y2="64"
+          id="paint0_linear_8060_33821"
+          x1="65.5"
+          y1="1"
+          x2="65.5"
+          y2="65"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.641167" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="white" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
+
+export const TempChartShort = (props: IconProps) => {
+  return (
+    <svg
+      width="130"
+      height="66"
+      viewBox="0 0 130 66"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1 1C21.7959 2.73299 23.0837 44.2218 43.6667 49C60.6398 52.9402 69.2345 30.5738 86.3333 33C104.88 35.6316 110.815 58.9382 129 65H1V1Z"
+        fill="#FEF3F2"
+      />
+      <path
+        d="M1 1C21.7959 2.73299 23.0837 44.2218 43.6667 49C60.6398 52.9402 69.2345 30.5738 86.3333 33C104.88 35.6316 110.815 58.9382 129 65H1V1Z"
+        fill="url(#paint0_linear_8060_102348)"
+      />
+      <path
+        d="M129 65C110.815 58.9382 104.88 35.6316 86.3333 33C69.2345 30.5738 60.6398 52.9402 43.6667 49C23.0837 44.2218 21.7959 2.73299 0.999996 1"
+        stroke="#F04438"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_8060_102348"
+          x1="65"
+          y1="1"
+          x2="65"
+          y2="65"
           gradientUnits="userSpaceOnUse"
         >
           <stop offset="0.641167" stopColor="white" stopOpacity="0" />
