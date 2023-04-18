@@ -10,14 +10,25 @@ import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
 
-interface IBot {
+export interface IBot {
+  baseAsset: string;
+  createdAt: string;
+  exchangeId: string;
   exchangeType: string;
-  id: string;
-  logo: string;
-  name: string;
-  pair: string;
-  price: string;
-  profit: string;
+  id: string | number;
+  isPublic: boolean;
+  leverageValue: number;
+  marginType: "CROSSED" | "ISOLATED";
+  maximumOrderSize: number;
+  minimumOrderSize: number;
+  monthlyPrice: number;
+  name: String;
+  orderType: "MARKET" | "LIMIT";
+  qouteAsset: String;
+  removed: boolean;
+  strategy: "LONG" | "SHORT";
+  tradingPair: string;
+  yearlyPrice: number;
 }
 
 interface IMyBots {

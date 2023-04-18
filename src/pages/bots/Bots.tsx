@@ -3,6 +3,7 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 import { Link } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import { Grid } from "@mui/material";
+import BotCard from "../../components/shared/BotCard/BotCard";
 
 const Bots = () => {
   const { botsList } = useContext(MyBotsContext);
@@ -14,10 +15,7 @@ const Bots = () => {
         {Array.isArray(botsList) && botsList.length ? (
           botsList.map((bot) => (
             <Grid item key={bot.id}>
-              <Link to={`${routes.botOverview}/${bot.id}`}>
-                {bot.name}
-                <br />
-              </Link>
+              <BotCard data={bot} />
             </Grid>
           ))
         ) : (

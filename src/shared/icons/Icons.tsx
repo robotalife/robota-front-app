@@ -417,3 +417,34 @@ export const IconCircleCheck = (props: IconProps) => {
     </svg>
   );
 };
+
+export const TempChart = (props: IconProps) => {
+  return (
+    <svg
+      width="129"
+      height="64"
+      viewBox="0 0 129 64"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M128.5 0C107.704 1.73299 106.416 43.2218 85.8333 48C68.8602 51.9402 60.2655 29.5738 43.1667 32C24.6204 34.6316 18.6855 57.9382 0.5 64H128.5V0Z"
+        fill="url(#paint0_linear_8060_33823)"
+      />
+      <defs>
+        <linearGradient
+          id="paint0_linear_8060_33823"
+          x1="64.5"
+          y1="0"
+          x2="64.5"
+          y2="64"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0.641167" stop-color="white" stop-opacity="0" />
+          <stop offset="1" stop-color="white" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
