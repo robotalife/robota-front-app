@@ -9,6 +9,7 @@ import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
+import routes from "../consts/routes";
 
 interface IExchangeListResponseObj {
   default: boolean;
@@ -76,6 +77,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
       });
 
       const { exchanges } = response.data;
+
       setExchangeList(
         exchanges.map((ex) => {
           return {
@@ -85,6 +87,13 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
           };
         })
       );
+
+      if (
+        !exchanges.length &&
+        window.location.pathname !== routes.exchangeNew
+      ) {
+        window.location.href = routes.exchangeNew;
+      }
 
       const tmpSelected = exchanges.find((ex) => ex.default)?.exchangeId;
       setSelectedExchange(tmpSelected);
