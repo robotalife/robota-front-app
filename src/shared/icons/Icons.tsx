@@ -441,8 +441,8 @@ export const TempChart = (props: IconProps) => {
           y2="64"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.641167" stop-color="white" stop-opacity="0" />
-          <stop offset="1" stop-color="white" />
+          <stop offset="0.641167" stopColor="white" stopOpacity="0" />
+          <stop offset="1" stopColor="white" />
         </linearGradient>
       </defs>
     </svg>
