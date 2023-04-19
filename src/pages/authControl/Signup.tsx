@@ -1,4 +1,4 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/formElements/Button";
 import Checkbox from "../../components/formElements/Checkbox";
@@ -17,18 +17,13 @@ import {
   validationSchema,
 } from "../../shared/consts/validations";
 import GrayListBox from "../../components/shared/GrayListBox";
+import { SignupData, SignupResponse } from "../../shared/interfaces/auth";
 
 const validations = validationSchema({
   email: email,
   password: passwordFull,
   agree: agreeCheckbox,
 });
-
-interface SignupData {
-  email: string;
-  password: string;
-  agree: boolean;
-}
 
 const initialValues = {
   email: "",
@@ -48,19 +43,14 @@ const Signup = () => {
   const { axios } = useAxios();
 
   const handleSubmit = async (values: SignupData) => {
-    const userData = {
-      email: values.email,
-      password: values.password,
-    };
-
     try {
-      const response: AxiosResponse<
+      const response: AxiosResponse<SignupResponse, any> = await axios.post(
+        apiEndPoints.signup,
         {
-          id: string;
-          email: string;
-        },
-        any
-      > = await axios.post(apiEndPoints.signup, userData);
+          email: values.email,
+          password: values.password,
+        }
+      );
       navigate(`${routes.activate}/${response.data.id}`);
       // Handle successful response
     } catch (error) {

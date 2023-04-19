@@ -1,4 +1,3 @@
-import { Typography } from "@mui/material";
 import Table from "../../components/shared/table/Table";
 import TableBody from "../../components/shared/table/TableBody";
 import TableCell from "../../components/shared/table/TableCell";
@@ -14,14 +13,8 @@ import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-
-interface IEventLog {
-  id: number;
-  botId: number;
-  logtype: string;
-  createdAt: string;
-  message: string;
-}
+import { PaginateData } from "../../shared/interfaces/paginateData";
+import { IEventLog } from "../../shared/interfaces/bots";
 
 const BotEventLog = () => {
   const { botId } = useParams();
@@ -30,9 +23,10 @@ const BotEventLog = () => {
 
   const getTokenData = useCallback(async () => {
     try {
-      const response: AxiosResponse<IEventLog[], any> = await axios.get(
-        apiEndPoints.getBotLog(botId as string)
-      );
+      const response: AxiosResponse<
+        PaginateData<IEventLog[]>,
+        any
+      > = await axios.get(apiEndPoints.getBotLog(botId as string));
 
       const log = response.data;
       setLogs(log.data);

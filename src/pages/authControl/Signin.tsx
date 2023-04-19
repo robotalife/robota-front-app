@@ -16,16 +16,12 @@ import {
   passwordSimple,
   validationSchema,
 } from "../../shared/consts/validations";
+import { SigninData, SigninResponse } from "../../shared/interfaces/auth";
 
 const validations = validationSchema({
   email: email,
   password: passwordSimple,
 });
-
-interface SigninData {
-  email: string;
-  password: string;
-}
 
 const initialValues: SigninData = {
   email: "",
@@ -38,19 +34,14 @@ const Signin = () => {
   const { setIsAuthenticated } = useContext(AuthContext);
 
   const handleSubmit = async (values: SigninData) => {
-    const userData = {
-      email: values.email,
-      password: values.password,
-    };
-
     try {
-      const response: AxiosResponse<
+      const response: AxiosResponse<SigninResponse, any> = await axios.post(
+        apiEndPoints.signin,
         {
-          id: string;
-          token: string;
-        },
-        any
-      > = await axios.post(apiEndPoints.signin, userData);
+          email: values.email,
+          password: values.password,
+        }
+      );
 
       const { token, id } = response.data;
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests

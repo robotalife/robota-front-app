@@ -43,33 +43,19 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 //   yearlyPrice: newBotNumberSchema,
 // });
 
-interface INewBotInterface {
-  name: string;
-  exchangeId: string;
-  access: "PUBLIC" | "PRIVATE";
-  marginType: "CROSSED" | "ISOLATED";
-  leverageValue: number;
-  maxAmountForBotUsage: number;
-  minAmountForBotUsage: number;
-  monthlyPrice: number;
-  orderStrategy: "SHORT" | "LONG";
-  pair: string;
-  yearlyPrice: number;
-}
-
-const initialValues: INewBotInterface = {
-  name: "",
-  exchangeId: "",
-  pair: "",
-  orderStrategy: "LONG",
-  access: "PRIVATE",
-  marginType: "CROSSED",
-  leverageValue: 1,
-  minAmountForBotUsage: 1000,
-  maxAmountForBotUsage: 5000,
-  monthlyPrice: 30,
-  yearlyPrice: 24,
-};
+// const initialValues: INewBotInterface = {
+//   name: "",
+//   exchangeId: "",
+//   pair: "",
+//   orderStrategy: "LONG",
+//   access: "PRIVATE",
+//   marginType: "CROSSED",
+//   leverageValue: 1,
+//   minAmountForBotUsage: 1000,
+//   maxAmountForBotUsage: 5000,
+//   monthlyPrice: 30,
+//   yearlyPrice: 24,
+// };
 
 const NewBot = () => {
   const { loadMyBots } = useContext(MyBotsContext);

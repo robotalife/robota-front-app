@@ -13,29 +13,8 @@ import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-
-interface IBotHistoryObj {
-  pair: string;
-  botName: string;
-  strategy: "SHORT" | "LONG";
-  creationDate: string;
-  closeDate: string;
-  Duration: string;
-  profit: string;
-  logo: string;
-}
-
-interface IBotHistoryResponseObj {
-  total: number;
-  perPage: number;
-  data: IBotHistoryObj[];
-  nextPage: number;
-  totalPages: number;
-  hasPrevious: boolean;
-  hasNext: boolean;
-  currentPage: number;
-  remainingCount: number;
-}
+import { PaginateData } from "../../shared/interfaces/paginateData";
+import { IBotHistoryObj } from "../../shared/interfaces/bots";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -46,8 +25,10 @@ const BotTradeHistory = () => {
 
   const getTokenData = useCallback(async () => {
     try {
-      const response: AxiosResponse<IBotHistoryResponseObj, any> =
-        await axios.get(apiEndPoints.getBotHistory(botId as string));
+      const response: AxiosResponse<
+        PaginateData<IBotHistoryObj[]>,
+        any
+      > = await axios.get(apiEndPoints.getBotHistory(botId as string));
 
       const data = response.data;
       setHistory(data.data);

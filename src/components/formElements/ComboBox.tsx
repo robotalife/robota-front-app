@@ -4,7 +4,7 @@ import {
   FormHelperText,
   TextField,
 } from "@mui/material";
-import { Message } from "../../shared/interfaces/Message";
+import { Message } from "../../shared/interfaces/message";
 
 import classes from "./ComboBox.module.scss";
 

@@ -14,16 +14,7 @@ import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-
-interface IActiveTrade {
-  botName: string;
-  creationDate: string;
-  duration: string;
-  logo: string;
-  pair: string;
-  profit: string;
-  strategy: "SHORT" | "LONG";
-}
+import { IActiveTrade } from "../../shared/interfaces/bots";
 
 const BotActiveTrade = () => {
   const { enqueueSnackbar } = useSnackbar();

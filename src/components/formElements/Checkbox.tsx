@@ -4,7 +4,7 @@ import {
   Grid,
   FormHelperText,
 } from "@mui/material";
-import { Message } from "../../shared/interfaces/Message";
+import { Message } from "../../shared/interfaces/message";
 import { PropsWithChildren } from "react";
 
 interface Props extends CheckboxProps, PropsWithChildren {

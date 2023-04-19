@@ -1,5 +1,5 @@
 import { FormHelperText, InputBase, InputBaseProps } from "@mui/material";
-import { Message } from "../../shared/interfaces/Message";
+import { Message } from "../../shared/interfaces/message";
 import OtpInput from "react-otp-input";
 
 import classes from "./DigitsInput.module.scss";

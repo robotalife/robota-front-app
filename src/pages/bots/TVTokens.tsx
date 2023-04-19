@@ -5,20 +5,18 @@ import useAxios from "../../shared/hooks/useAxios";
 import { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-
-interface ITokens {
-  startCommand: string;
-  stopCommand: string;
-}
+import { ITradingViewTokens } from "../../shared/interfaces/bots";
 
 const TVTokens = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [tokens, setTokens] = useState<ITokens>({} as ITokens);
+  const [tokens, setTokens] = useState<ITradingViewTokens>(
+    {} as ITradingViewTokens
+  );
 
   const getTokenData = useCallback(async () => {
     try {
-      const response: AxiosResponse<ITokens, any> = await axios.get(
+      const response: AxiosResponse<ITradingViewTokens, any> = await axios.get(
         apiEndPoints.getTokens(botId as string)
       );
 

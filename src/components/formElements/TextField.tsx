@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useId, useState } from "react";
 import { IconEye, IconEyeOff } from "../../shared/icons/Icons";
-import { Message } from "../../shared/interfaces/Message";
+import { Message } from "../../shared/interfaces/message";
 import classes from "./TextField.module.scss";
 
 interface Props extends StandardTextFieldProps {
