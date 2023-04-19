@@ -21,6 +21,11 @@
   &:global {
     &.MuiButton-outlined {
       background: transparent;
+
+      &.MuiButton-outlinedPrimary {
+        border: 1px solid $gray-300;
+        color: $gray-700;
+      }
     }
   }
 }

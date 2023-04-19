@@ -67,7 +67,6 @@ const BotCard = ({ data }: Props) => {
               navigate(`${routes.botOverview}/${data.id}`);
             }}
             variant="outlined"
-            className={classes.btn}
           >
             View bot detail
           </Button>
