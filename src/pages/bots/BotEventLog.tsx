@@ -23,57 +23,6 @@ interface IEventLog {
   message: string;
 }
 
-const tableData = [
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-  {
-    date: "22 Jan 2022",
-    time: "12:42 AM",
-    status:
-      "Placing sell at Market Price trade. Price: market Size: ≈1009.196 USDT (3214.0 ADAUSDT)",
-  },
-];
-
 const BotEventLog = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
@@ -86,7 +35,7 @@ const BotEventLog = () => {
       );
 
       const log = response.data;
-      setLogs(log);
+      setLogs(log.data);
     } catch (error) {
       // Handle error
     }
