@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 
-import classes from "./Badge.module.scss";
+import classes from "./TextBadge.module.scss";
 
 interface Props extends PropsWithChildren {
   variation?: "secondary" | "primary" | "success" | "error";

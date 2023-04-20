@@ -398,6 +398,69 @@ export const IconCopy = (props: IconProps) => {
   );
 };
 
+export const IconClock = (props: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M6 3V6L8 7M11 6C11 8.76142 8.76142 11 6 11C3.23858 11 1 8.76142 1 6C1 3.23858 3.23858 1 6 1C8.76142 1 11 3.23858 11 6Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconArrowUp = (props: IconProps) => {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 8.5V1.5M5 1.5L1.5 5M5 1.5L8.5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconArrowDown = (props: IconProps) => {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 10 10"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M5 1.5V8.5M5 8.5L8.5 5M5 8.5L1.5 5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const IconCircleCheck = (props: IconProps) => {
   return (
     <svg
@@ -406,6 +469,7 @@ export const IconCircleCheck = (props: IconProps) => {
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      {...props}
     >
       <path
         d="M11 5.54091V6.00091C10.9994 7.07912 10.6503 8.12825 10.0047 8.99182C9.35908 9.8554 8.45164 10.4871 7.41768 10.7929C6.38372 11.0986 5.27863 11.0619 4.26724 10.6882C3.25584 10.3145 2.39233 9.62396 1.80548 8.71944C1.21863 7.81493 0.939896 6.74494 1.01084 5.66907C1.08178 4.59319 1.4986 3.56907 2.19914 2.74945C2.89968 1.92982 3.84639 1.3586 4.89809 1.12098C5.9498 0.883364 7.05013 0.992077 8.035 1.43091M11 2.00091L6 7.00591L4.5 5.50591"

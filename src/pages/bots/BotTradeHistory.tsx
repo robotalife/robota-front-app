@@ -16,6 +16,10 @@ import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { PaginateData } from "../../shared/interfaces/paginateData";
 import { IBotHistoryObj } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
+import TextBadge from "../../components/shared/TextBadge";
+import { IconArrowUp, IconClock } from "../../shared/icons/Icons";
+import { Grid } from "@mui/material";
+import PairLogo from "../../components/shared/PairLogo";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -75,7 +79,14 @@ const BotTradeHistory = () => {
                 history.map((h, i) => (
                   <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
                     <TableCell>
-                      <TableDateTime date={h.pair} time={h.botName} />
+                      <Grid container spacing={1} alignItems={"center"}>
+                        <Grid item xs={"auto"}>
+                          <PairLogo src={h.quoteLogo} alt={h.pair} />
+                        </Grid>
+                        <Grid item xs={"auto"}>
+                          <TableDateTime date={h.pair} time={h.botName} />
+                        </Grid>
+                      </Grid>
                     </TableCell>
                     <TableCell>
                       <TableDateTime {...getDateTime(h.creationDate)} />
@@ -83,8 +94,22 @@ const BotTradeHistory = () => {
                     <TableCell>
                       <TableDateTime {...getDateTime(h.closeDate)} />
                     </TableCell>
-                    <TableCell>{h.Duration}</TableCell>
-                    <TableCell>{h.profit}</TableCell>
+                    <TableCell>
+                      <TextBadge variation="primary">
+                        <IconClock />
+                        {h.duration}
+                      </TextBadge>
+                    </TableCell>
+                    <TableCell>
+                      <TextBadge variation="success">
+                        {h.netProfit && (
+                          <>
+                            {h.netProfit}
+                            <IconArrowUp />
+                          </>
+                        )}
+                      </TextBadge>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
