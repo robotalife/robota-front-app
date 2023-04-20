@@ -52,3 +52,10 @@ export interface ITradingViewTokens {
   startCommand: string;
   stopCommand: string;
 }
+
+export interface IBotOverview {
+  botId: string | number;
+  closedDeals: number;
+  totalProfit: string;
+  winRate: string;
+}

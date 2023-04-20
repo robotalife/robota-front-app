@@ -3,7 +3,12 @@ import Button from "../formElements/Button";
 
 const Pagination = () => {
   return (
-    <Grid container justifyContent={"space-between"} alignItems={"center"}>
+    <Grid
+      container
+      justifyContent={"space-between"}
+      alignItems={"center"}
+      sx={{ p: 2 }}
+    >
       <Grid item xs={"auto"}>
         <Typography component={"div"}>Page 1 of 10</Typography>
       </Grid>

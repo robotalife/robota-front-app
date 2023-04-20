@@ -18,6 +18,7 @@ import { IEventLog } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
 import { IconCircleCheck } from "../../shared/icons/Icons";
+import Pagination from "../../components/shared/Pagination";
 
 const BotEventLog = () => {
   const { botId } = useParams();
@@ -87,6 +88,9 @@ const BotEventLog = () => {
             </TableBody>
           </Table>
         )}
+      </WrapperBoxSection>
+      <WrapperBoxSection noPadding>
+        <Pagination />
       </WrapperBoxSection>
     </WrapperBox>
   );

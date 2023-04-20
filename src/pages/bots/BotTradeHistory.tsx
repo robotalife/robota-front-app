@@ -140,7 +140,7 @@ const BotTradeHistory = () => {
           </Table>
         )}
       </WrapperBoxSection>
-      <WrapperBoxSection>
+      <WrapperBoxSection noPadding>
         <Pagination />
       </WrapperBoxSection>
     </WrapperBox>
