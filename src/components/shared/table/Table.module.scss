@@ -10,5 +10,13 @@
         padding: 10px;
       }
     }
+
+    .MuiTableCell-root {
+      span {
+        color: $gray-500;
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
   }
 }

@@ -16,6 +16,15 @@ import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { IActiveTrade } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
+import { Grid, IconButton, Typography } from "@mui/material";
+import PairLogo from "../../components/shared/PairLogo";
+import TextBadge from "../../components/shared/TextBadge";
+import {
+  IconArrowDownRight,
+  IconArrowUpRight,
+  IconClock,
+  IconCloseCircle,
+} from "../../shared/icons/Icons";
 
 const BotActiveTrade = () => {
   const { enqueueSnackbar } = useSnackbar();
@@ -90,20 +99,49 @@ const BotActiveTrade = () => {
               {activeTrade ? (
                 <TableRow>
                   <TableCell>
-                    <TableDateTime
-                      date={activeTrade.pair}
-                      time={activeTrade.botName}
-                    />
+                    <Grid container spacing={1} alignItems={"center"}>
+                      <Grid item>
+                        <PairLogo
+                          src={activeTrade.logo}
+                          alt={activeTrade.pair}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <TableDateTime
+                          date={activeTrade.pair}
+                          time={activeTrade.botName}
+                        />
+                      </Grid>
+                    </Grid>
                   </TableCell>
-                  <TableCell>{activeTrade.strategy}</TableCell>
+                  <TableCell>
+                    <TextBadge variation="secondary">
+                      {activeTrade.strategy === "LONG" ? (
+                        <>
+                          Long <IconArrowUpRight />
+                        </>
+                      ) : (
+                        <>
+                          Short <IconArrowDownRight />
+                        </>
+                      )}
+                    </TextBadge>
+                  </TableCell>
                   <TableCell>
                     <TableDateTime {...getDateTime(activeTrade.creationDate)} />
                   </TableCell>
-                  <TableCell>{activeTrade.duration}</TableCell>
+                  <TableCell>
+                    <TextBadge>
+                      <IconClock />
+                      {activeTrade.duration}
+                    </TextBadge>
+                  </TableCell>
                   <TableCell>{activeTrade.profit}</TableCell>
                   <TableCell>
-                    <button onClick={() => signal("START")}>start</button>
-                    <button onClick={() => signal("STOP")}>stop</button>
+                    <IconButton onClick={() => signal("STOP")}>
+                      <IconCloseCircle />
+                    </IconButton>
+                    <Typography component={"span"}>Cancel Trade</Typography>
                   </TableCell>
                 </TableRow>
               ) : (

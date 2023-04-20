@@ -346,6 +346,27 @@ export const IconClose = (props: IconProps) => {
   );
 };
 
+export const IconCloseCircle = (props: IconProps) => {
+  return (
+    <svg
+      width="19"
+      height="20"
+      viewBox="0 0 19 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M11.8333 7.49935L6.83333 12.4993M6.83333 7.49935L11.8333 12.4993M17.6667 9.99935C17.6667 14.6017 13.9357 18.3327 9.33333 18.3327C4.73096 18.3327 1 14.6017 1 9.99935C1 5.39698 4.73096 1.66602 9.33333 1.66602C13.9357 1.66602 17.6667 5.39698 17.6667 9.99935Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const IconModalSave = (props: IconProps) => {
   return (
     <svg
@@ -454,6 +475,48 @@ export const IconArrowDown = (props: IconProps) => {
         d="M5 1.5V8.5M5 8.5L8.5 5M5 8.5L1.5 5"
         stroke="currentColor"
         strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconArrowUpRight = (props: IconProps) => {
+  return (
+    <svg
+      width="7"
+      height="8"
+      viewBox="0 0 7 8"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1.16797 6.5L6.16797 1.5M6.16797 1.5H1.16797M6.16797 1.5V6.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconArrowDownRight = (props: IconProps) => {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1 1L11 11M11 11V1M11 11H1"
+        stroke="currentColor"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
