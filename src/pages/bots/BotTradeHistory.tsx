@@ -21,6 +21,7 @@ import { IconArrowUp, IconClock } from "../../shared/icons/Icons";
 import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import Filters from "../../components/shared/Filters";
+import Pagination from "../../components/shared/Pagination";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -138,6 +139,9 @@ const BotTradeHistory = () => {
             </TableBody>
           </Table>
         )}
+      </WrapperBoxSection>
+      <WrapperBoxSection>
+        <Pagination />
       </WrapperBoxSection>
     </WrapperBox>
   );
