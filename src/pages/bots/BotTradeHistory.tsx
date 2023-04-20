@@ -17,11 +17,17 @@ import { PaginateData } from "../../shared/interfaces/paginateData";
 import { IBotHistoryObj } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
-import { IconArrowUp, IconClock } from "../../shared/icons/Icons";
+import {
+  IconArrowUp,
+  IconClock,
+  IconExport,
+  IconFilter,
+} from "../../shared/icons/Icons";
 import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import Filters from "../../components/shared/Filters";
 import Pagination from "../../components/shared/Pagination";
+import Button from "../../components/formElements/Button";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -52,11 +58,29 @@ const BotTradeHistory = () => {
     getTokenData();
   }, [getTokenData]);
 
+  const HeaderActions = (
+    <Grid container spacing={1}>
+      <Grid item>
+        <Button disabled variant="outlined" color="primary">
+          <IconFilter />
+          Filter
+        </Button>
+      </Grid>
+      <Grid item>
+        <Button disabled variant="outlined" color="primary">
+          <IconExport />
+          Export
+        </Button>
+      </Grid>
+    </Grid>
+  );
+
   return (
     <WrapperBox>
       <WrapperBoxHeader
         title="Trade History"
         description="Auto Update in 10 Minutes."
+        actions={HeaderActions}
       />
       <WrapperBoxSection>
         <Filters />
