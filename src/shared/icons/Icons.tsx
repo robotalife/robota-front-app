@@ -545,6 +545,27 @@ export const IconCircleCheck = (props: IconProps) => {
   );
 };
 
+export const IconCalendar = (props: IconProps) => {
+  return (
+    <svg
+      width="17"
+      height="20"
+      viewBox="0 0 17 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M11.6654 1.66602V4.99935M4.9987 1.66602V4.99935M0.832031 8.33268H15.832M2.4987 3.33268H14.1654C15.0858 3.33268 15.832 4.07887 15.832 4.99935V16.666C15.832 17.5865 15.0858 18.3327 14.1654 18.3327H2.4987C1.57822 18.3327 0.832031 17.5865 0.832031 16.666V4.99935C0.832031 4.07887 1.57822 3.33268 2.4987 3.33268Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const TempChartLong = (props: IconProps) => {
   return (
     <svg

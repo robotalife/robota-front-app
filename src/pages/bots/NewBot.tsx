@@ -132,6 +132,7 @@ const NewBot = () => {
                     setFormData({ ...formData, name: e.target.value });
                   }}
                   required
+                  sx={{ mb: 2 }}
                 />
               </FieldsetElement>
               <FieldsetElement

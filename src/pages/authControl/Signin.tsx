@@ -79,6 +79,7 @@ const Signin = () => {
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
+            sx={{ mb: 3 }}
           />
           <TextField
             name="password"
@@ -91,6 +92,7 @@ const Signin = () => {
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
+            sx={{ mb: 3 }}
           />
 
           <Typography sx={{ mb: 3, mt: 3 }} className="pageDescription">

@@ -82,6 +82,7 @@ const Signup = () => {
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
+            sx={{ mb: 3 }}
           />
           <TextField
             name="password"
@@ -94,6 +95,7 @@ const Signup = () => {
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
+            sx={{ mb: 3 }}
           />
 
           <GrayListBox list={list} />

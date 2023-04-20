@@ -79,6 +79,7 @@ const NewPassword = () => {
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
+            sx={{ mb: 3 }}
           />
 
           <GrayListBox list={list} />

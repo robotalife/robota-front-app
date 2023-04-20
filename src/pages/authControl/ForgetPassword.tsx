@@ -85,6 +85,7 @@ const ForgetPassword = () => {
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
+            sx={{ mb: 3 }}
           />
 
           <Button type="submit" variant="contained" fullWidth>
