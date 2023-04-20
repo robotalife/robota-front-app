@@ -8,9 +8,13 @@
 
 .header {
   align-items: center;
+  background: #fff;
   display: flex;
   grid-area: header;
   border-bottom: 1px solid #eaecf0;
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .content {
@@ -19,8 +23,11 @@
 }
 
 .sidebar {
-  border-right: 1px solid #eaecf0;
-  display: none;
+  background: #fff;
+  border-top: 1px solid #eaecf0;
+  bottom: 0;
+  position: sticky;
+  z-index: 1;
 }
 
 @media (min-width: $breakpoint-md) {
@@ -43,6 +50,8 @@
   }
 
   .sidebar {
+    border-top: 0;
+    border-right: 1px solid #eaecf0;
     display: flex;
     justify-content: center;
     grid-area: sidebar;
