@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import classes from "./CopytBox.module.scss";
 import { IconCopy } from "../../shared/icons/Icons";
 import Button from "../formElements/Button";
 import { useSnackbar } from "notistack";
 
+import classes from "./CopyBox.module.scss";
 interface Props {
   title?: string;
   description?: string;

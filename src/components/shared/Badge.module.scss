@@ -1,0 +1,50 @@
+.badge {
+  align-items: center;
+  border-radius: 16px;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 500;
+  justify-content: flex-start;
+  min-height: 22px;
+  padding: 2px 8px;
+
+  svg {
+    margin-right: 5px;
+  }
+
+  &.secondary {
+    background: $gray-100;
+    color: $gray-700;
+
+    svg {
+      color: $gray-500;
+    }
+  }
+
+  &.primary {
+    background: $primary-50;
+    color: $primary-700;
+
+    svg {
+      color: $primary-500;
+    }
+  }
+
+  &.success {
+    background: $success-50;
+    color: $success-700;
+
+    svg {
+      color: $success-500;
+    }
+  }
+
+  &.error {
+    background: $error-50;
+    color: $error-700;
+
+    svg {
+      color: $error-500;
+    }
+  }
+}

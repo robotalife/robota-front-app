@@ -16,6 +16,8 @@ import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { PaginateData } from "../../shared/interfaces/paginateData";
 import { IEventLog } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
+import TextBadge from "../../components/shared/TextBadge";
+import { IconCircleCheck } from "../../shared/icons/Icons";
 
 const BotEventLog = () => {
   const { botId } = useParams();
@@ -55,10 +57,10 @@ const BotEventLog = () => {
         {loading ? (
           <Loader />
         ) : (
-          <Table>
+          <Table sx={{ tableLayout: "fixed" }}>
             <TableHead>
               <TableRow>
-                <TableCell>Creation Date</TableCell>
+                <TableCell sx={{ width: 150 }}>Creation Date</TableCell>
                 <TableCell>Status</TableCell>
               </TableRow>
             </TableHead>
@@ -69,7 +71,12 @@ const BotEventLog = () => {
                     <TableCell>
                       <TableDateTime {...getDateTime(log.createdAt)} />
                     </TableCell>
-                    <TableCell>{log.message}</TableCell>
+                    <TableCell>
+                      <TextBadge>
+                        <IconCircleCheck />
+                        {log.message}
+                      </TextBadge>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (
