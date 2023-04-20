@@ -15,13 +15,17 @@ import apiEndPoints from "../../shared/consts/apiEndpoints";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { PaginateData } from "../../shared/interfaces/paginateData";
 import { IEventLog } from "../../shared/interfaces/bots";
+import Loader from "../../components/shared/Loader";
 
 const BotEventLog = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
   const [logs, setLogs] = useState<IEventLog[]>([] as IEventLog[]);
+  const [loading, setLoading] = useState(true);
 
   const getTokenData = useCallback(async () => {
+    setLoading(true);
+
     try {
       const response: AxiosResponse<
         PaginateData<IEventLog[]>,
@@ -32,6 +36,8 @@ const BotEventLog = () => {
       setLogs(log.data);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   }, [setLogs]);
 
@@ -46,30 +52,34 @@ const BotEventLog = () => {
         description="Auto Update in 10 Minutes."
       />
       <WrapperBoxSection noPadding>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Creation Date</TableCell>
-              <TableCell>Status</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Array.isArray(logs) && logs.length ? (
-              logs.map((log) => (
-                <TableRow key={`${log.botId}_${log.id}_${log.createdAt}`}>
-                  <TableCell>
-                    <TableDateTime {...getDateTime(log.createdAt)} />
-                  </TableCell>
-                  <TableCell>{log.message}</TableCell>
-                </TableRow>
-              ))
-            ) : (
+        {loading ? (
+          <Loader />
+        ) : (
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={2}>There is no logs available</TableCell>
+                <TableCell>Creation Date</TableCell>
+                <TableCell>Status</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(logs) && logs.length ? (
+                logs.map((log) => (
+                  <TableRow key={`${log.botId}_${log.id}_${log.createdAt}`}>
+                    <TableCell>
+                      <TableDateTime {...getDateTime(log.createdAt)} />
+                    </TableCell>
+                    <TableCell>{log.message}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={2}>There is no logs available</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
       </WrapperBoxSection>
     </WrapperBox>
   );

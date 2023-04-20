@@ -15,6 +15,7 @@ import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { PaginateData } from "../../shared/interfaces/paginateData";
 import { IBotHistoryObj } from "../../shared/interfaces/bots";
+import Loader from "../../components/shared/Loader";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -22,8 +23,10 @@ const BotTradeHistory = () => {
   const [history, setHistory] = useState<IBotHistoryObj[]>(
     [] as IBotHistoryObj[]
   );
+  const [loading, setLoading] = useState(true);
 
   const getTokenData = useCallback(async () => {
+    setLoading(true);
     try {
       const response: AxiosResponse<
         PaginateData<IBotHistoryObj[]>,
@@ -34,6 +37,8 @@ const BotTradeHistory = () => {
       setHistory(data.data);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   }, [setHistory]);
 
@@ -48,44 +53,48 @@ const BotTradeHistory = () => {
         description="Auto Update in 10 Minutes."
       />
       <WrapperBoxSection noPadding>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Pair / Bot</TableCell>
-              <TableCell>Creation Date</TableCell>
-              <TableCell>End Date</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>$ Net Profit/Loss </TableCell>
-              {/* <TableCell>% Profit/Loss </TableCell>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Pair / Bot</TableCell>
+                <TableCell>Creation Date</TableCell>
+                <TableCell>End Date</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>$ Net Profit/Loss </TableCell>
+                {/* <TableCell>% Profit/Loss </TableCell>
               <TableCell>Volume</TableCell>
               <TableCell>Status</TableCell>
               <TableCell>Exchange</TableCell> */}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Array.isArray(history) && history.length ? (
-              history.map((h, i) => (
-                <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
-                  <TableCell>
-                    <TableDateTime date={h.pair} time={h.botName} />
-                  </TableCell>
-                  <TableCell>
-                    <TableDateTime {...getDateTime(h.creationDate)} />
-                  </TableCell>
-                  <TableCell>
-                    <TableDateTime {...getDateTime(h.closeDate)} />
-                  </TableCell>
-                  <TableCell>{h.Duration}</TableCell>
-                  <TableCell>{h.profit}</TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={5}>There is no logs available</TableCell>
               </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {Array.isArray(history) && history.length ? (
+                history.map((h, i) => (
+                  <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
+                    <TableCell>
+                      <TableDateTime date={h.pair} time={h.botName} />
+                    </TableCell>
+                    <TableCell>
+                      <TableDateTime {...getDateTime(h.creationDate)} />
+                    </TableCell>
+                    <TableCell>
+                      <TableDateTime {...getDateTime(h.closeDate)} />
+                    </TableCell>
+                    <TableCell>{h.Duration}</TableCell>
+                    <TableCell>{h.profit}</TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={5}>There is no logs available</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
       </WrapperBoxSection>
     </WrapperBox>
   );

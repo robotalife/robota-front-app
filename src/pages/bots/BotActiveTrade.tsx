@@ -15,14 +15,18 @@ import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import { IActiveTrade } from "../../shared/interfaces/bots";
+import Loader from "../../components/shared/Loader";
 
 const BotActiveTrade = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { botId } = useParams();
   const { axios } = useAxios();
   const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
+  const [loading, setLoading] = useState(true);
 
   const getActiveTrade = useCallback(async () => {
+    setLoading(true);
+
     try {
       const response: AxiosResponse<IActiveTrade, any> = await axios.get(
         apiEndPoints.getBotActiveTrade(botId as string)
@@ -32,6 +36,8 @@ const BotActiveTrade = () => {
       setActiveTrade(trade);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -66,47 +72,51 @@ const BotActiveTrade = () => {
         description="Monitor active trades for this bot"
       />
       <WrapperBoxSection noPadding>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Pair / Bot</TableCell>
-              <TableCell>Startegy</TableCell>
-              <TableCell>Creation Date</TableCell>
-              <TableCell>Duration</TableCell>
-              <TableCell>% Unl Profit/Loss </TableCell>
-              <TableCell>Action</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {activeTrade ? (
+        {loading ? (
+          <Loader />
+        ) : (
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell>
-                  <TableDateTime
-                    date={activeTrade.pair}
-                    time={activeTrade.botName}
-                  />
-                </TableCell>
-                <TableCell>{activeTrade.strategy}</TableCell>
-                <TableCell>
-                  <TableDateTime {...getDateTime(activeTrade.creationDate)} />
-                </TableCell>
-                <TableCell>{activeTrade.duration}</TableCell>
-                <TableCell>{activeTrade.profit}</TableCell>
-                <TableCell>
-                  <button onClick={() => signal("START")}>start</button>
-                  <button onClick={() => signal("STOP")}>stop</button>
-                </TableCell>
+                <TableCell>Pair / Bot</TableCell>
+                <TableCell>Startegy</TableCell>
+                <TableCell>Creation Date</TableCell>
+                <TableCell>Duration</TableCell>
+                <TableCell>% Unl Profit/Loss </TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
-            ) : (
-              <TableRow>
-                <TableCell colSpan={6}>
-                  There is no active trade, start it now{" "}
-                  <button onClick={() => signal("START")}>start</button>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {activeTrade ? (
+                <TableRow>
+                  <TableCell>
+                    <TableDateTime
+                      date={activeTrade.pair}
+                      time={activeTrade.botName}
+                    />
+                  </TableCell>
+                  <TableCell>{activeTrade.strategy}</TableCell>
+                  <TableCell>
+                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
+                  </TableCell>
+                  <TableCell>{activeTrade.duration}</TableCell>
+                  <TableCell>{activeTrade.profit}</TableCell>
+                  <TableCell>
+                    <button onClick={() => signal("START")}>start</button>
+                    <button onClick={() => signal("STOP")}>stop</button>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={6}>
+                    There is no active trade, start it now{" "}
+                    <button onClick={() => signal("START")}>start</button>
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
       </WrapperBoxSection>
     </WrapperBox>
   );
