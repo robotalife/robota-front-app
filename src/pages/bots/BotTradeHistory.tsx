@@ -62,13 +62,13 @@ const BotTradeHistory = () => {
     <Grid container spacing={1}>
       <Grid item>
         <Button disabled variant="outlined" color="primary">
-          <IconFilter />
+          <IconFilter style={{ marginRight: 8 }} />
           Filter
         </Button>
       </Grid>
       <Grid item>
         <Button disabled variant="outlined" color="primary">
-          <IconExport />
+          <IconExport style={{ marginRight: 8 }} />
           Export
         </Button>
       </Grid>
