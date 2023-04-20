@@ -20,6 +20,7 @@ import TextBadge from "../../components/shared/TextBadge";
 import { IconArrowUp, IconClock } from "../../shared/icons/Icons";
 import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
+import Filters from "../../components/shared/Filters";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -56,6 +57,9 @@ const BotTradeHistory = () => {
         title="Trade History"
         description="Auto Update in 10 Minutes."
       />
+      <WrapperBoxSection>
+        <Filters />
+      </WrapperBoxSection>
       <WrapperBoxSection noPadding>
         {loading ? (
           <Loader />
@@ -108,21 +112,18 @@ const BotTradeHistory = () => {
                         </TextBadge>
                       )}
                     </TableCell>
+                    <TableCell>{/* Profit / loss */}</TableCell>
                     <TableCell>
-                      {/* Profit / loss */}
+                      <Typography component={"div"}>{h.baseVolume}</Typography>
+                      <Typography component={"div"}>{h.quoteVolume}</Typography>
                     </TableCell>
                     <TableCell>
-                      <Typography component={'div'} >{h.baseVolume}</Typography>
-                      <Typography component={'div'} >{h.quoteVolume}</Typography>
-                    </TableCell>
-                    <TableCell>
-                      {
-                        h.status &&
+                      {h.status && (
                         <TextBadge variation="success">
                           <IconClock />
                           {h.status}
                         </TextBadge>
-                      }
+                      )}
                     </TableCell>
                     <TableCell>
                       <TableDateTime date={h.exchangeType} time={h.strategy} />
