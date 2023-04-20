@@ -3,8 +3,10 @@
 
   border-radius: 50%;
   height: $size;
-  width: $size;
+  display: inline-block;
   overflow: hidden;
+  vertical-align: middle;
+  width: $size;
 
   img {
     height: 100%;

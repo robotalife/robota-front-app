@@ -1,9 +1,10 @@
 import { Typography } from "@mui/material";
 import classes from "./TableDateCell.module.scss";
+import { ReactNode } from "react";
 
 interface Props {
-  date: string;
-  time: string;
+  date: ReactNode;
+  time: ReactNode;
 }
 
 const TableDateTime = ({ date, time }: Props) => {

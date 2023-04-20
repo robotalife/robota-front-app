@@ -18,7 +18,7 @@ import { IBotHistoryObj } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
 import { IconArrowUp, IconClock } from "../../shared/icons/Icons";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 
 const BotTradeHistory = () => {
@@ -68,10 +68,10 @@ const BotTradeHistory = () => {
                 <TableCell>End Date</TableCell>
                 <TableCell>Duration</TableCell>
                 <TableCell>$ Net Profit/Loss </TableCell>
-                {/* <TableCell>% Profit/Loss </TableCell>
-              <TableCell>Volume</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Exchange</TableCell> */}
+                <TableCell>% Profit/Loss </TableCell>
+                <TableCell>Volume</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Exchange</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -101,14 +101,31 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                      <TextBadge variation="success">
-                        {h.netProfit && (
-                          <>
-                            {h.netProfit}
-                            <IconArrowUp />
-                          </>
-                        )}
-                      </TextBadge>
+                      {h.netProfit && (
+                        <TextBadge variation="success">
+                          {h.netProfit}
+                          <IconArrowUp />
+                        </TextBadge>
+                      )}
+                    </TableCell>
+                    <TableCell>
+                      {/* Profit / loss */}
+                    </TableCell>
+                    <TableCell>
+                      <Typography component={'div'} >{h.baseVolume}</Typography>
+                      <Typography component={'div'} >{h.quoteVolume}</Typography>
+                    </TableCell>
+                    <TableCell>
+                      {
+                        h.status &&
+                        <TextBadge variation="success">
+                          <IconClock />
+                          {h.status}
+                        </TextBadge>
+                      }
+                    </TableCell>
+                    <TableCell>
+                      <TableDateTime date={h.exchangeType} time={h.strategy} />
                     </TableCell>
                   </TableRow>
                 ))
