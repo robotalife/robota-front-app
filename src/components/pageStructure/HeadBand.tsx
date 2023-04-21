@@ -1,45 +1,11 @@
-import { Box, Grid, ListItem, Typography } from "@mui/material";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { Box, Grid, Typography } from "@mui/material";
+import { useContext } from "react";
 
 import classes from "./HeadBand.module.scss";
-import { useParams } from "react-router-dom";
-import { AxiosResponse } from "axios";
-import useAxios from "../../shared/hooks/useAxios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-
-interface IBotData {
-  createdAt: string;
-  createdBy: string;
-  exchangeType: string;
-  id: string;
-  name: string;
-  owner: string | null;
-  pair: string;
-  price: string;
-  strategy: "SHORT" | "LONG";
-}
+import { BotContext } from "../../shared/providers/BotProvider";
 
 const HeadBand = () => {
-  const { botId } = useParams();
-  const { axios } = useAxios();
-  const [botData, setBotData] = useState<IBotData>({} as IBotData);
-
-  const getBotData = useCallback(async () => {
-    try {
-      const response: AxiosResponse<IBotData, any> = await axios.get(
-        apiEndPoints.getBot(botId as string)
-      );
-
-      const data = response.data;
-      setBotData(data);
-    } catch (error) {
-      // Handle error
-    }
-  }, [setBotData]);
-
-  useEffect(() => {
-    getBotData();
-  }, [getBotData]);
+  const { botData } = useContext(BotContext);
 
   return (
     <Box className={classes.headBand}>
