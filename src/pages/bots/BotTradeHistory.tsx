@@ -37,7 +37,7 @@ const BotTradeHistory = () => {
   );
   const [loading, setLoading] = useState(true);
 
-  const getTokenData = useCallback(async () => {
+  const getHistory = useCallback(async () => {
     setLoading(true);
     try {
       const response: AxiosResponse<
@@ -55,8 +55,8 @@ const BotTradeHistory = () => {
   }, [setHistory]);
 
   useEffect(() => {
-    getTokenData();
-  }, [getTokenData]);
+    getHistory();
+  }, [getHistory]);
 
   const HeaderActions = (
     <Grid container spacing={1}>
@@ -86,6 +86,7 @@ const BotTradeHistory = () => {
         <Filters />
       </WrapperBoxSection>
       <WrapperBoxSection noPadding>
+        {history.length}
         {loading ? (
           <Loader />
         ) : (
