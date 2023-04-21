@@ -4,10 +4,17 @@ import { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { IBotOverview } from "../../shared/interfaces/bots";
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import BotOverviewCard from "../../components/shared/BotOverviewCard";
+import {
+  Icon3DotsVertical,
+  IconArrowUp,
+  IconInfoCircle,
+  TempChartLong,
+  TempChartShort,
+} from "../../shared/icons/Icons";
 
 const BotOverView = () => {
   const { botId } = useParams();
@@ -42,10 +49,28 @@ const BotOverView = () => {
         <WrapperBox>
           <WrapperBoxSection>
             <BotOverviewCard
-              action={""}
-              chart={""}
-              content={"+ 18.5%"}
-              description={""}
+              action={<IconInfoCircle />}
+              chart={<TempChartLong />}
+              content={overview.totalProfit}
+              description={
+                <>
+                  <IconArrowUp className="success" />
+                  <Typography
+                    component={"span"}
+                    className="success"
+                    sx={{ px: 1 }}
+                  >
+                    2%
+                  </Typography>
+                  <Typography
+                    component={"span"}
+                    className="description"
+                    sx={{ px: 1 }}
+                  >
+                    Avg. Daily Profit
+                  </Typography>
+                </>
+              }
               title={"Total Profit"}
             />
           </WrapperBoxSection>
@@ -55,10 +80,27 @@ const BotOverView = () => {
         <WrapperBox>
           <WrapperBoxSection>
             <BotOverviewCard
-              action={""}
-              chart={""}
-              content={"45%"}
-              description={""}
+              action={<Icon3DotsVertical />}
+              chart={<TempChartLong />}
+              content={overview.winRate}
+              description={
+                <>
+                  <Typography
+                    component={"span"}
+                    className="success"
+                    sx={{ px: 1 }}
+                  >
+                    0.8%
+                  </Typography>
+                  <Typography
+                    component={"span"}
+                    className="description"
+                    sx={{ px: 1 }}
+                  >
+                    Avg. Daily Winrate
+                  </Typography>
+                </>
+              }
               title={"Winrate"}
             />
           </WrapperBoxSection>
@@ -69,8 +111,8 @@ const BotOverView = () => {
           <WrapperBoxSection>
             <BotOverviewCard
               action={""}
-              chart={""}
-              content={"196"}
+              chart={<TempChartShort />}
+              content={overview.closedDeals}
               description={""}
               title={"Closed Deals"}
             />

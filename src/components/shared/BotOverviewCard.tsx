@@ -32,19 +32,21 @@ const BotOverviewCard = ({
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid item>
-        <Typography>{title}</Typography>
-        <Typography>{content}</Typography>
-        <div>
-          {isLong ? <IconArrowUp /> : <IconArrowDown />}
-          <Typography className={`${isLong ? classes.success : classes.error}`}>
-            2%
-          </Typography>
-          <Typography>Avg. Daily Profit</Typography>
-        </div>
+        <Typography className={classes.title}>{title}</Typography>
+        <Typography className={classes.content}>{content}</Typography>
+        <div className={classes.description}>{description}</div>
       </Grid>
-      <Grid item>
-        <div>{action}</div>
-        <div>{isLong ? <TempChartLong /> : <TempChartShort />}</div>
+      <Grid
+        item
+        sx={{
+          textAlign: "end",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <div className={classes.action}>{action}</div>
+        <div className={classes.chart}>{chart}</div>
       </Grid>
     </Grid>
   );

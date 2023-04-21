@@ -608,6 +608,62 @@ export const IconExport = (props: IconProps) => {
   );
 };
 
+export const IconInfoCircle = (props: IconProps) => {
+  return (
+    <svg
+      width="19"
+      height="20"
+      viewBox="0 0 19 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.33333 13.3327V9.99935M9.33333 6.66602H9.34167M17.6667 9.99935C17.6667 14.6017 13.9357 18.3327 9.33333 18.3327C4.73096 18.3327 1 14.6017 1 9.99935C1 5.39698 4.73096 1.66602 9.33333 1.66602C13.9357 1.66602 17.6667 5.39698 17.6667 9.99935Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const Icon3DotsVertical = (props: IconProps) => {
+  return (
+    <svg
+      width="4"
+      height="16"
+      viewBox="0 0 4 16"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M1.66927 8.83398C2.12951 8.83398 2.5026 8.46089 2.5026 8.00065C2.5026 7.54041 2.12951 7.16732 1.66927 7.16732C1.20903 7.16732 0.835938 7.54041 0.835938 8.00065C0.835938 8.46089 1.20903 8.83398 1.66927 8.83398Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M1.66927 3.00065C2.12951 3.00065 2.5026 2.62755 2.5026 2.16732C2.5026 1.70708 2.12951 1.33398 1.66927 1.33398C1.20903 1.33398 0.835938 1.70708 0.835938 2.16732C0.835938 2.62755 1.20903 3.00065 1.66927 3.00065Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M1.66927 14.6673C2.12951 14.6673 2.5026 14.2942 2.5026 13.834C2.5026 13.3737 2.12951 13.0006 1.66927 13.0006C1.20903 13.0006 0.835938 13.3737 0.835938 13.834C0.835938 14.2942 1.20903 14.6673 1.66927 14.6673Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const TempChartLong = (props: IconProps) => {
   return (
     <svg

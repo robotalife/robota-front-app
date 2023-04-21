@@ -1,0 +1,33 @@
+.title {
+  color: $gray-900;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+.content {
+  color: $gray-900;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.description {
+  color: $gray-500;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.action {
+  color: $gray-400;
+}
+
+:global {
+  .success {
+    color: $success-600;
+  }
+
+  .error {
+    color: $error-600;
+  }
+}
