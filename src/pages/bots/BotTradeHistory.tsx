@@ -86,7 +86,6 @@ const BotTradeHistory = () => {
         <Filters />
       </WrapperBoxSection>
       <WrapperBoxSection noPadding>
-        {history.length}
         {loading ? (
           <Loader />
         ) : (
