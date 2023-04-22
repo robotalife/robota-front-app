@@ -75,6 +75,18 @@ const BotTradeHistory = () => {
     [setHistory, setPagination]
   );
 
+  const getExport = useCallback(async () => {
+    try {
+      const response: AxiosResponse<any, any> = await axios.get(
+        apiEndPoints.getBotTradesFile(botId as string)
+      );
+    } catch (error) {
+      // Handle error
+    } finally {
+      setLoading(false);
+    }
+  }, [setHistory, setPagination]);
+
   const getNext = () => {
     if (!pagination.hasNext) return undefined;
     getHistory(pagination.nextPage);
@@ -101,7 +113,12 @@ const BotTradeHistory = () => {
         </Button>
       </Grid>
       <Grid item xs={12} md>
-        <Button disabled variant="outlined" color="primary" fullWidth>
+        <Button
+          variant="outlined"
+          color="primary"
+          fullWidth
+          onClick={getExport}
+        >
           <IconExport style={{ marginRight: 8 }} />
           Export
         </Button>
