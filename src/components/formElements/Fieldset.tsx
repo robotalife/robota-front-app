@@ -7,7 +7,10 @@ interface FieldsetProps extends HTMLAttributes<HTMLFieldSetElement> {
 
 const Fieldset = ({ legend, children, ...props }: FieldsetProps) => {
   return (
-    <fieldset {...props} className={`${classes.fieldset} ${props.className}`}>
+    <fieldset
+      {...props}
+      className={`${classes.fieldset} ${props.className || ""}`}
+    >
       <legend className={classes.legend}>{legend}</legend>
       {children}
     </fieldset>

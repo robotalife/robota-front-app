@@ -196,8 +196,24 @@ const BotTradeHistory = () => {
                     </TableCell>
                     <TableCell>{/* Profit / loss */}</TableCell>
                     <TableCell>
-                      <Typography component={"div"}>{h.baseVolume}</Typography>
-                      <Typography component={"div"}>{h.quoteVolume}</Typography>
+                      <Grid container spacing={1} alignItems={"center"}>
+                        <Grid item xs={"auto"}>
+                          <PairLogo
+                            src={h.baseLogo}
+                            alt={h.baseVolume}
+                            style={{ marginBottom: 8 }}
+                          />
+                          <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
+                        </Grid>
+                        <Grid item xs={"auto"}>
+                          <Typography component={"div"} sx={{ mb: 1 }}>
+                            {h.baseVolume}
+                          </Typography>
+                          <Typography component={"div"}>
+                            {h.quoteVolume}
+                          </Typography>
+                        </Grid>
+                      </Grid>
                     </TableCell>
                     <TableCell>
                       {h.status && (

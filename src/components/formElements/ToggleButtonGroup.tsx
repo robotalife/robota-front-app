@@ -35,7 +35,7 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
       value={value}
       exclusive
       onChange={handleAlignment}
-      className={`${classes.toggleButtonGroup} ${props.className}`}
+      className={`${classes.toggleButtonGroup} ${props.className || ""}`}
     >
       {options.map((option) => (
         <MUIToggleButton

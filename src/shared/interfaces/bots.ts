@@ -17,20 +17,20 @@ export interface IActiveTrade {
 }
 
 export interface IBotHistoryObj {
-  baseLogo: string | null;
-  baseVolume: string | null;
+  baseLogo: string;
+  baseVolume: string;
   botName: string;
   closeDate: string;
   creationDate: string;
   duration: string;
-  exchange: string | null;
-  exchangeType: string | null;
-  netProfit: string | null;
+  exchange: string;
+  exchangeType: string;
+  netProfit: string;
   pair: string;
   profitPercentage: string;
   quoteLogo: string;
-  quoteVolume: string | null;
-  status: string | null;
+  quoteVolume: string;
+  status: string;
   strategy: "SHORT" | "LONG";
 }
 

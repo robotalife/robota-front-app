@@ -2,15 +2,9 @@
   $size: 24px;
 
   border-radius: 50%;
+  display: block;
   height: $size;
-  display: inline-block;
+  object-fit: cover;
   overflow: hidden;
-  vertical-align: middle;
   width: $size;
-
-  img {
-    height: 100%;
-    object-fit: cover;
-    width: 100%;
-  }
 }
