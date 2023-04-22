@@ -50,6 +50,7 @@ const BotTradeHistory = () => {
     previousPage: 0,
   });
   const [loading, setLoading] = useState(true);
+  const [showFilters, setShowFilters] = useState(true);
 
   const getHistory = useCallback(
     async (page: number = 0) => {
@@ -86,14 +87,21 @@ const BotTradeHistory = () => {
 
   const HeaderActions = (
     <Grid container spacing={1}>
-      <Grid item>
-        <Button disabled variant="outlined" color="primary">
+      <Grid item xs={12} md>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setShowFilters(!showFilters);
+          }}
+          fullWidth
+        >
           <IconFilter style={{ marginRight: 8 }} />
           Filter
         </Button>
       </Grid>
-      <Grid item>
-        <Button disabled variant="outlined" color="primary">
+      <Grid item xs={12} md>
+        <Button disabled variant="outlined" color="primary" fullWidth>
           <IconExport style={{ marginRight: 8 }} />
           Export
         </Button>
@@ -112,9 +120,11 @@ const BotTradeHistory = () => {
         description="Auto Update in 10 Minutes."
         actions={HeaderActions}
       />
-      <WrapperBoxSection>
-        <Filters />
-      </WrapperBoxSection>
+      {showFilters && (
+        <WrapperBoxSection>
+          <Filters />
+        </WrapperBoxSection>
+      )}
       <WrapperBoxSection noPadding>
         {loading ? (
           <Loader />
