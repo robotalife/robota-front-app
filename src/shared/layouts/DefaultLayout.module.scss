@@ -1,10 +1,12 @@
 .layout {
   display: grid;
-  grid-template-rows: 64px auto 50px;
+  grid-template-rows: 64px 1fr 50px;
+  grid-template-columns: 100vw;
   grid-template-areas:
     "header"
     "content"
     "sidebar";
+  height: 100vh;
 }
 
 .header {
@@ -27,9 +29,7 @@
 .sidebar {
   background: #fff;
   border-top: 1px solid #eaecf0;
-  bottom: 0;
   grid-area: sidebar;
-  position: sticky;
   z-index: 1;
 }
 
@@ -40,7 +40,6 @@
     grid-template-areas:
       "header header"
       "sidebar content";
-    height: 100vh;
   }
 
   .header {
