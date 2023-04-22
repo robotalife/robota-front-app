@@ -42,7 +42,7 @@
   flex-grow: 0;
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: $breakpoint-lg) {
   .nav {
     flex-basis: 0;
     flex-direction: column;

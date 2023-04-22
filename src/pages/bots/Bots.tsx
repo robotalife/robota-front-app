@@ -1,7 +1,5 @@
 import { useContext } from "react";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
-import { Link } from "react-router-dom";
-import routes from "../../shared/consts/routes";
 import { Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 

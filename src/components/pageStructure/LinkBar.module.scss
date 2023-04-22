@@ -1,6 +1,8 @@
 .linkBar {
   border-bottom: 1px solid $gray-200;
   margin-bottom: 24px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .linksWrapper {
@@ -30,6 +32,45 @@
       &.is-active {
         border-color: $primary-700;
         color: $primary-700;
+      }
+    }
+  }
+}
+
+@media (min-width: $breakpoint-md) {
+  .linkBar {
+    border-bottom: 1px solid $gray-200;
+    margin-bottom: 24px;
+  }
+
+  .linksWrapper {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    margin-bottom: -1px;
+    padding: 0;
+  }
+
+  .linkItem {
+    font-size: 14px;
+    font-weight: 500;
+
+    :global {
+      a {
+        border-bottom: 2px solid transparent;
+        display: block;
+        padding: 16px 12px;
+        text-decoration: none;
+
+        &:active,
+        &:visited {
+          color: $gray-500;
+        }
+
+        &.is-active {
+          border-color: $primary-700;
+          color: $primary-700;
+        }
       }
     }
   }
