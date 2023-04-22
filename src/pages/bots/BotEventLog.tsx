@@ -13,7 +13,10 @@ import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-import { DataWithPagination } from "../../shared/interfaces/paginateData";
+import {
+  DataWithPagination,
+  PaginationObj,
+} from "../../shared/interfaces/paginateData";
 import { IEventLog } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
@@ -24,29 +27,56 @@ const BotEventLog = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
   const [logs, setLogs] = useState<IEventLog[]>([] as IEventLog[]);
+  const [pagination, setPagination] = useState<PaginationObj>({
+    currentPage: 0,
+    hasNext: false,
+    nextPage: 1,
+    hasPrevious: false,
+    perPage: 10,
+    remainingCount: 1,
+    total: 1,
+    totalPages: 1,
+    previousPage: 0,
+  });
   const [loading, setLoading] = useState(true);
 
-  const getTokenData = useCallback(async () => {
-    setLoading(true);
+  const getLogData = useCallback(
+    async (page: number = 0) => {
+      setLoading(true);
 
-    try {
-      const response: AxiosResponse<
-        DataWithPagination<IEventLog[]>,
-        any
-      > = await axios.get(apiEndPoints.getBotLog(botId as string));
+      try {
+        const response: AxiosResponse<
+          DataWithPagination<IEventLog[]>,
+          any
+        > = await axios.get(
+          `${apiEndPoints.getBotLog(botId as string)}?page=${page}`
+        );
 
-      const log = response.data;
-      setLogs(log.data);
-    } catch (error) {
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
-  }, [setLogs]);
+        const { data, ...paginateData } = response.data;
+        setLogs(data);
+        setPagination(paginateData as PaginationObj);
+      } catch (error) {
+        // Handle error
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setLogs]
+  );
+
+  const getNext = () => {
+    if (!pagination.hasNext) return undefined;
+    getLogData(pagination.nextPage);
+  };
+
+  const getPrevious = () => {
+    if (!pagination.hasPrevious) return undefined;
+    getLogData(pagination.previousPage);
+  };
 
   useEffect(() => {
-    getTokenData();
-  }, [getTokenData]);
+    getLogData();
+  }, [getLogData]);
 
   return (
     <WrapperBox>
@@ -90,7 +120,14 @@ const BotEventLog = () => {
         )}
       </WrapperBoxSection>
       <WrapperBoxSection noPadding>
-        <Pagination />
+        <Pagination
+          currentPage={pagination.currentPage + 1}
+          totalPages={pagination.totalPages}
+          hasNext={pagination.hasNext}
+          hasPrevious={pagination.hasPrevious}
+          next={getNext}
+          previous={getPrevious}
+        />
       </WrapperBoxSection>
     </WrapperBox>
   );

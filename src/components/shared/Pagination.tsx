@@ -19,8 +19,6 @@ const Pagination = ({
   hasNext,
   hasPrevious,
 }: Props) => {
-  const navigate = useNavigate();
-
   return (
     <Grid
       container

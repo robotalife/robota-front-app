@@ -49,7 +49,6 @@ const BotTradeHistory = () => {
     totalPages: 1,
     previousPage: 0,
   });
-
   const [loading, setLoading] = useState(true);
 
   const getHistory = useCallback(
