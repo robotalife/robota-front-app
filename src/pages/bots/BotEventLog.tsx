@@ -13,7 +13,7 @@ import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-import { PaginateData } from "../../shared/interfaces/paginateData";
+import { DataWithPagination } from "../../shared/interfaces/paginateData";
 import { IEventLog } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
@@ -31,7 +31,7 @@ const BotEventLog = () => {
 
     try {
       const response: AxiosResponse<
-        PaginateData<IEventLog[]>,
+        DataWithPagination<IEventLog[]>,
         any
       > = await axios.get(apiEndPoints.getBotLog(botId as string));
 

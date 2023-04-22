@@ -13,7 +13,10 @@ import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-import { PaginateData } from "../../shared/interfaces/paginateData";
+import {
+  DataWithPagination,
+  PaginationObj,
+} from "../../shared/interfaces/paginateData";
 import { IBotHistoryObj } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
@@ -26,8 +29,8 @@ import {
 import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import Filters from "../../components/shared/Filters";
-import Pagination from "../../components/shared/Pagination";
 import Button from "../../components/formElements/Button";
+import Pagination from "../../components/shared/Pagination";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -35,28 +38,52 @@ const BotTradeHistory = () => {
   const [history, setHistory] = useState<IBotHistoryObj[]>(
     [] as IBotHistoryObj[]
   );
+  const [pagination, setPagination] = useState<PaginationObj>({
+    currentPage: 0,
+    hasNext: false,
+    nextPage: 1,
+    hasPrevious: false,
+    perPage: 10,
+    remainingCount: 1,
+    total: 1,
+    totalPages: 1,
+    previousPage: 0,
+  });
+
   const [loading, setLoading] = useState(true);
 
-  const getHistory = useCallback(async () => {
-    setLoading(true);
-    try {
-      const response: AxiosResponse<
-        PaginateData<IBotHistoryObj[]>,
-        any
-      > = await axios.get(apiEndPoints.getBotHistory(botId as string));
+  const getHistory = useCallback(
+    async (page: number = 0) => {
+      setLoading(true);
+      try {
+        const response: AxiosResponse<
+          DataWithPagination<IBotHistoryObj[]>,
+          any
+        > = await axios.get(
+          `${apiEndPoints.getBotHistory(botId as string)}?page=${page}`
+        );
 
-      const data = response.data;
-      setHistory(data.data);
-    } catch (error) {
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
-  }, [setHistory]);
+        const { data, ...paginateData } = response.data;
+        setHistory(data);
+        setPagination(paginateData as PaginationObj);
+      } catch (error) {
+        // Handle error
+      } finally {
+        setLoading(false);
+      }
+    },
+    [setHistory, setPagination]
+  );
 
-  useEffect(() => {
-    getHistory();
-  }, [getHistory]);
+  const getNext = () => {
+    if (!pagination.hasNext) return undefined;
+    getHistory(pagination.nextPage);
+  };
+
+  const getPrevious = () => {
+    if (!pagination.hasPrevious) return undefined;
+    getHistory(pagination.previousPage);
+  };
 
   const HeaderActions = (
     <Grid container spacing={1}>
@@ -74,6 +101,10 @@ const BotTradeHistory = () => {
       </Grid>
     </Grid>
   );
+
+  useEffect(() => {
+    getHistory();
+  }, [getHistory]);
 
   return (
     <WrapperBox>
@@ -165,7 +196,14 @@ const BotTradeHistory = () => {
         )}
       </WrapperBoxSection>
       <WrapperBoxSection noPadding>
-        <Pagination />
+        <Pagination
+          currentPage={pagination.currentPage + 1}
+          totalPages={pagination.totalPages}
+          hasNext={pagination.hasNext}
+          hasPrevious={pagination.hasPrevious}
+          next={getNext}
+          previous={getPrevious}
+        />
       </WrapperBoxSection>
     </WrapperBox>
   );
