@@ -304,27 +304,6 @@ export const IconDollar = (props: IconProps) => {
   );
 };
 
-export const IconArrowLeft = (props: IconProps) => {
-  return (
-    <svg
-      width="14"
-      height="15"
-      viewBox="0 0 14 15"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
-      <path
-        d="M12.8337 7.49984H1.16699M1.16699 7.49984L7.00033 13.3332M1.16699 7.49984L7.00033 1.6665"
-        stroke="#667085"
-        strokeWidth="1.67"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
-
 export const IconClose = (props: IconProps) => {
   return (
     <svg
@@ -440,6 +419,27 @@ export const IconClock = (props: IconProps) => {
   );
 };
 
+export const IconArrowLeft = (props: IconProps) => {
+  return (
+    <svg
+      width="14"
+      height="15"
+      viewBox="0 0 14 15"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M12.8337 7.49984H1.16699M1.16699 7.49984L7.00033 13.3332M1.16699 7.49984L7.00033 1.6665"
+        stroke="#667085"
+        strokeWidth="1.67"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const IconArrowUp = (props: IconProps) => {
   return (
     <svg
@@ -485,17 +485,17 @@ export const IconArrowDown = (props: IconProps) => {
 export const IconArrowUpRight = (props: IconProps) => {
   return (
     <svg
-      width="7"
-      height="8"
-      viewBox="0 0 7 8"
+      width="12"
+      height="12"
+      viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
       <path
-        d="M1.16797 6.5L6.16797 1.5M6.16797 1.5H1.16797M6.16797 1.5V6.5"
+        d="M1 11L11 1M11 1H1M11 1V11"
         stroke="currentColor"
-        strokeWidth="1.5"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

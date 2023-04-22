@@ -118,11 +118,17 @@ const BotActiveTrade = () => {
                     <TextBadge variation="secondary">
                       {activeTrade.strategy === "LONG" ? (
                         <>
-                          Long <IconArrowUpRight />
+                          Long{" "}
+                          <IconArrowUpRight
+                            style={{ marginLeft: 8, height: 5, width: 5 }}
+                          />
                         </>
                       ) : (
                         <>
-                          Short <IconArrowDownRight />
+                          Short{" "}
+                          <IconArrowDownRight
+                            style={{ marginLeft: 8, height: 5, width: 5 }}
+                          />
                         </>
                       )}
                     </TextBadge>
