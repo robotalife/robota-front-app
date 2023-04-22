@@ -14,6 +14,7 @@ export const AuthContext = createContext<{
 
 const token = localStorage.getItem("token");
 const userId = localStorage.getItem("userId");
+const currentPage = window.location.pathname;
 
 const authRouts: string[] = [
   routes.signin,
@@ -32,8 +33,8 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       // set token as default authorization header for axios requests
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setIsAuthenticated(true);
-    } else if (!authRouts.includes(window.location.pathname)) {
-      window.location.href = routes.signin;
+    } else if (!authRouts.includes(currentPage)) {
+      window.location.href = `${routes.signin}?returnTo=${currentPage}`;
     }
   }, [setIsAuthenticated]);
 

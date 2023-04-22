@@ -28,6 +28,10 @@ const initialValues: SigninData = {
   password: "",
 };
 
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const { returnTo } = Object.fromEntries(urlParams.entries());
+
 const Signin = () => {
   const navigate = useNavigate();
   const { axios } = useAxios();
@@ -49,7 +53,7 @@ const Signin = () => {
       localStorage.setItem("userId", id); // save token in local storage
       setIsAuthenticated(true);
 
-      navigate(routes.portfolio);
+      navigate(returnTo || routes.portfolio);
     } catch (error) {
       // Handle error
     }
