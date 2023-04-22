@@ -45,7 +45,7 @@ const BotOverView = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid xs item>
+      <Grid xs={12} lg={4} item>
         <WrapperBox fullHeight>
           <WrapperBoxSection>
             <BotOverviewCard
@@ -76,7 +76,7 @@ const BotOverView = () => {
           </WrapperBoxSection>
         </WrapperBox>
       </Grid>
-      <Grid xs item>
+      <Grid xs={12} lg={4} item>
         <WrapperBox fullHeight>
           <WrapperBoxSection>
             <BotOverviewCard
@@ -106,7 +106,7 @@ const BotOverView = () => {
           </WrapperBoxSection>
         </WrapperBox>
       </Grid>
-      <Grid xs item>
+      <Grid xs={12} lg={4} item>
         <WrapperBox fullHeight>
           <WrapperBoxSection>
             <BotOverviewCard
