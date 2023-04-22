@@ -9,42 +9,7 @@ import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
-
-export interface IBot {
-  baseAsset: string;
-  createdAt: string;
-  exchangeId: string;
-  exchangeType: string;
-  id: string | number;
-  isPublic: boolean;
-  leverageValue: number;
-  marginType: "CROSSED" | "ISOLATED";
-  maximumOrderSize: number;
-  minimumOrderSize: number;
-  monthlyPrice: number;
-  name: String;
-  orderType: "MARKET" | "LIMIT";
-  qouteAsset: String;
-  removed: boolean;
-  strategy: "LONG" | "SHORT";
-  tradingPair: string;
-  yearlyPrice: number;
-}
-
-interface IMyBots {
-  currentPage: number;
-  data: IBot[];
-  nextPage: number | null;
-  perPage: number;
-  remainingCount: number;
-  total: number;
-  totalPages: number;
-}
-
-interface IMyBotsContext {
-  botsList: IBot[];
-  loadMyBots: () => void;
-}
+import { IBot, IMyBots, IMyBotsContext } from "../interfaces/bots";
 
 export const MyBotsContext = createContext<IMyBotsContext>({
   botsList: [],

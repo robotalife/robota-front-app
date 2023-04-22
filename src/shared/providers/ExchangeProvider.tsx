@@ -19,7 +19,7 @@ import {
 
 export const ExchangeContext = createContext<IExchangeContext>({
   exchangeList: [],
-  selectedExchange: undefined,
+  selectedExchange: "",
   setSelectedExchange: () => {},
   pairs: [],
 });
@@ -29,9 +29,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
   const { axios } = useAxios();
 
   const [exchangeList, setExchangeList] = useState<IExchange[]>([]);
-  const [selectedExchange, setSelectedExchange] = useState(
-    exchangeList.find((ex) => ex.default)?.exchangeId
-  );
+  const [selectedExchange, setSelectedExchange] = useState("");
   const [pairs, setPairs] = useState<IPair[]>([] as IPair[]);
 
   const getList = async () => {
@@ -64,7 +62,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
       }
 
       const tmpSelected = exchanges.find((ex) => ex.default)?.exchangeId;
-      setSelectedExchange(tmpSelected);
+      setSelectedExchange(tmpSelected as string);
     } catch (error) {
       // Handle error
     }

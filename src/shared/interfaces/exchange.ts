@@ -31,7 +31,7 @@ export interface IPair {
 
 export interface IExchangeContext {
   exchangeList: IExchange[];
-  selectedExchange: string | undefined;
+  selectedExchange: string;
   setSelectedExchange: (exchange: string) => void;
   pairs: IPair[];
 }

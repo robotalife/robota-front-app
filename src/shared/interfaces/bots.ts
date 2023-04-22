@@ -59,3 +59,39 @@ export interface IBotOverview {
   totalProfit: string;
   winRate: string;
 }
+
+export interface IBot {
+  baseAsset: string;
+  createdAt: string;
+  exchangeId: string;
+  exchangeType: string;
+  id: string | number;
+  isPublic: boolean;
+  leverageValue: number;
+  marginType: "CROSSED" | "ISOLATED";
+  maximumOrderSize: number;
+  minimumOrderSize: number;
+  monthlyPrice: number;
+  name: String;
+  orderType: "MARKET" | "LIMIT";
+  qouteAsset: String;
+  removed: boolean;
+  strategy: "LONG" | "SHORT";
+  tradingPair: string;
+  yearlyPrice: number;
+}
+
+export interface IMyBots {
+  currentPage: number;
+  data: IBot[];
+  nextPage: number | null;
+  perPage: number;
+  remainingCount: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface IMyBotsContext {
+  botsList: IBot[];
+  loadMyBots: () => void;
+}

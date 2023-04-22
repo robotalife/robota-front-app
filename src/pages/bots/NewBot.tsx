@@ -61,7 +61,7 @@ const NewBot = () => {
   const { loadMyBots } = useContext(MyBotsContext);
   const { axios } = useAxios();
   const navigate = useNavigate();
-  const { exchangeList, setSelectedExchange, pairs } =
+  const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
     useContext(ExchangeContext);
   const [formData, setFormData] = useState({
     name: "",
@@ -99,6 +99,11 @@ const NewBot = () => {
       // Handle error
     }
   };
+
+  useEffect(() => {
+    setFormData({ ...formData, exchangeId: selectedExchange });
+  }, [selectedExchange, setFormData]);
+
   // const getExchange = (id: string): IExchange => {
   //   return exchangeList.find((ex) => ex.exchangeId === id) || ({} as IExchange);
   // };
