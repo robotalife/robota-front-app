@@ -113,6 +113,9 @@ const BotTradeHistory = () => {
         </Button>
       </Grid>
       <Grid item xs={12} md>
+        <a
+              href={`${axios.defaults.baseURL}/${apiEndPoints.getBotTradesFile(botId as string)}`}
+          >
         <Button
           variant="outlined"
           color="primary"
@@ -122,6 +125,7 @@ const BotTradeHistory = () => {
           <IconExport style={{ marginRight: 8 }} />
           Export
         </Button>
+        </a>
       </Grid>
     </Grid>
   );
