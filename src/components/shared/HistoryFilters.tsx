@@ -43,7 +43,21 @@ const HistoryFilters = () => {
         </Select>
       </Grid>
       <Grid item xs={12} md={4} lg>
-        <TextField placeholder="All" label="Status" />
+        <Select
+          id="exchangeId"
+          value={undefined}
+          label="Exchange"
+          onChange={(e) => {
+            console.log(e);
+          }}
+          sx={{ width: "100%" }}
+        >
+          <MenuItem value={"undefined"} selected>
+            All
+          </MenuItem>
+          <MenuItem value={"open"}>Open</MenuItem>
+          <MenuItem value={"close"}>Close</MenuItem>
+        </Select>
       </Grid>
     </Grid>
   );

@@ -76,17 +76,16 @@ const BotTradeHistory = () => {
     [setHistory, setPagination]
   );
 
-  const getExport = useCallback(async () => {
-    try {
-      const response: AxiosResponse<any, any> = await axios.get(
-        apiEndPoints.getBotTradesFile(botId as string)
-      );
-    } catch (error) {
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
-  }, [setHistory, setPagination]);
+  const getExport = useCallback(() => {
+    const link = document.createElement("a");
+    link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(
+      botId as string
+    )};`;
+    console.log(link.href);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, []);
 
   const getNext = () => {
     if (!pagination.hasNext) return undefined;
@@ -199,13 +198,14 @@ const BotTradeHistory = () => {
                       {h.profitPercentage.indexOf("-") ? (
                         <TextBadge variation="error">
                           {h.profitPercentage}
-                            <IconArrowDown />
-                        </TextBadge> ) : (
-                        <TextBadge variation="success">
-                            {h.profitPercentage}
-                            <IconArrowUp />
+                          <IconArrowDown />
                         </TextBadge>
-                        )}
+                      ) : (
+                        <TextBadge variation="success">
+                          {h.profitPercentage}
+                          <IconArrowUp />
+                        </TextBadge>
+                      )}
                     </TableCell>
                     <TableCell>
                       <Grid container spacing={1} alignItems={"center"}>
