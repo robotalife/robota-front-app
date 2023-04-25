@@ -70,12 +70,12 @@ const NewBot = () => {
       access: "PRIVATE",
       marginType: "ISOLATED",
       leverageValue: 1,
-      maxAmountForBotUsage: "4",
-      minAmountForBotUsage: "3",
-      monthlyPrice: "5",
+      maxAmountForBotUsage: "",
+      minAmountForBotUsage: "",
+      monthlyPrice: "",
       orderStrategy: "SHORT",
       pair: "",
-      yearlyPrice: "6",
+      yearlyPrice: "",
     },
   });
 
