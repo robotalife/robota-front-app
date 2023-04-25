@@ -39,7 +39,6 @@ const HeadBand = () => {
           <Typography className={classes.title}>Strategy</Typography>
           <div className={classes.item}>
             <div>
-              {botData.strategy}
               {botData.strategy === "LONG" ? (
                 <>
                   Long{" "}
