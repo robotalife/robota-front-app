@@ -28,7 +28,7 @@ import {
 } from "../../shared/icons/Icons";
 import { Grid, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
-import Filters from "../../components/shared/Filters";
+import HistoryFilters from "../../components/shared/HistoryFilters";
 import Button from "../../components/formElements/Button";
 import Pagination from "../../components/shared/Pagination";
 
@@ -139,7 +139,7 @@ const BotTradeHistory = () => {
       />
       {showFilters && (
         <WrapperBoxSection>
-          <Filters />
+          <HistoryFilters />
         </WrapperBoxSection>
       )}
       <WrapperBoxSection noPadding>
