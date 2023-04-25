@@ -168,7 +168,7 @@ const BotTradeHistory = () => {
                     <TableCell>
                       <Grid container spacing={1} alignItems={"center"}>
                         <Grid item xs={"auto"}>
-                          <PairLogo src={h.quoteLogo} alt={h.pair} />
+                          <PairLogo src={h.baseLogo} alt={h.pair} />
                         </Grid>
                         <Grid item xs={"auto"}>
                           <TableDateTime date={h.pair} time={h.botName} />
