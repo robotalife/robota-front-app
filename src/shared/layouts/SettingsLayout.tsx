@@ -2,10 +2,12 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import LinkBar from "../../components/pageStructure/LinkBar";
 import routes from "../consts/routes";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { MyBotsContext } from "../providers/MyBotsProvider";
 
 const SettingsLayout = () => {
   const { pathname } = useLocation();
+  const { paginateData } = useContext(MyBotsContext);
   const [pageTitle, setPageTitle] = useState("");
 
   const links = [
@@ -16,6 +18,7 @@ const SettingsLayout = () => {
     {
       label: "My bots",
       to: routes.myBots,
+      badge: paginateData.total,
     },
   ];
 

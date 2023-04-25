@@ -2,10 +2,12 @@ import { ReactNode } from "react";
 import { NavLink } from "react-router-dom";
 
 import classes from "./LinkBar.module.scss";
+import Badge from "../shared/Badge";
 
 interface LinkBarItem {
   label: ReactNode;
   to: string;
+  badge?: number | string;
 }
 
 interface Props {
@@ -29,6 +31,11 @@ const LinkBar = ({ links }: Props) => {
               }) => (isPending ? "is-pending" : isActive ? "is-active" : "")}
             >
               {link.label}
+              {!!link.badge && (
+                <Badge variant="standard" color={"primary"}>
+                  {link.badge}
+                </Badge>
+              )}
             </NavLink>
           </li>
         ))}

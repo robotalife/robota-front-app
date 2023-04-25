@@ -1,3 +1,5 @@
+import { PaginationObj } from "./paginateData";
+
 export interface IEventLog {
   id: number;
   botId: number;
@@ -93,5 +95,6 @@ export interface IMyBots {
 
 export interface IMyBotsContext {
   botsList: IBot[];
+  paginateData: PaginationObj;
   loadMyBots: () => void;
 }
