@@ -9,6 +9,6 @@ export interface PaginationObj {
   total: number;
   totalPages: number;
 }
-export interface DataWithPagination<T> extends Pagination {
+export interface DataWithPagination<T> extends PaginationObj {
   data: T;
 }
