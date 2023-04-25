@@ -21,6 +21,7 @@ import { IBotHistoryObj } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import TextBadge from "../../components/shared/TextBadge";
 import {
+  IconArrowDown,
   IconArrowUp,
   IconClock,
   IconExport,
@@ -50,7 +51,7 @@ const BotTradeHistory = () => {
     previousPage: 0,
   });
   const [loading, setLoading] = useState(true);
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const getHistory = useCallback(
     async (page: number = 0) => {
@@ -153,8 +154,8 @@ const BotTradeHistory = () => {
                 <TableCell>Creation Date</TableCell>
                 <TableCell>End Date</TableCell>
                 <TableCell>Duration</TableCell>
-                <TableCell>$ Net Profit/Loss </TableCell>
-                <TableCell>% Profit/Loss </TableCell>
+                <TableCell>$ Net Profit / Loss </TableCell>
+                <TableCell>% Profit / Loss </TableCell>
                 <TableCell>Volume</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Exchange</TableCell>
@@ -194,7 +195,18 @@ const BotTradeHistory = () => {
                         </TextBadge>
                       )}
                     </TableCell>
-                    <TableCell>{/* Profit / loss */}</TableCell>
+                    <TableCell>
+                      {h.profitPercentage.indexOf("-") ? (
+                        <TextBadge variation="error">
+                          {h.profitPercentage}
+                            <IconArrowDown />
+                        </TextBadge> ) : (
+                        <TextBadge variation="success">
+                            {h.profitPercentage}
+                            <IconArrowUp />
+                        </TextBadge>
+                        )}
+                    </TableCell>
                     <TableCell>
                       <Grid container spacing={1} alignItems={"center"}>
                         <Grid item xs={"auto"}>
@@ -217,14 +229,14 @@ const BotTradeHistory = () => {
                     </TableCell>
                     <TableCell>
                       {h.status && (
-                        <TextBadge variation="success">
+                        <TextBadge variation="secondary">
                           <IconClock />
                           {h.status}
                         </TextBadge>
                       )}
                     </TableCell>
                     <TableCell>
-                      <TableDateTime date={h.exchangeType} time={h.strategy} />
+                      <TableDateTime date={h.exchange} time={h.exchangeType} />
                     </TableCell>
                   </TableRow>
                 ))
