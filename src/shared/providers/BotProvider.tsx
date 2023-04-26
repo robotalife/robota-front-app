@@ -6,37 +6,25 @@ import {
   useState,
 } from "react";
 import useAxios from "../hooks/useAxios";
-import routes from "../consts/routes";
 import { useParams } from "react-router-dom";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../consts/apiEndpoints";
-
-interface IBotData {
-  createdAt: string;
-  createdBy: string;
-  exchangeType: string;
-  id: string;
-  name: string;
-  owner: string | null;
-  pair: string;
-  price: string;
-  strategy: "SHORT" | "LONG";
-}
+import { ISingleBotData } from "../interfaces/bots";
 
 export const BotContext = createContext<{
-  botData: IBotData;
+  botData: ISingleBotData;
 }>({
-  botData: {} as IBotData,
+  botData: {} as ISingleBotData,
 });
 
 export const BotProvider = ({ children }: PropsWithChildren) => {
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [botData, setBotData] = useState<IBotData>({} as IBotData);
+  const [botData, setBotData] = useState<ISingleBotData>({} as ISingleBotData);
 
   const getBotData = useCallback(async () => {
     try {
-      const response: AxiosResponse<IBotData, any> = await axios.get(
+      const response: AxiosResponse<ISingleBotData, any> = await axios.get(
         apiEndPoints.getBot(botId as string)
       );
 

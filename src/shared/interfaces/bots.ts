@@ -98,3 +98,16 @@ export interface IMyBotsContext {
   paginateData: PaginationObj;
   loadMyBots: () => void;
 }
+
+export interface ISingleBotData {
+  createdAt: string;
+  createdBy: string;
+  exchangeType: string;
+  id: string;
+  name: string;
+  owner: string | null;
+  pair: string;
+  price: string;
+  strategy: "SHORT" | "LONG";
+  stopped: string;
+}

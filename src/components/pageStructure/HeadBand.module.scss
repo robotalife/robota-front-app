@@ -18,6 +18,8 @@
 }
 
 .item {
+  margin-bottom: 20px;
+
   :global {
     * {
       color: $primary-700;
@@ -27,8 +29,12 @@
   }
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: $breakpoint-lg) {
   .headBand {
     display: block;
+  }
+
+  .item {
+    margin-bottom: 0;
   }
 }
