@@ -13,7 +13,7 @@ const WrapperBoxHeader = ({ title, description, actions }: Props) => {
   return (
     <header className={classes.header}>
       <Grid container justifyContent={"space-between"} spacing={2}>
-        <Grid xs={12} md={"auto"} item>
+        <Grid xs={12} lg={"auto"} item>
           <Typography component={"div"} className={classes.title}>
             {title}
           </Typography>
@@ -21,7 +21,7 @@ const WrapperBoxHeader = ({ title, description, actions }: Props) => {
             {description}
           </Typography>
         </Grid>
-        <Grid xs={12} md={"auto"} item>
+        <Grid xs={12} lg={"auto"} item>
           {actions}
         </Grid>
       </Grid>

@@ -99,7 +99,7 @@ const BotTradeHistory = () => {
 
   const HeaderActions = (
     <Grid container spacing={1}>
-      <Grid item xs={12} md>
+      <Grid item xs={12} lg>
         <Button
           variant="outlined"
           color="primary"
@@ -112,7 +112,7 @@ const BotTradeHistory = () => {
           Filter
         </Button>
       </Grid>
-      <Grid item xs={12} md>
+      <Grid item xs={12} lg>
         <Button
           variant="outlined"
           color="primary"
