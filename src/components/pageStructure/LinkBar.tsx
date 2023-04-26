@@ -31,11 +31,7 @@ const LinkBar = ({ links }: Props) => {
               }) => (isPending ? "is-pending" : isActive ? "is-active" : "")}
             >
               {link.label}
-              {!!link.badge && (
-                <Badge variant="standard" color={"primary"}>
-                  {link.badge}
-                </Badge>
-              )}
+              {!!link.badge && <Badge>{link.badge}</Badge>}
             </NavLink>
           </li>
         ))}
