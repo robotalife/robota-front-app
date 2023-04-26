@@ -23,7 +23,7 @@ const BotCard = ({ data }: Props) => {
       >
         <Grid item>
           <Typography className={classes.pairTitle} component={"div"}>
-            {data.baseAsset} - {data.qouteAsset}
+            {data.name}
           </Typography>
         </Grid>
         <Grid item>
