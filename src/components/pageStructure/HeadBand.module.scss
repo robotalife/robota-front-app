@@ -4,6 +4,10 @@
   display: none;
   margin: 25px 0;
   padding: 20px;
+
+  &.isOpen {
+    display: block;
+  }
 }
 
 .title {

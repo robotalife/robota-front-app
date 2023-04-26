@@ -5,11 +5,11 @@ import classes from "./HeadBand.module.scss";
 import { BotContext } from "../../shared/providers/BotProvider";
 import { IconArrowDownRight, IconArrowUpRight } from "../../shared/icons/Icons";
 
-const HeadBand = () => {
+const HeadBand = ({ isOpen }: { isOpen: boolean }) => {
   const { botData } = useContext(BotContext);
 
   return (
-    <Box className={classes.headBand}>
+    <Box className={`${classes.headBand} ${isOpen ? classes.isOpen : ""}`}>
       <Grid container>
         <Grid item xs={6} md={4} lg={3} xl>
           <Typography className={classes.title}>Name</Typography>

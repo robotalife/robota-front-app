@@ -1,31 +1,43 @@
 .button {
-  background-color: $primary-600;
+  border: 1px solid transparent;
   border-radius: 32px;
+  line-height: normal;
   text-transform: none;
-  padding: 8px 16px;
-
-  &.customprimary {
-    background-color: $primary-600;
-  }
-  .custominfo {
-  }
-  .customsecondary {
-  }
-  .customsuccess {
-  }
-  .customerror {
-  }
-  .customwarning {
-  }
 
   &:global {
+    &.MuiButton-containedPrimary {
+      background-color: $primary-600;
+      border-color: $primary-600;
+    }
+
     &.MuiButton-outlined {
       background: transparent;
 
       &.MuiButton-outlinedPrimary {
-        border: 1px solid $gray-300;
+        border-color: $gray-300;
         color: $gray-700;
       }
+    }
+
+    &.MuiButton-sizeSmall {
+      font-size: 14px;
+      font-weight: 500;
+      height: 40px;
+      padding: 0 16px;
+    }
+
+    &.MuiButton-sizeMedium {
+      font-size: 16px;
+      font-weight: 500;
+      height: 44px;
+      padding: 0 16px;
+    }
+
+    &.MuiButton-sizeLarge {
+      font-size: 18px;
+      font-weight: 500;
+      height: 50px;
+      padding: 0 16px;
     }
   }
 }
