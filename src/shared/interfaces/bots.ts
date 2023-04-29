@@ -96,7 +96,8 @@ export interface IMyBots {
 export interface IMyBotsContext {
   botsList: IBot[];
   paginateData: PaginationObj;
-  loadMyBots: () => void;
+  setBotPage: (page: number) => void;
+  loading: boolean;
 }
 
 export interface ISingleBotData {

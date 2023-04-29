@@ -1,8 +1,10 @@
 import {
   createContext,
   PropsWithChildren,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import apiEndPoints from "../consts/apiEndpoints";
@@ -13,9 +15,10 @@ import { IBot, IMyBots, IMyBotsContext } from "../interfaces/bots";
 import { PaginationObj } from "../interfaces/paginateData";
 
 export const MyBotsContext = createContext<IMyBotsContext>({
-  botsList: [],
+  botsList: [] as IBot[],
   paginateData: {} as PaginationObj,
-  loadMyBots: () => {},
+  setBotPage: (page: number) => {},
+  loading: true,
 });
 
 export const MyBotsProvider = ({ children }: PropsWithChildren) => {
@@ -26,11 +29,15 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   const [paginateData, setPaginateData] = useState<PaginationObj>(
     {} as PaginationObj
   );
+  const [botPage, setBotPage] = useState(0);
 
-  const loadMyBots = async () => {
+  const [loading, setLoading] = useState(true);
+
+  const loadMyBots = useCallback(async () => {
+    setLoading(true);
     try {
       const response: AxiosResponse<IMyBots, any> = await axios.get(
-        apiEndPoints.bots
+        `${apiEndPoints.bots}?&page=${botPage}`
       );
 
       const { data, ...tmpPaginate } = response.data;
@@ -39,8 +46,14 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
       setPaginateData(tmpPaginate as PaginationObj);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [setMyBotsList, setPaginateData, myBotsList, paginateData, botPage]);
+
+  useEffect(() => {
+    loadMyBots();
+  }, [botPage]);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -48,11 +61,16 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     }
   }, [isAuthenticated]);
 
+  const value = useMemo(() => {
+    return {
+      botsList: myBotsList,
+      setBotPage,
+      paginateData,
+      loading,
+    } as IMyBotsContext;
+  }, [myBotsList, paginateData, setBotPage, loading]);
+
   return (
-    <MyBotsContext.Provider
-      value={{ botsList: myBotsList, loadMyBots, paginateData }}
-    >
-      {children}
-    </MyBotsContext.Provider>
+    <MyBotsContext.Provider value={value}>{children}</MyBotsContext.Provider>
   );
 };

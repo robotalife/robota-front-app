@@ -73,6 +73,7 @@ const BotTradeHistory = () => {
       );
 
       const { data, ...paginateData } = response.data;
+
       setHistory(data);
       setPagination(paginateData as PaginationObj);
     } catch (error) {
