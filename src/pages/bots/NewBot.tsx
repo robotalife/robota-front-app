@@ -58,7 +58,7 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 // };
 
 const NewBot = () => {
-  const { loadMyBots } = useContext(MyBotsContext);
+  const { setBotPage } = useContext(MyBotsContext);
   const { axios } = useAxios();
   const navigate = useNavigate();
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
@@ -92,7 +92,7 @@ const NewBot = () => {
         await axios.post(apiEndPoints.bots, formData);
 
       const { botId } = response.data;
-      loadMyBots();
+      setBotPage(0);
       setShowModal(false);
       navigate(`${routes.botOverview}/${botId}`);
     } catch (error) {
