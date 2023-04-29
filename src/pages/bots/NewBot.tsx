@@ -57,6 +57,18 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 //   yearlyPrice: 24,
 // };
 
+enum PropertyNameList {
+  access = "Access",
+  marginType = "Leverage type",
+  leverageValue = "Leverage custom value",
+  maxAmountForBotUsage = "Max amount for bot usage",
+  minAmountForBotUsage = "Min amount for bot usage",
+  monthlyPrice = "Monthly Bot Price ",
+  orderStrategy = "Strategy",
+  pair = "Pair",
+  yearlyPrice = "Yearly Bot Price ( Month )",
+}
+
 const NewBot = () => {
   const { setBotPage } = useContext(MyBotsContext);
   const { axios } = useAxios();
@@ -386,7 +398,9 @@ const NewBot = () => {
               </TableRow>
               {Object.keys(formData.configuration).map((config) => (
                 <TableRow key={config}>
-                  <TableCell>{config}</TableCell>
+                  <TableCell>
+                    {(PropertyNameList as { [key: string]: string })[config]}
+                  </TableCell>
                   <TableCell>
                     {
                       // @ts-ignore
