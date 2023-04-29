@@ -1,29 +1,15 @@
-const getDateTime = (date: string): { time: string; date: string } => {
+import moment, { Moment } from "moment";
+
+const getDateTime = (
+  date: Moment | string | Date | null
+): { time: string; date: string } => {
   const tmpObj = { time: "", date: "" };
-  const dateObj = new Date(date);
+  const dateObj = moment(date);
 
-  // Define an array of month names
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
-  tmpObj.time = `${dateObj.getHours()}:${dateObj.getMinutes()}:${dateObj.getSeconds()}`;
+  tmpObj.time = !date ? "" : dateObj.format("H:m:s");
 
   // Use the month index to get the short month name from the array
-  tmpObj.date = `${dateObj.getDay()} ${
-    months[dateObj.getMonth()]
-  } ${dateObj.getFullYear()}`;
+  tmpObj.date = !date ? "" : dateObj.format("D MMM YYYY");
 
   return tmpObj;
 };

@@ -32,6 +32,7 @@ import PairLogo from "../../components/shared/PairLogo";
 import HistoryFilters from "../../components/shared/HistoryFilters";
 import Button from "../../components/formElements/Button";
 import Pagination from "../../components/shared/Pagination";
+import getDateString from "../../shared/helpers/getDateString";
 
 const BotTradeHistory = () => {
   const { botId } = useParams();
@@ -53,28 +54,33 @@ const BotTradeHistory = () => {
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
 
-  const getHistory = useCallback(
-    async (page: number = 0) => {
-      setLoading(true);
-      try {
-        const response: AxiosResponse<
-          DataWithPagination<IBotHistoryObj[]>,
-          any
-        > = await axios.get(
-          `${apiEndPoints.getBotHistory(botId as string)}?page=${page}`
-        );
+  const [closeDate, setCloseDate] = useState<Date | null>(null);
+  const [creationDate, setCreationDate] = useState<Date | null>(null);
+  const [page, setPage] = useState(0);
 
-        const { data, ...paginateData } = response.data;
-        setHistory(data);
-        setPagination(paginateData as PaginationObj);
-      } catch (error) {
-        // Handle error
-      } finally {
-        setLoading(false);
-      }
-    },
-    [setHistory, setPagination]
-  );
+  const getHistory = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response: AxiosResponse<
+        DataWithPagination<IBotHistoryObj[]>,
+        any
+      > = await axios.get(
+        `${apiEndPoints.getBotHistory(
+          botId as string
+        )}?page=${page}&creationDate=${
+          getDateString(creationDate) || null
+        }&closeDate=${getDateString(closeDate) || null}`
+      );
+
+      const { data, ...paginateData } = response.data;
+      setHistory(data);
+      setPagination(paginateData as PaginationObj);
+    } catch (error) {
+      // Handle error
+    } finally {
+      setLoading(false);
+    }
+  }, [setHistory, setPagination, creationDate, closeDate, page]);
 
   const getExport = useCallback(() => {
     const link = document.createElement("a");
@@ -86,16 +92,6 @@ const BotTradeHistory = () => {
     link.click();
     document.body.removeChild(link);
   }, []);
-
-  const getNext = () => {
-    if (!pagination.hasNext) return undefined;
-    getHistory(pagination.nextPage);
-  };
-
-  const getPrevious = () => {
-    if (!pagination.hasPrevious) return undefined;
-    getHistory(pagination.previousPage);
-  };
 
   const HeaderActions = (
     <Grid container spacing={1}>
@@ -139,7 +135,16 @@ const BotTradeHistory = () => {
       />
       {showFilters && (
         <WrapperBoxSection>
-          <HistoryFilters />
+          <HistoryFilters
+            onCreatedChange={(e) => {
+              setCreationDate(e);
+              setPage(0);
+            }}
+            onClosedChange={(e) => {
+              setCloseDate(e);
+              setPage(0);
+            }}
+          />
         </WrapperBoxSection>
       )}
       <WrapperBoxSection noPadding>
@@ -255,8 +260,8 @@ const BotTradeHistory = () => {
           totalPages={pagination.totalPages}
           hasNext={pagination.hasNext}
           hasPrevious={pagination.hasPrevious}
-          next={getNext}
-          previous={getPrevious}
+          next={() => setPage(pagination.nextPage)}
+          previous={() => setPage(pagination.previousPage)}
         />
       </WrapperBoxSection>
     </WrapperBox>

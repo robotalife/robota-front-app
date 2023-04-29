@@ -4,6 +4,7 @@ import {
 } from "@mui/x-date-pickers";
 
 import classes from "./DatePicker.module.scss";
+import { IconButton, InputAdornmentProps } from "@mui/material";
 
 interface Props extends DatePickerProps<Date> {}
 
@@ -12,7 +13,7 @@ const DatePicker = ({ label, ...props }: Props) => {
     <div className={classes.inputWrapper}>
       {label && <label className={classes.label}>{label}</label>}
 
-      <MUIDatePicker {...props} />
+      <MUIDatePicker format="YYYY/MM/DD" {...props} />
     </div>
   );
 };

@@ -34,7 +34,6 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
       );
 
       const { data, ...tmpPaginate } = response.data;
-      console.log(response.data);
 
       setMyBotsList(data);
       setPaginateData(tmpPaginate as PaginationObj);

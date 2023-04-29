@@ -3,7 +3,12 @@ import DatePicker from "../formElements/DatePicker";
 import moment from "moment";
 import { useState } from "react";
 
-const HistoryFilters = () => {
+interface Props {
+  onCreatedChange: (e: Date | null) => void;
+  onClosedChange: (e: Date | null) => void;
+}
+
+const HistoryFilters = ({ onCreatedChange, onClosedChange }: Props) => {
   const [minClosedDate, setMinClosedDate] = useState<Date | null>(null);
   const minCreatedDate = moment(new Date()).subtract(90, "days");
 
@@ -12,7 +17,11 @@ const HistoryFilters = () => {
       <Grid item xs={12} lg={3}>
         <DatePicker
           label="Created On"
-          onChange={setMinClosedDate}
+          autoFocus
+          onChange={(e) => {
+            setMinClosedDate(e);
+            onCreatedChange(e);
+          }}
           minDate={minCreatedDate as unknown as Date}
         />
       </Grid>
@@ -21,6 +30,7 @@ const HistoryFilters = () => {
           label="Closed On"
           disabled={!minClosedDate}
           minDate={minClosedDate as unknown as Date}
+          onChange={onClosedChange}
         />
       </Grid>
     </Grid>
