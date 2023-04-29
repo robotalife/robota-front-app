@@ -1,25 +1,26 @@
-import { Grid, MenuItem } from "@mui/material";
-import TextField from "../formElements/TextField";
-import { IconCalendar } from "../../shared/icons/Icons";
-import { useContext } from "react";
-import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
-import Select from "../formElements/Select";
+import { Grid } from "@mui/material";
+import DatePicker from "../formElements/DatePicker";
+import moment from "moment";
+import { useState } from "react";
 
 const HistoryFilters = () => {
+  const [minClosedDate, setMinClosedDate] = useState<Date | null>(null);
+  const minCreatedDate = moment(new Date()).subtract(90, "days");
+
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} lg={3}>
-        <TextField
-          startIcon={<IconCalendar />}
-          placeholder="Data Range"
+        <DatePicker
           label="Created On"
+          onChange={setMinClosedDate}
+          minDate={minCreatedDate as unknown as Date}
         />
       </Grid>
       <Grid item xs={12} lg={3}>
-        <TextField
-          startIcon={<IconCalendar />}
-          placeholder="Data Range"
+        <DatePicker
           label="Closed On"
+          disabled={!minClosedDate}
+          minDate={minClosedDate as unknown as Date}
         />
       </Grid>
     </Grid>

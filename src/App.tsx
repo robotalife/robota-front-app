@@ -5,6 +5,8 @@ import { ExchangeProvider } from "./shared/providers/ExchangeProvider";
 import { MyBotsProvider } from "./shared/providers/MyBotsProvider";
 import { useEffect } from "react";
 import { appVersion } from "./shared/consts";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 function App() {
   useEffect(() => {
@@ -12,15 +14,17 @@ function App() {
   }, []);
 
   return (
-    <SnackbarProvider>
-      <AuthProvider>
-        <ExchangeProvider>
-          <MyBotsProvider>
-            <RoutingComp />
-          </MyBotsProvider>
-        </ExchangeProvider>
-      </AuthProvider>
-    </SnackbarProvider>
+    <LocalizationProvider dateAdapter={AdapterMoment}>
+      <SnackbarProvider>
+        <AuthProvider>
+          <ExchangeProvider>
+            <MyBotsProvider>
+              <RoutingComp />
+            </MyBotsProvider>
+          </ExchangeProvider>
+        </AuthProvider>
+      </SnackbarProvider>
+    </LocalizationProvider>
   );
 }
 

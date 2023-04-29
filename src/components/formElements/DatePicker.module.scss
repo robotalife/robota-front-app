@@ -1,0 +1,26 @@
+.inputWrapper {
+  .label {
+    color: $gray-700;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    width: auto;
+  }
+
+  :global {
+    .MuiFormControl-root {
+      width: 100%;
+    }
+
+    .MuiInputBase-root {
+      border-radius: 8px;
+    }
+
+    .MuiInputBase-input {
+      padding: 10.5px 14px;
+      padding-right: 0;
+      width: 100%;
+    }
+  }
+}
