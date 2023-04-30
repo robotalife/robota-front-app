@@ -52,14 +52,10 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   }, [setMyBotsList, setPaginateData, myBotsList, paginateData, botPage]);
 
   useEffect(() => {
-    loadMyBots();
-  }, [botPage]);
-
-  useEffect(() => {
     if (isAuthenticated) {
       loadMyBots();
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, botPage]);
 
   const value = useMemo(() => {
     return {

@@ -81,6 +81,9 @@ export interface IBot {
   strategy: "LONG" | "SHORT";
   tradingPair: string;
   yearlyPrice: number;
+  assetLogo: string;
+  exchangeLogo: string;
+  stopped: boolean;
 }
 
 export interface IMyBots {
