@@ -202,12 +202,12 @@ const BotTradeHistory = () => {
                     </TableCell>
                     <TableCell>
                       {h.profitPercentage.indexOf("-") ? (
-                        <TextBadge variation="error">
+                        <TextBadge variation="success">
                           {h.profitPercentage}
                           <IconArrowDown />
                         </TextBadge>
                       ) : (
-                        <TextBadge variation="success">
+                        <TextBadge variation="error">
                           {h.profitPercentage}
                           <IconArrowUp />
                         </TextBadge>
