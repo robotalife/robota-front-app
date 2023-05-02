@@ -201,7 +201,7 @@ const BotTradeHistory = () => {
                       ) : (
                           <TextBadge variation="error">
                             {h.netProfit}
-                            <IconArrowUp />
+                            <IconArrowDown />
                           </TextBadge>
                       )}
                     </TableCell>
@@ -214,7 +214,7 @@ const BotTradeHistory = () => {
                       ) : (
                         <TextBadge variation="error">
                           {h.profitPercentage}
-                          <IconArrowUp />
+                          <IconArrowDown />
                         </TextBadge>
                       )}
                     </TableCell>
