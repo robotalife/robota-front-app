@@ -193,7 +193,7 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                      {h.netProfit.indexOf("-") ? (
+                      {h.netProfit.indexOf("-") ===-1 ? (
                           <TextBadge variation="success">
                             {h.netProfit}
                             <IconArrowUp />
@@ -206,7 +206,7 @@ const BotTradeHistory = () => {
                       )}
                     </TableCell>
                     <TableCell>
-                      {h.profitPercentage.indexOf("-") ? (
+                      {h.profitPercentage.indexOf("-") ===-1 ? (
                         <TextBadge variation="success">
                           {h.profitPercentage}
                           <IconArrowUp />
