@@ -87,7 +87,7 @@ const BotTradeHistory = () => {
     const link = document.createElement("a");
     link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(
       botId as string
-    )};`;
+    )}`;
     console.log(link.href);
     document.body.appendChild(link);
     link.click();
@@ -195,7 +195,7 @@ const BotTradeHistory = () => {
                     <TableCell>
                       {h.netProfit.indexOf("-") ===-1 ? (
                           <TextBadge variation="success">
-                            {h.netProfit}
+                             {h.netProfit}
                             <IconArrowUp />
                           </TextBadge>
                       ) : (
