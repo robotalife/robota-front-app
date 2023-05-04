@@ -6,10 +6,10 @@ const getDateTime = (
   const tmpObj = { time: "", date: "" };
   const dateObj = moment(date);
 
-  tmpObj.time = !date ? "" : dateObj.format("H:m:s");
+  tmpObj.time = !date ? "" : dateObj.format("HH:mm:ss");
 
   // Use the month index to get the short month name from the array
-  tmpObj.date = !date ? "" : dateObj.format("D MMM YYYY");
+  tmpObj.date = !date ? "" : dateObj.format("DD MMM YYYY");
 
   return tmpObj;
 };

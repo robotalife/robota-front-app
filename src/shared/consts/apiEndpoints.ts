@@ -20,7 +20,7 @@ const apiEndPoints = {
   getBotHistory: (botId: string) => `/bots/${botId}/trades/history`,
   getBotActiveTrade: (botId: string) => `/bots/${botId}/trades/active`,
   getBotOverview: (botId: string) => `/bots/${botId}/overview`,
-  getBotTradesFile: (botId: string) => `/bots/${botId}/trades/export`,
+  getBotTradesFile: (botId: string) => `/export/bots/${botId}/trades`,
   signal: "/signal",
 };
 
