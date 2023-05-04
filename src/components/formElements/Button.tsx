@@ -5,7 +5,9 @@ const Button = (props: ButtonProps) => {
   return (
     <MUIButtonImport
       {...props}
-      className={`${props.className || ""} ${classes.button}`}
+      className={`${props.className || ""} ${classes.button} ${
+        classes[`custom${props.color || "primary"}`]
+      }`}
     />
   );
 };

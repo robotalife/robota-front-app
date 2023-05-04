@@ -63,6 +63,7 @@ export interface IBotOverview {
 }
 
 export interface IBot {
+  assetLogo: string;
   baseAsset: string;
   createdAt: string;
   exchangeId: string;
@@ -81,7 +82,6 @@ export interface IBot {
   strategy: "LONG" | "SHORT";
   tradingPair: string;
   yearlyPrice: number;
-  assetLogo: string;
   exchangeLogo: string;
   stopped: boolean;
 }

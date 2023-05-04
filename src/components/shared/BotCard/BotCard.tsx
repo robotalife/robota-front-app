@@ -5,6 +5,7 @@ import Button from "../../formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/consts/routes";
 import { IBot } from "../../../shared/interfaces/bots";
+import PairLogo from "../PairLogo";
 
 interface Props {
   data: IBot;
@@ -57,8 +58,22 @@ const BotCard = ({ data }: Props) => {
         justifyContent={"space-between"}
         className={classes.borderBottom}
       >
-        <Grid item>{data.exchangeType}</Grid>
-        <Grid item>{data.tradingPair}</Grid>
+        <Grid item>
+          <PairLogo
+            src={data.exchangeLogo}
+            alt={data.exchangeType}
+            style={{ marginBottom: 8, marginRight: 4 }}
+          />
+          {data.exchangeType}
+        </Grid>
+        <Grid item>
+          <PairLogo
+            src={data.assetLogo}
+            alt={data.tradingPair}
+            style={{ marginBottom: 8, marginRight: 4 }}
+          />
+          {data.tradingPair}
+        </Grid>
       </Grid>
       <Grid container justifyContent={"space-between"} alignItems={"center"}>
         <Grid item>

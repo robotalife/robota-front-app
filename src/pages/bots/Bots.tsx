@@ -4,6 +4,7 @@ import { Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
+import BotFilters from "../../components/shared/BotFilter";
 
 const Bots = () => {
   const { botsList, setBotPage, paginateData, loading } =
@@ -11,6 +12,7 @@ const Bots = () => {
 
   return (
     <div>
+      <BotFilters />
       {loading ? (
         <Loader />
       ) : (

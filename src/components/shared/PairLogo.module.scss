@@ -2,9 +2,10 @@
   $size: 24px;
 
   border-radius: 50%;
-  display: block;
+  display: inline-block;
   height: $size;
   object-fit: cover;
   overflow: hidden;
+  vertical-align: middle;
   width: $size;
 }
