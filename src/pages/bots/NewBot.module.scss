@@ -1,0 +1,9 @@
+.table {
+  :global {
+    .MuiTableCell-root {
+      border: 0;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+  }
+}

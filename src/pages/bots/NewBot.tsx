@@ -29,6 +29,8 @@ import TableBody from "../../components/shared/table/TableBody";
 import routes from "../../shared/consts/routes";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 
+import classes from "./NewBot.module.scss";
+
 // const validations = validationSchema({
 //   name: newBotStringSchema,
 //   exchangeId: newBotStringSchema,
@@ -380,7 +382,7 @@ const NewBot = () => {
           >
             Save Changes?
           </Typography>
-          <Table>
+          <Table className={classes.table}>
             <TableBody>
               <TableRow>
                 <TableCell>Name</TableCell>
