@@ -13,8 +13,10 @@ import { ISingleBotData } from "../interfaces/bots";
 
 export const BotContext = createContext<{
   botData: ISingleBotData;
+  getBotData: () => void;
 }>({
   botData: {} as ISingleBotData,
+  getBotData: () => {},
 });
 
 export const BotProvider = ({ children }: PropsWithChildren) => {
@@ -40,6 +42,8 @@ export const BotProvider = ({ children }: PropsWithChildren) => {
   }, [getBotData]);
 
   return (
-    <BotContext.Provider value={{ botData }}>{children}</BotContext.Provider>
+    <BotContext.Provider value={{ botData, getBotData }}>
+      {children}
+    </BotContext.Provider>
   );
 };

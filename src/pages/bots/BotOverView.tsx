@@ -13,7 +13,6 @@ import {
   IconArrowUp,
   IconInfoCircle,
   TempChartLong,
-  TempChartShort,
 } from "../../shared/icons/Icons";
 
 const BotOverView = () => {

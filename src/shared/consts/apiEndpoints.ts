@@ -21,6 +21,8 @@ const apiEndPoints = {
   getBotActiveTrade: (botId: string) => `/bots/${botId}/trades/active`,
   getBotOverview: (botId: string) => `/bots/${botId}/overview`,
   getBotTradesFile: (botId: string) => `/export/bots/${botId}/trades`,
+  getStopBot: (botId: string) => `/bots/${botId}/stop`,
+  getRestartBot: (botId: string) => `/bots/${botId}/restart`,
   signal: "/signal",
 };
 

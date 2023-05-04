@@ -2,19 +2,54 @@ import { Outlet, useLocation, useParams } from "react-router-dom";
 import HeadBand from "../../components/pageStructure/HeadBand";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import LinkBar from "../../components/pageStructure/LinkBar";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { botTabs } from "../consts/linksAndTabs";
 import Button from "../../components/formElements/Button";
 import { IconInfoCircle, IconPause, IconPlay } from "../icons/Icons";
 import { Grid } from "@mui/material";
 import { BotContext } from "../providers/BotProvider";
+import { AxiosResponse } from "axios";
+import useAxios from "../hooks/useAxios";
+import apiEndPoints from "../consts/apiEndpoints";
 
 const InnerSettingsLayout = () => {
-  const { botData } = useContext(BotContext);
+  const { axios } = useAxios();
+  const { botData, getBotData } = useContext(BotContext);
   const { botId = "" } = useParams();
   const { pathname } = useLocation();
   const [pageTitle, setPageTitle] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const stopBot = useCallback(async () => {
+    setLoading(true);
+
+    try {
+      const response: AxiosResponse<any, any> = await axios.post(
+        apiEndPoints.getStopBot(botId as string)
+      );
+      getBotData();
+    } catch (error) {
+      // Handle error
+    } finally {
+      setLoading(false);
+    }
+  }, [setLoading]);
+
+  const startBot = useCallback(async () => {
+    setLoading(true);
+
+    try {
+      const response: AxiosResponse<any, any> = await axios.post(
+        apiEndPoints.getRestartBot(botId as string)
+      );
+      getBotData();
+    } catch (error) {
+      // Handle error
+    } finally {
+      setLoading(false);
+    }
+  }, [setLoading]);
 
   useEffect(() => {
     const title = botTabs(botId).find((link) => pathname === link.to)?.label;
@@ -46,6 +81,8 @@ const InnerSettingsLayout = () => {
                 size="small"
                 sx={{ mb: { xs: 2, lg: 0 } }}
                 fullWidth
+                disabled={loading}
+                onClick={startBot}
               >
                 <IconPlay style={{ width: 10, marginRight: 10 }} />
                 Start Bot
@@ -57,6 +94,8 @@ const InnerSettingsLayout = () => {
                 size="small"
                 sx={{ mb: { xs: 2, lg: 0 } }}
                 fullWidth
+                disabled={loading}
+                onClick={stopBot}
               >
                 <IconPause style={{ width: 10, marginRight: 10 }} />
                 Stop Bot
