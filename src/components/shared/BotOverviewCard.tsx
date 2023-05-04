@@ -12,7 +12,7 @@ import { BotContext } from "../../shared/providers/BotProvider";
 
 interface Props {
   action: ReactNode;
-  chart: ReactNode;
+  chart?: ReactNode;
   content: ReactNode;
   description: ReactNode;
   title: string;
@@ -46,7 +46,7 @@ const BotOverviewCard = ({
         }}
       >
         <div className={classes.action}>{action}</div>
-        <div className={classes.chart}>{chart}</div>
+        {chart && <div className={classes.chart}>{chart}</div>}
       </Grid>
     </Grid>
   );

@@ -111,7 +111,6 @@ const BotOverView = () => {
           <WrapperBoxSection>
             <BotOverviewCard
               action={""}
-              chart={<TempChartShort />}
               content={overview.closedDeals}
               description={""}
               title={"Closed Deals"}
