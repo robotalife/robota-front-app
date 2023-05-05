@@ -1,13 +1,4 @@
-.inputWrapper {
-  .label {
-    color: $gray-700;
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    width: auto;
-  }
-
+.wrapper {
   :global {
     .MuiFormControl-root {
       width: 100%;

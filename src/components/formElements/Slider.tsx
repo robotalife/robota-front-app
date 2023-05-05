@@ -1,4 +1,7 @@
 import { Slider as MUISlider, SliderProps } from "@mui/material";
+import InputWrapper from "./InputWrapper";
+import { useId } from "react";
+
 import classes from "./Slider.module.scss";
 
 interface Props extends SliderProps {
@@ -6,11 +9,15 @@ interface Props extends SliderProps {
 }
 
 const Slider = ({ label, ...props }: Props) => {
+  const tmpId = useId();
   return (
-    <div className={classes.inputWrapper}>
-      {label && <label className={classes.label}>{label}</label>}
+    <InputWrapper
+      id={props.id || tmpId}
+      label={label}
+      className={classes.wrapper}
+    >
       <MUISlider {...props} />
-    </div>
+    </InputWrapper>
   );
 };
 

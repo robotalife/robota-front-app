@@ -3,7 +3,7 @@ import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { Grid, MenuItem, Select, Typography } from "@mui/material";
+import { Grid, MenuItem, Typography } from "@mui/material";
 import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
@@ -30,6 +30,7 @@ import routes from "../../shared/consts/routes";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 
 import classes from "./NewBot.module.scss";
+import Select from "../../components/formElements/Select";
 
 // const validations = validationSchema({
 //   name: newBotStringSchema,
@@ -162,8 +163,11 @@ const NewBot = () => {
                   id="exchangeId"
                   value={formData.exchangeId}
                   onChange={(e) => {
-                    setFormData({ ...formData, exchangeId: e.target.value });
-                    setSelectedExchange(e.target.value);
+                    setFormData({
+                      ...formData,
+                      exchangeId: e.target.value as string,
+                    });
+                    setSelectedExchange(e.target.value as string);
                   }}
                   sx={{ width: "100%" }}
                 >
@@ -195,7 +199,7 @@ const NewBot = () => {
                       ...formData,
                       configuration: {
                         ...formData.configuration,
-                        pair: e.target.value,
+                        pair: e.target.value as string,
                       },
                     })
                   }

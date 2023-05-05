@@ -1,32 +1,21 @@
-.inputWrapper {
-  .label {
-    color: $gray-700;
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
-    width: auto;
-  }
+.input {
+  :global {
+    .MuiInputBase-root {
+      border: $gray-300;
+      border-radius: 8px;
+      box-shadow: $input-shadow;
+    }
 
-  .input {
-    :global {
-      .MuiInputBase-root {
-        border: $gray-300;
-        border-radius: 8px;
-        box-shadow: $input-shadow;
-      }
+    .MuiInputBase-input {
+      padding: 10.5px 14px;
+    }
 
-      .MuiInputBase-input {
-        padding: 10.5px 14px;
-      }
+    .MuiInputBase-inputAdornedStart {
+      padding-left: 0;
+    }
 
-      .MuiInputBase-inputAdornedStart {
-        padding-left: 0;
-      }
-
-      .MuiInputBase-inputAdornedEnd {
-        padding-right: 0;
-      }
+    .MuiInputBase-inputAdornedEnd {
+      padding-right: 0;
     }
   }
 }

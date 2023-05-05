@@ -1,10 +1,7 @@
-import {
-  Autocomplete,
-  AutocompleteProps,
-  FormHelperText,
-  TextField,
-} from "@mui/material";
+import { Autocomplete, AutocompleteProps } from "@mui/material";
 import { Message } from "../../shared/interfaces/message";
+import InputWrapper from "./InputWrapper";
+import { useId } from "react";
 
 import classes from "./ComboBox.module.scss";
 
@@ -15,24 +12,24 @@ interface AutocompleteOption {
 
 interface Props
   extends AutocompleteProps<AutocompleteOption, true, false, true> {
+  label?: string;
   message?: string;
   messageType?: Message;
 }
 
-const ComboBox = ({ message, messageType, ...props }: Props) => {
-  return (
-    <div className={classes.comboWrapper}>
-      {/* <Autocomplete {...props} /> */}
+const ComboBox = ({ label, message, messageType, ...props }: Props) => {
+  const tmpId = useId();
 
-      {message && (
-        <FormHelperText
-          className={classes.helperText}
-          error={messageType === "error"}
-        >
-          {message}
-        </FormHelperText>
-      )}
-    </div>
+  return (
+    <InputWrapper
+      id={props.id || tmpId}
+      label={label}
+      message={message}
+      messageType={messageType}
+      className={classes.wrapper}
+    >
+      {/* <Autocomplete {...props} /> */}
+    </InputWrapper>
   );
 };
 

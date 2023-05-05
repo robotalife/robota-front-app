@@ -1,5 +1,4 @@
 import {
-  FormHelperText,
   IconButton,
   InputAdornment,
   TextField as MUITextField,
@@ -9,6 +8,7 @@ import { useId, useState } from "react";
 import { IconEye, IconEyeOff } from "../../shared/icons/Icons";
 import { Message } from "../../shared/interfaces/message";
 import classes from "./TextField.module.scss";
+import InputWrapper from "./InputWrapper";
 
 interface Props extends StandardTextFieldProps {
   startIcon?: JSX.Element;
@@ -56,12 +56,12 @@ const TextField = ({
   };
 
   return (
-    <div className={classes.inputWrapper}>
-      {textFieldProps.label && (
-        <label htmlFor={textFieldProps.id || tmpId} className={classes.label}>
-          {textFieldProps.label}
-        </label>
-      )}
+    <InputWrapper
+      id={textFieldProps.id || tmpId}
+      label={textFieldProps.label}
+      message={message}
+      messageType={messageType}
+    >
       <MUITextField
         {...textFieldProps}
         label={undefined}
@@ -86,15 +86,7 @@ const TextField = ({
           ),
         }}
       />
-      {message && (
-        <FormHelperText
-          className={classes.helperText}
-          error={messageType === "error"}
-        >
-          {message}
-        </FormHelperText>
-      )}
-    </div>
+    </InputWrapper>
   );
 };
 
