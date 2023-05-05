@@ -21,7 +21,19 @@ const Sidebar = () => {
     <div className={classes.wrapper}>
       <nav className={classes.nav}>
         <IconButton>
-          <IconBarChart />
+          <NavLink
+            style={({ isActive, isPending }) => {
+              return {
+                color: isActive ? "red" : "inherit",
+              };
+            }}
+            className={({ isActive, isPending }) => {
+              return isActive ? "active" : isPending ? "pending" : "";
+            }}
+            to={routes.portfolio}
+          >
+            <IconBarChart />
+          </NavLink>
         </IconButton>
         <IconButton>
           <IconHexagon />
