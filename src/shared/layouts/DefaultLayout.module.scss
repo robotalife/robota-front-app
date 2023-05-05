@@ -11,7 +11,7 @@
 
 .header {
   align-items: center;
-  background: #fff;
+  background: $white;
   border-bottom: 1px solid #eaecf0;
   display: flex;
   grid-area: header;
@@ -28,7 +28,7 @@
 }
 
 .sidebar {
-  background: #fff;
+  background: $white;
   border-top: 1px solid #eaecf0;
   grid-area: sidebar;
   z-index: 1;

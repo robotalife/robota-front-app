@@ -1,0 +1,30 @@
+.inputWrapper {
+  .label {
+    color: $gray-700;
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    width: auto;
+  }
+
+  :global {
+    .MuiSlider-root {
+      color: $gray-200;
+      height: 8px;
+      padding-bottom: 18px;
+      padding-top: 18px;
+    }
+
+    .MuiSlider-track {
+      background-color: $primary-600;
+    }
+
+    .MuiSlider-thumb {
+      background-color: $white;
+      border: 1px solid $primary-600;
+      height: 24px;
+      width: 24px;
+    }
+  }
+}

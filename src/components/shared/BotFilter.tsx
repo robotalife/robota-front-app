@@ -1,7 +1,8 @@
 import { Grid, MenuItem } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import Select from "../formElements/Select";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
+import Slider from "../formElements/Slider";
 
 interface Props {
   onCreatedChange?: (e: Date | null) => void;
@@ -11,6 +12,31 @@ interface Props {
 const BotFilters = ({ onCreatedChange, onClosedChange }: Props) => {
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
     useContext(ExchangeContext);
+
+  const [value2, setValue2] = useState<number[]>([-100, 100]);
+  const minDistance = 20;
+
+  const handleChange2 = (
+    event: Event,
+    newValue: number | number[],
+    activeThumb: number
+  ) => {
+    if (!Array.isArray(newValue)) {
+      return;
+    }
+
+    if (newValue[1] - newValue[0] < minDistance) {
+      if (activeThumb === 0) {
+        const clamped = Math.min(newValue[0], 100 - minDistance);
+        setValue2([clamped, clamped + minDistance]);
+      } else {
+        const clamped = Math.max(newValue[1], minDistance);
+        setValue2([clamped - minDistance, clamped]);
+      }
+    } else {
+      setValue2(newValue as number[]);
+    }
+  };
 
   return (
     <Grid
@@ -69,6 +95,19 @@ const BotFilters = ({ onCreatedChange, onClosedChange }: Props) => {
             </MenuItem>
           ))}
         </Select>
+      </Grid>
+      <Grid item xs={12} lg={3}>
+        <Slider
+          label={"Profit"}
+          getAriaLabel={() => "Minimum distance shift"}
+          value={value2}
+          onChange={handleChange2}
+          valueLabelDisplay="auto"
+          disableSwap
+          min={-100}
+          max={100}
+          valueLabelFormat={(e) => `${e}%`}
+        />
       </Grid>
     </Grid>
   );

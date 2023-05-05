@@ -4,7 +4,6 @@ import {
 } from "@mui/x-date-pickers";
 
 import classes from "./DatePicker.module.scss";
-import { IconButton, InputAdornmentProps } from "@mui/material";
 
 interface Props extends DatePickerProps<Date> {}
 

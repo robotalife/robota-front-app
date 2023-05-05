@@ -62,7 +62,7 @@ const BotCard = ({ data }: Props) => {
           <PairLogo
             src={data.exchangeLogo}
             alt={data.exchangeType}
-            style={{ marginBottom: 8, marginRight: 4 }}
+            style={{ marginRight: 6, verticalAlign: "middle" }}
           />
           {data.exchangeType}
         </Grid>
@@ -70,7 +70,7 @@ const BotCard = ({ data }: Props) => {
           <PairLogo
             src={data.assetLogo}
             alt={data.tradingPair}
-            style={{ marginBottom: 8, marginRight: 4 }}
+            style={{ marginRight: 6, verticalAlign: "middle" }}
           />
           {data.tradingPair}
         </Grid>
