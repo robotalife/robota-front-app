@@ -193,20 +193,20 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                      {h.netProfit.indexOf("-") ===-1 ? (
-                          <TextBadge variation="success">
-                             {h.netProfit}
-                            <IconArrowUp />
-                          </TextBadge>
+                      {h.netProfit.indexOf("-") === -1 ? (
+                        <TextBadge variation="success">
+                          {h.netProfit}
+                          <IconArrowUp />
+                        </TextBadge>
                       ) : (
-                          <TextBadge variation="error">
-                            {h.netProfit}
-                            <IconArrowDown />
-                          </TextBadge>
+                        <TextBadge variation="error">
+                          {h.netProfit}
+                          <IconArrowDown />
+                        </TextBadge>
                       )}
                     </TableCell>
                     <TableCell>
-                      {h.profitPercentage.indexOf("-") ===-1 ? (
+                      {h.profitPercentage.indexOf("-") === -1 ? (
                         <TextBadge variation="success">
                           {h.profitPercentage}
                           <IconArrowUp />
@@ -221,12 +221,16 @@ const BotTradeHistory = () => {
                     <TableCell>
                       <Grid container spacing={1} alignItems={"center"}>
                         <Grid item xs={"auto"}>
-                          <PairLogo
-                            src={h.baseLogo}
-                            alt={h.baseVolume}
-                            style={{ marginBottom: 8 }}
-                          />
-                          <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
+                          <div>
+                            <PairLogo
+                              src={h.baseLogo}
+                              alt={h.baseVolume}
+                              style={{ marginBottom: 8 }}
+                            />
+                          </div>
+                          <div>
+                            <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
+                          </div>
                         </Grid>
                         <Grid item xs={"auto"}>
                           <Typography component={"div"} sx={{ mb: 1 }}>
