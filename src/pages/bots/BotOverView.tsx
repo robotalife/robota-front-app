@@ -115,7 +115,7 @@ const BotOverView = () => {
                     </Typography>
                   </>
                 }
-                title={"Winrate"}
+                title={"Win rate"}
               />
             </WrapperBoxSection>
           </WrapperBox>
