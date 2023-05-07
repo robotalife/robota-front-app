@@ -33,10 +33,11 @@ const options: ChartOptions<"line"> = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
+      display: false,
       position: "top" as const,
     },
     title: {
-      display: true,
+      display: false,
       text: "Chart.js Line Chart",
     },
   },
@@ -54,7 +55,23 @@ const options: ChartOptions<"line"> = {
   },
 };
 
-const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = [
+  "2",
+  "4",
+  "6",
+  "8",
+  "10",
+  "12",
+  "14",
+  "16",
+  "18",
+  "20",
+  "22",
+  "24",
+  "26",
+  "28",
+  "30",
+];
 
 const data: ChartData<"line", number[], string> = {
   labels,
@@ -62,7 +79,7 @@ const data: ChartData<"line", number[], string> = {
     {
       fill: true,
       label: "Dataset 2",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+      data: labels.map(() => faker.datatype.number({ min: 100, max: 500 })),
       borderColor: "#7F56D9",
       borderWidth: 2,
       backgroundColor: (context: ScriptableContext<"line">) => {
@@ -72,7 +89,7 @@ const data: ChartData<"line", number[], string> = {
         gradient.addColorStop(1, "#7F56D900");
         return gradient;
       },
-      tension: 0.4,
+      tension: 0.3,
       pointRadius: 0,
     },
   ],
