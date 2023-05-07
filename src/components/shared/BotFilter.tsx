@@ -53,13 +53,12 @@ const BotFilters = () => {
             }}
             sx={{ width: "100%" }}
           >
+            <MenuItem value={"all"}>All</MenuItem>
             {exchangeList.map((ex) => (
               <MenuItem value={ex.value} key={ex.label}>
                 {ex.label}
               </MenuItem>
             ))}
-
-            <MenuItem value={"all"}>All</MenuItem>
           </Select>
         </Grid>
         <Grid item xs={12} lg={3}>
