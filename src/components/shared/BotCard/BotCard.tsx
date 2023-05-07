@@ -13,6 +13,18 @@ interface Props {
 
 const BotCard = ({ data }: Props) => {
   const navigate = useNavigate();
+  const pnlClass = ((data:IBot)=>{
+      if(data.pnl == "0") {
+          return ""
+      }
+      if(data.pnl.includes("-")) {
+          return classes.red
+      }
+
+      if(data.pnl.includes("+")) {
+          return classes.green
+      }
+  })
 
   return (
     <Box className={classes.botCard}>
@@ -43,10 +55,10 @@ const BotCard = ({ data }: Props) => {
           <Typography
             component={"div"}
             className={`${classes.profitPercentage} ${
-              data.strategy === "LONG" ? classes.green : classes.red
+                pnlClass(data)
             }`}
           >
-            +18%
+              {data.pnl}
           </Typography>
         </Grid>
         <Grid item>
