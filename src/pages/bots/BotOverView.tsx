@@ -20,6 +20,19 @@ import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 import Button from "../../components/formElements/Button";
 import Select from "../../components/formElements/Select";
 
+const buttonStyle = {
+  borderRadius: "6px !important",
+  fontSize: 14,
+  fontWeight: 500,
+  color: "#667085",
+  marginRight: 2,
+};
+
+const activeButtonStyle = {
+  backgroundColor: "#F9F5FF",
+  color: "#6941C6",
+};
+
 const BotOverView = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
@@ -147,17 +160,22 @@ const BotOverView = () => {
         </Grid>
         <Grid item xs={12} sx={{ mb: 2, display: { xs: "none", lg: "block" } }}>
           <Button
-            variant={activeButton === "summary" ? "contained" : "outlined"}
             size="small"
-            sx={{ marginRight: 2 }}
+            sx={{
+              ...buttonStyle,
+              ...(activeButton === "summary" ? activeButtonStyle : {}),
+            }}
             onClick={() => setActiveButton("summary")}
           >
             Summery Profit
           </Button>
           <Button
-            variant={activeButton === "day" ? "contained" : "outlined"}
             size="small"
             onClick={() => setActiveButton("day")}
+            sx={{
+              ...buttonStyle,
+              ...(activeButton === "day" ? activeButtonStyle : {}),
+            }}
           >
             Profit by Day
           </Button>

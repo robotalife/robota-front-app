@@ -11,7 +11,7 @@ interface AutocompleteOption {
 }
 
 interface Props
-  extends AutocompleteProps<AutocompleteOption, true, false, true> {
+  extends AutocompleteProps<string | AutocompleteOption, true, false, true> {
   label?: string;
   message?: string;
   messageType?: Message;
@@ -28,7 +28,7 @@ const ComboBox = ({ label, message, messageType, ...props }: Props) => {
       messageType={messageType}
       className={classes.wrapper}
     >
-      {/* <Autocomplete {...props} /> */}
+      <Autocomplete {...props} />
     </InputWrapper>
   );
 };
