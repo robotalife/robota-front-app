@@ -73,7 +73,7 @@ enum PropertyNameList {
 }
 
 const NewBot = () => {
-  const { setBotPage } = useContext(MyBotsContext);
+  const { filters, setFilters } = useContext(MyBotsContext);
   const { axios } = useAxios();
   const navigate = useNavigate();
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
@@ -107,7 +107,7 @@ const NewBot = () => {
         await axios.post(apiEndPoints.bots, formData);
 
       const { botId } = response.data;
-      setBotPage(0);
+      setFilters({ ...filters, page: 0 });
       setShowModal(false);
       navigate(`${routes.botOverview}/${botId}`);
     } catch (error) {

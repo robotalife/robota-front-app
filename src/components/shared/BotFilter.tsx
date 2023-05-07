@@ -9,8 +9,7 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 const BotFilters = () => {
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
     useContext(ExchangeContext);
-  const { filters, loading, setFilters, setBotPage } =
-    useContext(MyBotsContext);
+  const { filters, loading, setFilters } = useContext(MyBotsContext);
   const minDistance = 20;
 
   const handleProfitChange = (
