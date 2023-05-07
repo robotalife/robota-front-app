@@ -17,7 +17,7 @@ import {
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
 import { durations } from "../../shared/consts/durations";
-import AreaChart from "../../components/shared/chart/AreaChart";
+import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 
 const BotOverView = () => {
   const { botId } = useParams();
@@ -54,7 +54,7 @@ const BotOverView = () => {
             <WrapperBoxSection>
               <BotOverviewCard
                 action={<IconInfoCircle />}
-                chart={<TempChartLong />}
+                hasChart
                 content={overview.totalProfit}
                 description={
                   <>
@@ -85,7 +85,7 @@ const BotOverView = () => {
             <WrapperBoxSection>
               <BotOverviewCard
                 action={<Icon3DotsVertical />}
-                chart={<TempChartLong />}
+                hasChart
                 content={overview.winRate}
                 description={
                   <>
@@ -136,7 +136,7 @@ const BotOverView = () => {
           <ToggleButtonGroup options={durations} noIndicator id="durations" />
         </Grid>
       </Grid>
-      <AreaChart />
+      <OverviewAreaChart />
     </Container>
   );
 };

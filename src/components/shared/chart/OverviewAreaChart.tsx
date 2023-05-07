@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { Line } from "react-chartjs-2";
 
-import classes from "./AreaChart.module.scss";
+import classes from "./OverviewAreaChart.module.scss";
 import { faker } from "@faker-js/faker";
 
 ChartJS.register(
@@ -38,7 +38,7 @@ const options: ChartOptions<"line"> = {
     },
     title: {
       display: false,
-      text: "Chart.js Line Chart",
+      text: "",
     },
   },
   scales: {
@@ -95,15 +95,12 @@ const data: ChartData<"line", number[], string> = {
   ],
 };
 
-const AreaChart = () => {
+const OverviewAreaChart = () => {
   return (
-    <div
-      className={classes.chartWrapper}
-      style={{ width: "100%", height: 400 }}
-    >
+    <div className={classes.chartWrapper}>
       <Line options={options} data={data} />
     </div>
   );
 };
 
-export default AreaChart;
+export default OverviewAreaChart;

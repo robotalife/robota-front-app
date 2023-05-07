@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/consts/routes";
 import { IBot } from "../../../shared/interfaces/bots";
 import PairLogo from "../PairLogo";
+import BotCardChart from "../chart/BotCardChart";
 
 interface Props {
   data: IBot;
@@ -13,18 +14,18 @@ interface Props {
 
 const BotCard = ({ data }: Props) => {
   const navigate = useNavigate();
-  const pnlClass = ((data:IBot)=>{
-      if(data.pnl == "0") {
-          return ""
-      }
-      if(data.pnl.includes("-")) {
-          return classes.red
-      }
+  const pnlClass = (data: IBot) => {
+    if (data.pnl == "0") {
+      return "";
+    }
+    if (data.pnl.includes("-")) {
+      return classes.red;
+    }
 
-      if(data.pnl.includes("+")) {
-          return classes.green
-      }
-  })
+    if (data.pnl.includes("+")) {
+      return classes.green;
+    }
+  };
 
   return (
     <Box className={classes.botCard}>
@@ -54,15 +55,15 @@ const BotCard = ({ data }: Props) => {
           </Typography>
           <Typography
             component={"div"}
-            className={`${classes.profitPercentage} ${
-                pnlClass(data)
-            }`}
+            className={`${classes.profitPercentage} ${pnlClass(data)}`}
           >
-              {data.pnl}
+            {data.pnl}
           </Typography>
         </Grid>
         <Grid item>
-          {data.strategy === "LONG" ? <TempChartLong /> : <TempChartShort />}
+          <BotCardChart
+            strategy={data.strategy.toLocaleLowerCase() as "short" | "long"}
+          />
         </Grid>
       </Grid>
       <Grid

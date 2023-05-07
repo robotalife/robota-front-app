@@ -9,10 +9,11 @@ import {
   TempChartShort,
 } from "../../shared/icons/Icons";
 import { BotContext } from "../../shared/providers/BotProvider";
+import BotCardChart from "./chart/BotCardChart";
 
 interface Props {
   action: ReactNode;
-  chart?: ReactNode;
+  hasChart?: boolean;
   content: ReactNode;
   description: ReactNode;
   title: string;
@@ -20,7 +21,7 @@ interface Props {
 
 const BotOverviewCard = ({
   action,
-  chart,
+  hasChart,
   content,
   description,
   title,
@@ -47,7 +48,7 @@ const BotOverviewCard = ({
         }}
       >
         <div className={classes.action}>{action}</div>
-        {chart && <div className={classes.chart}>{chart}</div>}
+        {hasChart && <BotCardChart strategy={isLong ? "long" : "short"} />}
       </Grid>
     </Grid>
   );
