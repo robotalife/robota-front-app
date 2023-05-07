@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { IBotOverview } from "../../shared/interfaces/bots";
-import { Container, Grid, Typography } from "@mui/material";
+import { Container, Grid, MenuItem, Paper, Typography } from "@mui/material";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import BotOverviewCard from "../../components/shared/BotOverviewCard";
@@ -12,18 +12,23 @@ import {
   Icon3DotsVertical,
   IconArrowUp,
   IconInfoCircle,
-  TempChartLong,
 } from "../../shared/icons/Icons";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
 import { durations } from "../../shared/consts/durations";
 import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
+import Button from "../../components/formElements/Button";
+import Select from "../../components/formElements/Select";
 
 const BotOverView = () => {
   const { botId } = useParams();
   const { axios } = useAxios();
   const [overview, setOverview] = useState<IBotOverview>({} as IBotOverview);
   const [loading, setLoading] = useState(true);
+
+  const [activeButton, setActiveButton] = useState<"summary" | "day">(
+    "summary"
+  );
 
   const getOverviewData = useCallback(async () => {
     setLoading(true);
@@ -45,6 +50,11 @@ const BotOverView = () => {
   useEffect(() => {
     getOverviewData();
   }, [getOverviewData]);
+
+  useEffect(() => {
+    //action for active button
+    console.log(activeButton);
+  }, [activeButton]);
 
   return (
     <Container maxWidth="xl">
@@ -132,8 +142,37 @@ const BotOverView = () => {
         <Grid item xs={12} lg="auto">
           <WrapperBoxHeader title="Overview" noBorder />
         </Grid>
-        <Grid item xs={12} lg="auto">
+        <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
           <ToggleButtonGroup options={durations} noIndicator id="durations" />
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 2, display: { xs: "none", lg: "block" } }}>
+          <Button
+            variant={activeButton === "summary" ? "contained" : "outlined"}
+            size="small"
+            sx={{ marginRight: 2 }}
+            onClick={() => setActiveButton("summary")}
+          >
+            Summery Profit
+          </Button>
+          <Button
+            variant={activeButton === "day" ? "contained" : "outlined"}
+            size="small"
+            onClick={() => setActiveButton("day")}
+          >
+            Profit by Day
+          </Button>
+        </Grid>
+        <Grid item xs={12} sx={{ mb: 2, display: { lg: "none" } }}>
+          <Select
+            onChange={(e) =>
+              setActiveButton(e.target.value as "summary" | "day")
+            }
+            value={activeButton}
+            sx={{ width: "100%" }}
+          >
+            <MenuItem value={"summary"}>Summery Profit</MenuItem>
+            <MenuItem value={"day"}>Profit by Day</MenuItem>
+          </Select>
         </Grid>
       </Grid>
       <OverviewAreaChart />
