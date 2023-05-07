@@ -31,12 +31,13 @@ const BotOverviewCard = ({
 
   return (
     <Grid container justifyContent={"space-between"}>
-      <Grid item>
+      <Grid item xs>
         <Typography className={classes.title}>{title}</Typography>
         <Typography className={classes.content}>{content}</Typography>
         <div className={classes.description}>{description}</div>
       </Grid>
       <Grid
+        xs
         item
         sx={{
           textAlign: "end",
