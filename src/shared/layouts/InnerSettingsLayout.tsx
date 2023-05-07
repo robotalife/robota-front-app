@@ -6,7 +6,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import { botTabs } from "../consts/linksAndTabs";
 import Button from "../../components/formElements/Button";
 import { IconInfoCircle, IconPause, IconPlay } from "../icons/Icons";
-import { Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import { BotContext } from "../providers/BotProvider";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
@@ -57,7 +57,7 @@ const InnerSettingsLayout = () => {
   }, [pathname]);
 
   return (
-    <>
+    <Container maxWidth="xl" sx={{ margin: 0 }}>
       <PageTitle title={pageTitle}>
         <Grid container spacing={2} alignItems={"center"}>
           <Grid item xs={6} sx={{ display: { lg: "none" } }}>
@@ -107,7 +107,7 @@ const InnerSettingsLayout = () => {
       <HeadBand isOpen={isOpen} />
       <LinkBar links={botTabs(botId)} />
       <Outlet />
-    </>
+    </Container>
   );
 };
 
