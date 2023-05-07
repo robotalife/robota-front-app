@@ -22,6 +22,11 @@
   color: $gray-400;
 }
 
+.chartContainer {
+  display: flex;
+  justify-content: flex-end;
+}
+
 :global {
   .success {
     color: $success-600;

@@ -48,7 +48,9 @@ const BotOverviewCard = ({
         }}
       >
         <div className={classes.action}>{action}</div>
-        {hasChart && <BotCardChart strategy={isLong ? "long" : "short"} />}
+        <div className={classes.chartContainer}>
+          {hasChart && <BotCardChart strategy={isLong ? "long" : "short"} />}
+        </div>
       </Grid>
     </Grid>
   );
