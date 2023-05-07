@@ -99,8 +99,9 @@ export interface IMyBots {
 export interface IMyBotsContext {
   botsList: IBot[];
   paginateData: PaginationObj;
-  setBotPage: (page: number) => void;
   loading: boolean;
+  filters: IBotFilters;
+  setFilters: (filters: IBotFilters) => void;
 }
 
 export interface ISingleBotData {
@@ -114,4 +115,12 @@ export interface ISingleBotData {
   price: string;
   strategy: "SHORT" | "LONG";
   stopped: string;
+}
+
+export interface IBotFilters {
+  duration: number;
+  exchange: string | "all";
+  pair: string | null;
+  profit: number[];
+  page: number;
 }

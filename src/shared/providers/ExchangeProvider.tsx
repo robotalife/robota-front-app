@@ -61,7 +61,9 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         window.location.href = routes.exchangeNew;
       }
 
-      const tmpSelected = exchanges.find((ex) => ex.default)?.exchangeId;
+      const tmpSelected =
+        exchanges.find((ex) => ex.default)?.exchangeId ||
+        exchanges[0]?.exchangeId;
       setSelectedExchange(tmpSelected as string);
     } catch (error) {
       // Handle error

@@ -11,14 +11,36 @@ import apiEndPoints from "../consts/apiEndpoints";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
-import { IBot, IMyBots, IMyBotsContext } from "../interfaces/bots";
+import { IBot, IBotFilters, IMyBots, IMyBotsContext } from "../interfaces/bots";
 import { PaginationObj } from "../interfaces/paginateData";
+
+const getFiltersString = (filters: IBotFilters): string => {
+  let tmpStr = "";
+
+  tmpStr += `page=${filters.page !== 0 ? filters.page : "0"}&`;
+  tmpStr += filters.duration !== 0 ? `duration=${filters.duration}&` : "";
+  tmpStr += filters.exchange !== "all" ? `exchange=${filters.exchange}&` : "";
+  tmpStr += filters.pair !== null ? `pair=${filters.pair}&` : "";
+  tmpStr += filters.profit[0] !== -100 ? `profitMin=${filters.profit[0]}&` : "";
+  tmpStr += filters.profit[1] !== 100 ? `profitMin=${filters.profit[1]}` : "";
+
+  return tmpStr;
+};
+
+const initialFilters: IBotFilters = {
+  duration: 0,
+  exchange: "all",
+  pair: null,
+  profit: [-100, 100],
+  page: 0,
+};
 
 export const MyBotsContext = createContext<IMyBotsContext>({
   botsList: [] as IBot[],
   paginateData: {} as PaginationObj,
-  setBotPage: (page: number) => {},
   loading: true,
+  setFilters: (filters: IBotFilters) => {},
+  filters: initialFilters,
 });
 
 export const MyBotsProvider = ({ children }: PropsWithChildren) => {
@@ -29,7 +51,8 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   const [paginateData, setPaginateData] = useState<PaginationObj>(
     {} as PaginationObj
   );
-  const [botPage, setBotPage] = useState(0);
+
+  const [filters, setFilters] = useState<IBotFilters>(initialFilters);
 
   const [loading, setLoading] = useState(true);
 
@@ -37,7 +60,7 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     setLoading(true);
     try {
       const response: AxiosResponse<IMyBots, any> = await axios.get(
-        `${apiEndPoints.bots}?&page=${botPage}`
+        `${apiEndPoints.bots}?${getFiltersString(filters)}`
       );
 
       const { data, ...tmpPaginate } = response.data;
@@ -49,22 +72,23 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     } finally {
       setLoading(false);
     }
-  }, [setMyBotsList, setPaginateData, myBotsList, paginateData, botPage]);
+  }, [setMyBotsList, setPaginateData, myBotsList, paginateData, filters]);
 
   useEffect(() => {
     if (isAuthenticated) {
       loadMyBots();
     }
-  }, [isAuthenticated, botPage]);
+  }, [isAuthenticated, filters]);
 
   const value = useMemo(() => {
     return {
       botsList: myBotsList,
-      setBotPage,
       paginateData,
       loading,
+      filters,
+      setFilters,
     } as IMyBotsContext;
-  }, [myBotsList, paginateData, setBotPage, loading]);
+  }, [myBotsList, paginateData, loading]);
 
   return (
     <MyBotsContext.Provider value={value}>{children}</MyBotsContext.Provider>

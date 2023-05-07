@@ -7,7 +7,7 @@ import Loader from "../../components/shared/Loader";
 import BotFilters from "../../components/shared/BotFilter";
 
 const Bots = () => {
-  const { botsList, setBotPage, paginateData, loading } =
+  const { botsList, setFilters, paginateData, loading, filters } =
     useContext(MyBotsContext);
 
   return (
@@ -33,8 +33,10 @@ const Bots = () => {
         totalPages={paginateData.totalPages}
         hasNext={paginateData.hasNext}
         hasPrevious={paginateData.hasPrevious}
-        next={() => setBotPage(paginateData.nextPage)}
-        previous={() => setBotPage(paginateData.previousPage)}
+        next={() => setFilters({ ...filters, page: paginateData.nextPage })}
+        previous={() =>
+          setFilters({ ...filters, page: paginateData.previousPage })
+        }
       />
     </div>
   );
