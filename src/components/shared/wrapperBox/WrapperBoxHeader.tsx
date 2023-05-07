@@ -7,11 +7,12 @@ interface Props {
   title?: string;
   description?: ReactNode;
   actions?: ReactNode;
+  noBorder?: boolean;
 }
 
-const WrapperBoxHeader = ({ title, description, actions }: Props) => {
+const WrapperBoxHeader = ({ title, description, actions, noBorder }: Props) => {
   return (
-    <header className={classes.header}>
+    <header className={`${classes.header} ${noBorder ? classes.noBorder : ""}`}>
       <Grid container justifyContent={"space-between"} spacing={2}>
         <Grid xs={12} lg={"auto"} item>
           <Typography component={"div"} className={classes.title}>

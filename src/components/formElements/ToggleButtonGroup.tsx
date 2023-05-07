@@ -14,10 +14,12 @@ interface Props<T extends string | number | boolean>
     label: string;
     disabled?: boolean;
   }[];
+  noIndicator?: boolean;
 }
 
 const ToggleButtonGroup = <T extends string | number | boolean>({
   options,
+  noIndicator,
   ...props
 }: Props<T>) => {
   const [value, setValue] = useState<T>(props.value as NonNullable<T>);
@@ -43,7 +45,9 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
           aria-label={option.label}
           key={option.label}
         >
-          {option.value === value && <span className={classes.indicator} />}
+          {!noIndicator && option.value === value && (
+            <span className={classes.indicator} />
+          )}
           {option.label}
         </MUIToggleButton>
       ))}

@@ -1,6 +1,10 @@
 .header {
   border-bottom: 1px solid $gray-200;
   padding: 20px 24px;
+
+  &.noBorder {
+    border: 0;
+  }
 }
 
 .title {

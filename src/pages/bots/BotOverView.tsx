@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import { IBotOverview } from "../../shared/interfaces/bots";
-import { Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import BotOverviewCard from "../../components/shared/BotOverviewCard";
@@ -14,6 +14,10 @@ import {
   IconInfoCircle,
   TempChartLong,
 } from "../../shared/icons/Icons";
+import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
+import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
+import { durations } from "../../shared/consts/durations";
+import AreaChart from "../../components/shared/chart/AreaChart";
 
 const BotOverView = () => {
   const { botId } = useParams();
@@ -43,81 +47,97 @@ const BotOverView = () => {
   }, [getOverviewData]);
 
   return (
-    <Grid container spacing={2}>
-      <Grid xs={12} lg={4} item>
-        <WrapperBox fullHeight>
-          <WrapperBoxSection>
-            <BotOverviewCard
-              action={<IconInfoCircle />}
-              chart={<TempChartLong />}
-              content={overview.totalProfit}
-              description={
-                <>
-                  <IconArrowUp className="success" />
-                  <Typography
-                    component={"span"}
-                    className="success"
-                    sx={{ px: 1 }}
-                  >
-                    2%
-                  </Typography>
-                  <Typography
-                    component={"span"}
-                    className="description"
-                    sx={{ px: 1 }}
-                  >
-                    Avg. Daily Profit
-                  </Typography>
-                </>
-              }
-              title={"Total Profit"}
-            />
-          </WrapperBoxSection>
-        </WrapperBox>
+    <Container maxWidth="xl">
+      <Grid container spacing={2} sx={{ mb: 3 }}>
+        <Grid xs={12} lg={4} item>
+          <WrapperBox fullHeight>
+            <WrapperBoxSection>
+              <BotOverviewCard
+                action={<IconInfoCircle />}
+                chart={<TempChartLong />}
+                content={overview.totalProfit}
+                description={
+                  <>
+                    <IconArrowUp className="success" />
+                    <Typography
+                      component={"span"}
+                      className="success"
+                      sx={{ px: 1 }}
+                    >
+                      2%
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      className="description"
+                      sx={{ px: 1 }}
+                    >
+                      Avg. Daily Profit
+                    </Typography>
+                  </>
+                }
+                title={"Total Profit"}
+              />
+            </WrapperBoxSection>
+          </WrapperBox>
+        </Grid>
+        <Grid xs={12} lg={4} item>
+          <WrapperBox fullHeight>
+            <WrapperBoxSection>
+              <BotOverviewCard
+                action={<Icon3DotsVertical />}
+                chart={<TempChartLong />}
+                content={overview.winRate}
+                description={
+                  <>
+                    <Typography
+                      component={"span"}
+                      className="success"
+                      sx={{ px: 1 }}
+                    >
+                      0.8%
+                    </Typography>
+                    <Typography
+                      component={"span"}
+                      className="description"
+                      sx={{ px: 1 }}
+                    >
+                      Avg. Daily Winrate
+                    </Typography>
+                  </>
+                }
+                title={"Winrate"}
+              />
+            </WrapperBoxSection>
+          </WrapperBox>
+        </Grid>
+        <Grid xs={12} lg={4} item>
+          <WrapperBox fullHeight>
+            <WrapperBoxSection>
+              <BotOverviewCard
+                action={""}
+                content={overview.closedDeals}
+                description={""}
+                title={"Closed Deals"}
+              />
+            </WrapperBoxSection>
+          </WrapperBox>
+        </Grid>
       </Grid>
-      <Grid xs={12} lg={4} item>
-        <WrapperBox fullHeight>
-          <WrapperBoxSection>
-            <BotOverviewCard
-              action={<Icon3DotsVertical />}
-              chart={<TempChartLong />}
-              content={overview.winRate}
-              description={
-                <>
-                  <Typography
-                    component={"span"}
-                    className="success"
-                    sx={{ px: 1 }}
-                  >
-                    0.8%
-                  </Typography>
-                  <Typography
-                    component={"span"}
-                    className="description"
-                    sx={{ px: 1 }}
-                  >
-                    Avg. Daily Winrate
-                  </Typography>
-                </>
-              }
-              title={"Winrate"}
-            />
-          </WrapperBoxSection>
-        </WrapperBox>
+      <Grid
+        container
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        sx={{ mb: 3 }}
+      >
+        <Grid item xs={12} lg="auto">
+          <WrapperBoxHeader title="Overview" noBorder />
+        </Grid>
+        <Grid item xs={12} lg="auto">
+          <ToggleButtonGroup options={durations} noIndicator id="durations" />
+        </Grid>
       </Grid>
-      <Grid xs={12} lg={4} item>
-        <WrapperBox fullHeight>
-          <WrapperBoxSection>
-            <BotOverviewCard
-              action={""}
-              content={overview.closedDeals}
-              description={""}
-              title={"Closed Deals"}
-            />
-          </WrapperBoxSection>
-        </WrapperBox>
-      </Grid>
-    </Grid>
+      <AreaChart />
+    </Container>
   );
 };
 
