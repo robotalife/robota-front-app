@@ -69,7 +69,7 @@ const BotFilters = () => {
             id="pair"
             value={filters.pair || ""}
             sx={{ width: "100%" }}
-            disabled={!pairs.length}
+            disabled={!pairs.length || filters.exchange === "all"}
             onChange={(e) =>
               setFilters({ ...filters, pair: e.target.value as string })
             }
