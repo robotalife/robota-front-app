@@ -171,7 +171,12 @@ const BotTradeHistory = () => {
                 history.map((h, i) => (
                   <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
                     <TableCell>
-                      <Grid container spacing={1} alignItems={"center"}>
+                      <Grid
+                        container
+                        spacing={1}
+                        alignItems={"center"}
+                        wrap="nowrap"
+                      >
                         <Grid item xs={"auto"}>
                           <PairLogo src={h.baseLogo} alt={h.pair} />
                         </Grid>
@@ -219,7 +224,12 @@ const BotTradeHistory = () => {
                       )}
                     </TableCell>
                     <TableCell>
-                      <Grid container spacing={1} alignItems={"center"}>
+                      <Grid
+                        container
+                        spacing={1}
+                        alignItems={"center"}
+                        wrap="nowrap"
+                      >
                         <Grid item xs={"auto"}>
                           <div>
                             <PairLogo
@@ -232,7 +242,7 @@ const BotTradeHistory = () => {
                             <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
                           </div>
                         </Grid>
-                        <Grid item xs={"auto"}>
+                        <Grid item xs>
                           <Typography component={"div"} sx={{ mb: 1 }}>
                             {h.baseVolume}
                           </Typography>
