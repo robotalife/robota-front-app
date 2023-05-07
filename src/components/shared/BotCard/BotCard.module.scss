@@ -29,11 +29,11 @@
   font-size: 36px;
   font-weight: 600;
 
-  &.red {
+  &.green {
     color: $success-600;
   }
 
-  &.green {
+  &.red {
     color: $error-600;
   }
 }

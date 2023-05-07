@@ -63,28 +63,19 @@ export interface IBotOverview {
 }
 
 export interface IBot {
-  assetLogo: string;
-  baseAsset: string;
-  createdAt: string;
+  id: string | number;
+  name: string;
   exchangeId: string;
   exchangeType: string;
-  id: string | number;
-  isPublic: boolean;
-  leverageValue: number;
-  marginType: "CROSSED" | "ISOLATED";
-  maximumOrderSize: number;
-  minimumOrderSize: number;
-  monthlyPrice: number;
-  name: String;
-  orderType: "MARKET" | "LIMIT";
-  qouteAsset: String;
-  removed: boolean;
   strategy: "LONG" | "SHORT";
-  tradingPair: string;
-  yearlyPrice: number;
-  exchangeLogo: string;
-  stopped: boolean;
+  monthlyPrice: string;
+  tradingPair:string;
+  assetLogo:string;
+  exchangeLogo: "https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png"
+  pnl: string;
+  stopped: false;
 }
+
 
 export interface IMyBots {
   currentPage: number;
