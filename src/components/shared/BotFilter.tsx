@@ -34,11 +34,8 @@ const BotFilters = () => {
     event: Event | SyntheticEvent<Element, Event>,
     newValue: number | number[]
   ) => {
-    console.log(event, newValue);
     setFilters({ ...filters, profit: newValue as number[] });
   };
-
-  console.log("kkk", comboPairsList);
 
   return (
     <Container maxWidth="xl" sx={{ margin: 0 }}>

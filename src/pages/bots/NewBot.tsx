@@ -31,6 +31,9 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 
 import classes from "./NewBot.module.scss";
 import Select from "../../components/formElements/Select";
+import ComboBox, {
+  AutocompleteOption,
+} from "../../components/formElements/ComboBox";
 
 // const validations = validationSchema({
 //   name: newBotStringSchema,
@@ -96,6 +99,16 @@ const NewBot = () => {
 
   const [showModal, setShowModal] = useState(false);
 
+  const comboExchangeList: AutocompleteOption[] = exchangeList.map(
+    (exchange) => {
+      return { label: exchange.label, value: exchange.value };
+    }
+  );
+
+  const comboPairsList: AutocompleteOption[] = pairs.map((pair) => {
+    return { value: pair.value, label: pair.text };
+  });
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setShowModal(true);
@@ -159,59 +172,50 @@ const NewBot = () => {
                 label="Exchange"
                 description="This is the exchange account the bot will use for any deals it creates."
               >
-                <Select
-                  id="exchangeId"
-                  value={formData.exchangeId}
-                  onChange={(e) => {
+                <ComboBox
+                  label={"Exchange"}
+                  sx={{ width: "100%" }}
+                  options={comboExchangeList}
+                  onChange={(e, val) => {
                     setFormData({
                       ...formData,
-                      exchangeId: e.target.value as string,
+                      exchangeId: val ? (val.value as string) : "",
                     });
-                    setSelectedExchange(e.target.value as string);
+                    setSelectedExchange((val && (val.value as string)) || "");
                   }}
-                  sx={{ width: "100%" }}
-                >
-                  {exchangeList.map((ex) => (
-                    <MenuItem value={ex.value} key={ex.label}>
-                      {ex.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-                {/* <ComboBox
-                id="exchangeId"
-                renderInput={(params) => <MUITextField {...params} />}
-                value={getExchange(values.exchangeId)}
-                onChange={handleChange}
-                options={exchangeList}
-                disablePortal
-                isOptionEqualToValue={(o, v) => o.value === values.exchangeId}
-              /> */}
+                  value={
+                    comboExchangeList.find(
+                      (x) => x.value === formData.exchangeId
+                    ) || comboExchangeList[0]
+                  }
+                  id="exchangeId"
+                />
               </FieldsetElement>
               <FieldsetElement
                 label="Pair"
                 description="Please select the Trading Pair this bot can use."
               >
-                <Select
-                  id="pair"
-                  value={formData.configuration.pair}
-                  onChange={(e) =>
+                <ComboBox
+                  label={"Pair"}
+                  sx={{ width: "100%" }}
+                  options={comboPairsList}
+                  onChange={(e, val) => {
                     setFormData({
                       ...formData,
                       configuration: {
                         ...formData.configuration,
-                        pair: e.target.value as string,
+                        pair: val ? (val.value as string) : "",
                       },
-                    })
+                    });
+                  }}
+                  value={
+                    comboPairsList.find(
+                      (pair) => pair.value === formData.configuration.pair
+                    ) || comboPairsList[0]
                   }
-                  sx={{ width: "100%" }}
+                  id="pair"
                   disabled={!pairs.length}
-                >
-                  {pairs.map((p, index) => (
-                    <MenuItem value={p.value} key={`${p.value}_${index}`}>
-                      {p.text}
-                    </MenuItem>
-                  ))}
-                </Select>
+                />
               </FieldsetElement>
             </Fieldset>
             <Fieldset legend="Strategy">
