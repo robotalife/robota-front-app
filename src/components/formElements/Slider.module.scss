@@ -1,4 +1,8 @@
 .wrapper {
+  .innerContainer {
+    padding: 0 11px;
+  }
+
   :global {
     .MuiSlider-root {
       color: $gray-200;

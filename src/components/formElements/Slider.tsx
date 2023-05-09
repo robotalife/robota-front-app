@@ -16,7 +16,9 @@ const Slider = ({ label, ...props }: Props) => {
       label={label}
       className={classes.wrapper}
     >
-      <MUISlider {...props} />
+      <div className={classes.innerContainer}>
+        <MUISlider {...props} />
+      </div>
     </InputWrapper>
   );
 };
