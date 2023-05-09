@@ -1,4 +1,4 @@
-import { Autocomplete, AutocompleteProps } from "@mui/material";
+import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
 import { Message } from "../../shared/interfaces/message";
 import InputWrapper from "./InputWrapper";
 import { useId } from "react";
@@ -11,13 +11,23 @@ interface AutocompleteOption {
 }
 
 interface Props
-  extends AutocompleteProps<string | AutocompleteOption, true, false, true> {
+  extends Omit<
+    AutocompleteProps<AutocompleteOption, false, false, false>,
+    "renderInput"
+  > {
+  options: AutocompleteOption[];
   label?: string;
   message?: string;
   messageType?: Message;
 }
 
-const ComboBox = ({ label, message, messageType, ...props }: Props) => {
+const ComboBox = ({
+  label,
+  message,
+  messageType,
+  options,
+  ...props
+}: Props) => {
   const tmpId = useId();
 
   return (
@@ -28,7 +38,11 @@ const ComboBox = ({ label, message, messageType, ...props }: Props) => {
       messageType={messageType}
       className={classes.wrapper}
     >
-      <Autocomplete {...props} />
+      <Autocomplete
+        options={options}
+        renderInput={(params) => <TextField {...params} />}
+        {...props}
+      />
     </InputWrapper>
   );
 };

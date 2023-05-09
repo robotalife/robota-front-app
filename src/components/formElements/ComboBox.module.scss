@@ -1,2 +1,9 @@
 .wrapper {
+  :global {
+    .MuiInputBase-root {
+      padding-bottom: 3px;
+      padding-top: 3px;
+      //   padding: 10.5px 14px;
+    }
+  }
 }

@@ -3,8 +3,9 @@ import { SyntheticEvent, useContext, useState } from "react";
 import Select from "../formElements/Select";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import Slider from "../formElements/Slider";
-import { IBotFilters } from "../../shared/interfaces/bots";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
+import ComboBox from "../formElements/ComboBox";
+import { altDurations } from "../../shared/consts/durations";
 
 const BotFilters = () => {
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
@@ -28,19 +29,22 @@ const BotFilters = () => {
         sx={{ mb: 3, pb: 3, borderBottom: "1px solid #eaecf0" }}
       >
         <Grid item xs={12} lg={3}>
-          <Select
-            label="Duration"
+          <ComboBox
+            label={"Duration"}
             sx={{ width: "100%" }}
-            onChange={(e) => {
-              setFilters({ ...filters, duration: e.target.value as number });
+            options={altDurations}
+            onChange={(e, val) => {
+              setFilters({
+                ...filters,
+                duration: val !== null ? Number(val.value) : 0,
+              });
             }}
-            value={filters.duration}
-          >
-            <MenuItem value={0}>All</MenuItem>
-            <MenuItem value={7}>7 Days</MenuItem>
-            <MenuItem value={30}>1 Month</MenuItem>
-            <MenuItem value={90}>3 Month</MenuItem>
-          </Select>
+            value={
+              altDurations.find(
+                (x) => x.value === filters.duration.toString()
+              ) || null
+            }
+          />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Select
