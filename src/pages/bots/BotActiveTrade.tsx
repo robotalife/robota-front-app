@@ -87,7 +87,7 @@ const BotActiveTrade = () => {
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>Pair / Bot</TableCell>
+                <TableCell sx={{ minWidth: 180 }}>Pair / Bot</TableCell>
                 <TableCell>Startegy</TableCell>
                 <TableCell>Creation Date</TableCell>
                 <TableCell>Duration</TableCell>
