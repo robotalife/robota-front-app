@@ -4,7 +4,7 @@ import Select from "../formElements/Select";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import Slider from "../formElements/Slider";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
-import ComboBox from "../formElements/ComboBox";
+import ComboBox, { AutocompleteOption } from "../formElements/ComboBox";
 import { altDurations } from "../../shared/consts/durations";
 
 const BotFilters = () => {
@@ -13,6 +13,23 @@ const BotFilters = () => {
   const { filters, loading, setFilters } = useContext(MyBotsContext);
   const minDistance = 20;
 
+  const comboExchangeList: AutocompleteOption[] = [
+    {
+      value: "",
+      label: "All",
+    },
+    ...exchangeList.map((exchange) => {
+      return { label: exchange.label, value: exchange.value };
+    }),
+  ];
+
+  const comboPairsList: AutocompleteOption[] = [
+    { value: null, label: "All" },
+    ...pairs.map((pair) => {
+      return { value: pair.value, label: pair.text };
+    }),
+  ];
+
   const handleProfitChange = (
     event: Event | SyntheticEvent<Element, Event>,
     newValue: number | number[]
@@ -20,6 +37,8 @@ const BotFilters = () => {
     console.log(event, newValue);
     setFilters({ ...filters, profit: newValue as number[] });
   };
+
+  console.log("kkk", comboPairsList);
 
   return (
     <Container maxWidth="xl" sx={{ margin: 0 }}>
@@ -42,46 +61,49 @@ const BotFilters = () => {
             value={
               altDurations.find(
                 (x) => x.value === filters.duration.toString()
-              ) || null
+              ) || { value: "0", label: "All" }
             }
           />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Select
-            label="Exchange"
-            id="exchangeId"
-            value={filters.exchange || selectedExchange}
-            onChange={(e) => {
-              setFilters({ ...filters, exchange: e.target.value as string });
-              setSelectedExchange(e.target.value as string);
-            }}
+          <ComboBox
+            label={"Exchange"}
             sx={{ width: "100%" }}
-          >
-            <MenuItem value={"all"}>All</MenuItem>
-            {exchangeList.map((ex) => (
-              <MenuItem value={ex.value} key={ex.label}>
-                {ex.label}
-              </MenuItem>
-            ))}
-          </Select>
+            options={comboExchangeList}
+            onChange={(e, val) => {
+              setFilters({
+                ...filters,
+                exchange: val !== null && val.value ? val.value : "all",
+              });
+              setSelectedExchange((val && (val.value as string)) || "");
+            }}
+            value={
+              comboExchangeList.find((x) => x.value === selectedExchange) || {
+                value: "all",
+                label: "All",
+              }
+            }
+          />
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Select
-            label="Pair"
-            id="pair"
-            value={filters.pair || ""}
+          <ComboBox
+            label={"Pair"}
             sx={{ width: "100%" }}
-            disabled={!pairs.length || filters.exchange === "all"}
-            onChange={(e) =>
-              setFilters({ ...filters, pair: e.target.value as string })
+            options={comboPairsList}
+            onChange={(e, val) => {
+              setFilters({
+                ...filters,
+                pair: val !== null && val.value ? val.value : "all",
+              });
+            }}
+            value={
+              comboPairsList.find((pair) => pair.value === filters.pair) || {
+                value: "all",
+                label: "All",
+              }
             }
-          >
-            {pairs.map((p, index) => (
-              <MenuItem value={p.value} key={`${p.value}_${index}`}>
-                {p.text}
-              </MenuItem>
-            ))}
-          </Select>
+            disabled={!pairs.length || filters.exchange === "all"}
+          />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Slider

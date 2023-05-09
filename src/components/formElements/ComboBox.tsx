@@ -5,9 +5,9 @@ import { useId } from "react";
 
 import classes from "./ComboBox.module.scss";
 
-interface AutocompleteOption {
+export interface AutocompleteOption {
   label: string;
-  value: string;
+  value: string | null | undefined;
 }
 
 interface Props

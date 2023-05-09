@@ -13,6 +13,7 @@ import useAxios from "../hooks/useAxios";
 import { AuthContext } from "./AuthProvider";
 import { IBot, IBotFilters, IMyBots, IMyBotsContext } from "../interfaces/bots";
 import { PaginationObj } from "../interfaces/paginateData";
+import { ExchangeContext } from "./ExchangeProvider";
 
 const getFiltersString = (filters: IBotFilters): string => {
   let tmpStr = "";
@@ -30,7 +31,7 @@ const getFiltersString = (filters: IBotFilters): string => {
 const initialFilters: IBotFilters = {
   duration: 0,
   exchange: "all",
-  pair: null,
+  pair: "all",
   profit: [-100, 100],
   page: 0,
 };
@@ -45,6 +46,8 @@ export const MyBotsContext = createContext<IMyBotsContext>({
 
 export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   const { isAuthenticated } = useContext(AuthContext);
+  const { selectedExchange } = useContext(ExchangeContext);
+
   const { axios } = useAxios();
 
   const [myBotsList, setMyBotsList] = useState<IBot[]>([]);
@@ -52,7 +55,10 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     {} as PaginationObj
   );
 
-  const [filters, setFilters] = useState<IBotFilters>(initialFilters);
+  const [filters, setFilters] = useState<IBotFilters>({
+    ...initialFilters,
+    exchange: selectedExchange,
+  });
 
   const [loading, setLoading] = useState(true);
 
