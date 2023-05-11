@@ -2,12 +2,7 @@ import { Grid, Typography } from "@mui/material";
 import { ReactNode, useContext } from "react";
 
 import classes from "./BotOverviewCard.module.scss";
-import {
-  IconArrowDown,
-  IconArrowUp,
-  TempChartLong,
-  TempChartShort,
-} from "../../shared/icons/Icons";
+import { IconArrowDown, IconArrowUp } from "../../shared/icons/Icons";
 import { BotContext } from "../../shared/providers/BotProvider";
 import BotCardChart from "./chart/BotCardChart";
 
