@@ -39,7 +39,7 @@ const BotFilters = () => {
   };
 
   return (
-    <Container maxWidth="xl" sx={{ margin: 0 }}>
+    <>
       <Grid container justifyContent={"flex-end"} sx={{ mb: 2 }} spacing={2}>
         <Grid item xs={12} lg={"auto"}>
           <Button
@@ -136,7 +136,7 @@ const BotFilters = () => {
           </Grid>
         </Grid>
       )}
-    </Container>
+    </>
   );
 };
 
