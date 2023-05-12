@@ -14,7 +14,12 @@ const routes = {
   botLog: "/bots/log", // bot overview
   botTVToken: "/bot/tokens", // trading view tokens
   // Exchange
-  exchangeNew: "/exchange/new",
+  exchangeNew: "/exchanges/new",
+  exchangeList: "/exchanges/list",
+  exchangeSecurity: "/exchanges/security",
+  exchangeNotifications: "/exchanges/notifications",
+  exchangeEditProfile: "/exchanges/edit-profile",
+  exchangeInvoices: "/exchanges/invoices",
   // Common
   portfolio: "/portfolio",
   terms: "/terms",

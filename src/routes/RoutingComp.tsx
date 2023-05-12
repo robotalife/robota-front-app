@@ -22,6 +22,12 @@ import BotTradeHistory from "../pages/bots/BotTradeHistory";
 import BotEventLog from "../pages/bots/BotEventLog";
 import InnerSettingsLayout from "../shared/layouts/InnerSettingsLayout";
 import { BotProvider } from "../shared/providers/BotProvider";
+import ExchangeLayout from "../shared/layouts/ExchangesLayout";
+import Exchanges from "../pages/exchanges/Exchanges";
+import ExchangeSecurity from "../pages/exchanges/ExchangeSecurity";
+import ExchangeNotifications from "../pages/exchanges/ExchangeNotifications";
+import ExchangeEditProfile from "../pages/exchanges/ExchangeEditProfile";
+import ExchangeInvoices from "../pages/exchanges/ExchangeInvoices";
 
 const RoutingComp = () => {
   return (
@@ -53,6 +59,7 @@ const RoutingComp = () => {
             {/* create new bot */}
             <Route path={routes.botsNew} element={<NewBot />} />
           </Route>
+
           {/* inner bot pages with sub-layout */}
           <Route
             element={
@@ -88,8 +95,28 @@ const RoutingComp = () => {
               element={<TVTokens />}
             />
           </Route>
+
           {/* Exchanges */}
-          <Route path={routes.exchangeNew} element={<NewExchange />} />
+          <Route element={<ExchangeLayout />}>
+            <Route path={routes.exchangeNew} element={<NewExchange />} />
+            <Route path={routes.exchangeList} element={<Exchanges />} />
+            <Route
+              path={routes.exchangeSecurity}
+              element={<ExchangeSecurity />}
+            />
+            <Route
+              path={routes.exchangeNotifications}
+              element={<ExchangeNotifications />}
+            />
+            <Route
+              path={routes.exchangeEditProfile}
+              element={<ExchangeEditProfile />}
+            />
+            <Route
+              path={routes.exchangeInvoices}
+              element={<ExchangeInvoices />}
+            />
+          </Route>
         </Route>
         <Route element={<CommonLayout />}>
           <Route path={routes.terms} element={<Terms />} />
