@@ -20,7 +20,8 @@ import { Grid, IconButton, Typography } from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import TextBadge from "../../components/shared/TextBadge";
 import {
-  IconArrowDownRight,
+  IconArrowDown,
+  IconArrowDownRight, IconArrowUp,
   IconArrowUpRight,
   IconClock,
   IconCloseCircle,
@@ -88,7 +89,7 @@ const BotActiveTrade = () => {
             <TableHead>
               <TableRow>
                 <TableCell sx={{ minWidth: 180 }}>Pair / Bot</TableCell>
-                <TableCell>Startegy</TableCell>
+                <TableCell>Strategy</TableCell>
                 <TableCell>Creation Date</TableCell>
                 <TableCell>Duration</TableCell>
                 <TableCell>% Unl Profit/Loss </TableCell>
@@ -137,12 +138,24 @@ const BotActiveTrade = () => {
                     <TableDateTime {...getDateTime(activeTrade.creationDate)} />
                   </TableCell>
                   <TableCell>
-                    <TextBadge>
+                    <TextBadge variation="primary">
                       <IconClock />
                       {activeTrade.duration}
                     </TextBadge>
                   </TableCell>
-                  <TableCell>{activeTrade.profit}</TableCell>
+                  <TableCell>
+                    {activeTrade.profit.indexOf("-") === -1 ? (
+                        <TextBadge variation="success">
+                          {activeTrade.profit}
+                          <IconArrowUp />
+                        </TextBadge>
+                    ) : (
+                        <TextBadge variation="error">
+                          {activeTrade.profit}
+                          <IconArrowDown />
+                        </TextBadge>
+                    )}
+                  </TableCell>
                   <TableCell>
                     <IconButton onClick={() => signal("STOP")}>
                       <IconCloseCircle />

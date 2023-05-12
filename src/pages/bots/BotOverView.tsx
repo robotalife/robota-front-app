@@ -167,7 +167,7 @@ const BotOverView = () => {
             }}
             onClick={() => setActiveButton("summary")}
           >
-            Summery Profit
+            Summary Profit
           </Button>
           <Button
             size="small"
@@ -188,7 +188,7 @@ const BotOverView = () => {
             value={activeButton}
             sx={{ width: "100%" }}
           >
-            <MenuItem value={"summary"}>Summery Profit</MenuItem>
+            <MenuItem value={"summary"}>Summary Profit</MenuItem>
             <MenuItem value={"day"}>Profit by Day</MenuItem>
           </Select>
         </Grid>
