@@ -733,3 +733,100 @@ export const IconChevronRight = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconPencil = (props: IconProps) => {
+  return (
+    <svg
+      width="19"
+      height="20"
+      viewBox="0 0 19 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M13.668 2.49993C13.8868 2.28106 14.1467 2.10744 14.4326 1.98899C14.7186 1.87054 15.0251 1.80957 15.3346 1.80957C15.6442 1.80957 15.9507 1.87054 16.2366 1.98899C16.5226 2.10744 16.7824 2.28106 17.0013 2.49993C17.2202 2.7188 17.3938 2.97863 17.5122 3.2646C17.6307 3.55057 17.6917 3.85706 17.6917 4.16659C17.6917 4.47612 17.6307 4.78262 17.5122 5.06859C17.3938 5.35455 17.2202 5.61439 17.0013 5.83326L5.7513 17.0833L1.16797 18.3333L2.41797 13.7499L13.668 2.49993Z"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconBinance = (props: IconProps) => {
+  return (
+    <svg
+      width="49"
+      height="48"
+      viewBox="0 0 49 48"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M15.4709 20.17L24.7925 10.8487L34.1191 20.1749L39.5431 14.7509L24.7925 0L10.0469 14.746L15.4709 20.17Z"
+        fill="#F3BA2F"
+      />
+      <path
+        d="M11.6426 23.9991L6.21875 18.5752L0.794592 23.9994L6.21848 29.4232L11.6426 23.9991Z"
+        fill="#F3BA2F"
+      />
+      <path
+        d="M15.471 27.8297L24.7927 37.151L34.1189 27.8252L39.5459 33.2461L39.5432 33.2492L24.7927 47.9997L10.0466 33.2541L10.0391 33.2465L15.471 27.8297Z"
+        fill="#F3BA2F"
+      />
+      <path
+        d="M43.3688 29.4256L48.793 24.0015L43.3691 18.5776L37.9449 24.0017L43.3688 29.4256Z"
+        fill="#F3BA2F"
+      />
+      <path
+        d="M30.2974 23.9971H30.2997L24.7957 18.4932L20.7282 22.5607H20.7278L20.2607 23.0281L19.2966 23.9922L19.2891 23.9998L19.2966 24.0078L24.7957 29.5068L30.2997 24.0028L30.3023 23.9998L30.2974 23.9971Z"
+        fill="#F3BA2F"
+      />
+    </svg>
+  );
+};
+
+export const IconSquareAdd = (props: IconProps) => {
+  return (
+    <svg
+      width="38"
+      height="38"
+      viewBox="0 0 38 38"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M19 11V27M11 19H27M5 1H33C35.2091 1 37 2.79086 37 5V33C37 35.2091 35.2091 37 33 37H5C2.79086 37 1 35.2091 1 33V5C1 2.79086 2.79086 1 5 1Z"
+        stroke="#7F56D9"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconAdd = (props: IconProps) => {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M7.0013 1.1665V12.8332M1.16797 6.99984H12.8346"
+        stroke="currentColor"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};

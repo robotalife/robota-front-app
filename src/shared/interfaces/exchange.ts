@@ -34,4 +34,5 @@ export interface IExchangeContext {
   selectedExchange: string;
   setSelectedExchange: (exchange: string) => void;
   pairs: IPair[];
+  loading: boolean;
 }

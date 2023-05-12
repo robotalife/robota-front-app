@@ -22,6 +22,7 @@ export const ExchangeContext = createContext<IExchangeContext>({
   selectedExchange: "",
   setSelectedExchange: () => {},
   pairs: [],
+  loading: false,
 });
 
 export const ExchangeProvider = ({ children }: PropsWithChildren) => {
@@ -31,6 +32,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
   const [exchangeList, setExchangeList] = useState<IExchange[]>([]);
   const [selectedExchange, setSelectedExchange] = useState("");
   const [pairs, setPairs] = useState<IPair[]>([] as IPair[]);
+  const [loading, setLoading] = useState(true);
 
   const getList = async () => {
     if (!userId) return;
@@ -67,6 +69,8 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
       setSelectedExchange(tmpSelected as string);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -110,6 +114,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         selectedExchange,
         setSelectedExchange,
         pairs,
+        loading,
       }}
     >
       {children}
