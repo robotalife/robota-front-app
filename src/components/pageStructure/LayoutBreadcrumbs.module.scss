@@ -1,0 +1,32 @@
+.breadcrumbsContainer {
+  display: none;
+
+  :global {
+    a,
+    span {
+      color: $gray-500;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+
+      svg {
+        width: 18px;
+      }
+    }
+
+    .MuiBreadcrumbs-ol {
+      align-items: center;
+    }
+
+    .MuiBreadcrumbs-separator {
+      color: $gray-300;
+      margin: 0 10px;
+    }
+  }
+}
+
+@media (min-width: $breakpoint-lg) {
+  .breadcrumbsContainer {
+    display: block;
+  }
+}

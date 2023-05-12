@@ -1,6 +1,5 @@
 import { Box, Grid, Typography } from "@mui/material";
 import classes from "./BotCard.module.scss";
-import { TempChartLong, TempChartShort } from "../../../shared/icons/Icons";
 import Button from "../../formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../../shared/consts/routes";
