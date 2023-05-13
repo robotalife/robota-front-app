@@ -1,20 +1,42 @@
-import { Box, Grid, Typography } from "@mui/material";
+import {Box, Grid, Typography} from "@mui/material";
 import Button from "../../formElements/Button";
-import { useNavigate } from "react-router-dom";
-import routes from "../../../shared/consts/routes";
-import PairLogo from "../PairLogo";
-import BotCardChart from "../chart/BotCardChart";
-import { IExchange } from "../../../shared/interfaces/exchange";
+import {IExchange} from "../../../shared/interfaces/exchange";
 
 import classes from "./ExchangeCard.module.scss";
-import { IconBinance, IconPencil } from "../../../shared/icons/Icons";
+import {IconBinance, IconPencil} from "../../../shared/icons/Icons";
 import IndicatorBadge from "../IndicatorBadge";
+import {AxiosResponse} from "axios";
+import {useEffect, useState} from "react";
+import {IPortfolioBalance} from "../../../shared/interfaces/portfolio";
+import apiEndPoints from "../../../shared/consts/apiEndpoints";
+import useAxios from "../../../shared/hooks/useAxios";
 
 interface Props {
   data: IExchange;
 }
 
 const ExchangeCard = ({ data }: Props) => {
+    const { axios } = useAxios();
+    const [portfolio,setPortfolio] = useState<IPortfolioBalance>({
+        balance:'N/A',
+    });
+
+  const getBalance  = async () => {
+   try{
+                const response:AxiosResponse<IPortfolioBalance,any> = await axios.get(
+                    `${apiEndPoints.balance}${data.exchangeId}`);
+                console.log(response)
+       const portfolio = response.data || undefined;
+                console.log(portfolio,"portfolio");
+       setPortfolio(portfolio);
+            }catch (error){
+             // Handle error
+            }
+        };
+  useEffect(() => {
+    getBalance();
+  },[])
+
   return (
     <Box className={classes.exchangeCard}>
       <Grid
@@ -27,7 +49,7 @@ const ExchangeCard = ({ data }: Props) => {
           <IconBinance />
         </Grid>
         <Grid item xs="auto">
-          <IndicatorBadge>Deactive</IndicatorBadge>
+          <IndicatorBadge>Inactive</IndicatorBadge>
         </Grid>
       </Grid>
       <Grid
@@ -43,7 +65,7 @@ const ExchangeCard = ({ data }: Props) => {
           </Typography>
         </Grid>
         <Grid item xs="auto">
-          <Typography className={classes.balance}>2,400 $</Typography>
+          <Typography className={classes.balance}>{`${portfolio.balance} $`} </Typography>
         </Grid>
       </Grid>
       <Grid container justifyContent={"space-between"} alignItems={"center"}>

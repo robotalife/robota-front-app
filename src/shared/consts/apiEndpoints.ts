@@ -24,6 +24,9 @@ const apiEndPoints = {
   getStopBot: (botId: string) => `/bots/${botId}/stop`,
   getRestartBot: (botId: string) => `/bots/${botId}/restart`,
   signal: "/signal",
+
+  //Portfolio
+  balance: "/portfolio/balance?exchangeId=",
 };
 
 export default apiEndPoints;

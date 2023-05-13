@@ -41,7 +41,6 @@ const BotActiveTrade = () => {
       const response: AxiosResponse<IActiveTrade, any> = await axios.get(
         apiEndPoints.getBotActiveTrade(botId as string)
       );
-
       const trade = response.data || undefined;
       setActiveTrade(trade);
     } catch (error) {

@@ -23,13 +23,7 @@ const Exchanges = () => {
           <Grid item xs={12} sm={6} md={4}>
             <AddExchangeCard
               title={"Add Exchange"}
-              description={"You can add unlimit account"}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6} md={4}>
-            <AddExchangeCard
-              title={"Paper Trade"}
-              description={"You can add unlimit account"}
+              description={"You can add an unlimited account"}
             />
           </Grid>
         </Grid>
