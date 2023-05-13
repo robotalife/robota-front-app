@@ -25,9 +25,7 @@ const ExchangeCard = ({ data }: Props) => {
    try{
                 const response:AxiosResponse<IPortfolioBalance,any> = await axios.get(
                     `${apiEndPoints.balance}${data.exchangeId}`);
-                console.log(response)
        const portfolio = response.data || undefined;
-                console.log(portfolio,"portfolio");
        setPortfolio(portfolio);
             }catch (error){
              // Handle error
