@@ -1,13 +1,13 @@
-import {Box, Grid, Typography} from "@mui/material";
+import { Box, Grid, Typography } from "@mui/material";
 import Button from "../../formElements/Button";
-import {IExchange} from "../../../shared/interfaces/exchange";
+import { IExchange } from "../../../shared/interfaces/exchange";
 
 import classes from "./ExchangeCard.module.scss";
-import {IconBinance, IconPencil} from "../../../shared/icons/Icons";
+import { IconBinance, IconPencil } from "../../../shared/icons/Icons";
 import IndicatorBadge from "../IndicatorBadge";
-import {AxiosResponse} from "axios";
-import {useEffect, useState} from "react";
-import {IPortfolioBalance} from "../../../shared/interfaces/portfolio";
+import { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { IPortfolioBalance } from "../../../shared/interfaces/portfolio";
 import apiEndPoints from "../../../shared/consts/apiEndpoints";
 import useAxios from "../../../shared/hooks/useAxios";
 
@@ -16,24 +16,25 @@ interface Props {
 }
 
 const ExchangeCard = ({ data }: Props) => {
-    const { axios } = useAxios();
-    const [portfolio,setPortfolio] = useState<IPortfolioBalance>({
-        balance:'N/A',
-    });
+  const { axios } = useAxios();
+  const [portfolio, setPortfolio] = useState<IPortfolioBalance>({
+    balance: "N/A",
+  });
 
-  const getBalance  = async () => {
-   try{
-                const response:AxiosResponse<IPortfolioBalance,any> = await axios.get(
-                    `${apiEndPoints.balance}${data.exchangeId}`);
-       const portfolio = response.data || undefined;
-       setPortfolio(portfolio);
-            }catch (error){
-             // Handle error
-            }
-        };
+  const getBalance = async () => {
+    try {
+      const response: AxiosResponse<IPortfolioBalance, any> = await axios.get(
+        `${apiEndPoints.balance}${data.exchangeId}`
+      );
+      const portfolio = response.data || undefined;
+      setPortfolio(portfolio);
+    } catch (error) {
+      // Handle error
+    }
+  };
   useEffect(() => {
     getBalance();
-  },[])
+  }, []);
 
   return (
     <Box className={classes.exchangeCard}>
@@ -63,18 +64,25 @@ const ExchangeCard = ({ data }: Props) => {
           </Typography>
         </Grid>
         <Grid item xs="auto">
-          <Typography className={classes.balance}>{`${portfolio.balance} $`} </Typography>
+          <Typography className={classes.balance}>
+            {`${portfolio.balance} $`}{" "}
+          </Typography>
         </Grid>
       </Grid>
-      <Grid container justifyContent={"space-between"} alignItems={"center"}>
-        <Grid item xs={6}>
-          <Button variant="outlined" size="small">
-            <IconPencil style={{ marginRight: 8, height: 16, width: 16 }} />{" "}
+      <Grid
+        container
+        justifyContent={"space-between"}
+        alignItems={"center"}
+        spacing={2}
+      >
+        <Grid item xs>
+          <Button variant="outlined" size="small" fullWidth>
+            <IconPencil style={{ marginRight: 8, height: 16, width: 16 }} />
             Update API
           </Button>
         </Grid>
-        <Grid item xs={6}>
-          <Button variant="outlined" size="small">
+        <Grid item xs>
+          <Button variant="outlined" size="small" fullWidth>
             Delete Exchange
           </Button>
         </Grid>
