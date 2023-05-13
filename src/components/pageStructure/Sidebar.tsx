@@ -36,6 +36,12 @@ const Sidebar = () => {
           </NavLink>
         </IconButton>
         <IconButton>
+          <IconHexagon />
+        </IconButton>
+        <IconButton>
+          <IconShopingCart />
+        </IconButton>
+        <IconButton>
           <NavLink
             style={({ isActive, isPending }) => {
               return {
@@ -47,14 +53,8 @@ const Sidebar = () => {
             }}
             to={routes.exchangeList}
           >
-            <IconHexagon />
+            <IconGear />
           </NavLink>
-        </IconButton>
-        <IconButton>
-          <IconShopingCart />
-        </IconButton>
-        <IconButton>
-          <IconGear />
         </IconButton>
         <IconButton>
           <NavLink
