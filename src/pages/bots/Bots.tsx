@@ -11,7 +11,7 @@ const Bots = () => {
     useContext(MyBotsContext);
 
   return (
-    <Container maxWidth="xl" sx={{ m: 0 }}>
+    <>
       <BotFilters />
       {loading ? (
         <Loader />
@@ -19,7 +19,7 @@ const Bots = () => {
         <Grid container spacing={3}>
           {Array.isArray(botsList) && botsList.length ? (
             botsList.map((bot) => (
-              <Grid item xs={12} sm={6} md={4} key={bot.id}>
+              <Grid item xs={12} sm={6} md={4} lg={"auto"} key={bot.id}>
                 <BotCard data={bot} />
               </Grid>
             ))
@@ -38,7 +38,7 @@ const Bots = () => {
           setFilters({ ...filters, page: paginateData.previousPage })
         }
       />
-    </Container>
+    </>
   );
 };
 
