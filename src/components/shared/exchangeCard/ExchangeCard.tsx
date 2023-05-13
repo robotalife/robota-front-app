@@ -49,7 +49,7 @@ const ExchangeCard = ({ data }: Props) => {
           <IconBinance />
         </Grid>
         <Grid item xs="auto">
-          <IndicatorBadge>Inactive</IndicatorBadge>
+          <IndicatorBadge color={"success"}>Active</IndicatorBadge>
         </Grid>
       </Grid>
       <Grid
