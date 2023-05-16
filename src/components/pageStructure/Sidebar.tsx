@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import {
   IconBarChart,
-  IconGear,
-  IconHexagon,
+  IconOctagonCircle,
+  IconTripleOctagons,
   IconInstagram,
   IconShopingCart,
-  IconSliders,
+  IconVrHeadset,
   IconTelegram,
   IconTwitter,
 } from "../../shared/icons/Icons";
@@ -36,7 +36,7 @@ const Sidebar = () => {
           </NavLink>
         </IconButton>
         <IconButton>
-          <IconHexagon />
+          <IconTripleOctagons />
         </IconButton>
         <IconButton>
           <IconShopingCart />
@@ -53,9 +53,10 @@ const Sidebar = () => {
             }}
             to={routes.exchangeList}
           >
-            <IconGear />
+            <IconOctagonCircle />
           </NavLink>
         </IconButton>
+        <div className={classes.navDivider} />
         <IconButton>
           <NavLink
             style={({ isActive, isPending }) => {
@@ -68,7 +69,7 @@ const Sidebar = () => {
             }}
             to={routes.botsNew}
           >
-            <IconSliders />
+            <IconVrHeadset />
           </NavLink>
         </IconButton>
       </nav>

@@ -4,9 +4,14 @@
 
   :global {
     .MuiButtonBase-root {
+      align-items: center;
       height: 40px;
       margin: 4px 0;
       width: 40px;
+
+      svg {
+        vertical-align: middle;
+      }
     }
   }
 }
@@ -48,6 +53,14 @@
     flex-direction: column;
     flex-grow: 1;
     justify-content: flex-start;
+    padding-top: 30px;
+  }
+
+  .navDivider {
+    border-bottom: 1px solid $gray-300;
+    height: 0;
+    margin: 12px auto;
+    width: 20px;
   }
 
   .sharing,

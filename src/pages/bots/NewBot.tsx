@@ -9,7 +9,7 @@ import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
 import {
   IconDollar,
-  IconHexagon,
+  IconTripleOctagons,
   IconModalSave,
 } from "../../shared/icons/Icons";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
@@ -159,7 +159,7 @@ const NewBot = () => {
                 <TextField
                   name="name"
                   type="text"
-                  startIcon={<IconHexagon />}
+                  startIcon={<IconTripleOctagons />}
                   value={formData.name}
                   onChange={(e) => {
                     setFormData({ ...formData, name: e.target.value });

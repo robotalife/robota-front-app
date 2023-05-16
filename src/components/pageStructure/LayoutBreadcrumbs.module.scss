@@ -4,7 +4,9 @@
   :global {
     a,
     span {
+      align-items: center;
       color: $gray-500;
+      display: flex;
       font-size: 14px;
       font-weight: 500;
       text-decoration: none;

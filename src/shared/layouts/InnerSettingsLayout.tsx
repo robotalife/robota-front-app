@@ -9,7 +9,7 @@ import {
   IconInfoCircle,
   IconPause,
   IconPlay,
-  IconSliders,
+  IconVrHeadset,
 } from "../icons/Icons";
 import { Container, Grid, IconButton, Typography } from "@mui/material";
 import { BotContext } from "../providers/BotProvider";
@@ -72,7 +72,7 @@ const InnerSettingsLayout = () => {
     <Container maxWidth="xl" sx={{ margin: 0 }}>
       <LayoutBreadcrumbs>
         <Link to={routes.botsNew}>
-          <IconSliders />
+          <IconVrHeadset />
         </Link>
         <Link to={routes.botsNew}>Settings</Link>
         <Link to={routes.myBots}>Bots</Link>
