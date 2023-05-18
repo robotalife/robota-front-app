@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../components/formElements/Button";
-import Checkbox from "../../components/formElements/Checkbox";
+import CheckboxWithText from "../../components/formElements/CheckboxWithText";
 import TextField from "../../components/formElements/TextField";
 import routes from "../../shared/consts/routes";
 import useAxios from "../../shared/hooks/useAxios";
@@ -100,7 +100,7 @@ const Signup = () => {
 
           <GrayListBox list={list} />
 
-          <Checkbox
+          <CheckboxWithText
             name="agree"
             value={values.agree}
             onChange={handleChange}
@@ -121,7 +121,7 @@ const Signup = () => {
               </Link>
               .
             </Typography>
-          </Checkbox>
+          </CheckboxWithText>
 
           <Button type="submit" variant="contained" fullWidth sx={{ mb: 2 }}>
             Get started

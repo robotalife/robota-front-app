@@ -12,7 +12,13 @@ interface Props extends CheckboxProps, PropsWithChildren {
   messageType?: Message;
 }
 
-const Checkbox = ({ message, messageType, className, sx, ...props }: Props) => {
+const CheckboxWithText = ({
+  message,
+  messageType,
+  className,
+  sx,
+  ...props
+}: Props) => {
   return (
     <>
       <Grid
@@ -41,4 +47,4 @@ const Checkbox = ({ message, messageType, className, sx, ...props }: Props) => {
   );
 };
 
-export default Checkbox;
+export default CheckboxWithText;
