@@ -92,7 +92,7 @@ const Signin = () => {
             startIcon={<IconKey />}
             value={values.password}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Enter your password"
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
