@@ -69,7 +69,7 @@ const Signin = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate>
+        <Form noValidate style={{ width: "100%" }}>
           <div className={"pageTitle"}>Sign In</div>
           <div className={"pageSubtitle"}>Welcome back! </div>
           <TextField

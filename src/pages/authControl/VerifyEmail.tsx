@@ -79,7 +79,7 @@ const VerifyEmail = () => {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit}>
+    <form noValidate onSubmit={handleSubmit} style={{ width: "100%" }}>
       <div style={{ textAlign: "center" }}>
         <img src={circleCheck} />
       </div>

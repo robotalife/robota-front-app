@@ -72,7 +72,7 @@ const ForgetPassword = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate>
+        <Form noValidate style={{ width: "100%" }}>
           <div className={"pageTitle"}>Reset Password</div>
           <TextField
             name="email"
