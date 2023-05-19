@@ -9,6 +9,7 @@ const apiEndPoints = {
   // User
   userInfo: "/user/basic-info",
   // Exchanges
+  exchange: "/exchange",
   exchangeList: "/exchange/list",
   // Symbols
   symbolsList: "/symbols?exchangeId=",

@@ -2,7 +2,7 @@ import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import HeadBand from "../../components/pageStructure/HeadBand";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import LinkBar from "../../components/pageStructure/LinkBar";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { botTabs } from "../consts/linksAndTabs";
 import Button from "../../components/formElements/Button";
 import {
@@ -11,7 +11,7 @@ import {
   IconPlay,
   IconVrHeadset,
 } from "../icons/Icons";
-import { Container, Grid, IconButton, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
 import { BotContext } from "../providers/BotProvider";
 import { AxiosResponse } from "axios";
 import useAxios from "../hooks/useAxios";
@@ -65,8 +65,6 @@ const InnerSettingsLayout = () => {
   //   const title = botTabs(botId).find((link) => pathname === link.to)?.label;
   //   setPageTitle(title || "");
   // }, [pathname]);
-
-  console.log();
 
   return (
     <Container maxWidth="xl" sx={{ margin: 0 }}>

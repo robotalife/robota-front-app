@@ -4,6 +4,7 @@ import LinkBar from "../../components/pageStructure/LinkBar";
 import routes from "../consts/routes";
 import { useContext, useEffect, useState } from "react";
 import { MyBotsContext } from "../providers/MyBotsProvider";
+import { botsPages } from "../consts/linksAndTabs";
 
 const SettingsLayout = () => {
   const { pathname } = useLocation();
@@ -30,7 +31,7 @@ const SettingsLayout = () => {
   return (
     <div>
       <PageTitle title={pageTitle} />
-      <LinkBar links={links} />
+      <LinkBar links={botsPages(paginateData.total)} />
       <Outlet />
     </div>
   );

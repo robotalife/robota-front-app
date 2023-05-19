@@ -1,5 +1,19 @@
 import routes from "./routes";
 
+export const botsPages = (badge: number | string) => {
+  return [
+    {
+      label: "Add new bot",
+      to: routes.botsNew,
+    },
+    {
+      label: "My bots",
+      to: routes.myBots,
+      badge: badge,
+    },
+  ];
+};
+
 export const botTabs = (botId: string | number) => {
   return [
     {
@@ -29,3 +43,26 @@ export const botTabs = (botId: string | number) => {
     },
   ];
 };
+
+export const exchangeTabs = [
+  {
+    label: "Exchnages",
+    to: routes.exchangeList,
+  },
+  {
+    label: "Security",
+    to: routes.exchangeSecurity,
+  },
+  {
+    label: "Notifications",
+    to: routes.exchangeNotifications,
+  },
+  {
+    label: "Edit Profile",
+    to: routes.exchangeEditProfile,
+  },
+  {
+    label: "Invoices",
+    to: routes.exchangeInvoices,
+  },
+];

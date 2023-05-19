@@ -3,6 +3,8 @@ import { Box, Grid, Typography } from "@mui/material";
 import classes from "./ExchangeCard.module.scss";
 import Button from "../../formElements/Button";
 import { IconAdd, IconSquareAdd } from "../../../shared/icons/Icons";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../shared/consts/routes";
 
 interface Props {
   title: string;
@@ -10,6 +12,8 @@ interface Props {
 }
 
 const AddExchangeCard = ({ title, description }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <Box className={classes.exchangeCard}>
       <Grid
@@ -27,7 +31,12 @@ const AddExchangeCard = ({ title, description }: Props) => {
       </Grid>
       <Grid container justifyContent={"space-between"} alignItems={"center"}>
         <Grid item xs={12}>
-          <Button variant="outlined" size="small" fullWidth>
+          <Button
+            variant="outlined"
+            size="small"
+            fullWidth
+            onClick={() => navigate(routes.exchangeNew)}
+          >
             <IconAdd style={{ marginRight: 8, height: 16, width: 16 }} />
             Add {title}
           </Button>
