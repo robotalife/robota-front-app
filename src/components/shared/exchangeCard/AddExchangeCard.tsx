@@ -11,6 +11,8 @@ interface Props {
   description: string;
 }
 
+const currentPage = window.location.pathname;
+
 const AddExchangeCard = ({ title, description }: Props) => {
   const navigate = useNavigate();
 
@@ -35,7 +37,9 @@ const AddExchangeCard = ({ title, description }: Props) => {
             variant="outlined"
             size="small"
             fullWidth
-            onClick={() => navigate(routes.exchangeNew)}
+            onClick={() =>
+              navigate(`${routes.exchangeNew}?returnTo=${currentPage}`)
+            }
           >
             <IconAdd style={{ marginRight: 8, height: 16, width: 16 }} />
             Add {title}

@@ -11,10 +11,54 @@ import useNotify from "../../shared/hooks/useNotify";
 import CustomRadioButtonsGroup from "../../components/formElements/CustomRadioButtonsGroup";
 import ExchangeRadioContent from "../../components/pageSpecific/ExchangeRadioContent";
 import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
+import useReturnTo from "../../shared/hooks/useReturnTo";
+import { useNavigate } from "react-router-dom";
+import routes from "../../shared/consts/routes";
+
+const items = [
+  {
+    label: (
+      <ExchangeRadioContent
+        title="Binance Futures"
+        icon={<IconBinance />}
+        info="New to Binance Futures?"
+        linkText="Learn how to create an API key on Binance"
+        linkHref="/"
+      />
+    ),
+    value: "BINANCE_FUTURES",
+  },
+  {
+    label: (
+      <ExchangeRadioContent
+        title="Binance"
+        icon={<IconBinance />}
+        info="New to Binance?"
+        linkText="Learn how to create an API key on Binance"
+        linkHref="/"
+      />
+    ),
+    value: "BINANCE",
+  },
+  {
+    label: (
+      <ExchangeRadioContent
+        title="Kucoin"
+        icon={<IconKucoin />}
+        info="New to Kucoin?"
+        linkText="Learn how to create an API key on Kucoin"
+        linkHref="/"
+      />
+    ),
+    value: "KUCOIN",
+  },
+];
 
 const NewExchange = () => {
   const { userId } = useContext(AuthContext);
   const { axios } = useAxios();
+  const navigate = useNavigate();
+  const returnTo = useReturnTo();
   const notify = useNotify();
 
   const [formData, setFormData] = useState<{
@@ -33,45 +77,6 @@ const NewExchange = () => {
     passPhrase: null,
   });
 
-  const items = [
-    {
-      label: (
-        <ExchangeRadioContent
-          title="Binance Futures"
-          icon={<IconBinance />}
-          info="New to Binance Futures?"
-          linkText="Learn how to create an API key on Binance"
-          linkHref="/"
-        />
-      ),
-      value: "BINANCE_FUTURES",
-    },
-    {
-      label: (
-        <ExchangeRadioContent
-          title="Binance"
-          icon={<IconBinance />}
-          info="New to Binance?"
-          linkText="Learn how to create an API key on Binance"
-          linkHref="/"
-        />
-      ),
-      value: "BINANCE",
-    },
-    {
-      label: (
-        <ExchangeRadioContent
-          title="Kucoin"
-          icon={<IconKucoin />}
-          info="New to Kucoin?"
-          linkText="Learn how to create an API key on Kucoin"
-          linkHref="/"
-        />
-      ),
-      value: "KUCOIN",
-    },
-  ];
-
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -82,6 +87,7 @@ const NewExchange = () => {
       );
 
       notify("The exchange added successfully", "info");
+      navigate(returnTo || routes.exchangeList);
     } catch (error) {
       // Handle error
     }

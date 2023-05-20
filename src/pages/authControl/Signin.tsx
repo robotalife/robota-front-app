@@ -17,6 +17,7 @@ import {
   validationSchema,
 } from "../../shared/consts/validations";
 import { SigninData, SigninResponse } from "../../shared/interfaces/auth";
+import useReturnTo from "../../shared/hooks/useReturnTo";
 
 const validations = validationSchema({
   email: email,
@@ -28,14 +29,11 @@ const initialValues: SigninData = {
   password: "",
 };
 
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const { returnTo } = Object.fromEntries(urlParams.entries());
-
 const Signin = () => {
   const navigate = useNavigate();
   const { axios } = useAxios();
   const { setIsAuthenticated } = useContext(AuthContext);
+  const returnTo = useReturnTo();
 
   const handleSubmit = async (values: SigninData) => {
     try {
