@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { IconCopy } from "../../shared/icons/Icons";
 import Button from "../formElements/Button";
-import { useSnackbar } from "notistack";
 
 import classes from "./CopyBox.module.scss";
+import useNotify from "../../shared/hooks/useNotify";
 interface Props {
   title?: string;
   description?: string;
@@ -11,14 +11,11 @@ interface Props {
 }
 
 const CopyBox = ({ title, description, copyText }: Props) => {
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
 
   const hanldeCopy = () => {
     navigator.clipboard.writeText(copyText);
-    enqueueSnackbar("Copied to clipboard.", {
-      variant: "info",
-      preventDuplicate: true,
-    });
+    notify("Copied to clipboard.", "info");
   };
 
   return (

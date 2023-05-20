@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { useSnackbar } from "notistack";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import Table from "../../components/shared/table/Table";
 import TableHead from "../../components/shared/table/TableHead";
@@ -21,14 +20,16 @@ import PairLogo from "../../components/shared/PairLogo";
 import TextBadge from "../../components/shared/TextBadge";
 import {
   IconArrowDown,
-  IconArrowDownRight, IconArrowUp,
+  IconArrowDownRight,
+  IconArrowUp,
   IconArrowUpRight,
   IconClock,
   IconCloseCircle,
 } from "../../shared/icons/Icons";
+import useNotify from "../../shared/hooks/useNotify";
 
 const BotActiveTrade = () => {
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
   const { botId } = useParams();
   const { axios } = useAxios();
   const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
@@ -61,10 +62,7 @@ const BotActiveTrade = () => {
       );
 
       getActiveTrade();
-      enqueueSnackbar(`Trade ${action}`, {
-        variant: "info",
-        preventDuplicate: true,
-      });
+      notify(`Trade ${action}`, "info");
     } catch (error) {
       // Handle error
     }
@@ -144,15 +142,15 @@ const BotActiveTrade = () => {
                   </TableCell>
                   <TableCell>
                     {activeTrade.profit.indexOf("-") === -1 ? (
-                        <TextBadge variation="success">
-                          {activeTrade.profit}
-                          <IconArrowUp />
-                        </TextBadge>
+                      <TextBadge variation="success">
+                        {activeTrade.profit}
+                        <IconArrowUp />
+                      </TextBadge>
                     ) : (
-                        <TextBadge variation="error">
-                          {activeTrade.profit}
-                          <IconArrowDown />
-                        </TextBadge>
+                      <TextBadge variation="error">
+                        {activeTrade.profit}
+                        <IconArrowDown />
+                      </TextBadge>
                     )}
                   </TableCell>
                   <TableCell>

@@ -10,12 +10,12 @@ import { AxiosResponse } from "axios";
 import { FormEvent, useEffect, useState } from "react";
 import { IconArrowLeft } from "../../shared/icons/Icons";
 import DigitsInput from "../../components/formElements/DigitsInput";
-import { useSnackbar } from "notistack";
+import useNotify from "../../shared/hooks/useNotify";
 
 const VerifyEmail = () => {
   const { id } = useParams();
   const { axios } = useAxios();
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
   const navigate = useNavigate();
   const [otp, setOtp] = useState(id && id.length === 4 ? id : "");
   const [otpError, setOtpError] = useState(false);
@@ -48,10 +48,7 @@ const VerifyEmail = () => {
       );
 
       navigate(routes.signin);
-      enqueueSnackbar("Your email is verified. You can sign in.", {
-        variant: "success",
-        preventDuplicate: true,
-      });
+      notify("Your email is verified. You can sign in.", "success");
 
       // Handle successful response
     } catch (error) {
@@ -68,10 +65,7 @@ const VerifyEmail = () => {
         any
       > = await axios.post(apiEndPoints.resendVerification, { userId: id });
 
-      enqueueSnackbar("Verification email sent.", {
-        variant: "success",
-        preventDuplicate: true,
-      });
+      notify("Verification email sent.", "success");
       // Handle successful response
     } catch (error) {
       // Handle error

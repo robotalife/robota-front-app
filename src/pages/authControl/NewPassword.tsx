@@ -12,7 +12,7 @@ import {
   validationSchema,
 } from "../../shared/consts/validations";
 import GrayListBox from "../../components/shared/GrayListBox";
-import { useSnackbar } from "notistack";
+import useNotify from "../../shared/hooks/useNotify";
 
 const validations = validationSchema({
   password: passwordFull,
@@ -29,7 +29,7 @@ const NewPassword = () => {
   const navigate = useNavigate();
   const { key } = useParams();
   const { axios } = useAxios();
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
 
   const handleSubmit = async (values: { password: string }) => {
     const userData = {
@@ -46,10 +46,7 @@ const NewPassword = () => {
         any
       > = await axios.post(apiEndPoints.resetFinish, userData);
 
-      enqueueSnackbar("An email with password reset link sent to you.", {
-        variant: "success",
-        preventDuplicate: true,
-      });
+      notify("An email with password reset link sent to you.", "success");
       navigate(routes.signin);
     } catch (error) {
       // Handle error

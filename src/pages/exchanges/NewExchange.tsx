@@ -4,17 +4,16 @@ import TextField from "../../components/formElements/TextField";
 import Button from "../../components/formElements/Button";
 import RadioButtonsGroup from "../../components/formElements/RadioButtonsGroup";
 import { FormEvent, useContext, useState } from "react";
-import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import { AuthContext } from "../../shared/providers/AuthProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { useSnackbar } from "notistack";
+import useNotify from "../../shared/hooks/useNotify";
 
 const NewExchange = () => {
   const { userId } = useContext(AuthContext);
   const { axios } = useAxios();
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
 
   const [formData, setFormData] = useState<{
     userId: string | null;
@@ -41,12 +40,7 @@ const NewExchange = () => {
         formData
       );
 
-      console.log(response);
-
-      // enqueueSnackbar("message", {
-      //   variant: "info",
-      //   preventDuplicate: true,
-      // });
+      notify("The exchange added successfully", "info");
     } catch (error) {
       // Handle error
     }

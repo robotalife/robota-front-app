@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import { API_BASE_URL } from "../consts";
-import { useSnackbar } from "notistack";
 import routes from "../consts/routes";
+import useNotify from "./useNotify";
 
 interface AxiosHookReturn {
   axios: AxiosInstance;
@@ -17,7 +17,7 @@ const instance: AxiosInstance = axios.create({
 const token = localStorage.getItem("token");
 
 export default function useAxios(): AxiosHookReturn {
-  const { enqueueSnackbar } = useSnackbar();
+  const notify = useNotify();
 
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
@@ -29,10 +29,7 @@ export default function useAxios(): AxiosHookReturn {
       const message =
         error.response?.data?.message || error.message || "An error occurred";
 
-      enqueueSnackbar(message, {
-        variant: "error",
-        preventDuplicate: true,
-      });
+      notify(message, "error");
 
       if (error.response.status === 401) {
         localStorage.clear();
