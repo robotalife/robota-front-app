@@ -1,14 +1,16 @@
-import { Grid } from "@mui/material";
+import { Grid, Paper, Typography } from "@mui/material";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
 import Button from "../../components/formElements/Button";
-import RadioButtonsGroup from "../../components/formElements/RadioButtonsGroup";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../shared/providers/AuthProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import useNotify from "../../shared/hooks/useNotify";
+import CustomRadioButtonsGroup from "../../components/formElements/CustomRadioButtonsGroup";
+import ExchangeRadioContent from "../../components/pageSpecific/ExchangeRadioContent";
+import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
 
 const NewExchange = () => {
   const { userId } = useContext(AuthContext);
@@ -31,6 +33,45 @@ const NewExchange = () => {
     passPhrase: null,
   });
 
+  const items = [
+    {
+      label: (
+        <ExchangeRadioContent
+          title="Binance Futures"
+          icon={<IconBinance />}
+          info="New to Binance Futures?"
+          linkText="Learn how to create an API key on Binance"
+          linkHref="/"
+        />
+      ),
+      value: "BINANCE_FUTURES",
+    },
+    {
+      label: (
+        <ExchangeRadioContent
+          title="Binance"
+          icon={<IconBinance />}
+          info="New to Binance?"
+          linkText="Learn how to create an API key on Binance"
+          linkHref="/"
+        />
+      ),
+      value: "BINANCE",
+    },
+    {
+      label: (
+        <ExchangeRadioContent
+          title="Kucoin"
+          icon={<IconKucoin />}
+          info="New to Kucoin?"
+          linkText="Learn how to create an API key on Kucoin"
+          linkHref="/"
+        />
+      ),
+      value: "KUCOIN",
+    },
+  ];
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -51,13 +92,9 @@ const NewExchange = () => {
       <Grid item xs={12} md={6} lg={8} xl={5}>
         <form noValidate onSubmit={(e) => handleSubmit(e)}>
           <FieldsetElement label="Select your exchange">
-            <RadioButtonsGroup
-              items={[
-                { label: "Binance Futures", value: "BINANCE_FUTURES" },
-                { label: "BINANCE", value: "BINANCE" },
-                { label: "KUCOIN", value: "KUCOIN" },
-              ]}
-              name="BINANCE_FUTURES"
+            <CustomRadioButtonsGroup
+              items={items}
+              name="exchangeType"
               onChange={(e) =>
                 setFormData({ ...formData, exchangeType: e.target.value })
               }
