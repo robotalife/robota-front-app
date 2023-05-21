@@ -23,6 +23,7 @@ export const ExchangeContext = createContext<IExchangeContext>({
   setSelectedExchange: () => {},
   pairs: [],
   loading: false,
+  getList: () => {},
 });
 
 export const ExchangeProvider = ({ children }: PropsWithChildren) => {
@@ -107,6 +108,10 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
     }
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    getList();
+  }, [getList]);
+
   return (
     <ExchangeContext.Provider
       value={{
@@ -115,6 +120,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         setSelectedExchange,
         pairs,
         loading,
+        getList,
       }}
     >
       {children}

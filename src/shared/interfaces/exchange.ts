@@ -35,4 +35,5 @@ export interface IExchangeContext {
   setSelectedExchange: (exchange: string) => void;
   pairs: IPair[];
   loading: boolean;
+  getList: () => void;
 }

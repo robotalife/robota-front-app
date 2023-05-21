@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import { Container, Grid } from "@mui/material";
 import Loader from "../../components/shared/Loader";
@@ -6,7 +6,11 @@ import ExchangeCard from "../../components/shared/exchangeCard/ExchangeCard";
 import AddExchangeCard from "../../components/shared/exchangeCard/AddExchangeCard";
 
 const Exchanges = () => {
-  const { exchangeList, loading } = useContext(ExchangeContext);
+  const { exchangeList, loading, getList } = useContext(ExchangeContext);
+
+  useEffect(() => {
+    getList();
+  }, []);
 
   return (
     <Container maxWidth="xl" sx={{ m: 0 }}>

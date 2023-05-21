@@ -4,6 +4,8 @@
   margin-bottom: 12px;
   padding: 12px 0;
   position: relative;
+  width: 100%;
+
   &.checked {
     background: $primary-50;
     border-color: $primary-300;
