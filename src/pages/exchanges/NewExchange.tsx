@@ -87,10 +87,14 @@ const NewExchange = () => {
       );
 
       notify("The exchange added successfully", "info");
-      navigate(returnTo || routes.exchangeList);
+      goBack();
     } catch (error) {
       // Handle error
     }
+  };
+
+  const goBack = () => {
+    navigate(returnTo || routes.exchangeList);
   };
 
   return (
@@ -144,7 +148,13 @@ const NewExchange = () => {
               </Button>
             </Grid>
             <Grid item xs={6} md={"auto"}>
-              <Button type="button" variant="outlined" size="small" fullWidth>
+              <Button
+                type="button"
+                variant="outlined"
+                size="small"
+                fullWidth
+                onClick={goBack}
+              >
                 Back
               </Button>
             </Grid>
