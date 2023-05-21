@@ -14,7 +14,7 @@ const Exchanges = () => {
 
       {!loading && (
         <Grid container spacing={3}>
-          {exchangeList.length &&
+          {!!exchangeList.length &&
             exchangeList.map((exchange) => (
               <Grid item xs={12} sm={6} md={4} key={exchange.exchangeId}>
                 <ExchangeCard data={exchange} />

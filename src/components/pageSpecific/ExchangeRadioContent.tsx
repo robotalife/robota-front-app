@@ -21,7 +21,7 @@ const ExchangeRadioContent = ({
   return (
     <Container className={classes.paper}>
       <Grid container spacing={2}>
-        <Grid item xs="auto">
+        <Grid item xs={"auto"}>
           {icon}
         </Grid>
         <Grid item xs>
