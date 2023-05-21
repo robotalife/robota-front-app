@@ -140,7 +140,7 @@ const NewExchange = () => {
           <Grid container spacing={2}>
             <Grid item xs={6} md={"auto"}>
               <Button type="submit" variant="contained" size="small" fullWidth>
-                Connect Exchangev
+                Connect Exchange
               </Button>
             </Grid>
             <Grid item xs={6} md={"auto"}>
