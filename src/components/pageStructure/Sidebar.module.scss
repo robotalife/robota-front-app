@@ -47,6 +47,10 @@
   flex-grow: 0;
 }
 
+.navDivider {
+  display: none;
+}
+
 @media (min-width: $breakpoint-lg) {
   .nav {
     flex-basis: 0;
@@ -58,6 +62,7 @@
 
   .navDivider {
     border-bottom: 1px solid $gray-300;
+    display: block;
     height: 0;
     margin: 12px auto;
     width: 20px;
