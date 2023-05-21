@@ -857,8 +857,8 @@ export const IconBinance = (props: IconProps) => {
 export const IconKucoin = (props: IconProps) => {
   return (
     <svg
-      width="34"
-      height="36"
+      width="49"
+      height="48"
       viewBox="0 0 34 36"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
