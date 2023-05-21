@@ -15,12 +15,12 @@ import { DefaultLayout } from "../shared/layouts/DefaultLayout";
 import CommonLayout from "../shared/layouts/CommonLayout";
 import NewExchange from "../pages/exchanges/NewExchange";
 import TVTokens from "../pages/bots/TVTokens";
-import SettingsLayout from "../shared/layouts/SettingsLayout";
+import TradingPanelLayout from "../shared/layouts/TradingPanelLayout";
 import BotOverView from "../pages/bots/BotOverView";
 import BotActiveTrade from "../pages/bots/BotActiveTrade";
 import BotTradeHistory from "../pages/bots/BotTradeHistory";
 import BotEventLog from "../pages/bots/BotEventLog";
-import InnerSettingsLayout from "../shared/layouts/InnerSettingsLayout";
+import InnerTradingPanelLayout from "../shared/layouts/InnerTradingPanelLayout";
 import { BotProvider } from "../shared/providers/BotProvider";
 import ExchangeLayout from "../shared/layouts/ExchangesLayout";
 import Exchanges from "../pages/exchanges/Exchanges";
@@ -52,7 +52,7 @@ const RoutingComp = () => {
           {/* Bots */}
 
           {/* outer bot pages */}
-          <Route element={<SettingsLayout />}>
+          <Route element={<TradingPanelLayout />}>
             {/* bot store */}
             <Route path={routes.myBots} element={<Bots />} />
 
@@ -64,7 +64,7 @@ const RoutingComp = () => {
           <Route
             element={
               <BotProvider>
-                <InnerSettingsLayout />
+                <InnerTradingPanelLayout />
               </BotProvider>
             }
           >
