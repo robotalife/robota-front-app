@@ -31,24 +31,20 @@ function CustomFormControlLabel(props: FormControlLabelProps) {
   }
 
   return (
-    <>
+    <div className={`${classes.itemWrapper} ${checked ? classes.checked : ""}`}>
+      <FormControlLabel
+        className={checked ? classes.checked : ""}
+        checked={checked}
+        {...props}
+      />
       <div
-        className={`${classes.itemWrapper} ${checked ? classes.checked : ""}`}
+        className={`${classes.radioContainer} ${
+          checked ? classes.checked : ""
+        }`}
       >
-        <FormControlLabel
-          className={checked ? classes.checked : ""}
-          checked={checked}
-          {...props}
-        />
-        <div
-          className={`${classes.radioContainer} ${
-            checked ? classes.checked : ""
-          }`}
-        >
-          <IconCheck />
-        </div>
+        <IconCheck />
       </div>
-    </>
+    </div>
   );
 }
 
@@ -61,7 +57,7 @@ const CustomRadioButtonsGroup = ({
   const tmpName = useId();
 
   return (
-    <FormControl>
+    <FormControl className={classes.groupWrapper}>
       {!!groupLabel && <FormLabel id={tmpId}>{groupLabel}</FormLabel>}
       <RadioGroup
         aria-labelledby={tmpId}
