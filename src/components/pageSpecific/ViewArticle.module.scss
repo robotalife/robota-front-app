@@ -1,0 +1,30 @@
+.card {
+  background: $primary-800;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  padding: 64px;
+}
+
+.title {
+  color: $white;
+  font-size: 30px;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.description {
+  display: none;
+}
+
+@media (min-width: $breakpoint-lg) {
+  .title {
+    margin-bottom: 10px;
+  }
+
+  .description {
+    color: $white;
+    display: block;
+    font-size: 20px;
+    font-weight: 400;
+  }
+}

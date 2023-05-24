@@ -14,6 +14,7 @@ import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
 import useReturnTo from "../../shared/hooks/useReturnTo";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import ViewArticle from "../../components/pageSpecific/ViewArticle";
 
 const items = [
   {
@@ -98,49 +99,59 @@ const NewExchange = () => {
   };
 
   return (
-    <Grid container>
-      <Grid item xs={12} md={6} lg={8} xl={5}>
-        <form noValidate onSubmit={(e) => handleSubmit(e)}>
-          <FieldsetElement label="Select your exchange">
-            <CustomRadioButtonsGroup
-              items={items}
-              name="exchangeType"
-              onChange={(e) =>
-                setFormData({ ...formData, exchangeType: e.target.value })
-              }
-            />
-          </FieldsetElement>
-          <FieldsetElement label="Account Label">
-            <TextField
-              name="name"
-              type="text"
-              message="Example : John Smitt - Binance account"
-              required
-              onChange={(e) =>
-                setFormData({ ...formData, exchangeName: e.target.value })
-              }
-            />
-          </FieldsetElement>
-          <FieldsetElement label="API Key">
-            <TextField
-              name="apiKey"
-              type="text"
-              required
-              onChange={(e) =>
-                setFormData({ ...formData, apiKey: e.target.value })
-              }
-            />
-          </FieldsetElement>
-          <FieldsetElement label="Secret Key">
-            <TextField
-              name="apiSecret"
-              type="text"
-              required
-              onChange={(e) =>
-                setFormData({ ...formData, apiSecret: e.target.value })
-              }
-            />
-          </FieldsetElement>
+    <Grid container maxWidth={"xl"}>
+      <Grid container columnSpacing={7}>
+        <Grid item xs={12} lg={6}>
+          <form noValidate onSubmit={(e) => handleSubmit(e)}>
+            <FieldsetElement label="Select your exchange">
+              <CustomRadioButtonsGroup
+                items={items}
+                name="exchangeType"
+                onChange={(e) =>
+                  setFormData({ ...formData, exchangeType: e.target.value })
+                }
+              />
+            </FieldsetElement>
+            <FieldsetElement label="Account Label">
+              <TextField
+                name="name"
+                type="text"
+                message="Example : John Smitt - Binance account"
+                required
+                onChange={(e) =>
+                  setFormData({ ...formData, exchangeName: e.target.value })
+                }
+              />
+            </FieldsetElement>
+            <FieldsetElement label="API Key">
+              <TextField
+                name="apiKey"
+                type="text"
+                required
+                onChange={(e) =>
+                  setFormData({ ...formData, apiKey: e.target.value })
+                }
+              />
+            </FieldsetElement>
+            <FieldsetElement label="Secret Key">
+              <TextField
+                name="apiSecret"
+                type="text"
+                required
+                onChange={(e) =>
+                  setFormData({ ...formData, apiSecret: e.target.value })
+                }
+              />
+            </FieldsetElement>
+          </form>
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <ViewArticle
+            exchange={formData.exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
+            link={formData.exchangeType === "KUCOIN" ? "/" : "/"}
+          />
+        </Grid>
+        <Grid item xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={6} md={"auto"}>
               <Button type="submit" variant="contained" size="small" fullWidth>
@@ -159,7 +170,7 @@ const NewExchange = () => {
               </Button>
             </Grid>
           </Grid>
-        </form>
+        </Grid>
       </Grid>
     </Grid>
   );
