@@ -108,10 +108,6 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
     }
   }, [isAuthenticated]);
 
-  useEffect(() => {
-    getList();
-  }, [getList]);
-
   return (
     <ExchangeContext.Provider
       value={{
