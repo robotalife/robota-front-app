@@ -17,7 +17,7 @@ const Exchanges = () => {
     <Container maxWidth="xl" sx={{ m: 0 }}>
       {loading && <Loader />}
 
-      {!loading && !exchangeList.length ? (
+      {!loading && !!exchangeList.length ? (
         <Grid container spacing={3}>
           {exchangeList.map((exchange) => (
             <Grid item xs={12} sm={6} md={4} key={exchange.exchangeId}>
