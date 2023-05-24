@@ -1,0 +1,37 @@
+.container {
+  padding-top: 52px;
+  text-align: center;
+}
+
+.bgMobile {
+  margin-bottom: 30px;
+}
+
+.bgDesktop {
+  display: none;
+  margin-bottom: 50px;
+  max-width: 870px;
+}
+
+.title {
+  color: $gray-900;
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.description {
+  color: $gray-400;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: $breakpoint-md) {
+  .bgMobile {
+    display: none;
+  }
+
+  .bgDesktop {
+    display: initial;
+  }
+}

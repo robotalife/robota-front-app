@@ -4,6 +4,7 @@ import { Container, Grid } from "@mui/material";
 import Loader from "../../components/shared/Loader";
 import ExchangeCard from "../../components/shared/exchangeCard/ExchangeCard";
 import AddExchangeCard from "../../components/shared/exchangeCard/AddExchangeCard";
+import EmptyList from "../../components/shared/EmptyList";
 
 const Exchanges = () => {
   const { exchangeList, loading, getList } = useContext(ExchangeContext);
@@ -16,14 +17,13 @@ const Exchanges = () => {
     <Container maxWidth="xl" sx={{ m: 0 }}>
       {loading && <Loader />}
 
-      {!loading && (
+      {!loading && !exchangeList.length ? (
         <Grid container spacing={3}>
-          {!!exchangeList.length &&
-            exchangeList.map((exchange) => (
-              <Grid item xs={12} sm={6} md={4} key={exchange.exchangeId}>
-                <ExchangeCard data={exchange} />
-              </Grid>
-            ))}
+          {exchangeList.map((exchange) => (
+            <Grid item xs={12} sm={6} md={4} key={exchange.exchangeId}>
+              <ExchangeCard data={exchange} />
+            </Grid>
+          ))}
           <Grid item xs={12} sm={6} md={4}>
             <AddExchangeCard
               title={"Add Exchange"}
@@ -31,6 +31,8 @@ const Exchanges = () => {
             />
           </Grid>
         </Grid>
+      ) : (
+        <EmptyList />
       )}
     </Container>
   );
