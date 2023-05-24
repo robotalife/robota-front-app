@@ -32,7 +32,7 @@ const initialValues: SigninData = {
 const Signin = () => {
   const navigate = useNavigate();
   const { axios } = useAxios();
-  const { setIsAuthenticated } = useContext(AuthContext);
+  const { setIsAuthenticated, setUserId } = useContext(AuthContext);
   const returnTo = useReturnTo();
 
   const handleSubmit = async (values: SigninData) => {
@@ -50,6 +50,7 @@ const Signin = () => {
       localStorage.setItem("token", token); // save token in local storage
       localStorage.setItem("userId", id); // save token in local storage
       setIsAuthenticated(true);
+      setUserId(id);
 
       navigate(returnTo || routes.portfolio);
     } catch (error) {
