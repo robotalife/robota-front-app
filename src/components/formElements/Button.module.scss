@@ -10,6 +10,12 @@
       border-color: $primary-600;
     }
 
+    &.MuiButton-containedError {
+      background-color: $error-600;
+      border-color: $error-600;
+      color: $white;
+    }
+
     &.MuiButton-containedSecondary {
       background-color: $primary-50;
       border-color: $primary-50;

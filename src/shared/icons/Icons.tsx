@@ -421,6 +421,37 @@ export const IconModalSave = (props: IconProps) => {
   );
 };
 
+export const IconModalDelete = (props: IconProps) => {
+  return (
+    <svg
+      width="57"
+      height="56"
+      viewBox="0 0 57 56"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <rect x="4.5" y="4" width="48" height="48" rx="24" fill="#FEE4E2" />
+      <path
+        d="M28.5 24V28M28.5 32H28.51M38.5 28C38.5 33.5228 34.0228 38 28.5 38C22.9772 38 18.5 33.5228 18.5 28C18.5 22.4772 22.9772 18 28.5 18C34.0228 18 38.5 22.4772 38.5 28Z"
+        stroke="#D92D20"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <rect
+        x="4.5"
+        y="4"
+        width="48"
+        height="48"
+        rx="24"
+        stroke="#FEF3F2"
+        strokeWidth="8"
+      />
+    </svg>
+  );
+};
+
 export const IconCopy = (props: IconProps) => {
   return (
     <svg

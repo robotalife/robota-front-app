@@ -381,8 +381,9 @@ const NewBot = () => {
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <>
           <Grid container justifyContent={"center"} mb={1}>
-            <Grid item xs={"auto"}></Grid>
-            <IconModalSave />
+            <Grid item xs={"auto"}>
+              <IconModalSave />
+            </Grid>
           </Grid>
           <Typography
             component={"h3"}
