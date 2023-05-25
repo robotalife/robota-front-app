@@ -102,7 +102,11 @@ const NewExchange = () => {
     <Grid container maxWidth={"xl"}>
       <Grid container columnSpacing={7}>
         <Grid item xs={12} lg={6}>
-          <form noValidate onSubmit={(e) => handleSubmit(e)}>
+          <form
+            noValidate
+            onSubmit={(e) => handleSubmit(e)}
+            id="newExchangeForm"
+          >
             <FieldsetElement label="Select your exchange">
               <CustomRadioButtonsGroup
                 items={items}
@@ -154,7 +158,13 @@ const NewExchange = () => {
         <Grid item xs={12}>
           <Grid container spacing={2}>
             <Grid item xs={6} md={"auto"}>
-              <Button type="submit" variant="contained" size="small" fullWidth>
+              <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                fullWidth
+                form="newExchangeForm"
+              >
                 Connect Exchange
               </Button>
             </Grid>
