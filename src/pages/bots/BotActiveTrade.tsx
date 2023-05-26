@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useAxios from "../../shared/hooks/useAxios";
-import { AxiosResponse } from "axios";
+import {AxiosResponse} from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import Table from "../../components/shared/table/Table";
@@ -13,20 +13,15 @@ import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-import { IActiveTrade } from "../../shared/interfaces/bots";
+import {IActiveTrade} from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
-import { Grid, IconButton, Typography } from "@mui/material";
+import {Grid, IconButton, Typography} from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import TextBadge from "../../components/shared/TextBadge";
-import {
-  IconArrowDown,
-  IconArrowDownRight,
-  IconArrowUp,
-  IconArrowUpRight,
-  IconClock,
-  IconCloseCircle,
-} from "../../shared/icons/Icons";
+
+import {IconArrowDown, IconArrowUp, IconClock, IconCloseCircle,} from "../../shared/icons/Icons";
 import useNotify from "../../shared/hooks/useNotify";
+import TableStrategy from "../../components/shared/table/StrategyBadge";
 
 const BotActiveTrade = () => {
   const notify = useNotify();
@@ -113,23 +108,7 @@ const BotActiveTrade = () => {
                     </Grid>
                   </TableCell>
                   <TableCell>
-                    <TextBadge variation="secondary">
-                      {activeTrade.strategy === "LONG" ? (
-                        <>
-                          Long{" "}
-                          <IconArrowUpRight
-                            style={{ marginLeft: 8, height: 5, width: 5 }}
-                          />
-                        </>
-                      ) : (
-                        <>
-                          Short{" "}
-                          <IconArrowDownRight
-                            style={{ marginLeft: 8, height: 5, width: 5 }}
-                          />
-                        </>
-                      )}
-                    </TextBadge>
+                    <TableStrategy strategy={activeTrade.strategy} />
                   </TableCell>
                   <TableCell>
                     <TableDateTime {...getDateTime(activeTrade.creationDate)} />

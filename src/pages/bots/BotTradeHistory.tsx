@@ -267,7 +267,7 @@ const BotTradeHistory = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5}>There is no logs available</TableCell>
+                  <TableCell colSpan={5}>There is no history available</TableCell>
                 </TableRow>
               )}
             </TableBody>

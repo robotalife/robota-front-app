@@ -11,6 +11,10 @@ export const botsPages = (badge: number | string) => {
       to: routes.myBots,
       badge: badge,
     },
+    {
+        label: "Live trade",
+        to: routes.liveTrade,
+    }
   ];
 };
 

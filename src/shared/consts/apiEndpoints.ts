@@ -15,6 +15,7 @@ const apiEndPoints = {
   symbolsList: "/symbols?exchangeId=",
   // Bots
   bots: "/bots",
+  getLiveTrades: "/bots/live-trades",
   getTokens: (botId: string) => `/bots/${botId}/tokens`,
   getBot: (botId: string) => `/bots/${botId}`,
   getBotLog: (botId: string) => `/bots/${botId}/logs`,
