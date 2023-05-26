@@ -18,6 +18,7 @@ const token = localStorage.getItem("token");
 
 export default function useAxios(): AxiosHookReturn {
   const notify = useNotify();
+  const { pathname } = window.location;
 
   instance.interceptors.response.use(
     (response: AxiosResponse) => {
@@ -31,7 +32,7 @@ export default function useAxios(): AxiosHookReturn {
 
       notify(message, "error");
 
-      if (error.response.status === 401) {
+      if (error.response.status === 401 && pathname !== routes.signin) {
         localStorage.clear();
         delete instance.defaults.headers.common["Authorization"];
         window.location.href = routes.signin;
