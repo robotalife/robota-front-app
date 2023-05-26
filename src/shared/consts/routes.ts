@@ -7,6 +7,7 @@ const routes = {
   newPassword: "/forgot-password/finish",
   // Bots
   myBots: "/bots/my-bots", // my bots
+  liveTrade: "/bots/live-trade", // live trade
   botsNew: "/bots/new", // create new bot
   botOverview: "/bots/overview", // bot overview
   botActiveTrades: "/bots/active-trades", // bot overview

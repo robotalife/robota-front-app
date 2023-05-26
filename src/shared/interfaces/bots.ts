@@ -18,6 +18,18 @@ export interface IActiveTrade {
   strategy: "SHORT" | "LONG";
 }
 
+export interface ILiveTrade {
+    botId: number;
+    botName: string;
+    public: boolean;
+    botStrategy: "SHORT" | "LONG";
+    activeTradeCount: number;
+    pnl: string;
+    baseAssetLogo: string;
+    baseAsset: string;
+    qouteAsset: string;
+}
+
 export interface IBotHistoryObj {
   baseLogo: string;
   baseVolume: string;

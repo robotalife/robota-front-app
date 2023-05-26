@@ -5,6 +5,7 @@ import ForgetPassword from "../pages/authControl/ForgetPassword";
 import Signin from "../pages/authControl/Signin";
 import Signup from "../pages/authControl/Signup";
 import Bots from "../pages/bots/Bots";
+import LiveTrade from "../pages/bots/LiveTrade";
 import NewBot from "../pages/bots/NewBot";
 import NotFound from "../pages/NotFound";
 import Portfolio from "../pages/Portfolio";
@@ -58,6 +59,9 @@ const RoutingComp = () => {
 
             {/* create new bot */}
             <Route path={routes.botsNew} element={<NewBot />} />
+
+            {/* Live Trade */}
+            <Route path={routes.liveTrade} element={<LiveTrade />} />
           </Route>
 
           {/* inner bot pages with sub-layout */}

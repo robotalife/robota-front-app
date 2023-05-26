@@ -21,6 +21,10 @@ const TradingPanelLayout = () => {
       to: routes.myBots,
       badge: paginateData.total,
     },
+    {
+      label: "Live Trade",
+      to: routes.liveTrade,
+    }
   ];
 
   useEffect(() => {
