@@ -57,12 +57,12 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         })
       );
 
-      if (
-        !exchanges.length &&
-        window.location.pathname !== routes.exchangeNew
-      ) {
-        window.location.href = routes.exchangeNew;
-      }
+      // if (
+      //   !exchanges.length &&
+      //   window.location.pathname !== routes.exchangeNew
+      // ) {
+      //   window.location.href = routes.exchangeNew;
+      // }
 
       const tmpSelected =
         exchanges.find((ex) => ex.default)?.exchangeId ||

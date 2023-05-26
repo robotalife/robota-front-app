@@ -10,7 +10,7 @@ import {
 } from "../../../shared/icons/Icons";
 import IndicatorBadge from "../IndicatorBadge";
 import { AxiosResponse } from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { IPortfolioBalance } from "../../../shared/interfaces/portfolio";
 import apiEndPoints from "../../../shared/consts/apiEndpoints";
 import useAxios from "../../../shared/hooks/useAxios";
@@ -20,33 +20,17 @@ import { ExchangeContext } from "../../../shared/providers/ExchangeProvider";
 
 interface Props {
   data: IExchange;
+  remove: (id: string) => void;
 }
 
-const ExchangeCard = ({ data }: Props) => {
-  const { getList } = useContext(ExchangeContext);
+const ExchangeCard = ({ data, remove }: Props) => {
   const [showModal, setShowModal] = useState(false);
-  const notify = useNotify();
   const { axios } = useAxios();
   const [portfolio, setPortfolio] = useState<IPortfolioBalance>({
     balance: "N/A",
   });
 
-  const deleteExchange = async () => {
-    try {
-      const response: AxiosResponse<any, any> = await axios.delete(
-        `${apiEndPoints.exchange}/${data.exchangeId}`
-      );
-      const portfolio = response.data || undefined;
-      setPortfolio(portfolio);
-      setShowModal(false);
-      getList();
-      notify("The exchange deleted!", "info");
-    } catch (error) {
-      // Handle error
-    }
-  };
-
-  const getBalance = async () => {
+  const getBalance = useCallback(async () => {
     try {
       const response: AxiosResponse<IPortfolioBalance, any> = await axios.get(
         `${apiEndPoints.balance}${data.exchangeId}`
@@ -56,7 +40,7 @@ const ExchangeCard = ({ data }: Props) => {
     } catch (error) {
       // Handle error
     }
-  };
+  }, []);
 
   useEffect(() => {
     getBalance();
@@ -141,7 +125,7 @@ const ExchangeCard = ({ data }: Props) => {
                 fullWidth
                 variant="contained"
                 color="error"
-                onClick={deleteExchange}
+                onClick={() => remove(data.exchangeId)}
               >
                 Delete
               </Button>
