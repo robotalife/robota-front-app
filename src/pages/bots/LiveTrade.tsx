@@ -145,8 +145,8 @@ const LiveTrade = () => {
                                         {h.activeTradeCount === 1 ? (
                                             <Grid>
                                                 <Button
-                                                    variant="contained"
-                                                    color="inherit"
+                                                    type="button"
+                                                    variant="outlined"
                                                     size="small"
                                                     sx={{mb: {xs: 2, lg: 0}}}
                                                     disabled={loading}
@@ -157,8 +157,8 @@ const LiveTrade = () => {
                                             </Grid>) : (
                                             <Grid>
                                                 <Button
-                                                    variant="contained"
-                                                    color="primary"
+                                                    type="button"
+                                                    variant="outlined"
                                                     size="small"
                                                     sx={{mb: {xs: 2, lg: 0}}}
                                                     disabled={loading}
