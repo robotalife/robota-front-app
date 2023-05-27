@@ -152,7 +152,7 @@ const LiveTrade = () => {
                                                     disabled={loading}
                                                     onClick={() => postTrade("STOP", h.botId)}>
                                                     <IconPause style={{width: 10, marginRight: 10}}/>
-                                                    Cancel Trade
+                                                    Close Trade
                                                 </Button>
                                             </Grid>) : (
                                             <Grid>
