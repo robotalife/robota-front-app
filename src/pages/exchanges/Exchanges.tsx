@@ -19,6 +19,10 @@ const Exchanges = () => {
     getList();
   }, []);
 
+  const excludePaperExchange = (exchange: any) => {
+    //todo: this code should change to have the exact type not the type name for display
+    return exchange.exchangeType.indexOf("Paper")===-1;
+  }
   const deleteExchange = useCallback(async (id: string) => {
     try {
       const response: AxiosResponse<any, any> = await axios.delete(
@@ -35,9 +39,10 @@ const Exchanges = () => {
     <Container maxWidth="xl" sx={{ m: 0 }}>
       {loading ? (
         <Loader />
-      ) : !!exchangeList.length ? (
+      //     use the correct list not to filter 2 times
+      ) : !!exchangeList.filter(excludePaperExchange).length ? (
         <Grid container spacing={3}>
-          {exchangeList.map((exchange) => (
+          {exchangeList.filter(excludePaperExchange).map((exchange) => (
             <Grid item xs={12} sm={6} md={4} key={exchange.exchangeId}>
               <ExchangeCard data={exchange} remove={deleteExchange} />
             </Grid>
