@@ -10,6 +10,7 @@ import {
   IconVrHeadset,
   IconTelegram,
   IconTwitter,
+  IconLogout,
 } from "../../shared/icons/Icons";
 import classes from "./Sidebar.module.scss";
 import useLogout from "../../shared/hooks/useLogout";
@@ -35,12 +36,12 @@ const Sidebar = () => {
             <IconBarChart />
           </NavLink>
         </IconButton>
-        <IconButton>
+        {/* <IconButton>
           <IconTripleOctagons />
         </IconButton>
         <IconButton>
           <IconShopingCart />
-        </IconButton>
+        </IconButton> */}
         <IconButton>
           <NavLink
             style={({ isActive, isPending }) => {
@@ -72,6 +73,13 @@ const Sidebar = () => {
             <IconVrHeadset />
           </NavLink>
         </IconButton>
+        <IconButton
+          onClick={logout}
+          sx={{ display: { lg: "none" } }}
+          title="Log out"
+        >
+          <IconLogout />
+        </IconButton>
       </nav>
       <nav className={classes.sharing}>
         <IconButton>
@@ -84,9 +92,10 @@ const Sidebar = () => {
           <IconTelegram />
         </IconButton>
       </nav>
+      <div className={classes.navDivider} />
       <nav className={classes.profile}>
         <IconButton onClick={logout} title="Log out">
-          M
+          <IconLogout />
         </IconButton>
       </nav>
     </div>

@@ -11,11 +11,11 @@ const Header = () => {
         <Grid item xs>
           <img src={robotaLogoType} className={classes.logo} />
         </Grid>
-        <Grid item xs={"auto"}>
+        {/* <Grid item xs={"auto"}>
           <IconButton>
             <IconBell />
           </IconButton>
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );

@@ -946,3 +946,24 @@ export const IconAdd = (props: IconProps) => {
     </svg>
   );
 };
+
+export const IconLogout = (props: IconProps) => {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M11.5 1.5L14.8333 1.5C15.2754 1.5 15.6993 1.6756 16.0118 1.98816C16.3244 2.30072 16.5 2.72464 16.5 3.16667L16.5 14.8333C16.5 15.2754 16.3244 15.6993 16.0118 16.0118C15.6993 16.3244 15.2754 16.5 14.8333 16.5L11.5 16.5M5.66667 4.83333L1.5 9M1.5 9L5.66667 13.1667M1.5 9L11.5 9"
+        stroke="#667085"
+        strokeWidth="1.66667"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
