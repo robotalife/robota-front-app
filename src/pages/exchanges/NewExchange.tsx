@@ -88,7 +88,8 @@ const NewExchange = () => {
       );
 
       notify("The exchange added successfully", "info");
-      goBack();
+      navigate(routes.botsNew);
+      // goBack();
     } catch (error) {
       // Handle error
     }
