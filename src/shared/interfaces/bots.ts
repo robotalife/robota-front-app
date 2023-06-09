@@ -86,8 +86,13 @@ export interface IBot {
   exchangeLogo: "https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png"
   pnl: string;
   stopped: false;
+  chartData: IChartData;
 }
 
+export interface IChartData {
+    data: number[];
+    labels: string[];
+}
 
 export interface IMyBots {
   currentPage: number;

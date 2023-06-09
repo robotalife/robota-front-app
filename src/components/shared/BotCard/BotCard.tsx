@@ -61,7 +61,7 @@ const BotCard = ({ data }: Props) => {
         </Grid>
         <Grid item>
           <BotCardChart
-            strategy={data.strategy.toLocaleLowerCase() as "short" | "long"}
+            input={data.chartData}
           />
         </Grid>
       </Grid>

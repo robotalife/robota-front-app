@@ -16,6 +16,7 @@ import { Line } from "react-chartjs-2";
 
 import classes from "./BotCardChart.module.scss";
 import { faker } from "@faker-js/faker";
+import {IChartData} from "../../../shared/interfaces/bots";
 
 ChartJS.register(
   CategoryScale,
@@ -67,24 +68,30 @@ const options: ChartOptions<"line"> = {
   },
 };
 
-const labels = ["2", "4", "6", "8", "10", "12", "14"];
+interface Props {
+  input : IChartData;
+}
 
 const data = (
-  strategy: "long" | "short"
+    input: IChartData
 ): ChartData<"line", number[], string> => {
+  let trajectory = -1;
+  if(input.data && input.data[0] > input.data[input.data.length-1]){
+    trajectory = +1;
+  }
   return {
-    labels,
+    labels:input.labels,
     datasets: [
       {
         fill: true,
         label: "Dataset 2",
-        data: labels.map(() => faker.datatype.number({ min: 10, max: 50 })),
-        borderColor: strategy === "long" ? "#12B76A" : "#F04438",
+        data: input.data ,
+        borderColor:  trajectory<0 ? "#12B76A" : "#F04438",
         borderWidth: 2,
         backgroundColor: (context: ScriptableContext<"line">) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, -140, 0, 65);
-          gradient.addColorStop(0, strategy === "long" ? "#12B76A" : "#F04438");
+          gradient.addColorStop(0, trajectory<0 ? "#12B76A" : "#F04438");
           gradient.addColorStop(1, "#fff");
           return gradient;
         },
@@ -95,10 +102,10 @@ const data = (
   };
 };
 
-const BotCardChart = ({ strategy }: { strategy: "short" | "long" }) => {
+const BotCardChart = ({ input }:  Props) => {
   return (
     <div className={classes.chartWrapper}>
-      <Line options={options} data={data(strategy)} />
+      <Line options={options} data={data(input)} />
     </div>
   );
 };
