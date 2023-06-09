@@ -79,6 +79,7 @@ const BotOverView = () => {
                 action={<IconInfoCircle />}
                 hasChart
                 content={overview.totalProfit}
+                chartData={overview.pnlChartData}
                 description={
                   <>
                     <IconArrowUp className="success" />
@@ -109,6 +110,10 @@ const BotOverView = () => {
               <BotOverviewCard
                 action={<Icon3DotsVertical />}
                 hasChart
+                chartData={{
+                    labels: [],
+                    data: [],
+                }}
                 content={overview.winRate}
                 description={
                   <>
@@ -136,8 +141,13 @@ const BotOverView = () => {
         <Grid xs={12} lg={4} item>
           <WrapperBox fullHeight>
             <WrapperBoxSection>
+              {/*TODO: @homam chartData is not provide*/}
               <BotOverviewCard
                 action={""}
+                // chartData={{
+                //   labels: [],
+                //   data: [],
+                // }}
                 content={overview.closedDeals}
                 description={""}
                 title={"Closed Deals"}

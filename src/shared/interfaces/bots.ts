@@ -72,6 +72,7 @@ export interface IBotOverview {
   closedDeals: number;
   totalProfit: string;
   winRate: string;
+  pnlChartData: IChartData;
 }
 
 export interface IBot {

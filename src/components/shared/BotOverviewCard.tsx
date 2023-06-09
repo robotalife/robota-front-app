@@ -5,6 +5,7 @@ import classes from "./BotOverviewCard.module.scss";
 import { IconArrowDown, IconArrowUp } from "../../shared/icons/Icons";
 import { BotContext } from "../../shared/providers/BotProvider";
 import BotCardChart from "./chart/BotCardChart";
+import {IChartData} from "../../shared/interfaces/bots";
 
 interface Props {
   action: ReactNode;
@@ -12,6 +13,7 @@ interface Props {
   content: ReactNode;
   description: ReactNode;
   title: string;
+  chartData: IChartData;
 }
 
 const BotOverviewCard = ({
@@ -20,11 +22,10 @@ const BotOverviewCard = ({
   content,
   description,
   title,
+  chartData
 }: Props) => {
   const { botData } = useContext(BotContext);
-
-  const isLong = botData.strategy === "LONG";
-
+const emptyChart = { labels: [], datasets: [] };
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid item xs>
@@ -44,7 +45,7 @@ const BotOverviewCard = ({
       >
         <div className={classes.action}>{action}</div>
         <div className={classes.chartContainer}>
-          {hasChart && <BotCardChart strategy={isLong ? "long" : "short"} />}
+          {hasChart && <BotCardChart input={chartData ? chartData : emptyChart} />}
         </div>
       </Grid>
     </Grid>
