@@ -78,6 +78,12 @@ export interface IBotOverview {
   averageWinrate : string;
 }
 
+export interface IOverviewChart {
+  summaryProfitChart: IChartData;
+  profitByDay: IChartData;
+}
+
+
 export interface IBot {
   id: string | number;
   name: string;

@@ -3,7 +3,7 @@ import useAxios from "../../shared/hooks/useAxios";
 import {useCallback, useEffect, useState} from "react";
 import {AxiosResponse} from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import {IBotOverview} from "../../shared/interfaces/bots";
+import {IBotOverview, IChartData, IOverviewChart} from "../../shared/interfaces/bots";
 import {Container, Grid, MenuItem, Typography} from "@mui/material";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
@@ -36,7 +36,21 @@ const BotOverView = () => {
         averageDailyProfit: "",
         averageWinrate: "",
     } as IBotOverview);
+    const [overviewChart, setOverviewChart] = useState<IOverviewChart>({
+        summaryProfitChart: {
+            labels: [],
+            data: [],
+        },
+        profitByDay: {
+            labels: [],
+            data: [],
+        },
+    });
     const [loading, setLoading] = useState(true);
+    const [chartInput, setChartInput] = useState<IChartData>({
+        labels: [],
+        data: [],
+    })
 
     const [activeButton, setActiveButton] = useState<"summary" | "day">(
         "summary"
@@ -54,6 +68,7 @@ const BotOverView = () => {
 
             const overview = response.data;
             setOverview(overview);
+            setChartInput(overviewChart.summaryProfitChart)
         } catch (error) {
             // Handle error
         } finally {
@@ -61,14 +76,38 @@ const BotOverView = () => {
         }
     }, [setOverview, setLoading]);
 
+    const getOverviewChart = useCallback(async () => {
+        setLoading(true);
+
+        try {
+            const response: AxiosResponse<IOverviewChart, any> = await axios.get(
+                apiEndPoints.getOverViewChart(botId as string)
+            );
+
+            console.log(response.data)
+
+            setOverviewChart(response.data);
+            setChartInput(overviewChart.summaryProfitChart);
+
+        } catch (error) {
+            // Handle error
+        } finally {
+            setLoading(false);
+        }
+    }, [ setLoading]);
+
     useEffect(() => {
         getOverviewData();
-    }, [getOverviewData]);
+        getOverviewChart();
+    }, [getOverviewData, getOverviewChart]);
 
     useEffect(() => {
         //action for active button
-        console.log(activeButton);
-    }, [activeButton]);
+        console.log("active button changed", activeButton)
+        setChartInput(activeButton=== "summary" ? overviewChart.summaryProfitChart : overviewChart.profitByDay)
+    }, [activeButton, overviewChart]);
+
+
 
     return (
         <Container maxWidth="xl">
@@ -204,7 +243,7 @@ const BotOverView = () => {
                     </Select>
                 </Grid>
             </Grid>
-            <OverviewAreaChart/>
+            <OverviewAreaChart input={chartInput}/>
         </Container>
     );
 };
