@@ -74,6 +74,8 @@ export interface IBotOverview {
   winRate: string;
   pnlChartData: IChartData;
   winRateChartData: IChartData;
+  averageDailyProfit: string;
+  averageWinrate : string;
 }
 
 export interface IBot {
