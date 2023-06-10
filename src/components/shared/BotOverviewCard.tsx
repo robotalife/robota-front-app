@@ -25,7 +25,7 @@ const BotOverviewCard = ({
   chartData
 }: Props) => {
   const { botData } = useContext(BotContext);
-const emptyChart = { labels: [], datasets: [] };
+const emptyChart:IChartData = { labels: [], data: [] };
   return (
     <Grid container justifyContent={"space-between"}>
       <Grid item xs>

@@ -141,10 +141,10 @@ const BotOverView = () => {
               {/*TODO: @homam chartData is not provide*/}
               <BotOverviewCard
                 action={""}
-                // chartData={{
-                //   labels: [],
-                //   data: [],
-                // }}
+                chartData={{
+                  labels: [],
+                  data: [],
+                }}
                 content={overview.closedDeals}
                 description={""}
                 title={"Closed Deals"}
