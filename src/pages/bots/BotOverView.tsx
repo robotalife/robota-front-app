@@ -110,10 +110,7 @@ const BotOverView = () => {
               <BotOverviewCard
                 action={<Icon3DotsVertical />}
                 hasChart
-                chartData={{
-                    labels: [],
-                    data: [],
-                }}
+                chartData={overview.winRateChartData}
                 content={overview.winRate}
                 description={
                   <>
