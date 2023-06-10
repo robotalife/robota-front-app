@@ -12,6 +12,20 @@
   margin-bottom: 16px;
 }
 
+.positiveContent {
+  color: $success-600;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.negativeContent {
+  color: $error-600;
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
 .description {
   color: $gray-500;
   font-size: 14px;

@@ -25,11 +25,25 @@ const BotOverviewCard = ({
                          }: Props) => {
     const {botData} = useContext(BotContext);
     const emptyChart: IChartData = {labels: [], data: []};
+
+    const isNegative = typeof content === "string" && content.startsWith("-");
+
+    console.log("isNegative", isNegative)
+
     return (
         <Grid container justifyContent={"space-between"}>
             <Grid item xs>
                 <Typography className={classes.title}>{title}</Typography>
-                <Typography className={classes.content}>{content}</Typography>
+                {hasChart ? (<Typography
+                        className={`${isNegative ? classes.negativeContent : classes.positiveContent}`}
+                    >
+                        {content}
+                    </Typography>
+                ) : (<Typography
+                    className={classes.content}
+                >
+                    {content}
+                </Typography>)}
                 <div className={classes.description}>{description}</div>
             </Grid>
             <Grid
