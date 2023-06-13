@@ -21,6 +21,7 @@ const ForgetPassword = () => {
   const [userEmail, setUserEmail] = useState<string | undefined>();
 
   const handleSubmit = async (values: { email: string }) => {
+      console.log(values, "values")
     const userData = {
       email: values.email,
     };
@@ -35,6 +36,7 @@ const ForgetPassword = () => {
       > = await axios.post(apiEndPoints.resetInit, userData);
       setUserEmail(values.email);
       setIsSent(true);
+      console.log(values.email? values.email : "something")
     } catch (error) {
       // Handle error
     }
@@ -54,10 +56,7 @@ const ForgetPassword = () => {
           className={"pageDescription"}
           sx={{ marginTop: 2, textAlign: "center" }}
         >
-          Reset Password email was sent to {userEmail && "email"}. If you do not
-          receive a Reset Password email, please check your spam folder. Also,
-          please verify that you entered a valid email address in our sign-up
-          form.
+            We've sent a password reset link to <u>{userEmail? userEmail : "your email"}</u>. If you don't see it in your inbox, please check your spam folder.
         </Typography>
       </>
     );
@@ -73,15 +72,15 @@ const ForgetPassword = () => {
     >
       {({ values, handleChange, errors, touched }) => (
         <Form noValidate style={{ width: "100%" }}>
-          <div className={"pageTitle"}>Reset Password</div>
+          <div className={"pageTitle"}>Reset password</div>
           <TextField
             name="email"
             type="email"
-            label="Email Address"
+            label="Email address"
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
-            placeholder="Enter your enmail address"
+            placeholder="Enter your email address"
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
@@ -89,7 +88,7 @@ const ForgetPassword = () => {
           />
 
           <Button type="submit" variant="contained" fullWidth>
-            Reset Password
+            Reset password
           </Button>
         </Form>
       )}

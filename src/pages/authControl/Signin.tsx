@@ -74,11 +74,11 @@ const Signin = () => {
           <TextField
             name="email"
             type="email"
-            label="Email Address"
+            label="Email address"
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
-            placeholder="Enter your Email Address"
+            placeholder="Enter your email address"
             required
             error={Boolean(errors.email && touched.email)}
             helperText={errors.email && touched.email && errors.email}
@@ -106,7 +106,7 @@ const Signin = () => {
             Sign In
           </Button>
           <Typography sx={{ textAlign: "center" }} className="pageDescription">
-            Don't have an account? <Link to={routes.signup}>Sign Up</Link>
+            <Link to={routes.signup}>Create  account</Link>
           </Typography>
         </Form>
       )}

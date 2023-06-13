@@ -18,12 +18,8 @@ const validations = validationSchema({
   password: passwordFull,
 });
 
-const list = [
-  "Min. 8 characters",
-  "Not same as username",
-  "At least 1 alphabet, 1 number, and 1 punctuation",
-  "Differ from previous password",
-];
+const text = "Use 8 or more characters with a mix of letters, numbers & symbols";
+
 
 const NewPassword = () => {
   const navigate = useNavigate();
@@ -72,14 +68,14 @@ const NewPassword = () => {
             startIcon={<IconKey />}
             value={values.password}
             onChange={handleChange}
-            placeholder="Create a password"
+            placeholder="Create a new password"
             required
             error={Boolean(errors.password && touched.password)}
             helperText={errors.password && touched.password && errors.password}
             sx={{ mb: 3 }}
           />
 
-          <GrayListBox list={list} />
+          <GrayListBox text={text} />
 
           <Button type="submit" variant="contained" fullWidth sx={{ mb: 2 }}>
             Resset Password

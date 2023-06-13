@@ -79,9 +79,7 @@ const VerifyEmail = () => {
       </div>
       <div className={"pageTitle"}>Check your email</div>
       <div className={"pageSubtitle"} style={{ marginBottom: 50 }}>
-        If you do not receive a confirmation email, please check your spam
-        folder. Also, please verify that you entered a valid email address in
-        our sign-up form.
+          A verification code has been sent to your email. If you do not receive it, please check your spam folder.
       </div>
 
       <DigitsInput
@@ -105,7 +103,7 @@ const VerifyEmail = () => {
         alignItems="center"
       >
         <Grid container spacing={1} justifyContent={"center"}>
-          <Grid item>Didn’t receive the email? </Grid>
+          <Grid item>Haven't received the email? </Grid>
           <Grid item xs={"auto"}>
             <Typography className="pageSubtitle">
               <Link
@@ -127,10 +125,11 @@ const VerifyEmail = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
+                color: "#667085", //@todo : change color to scss color gray-500
               }}
             >
               <IconArrowLeft style={{ margin: "0 10px" }} />
-              Back to Sign Up
+              Back to sign-up
             </Link>
           </Grid>
         </Grid>
