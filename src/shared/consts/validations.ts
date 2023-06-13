@@ -10,16 +10,16 @@ export const passwordSimple = Yup.string()
 export const passwordFull = Yup.string()
   .matches(
     /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d@$!%*?&()]{8,}$/,
-    "Password must contain at least 8 characters, one uppercase, one lowercase, and one number and one special character."
+    "Use 8 characters or more for your password."
   )
   .required("Required");
 
 export const email = Yup.string()
   .email("Invalid email")
-  .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Invalid email")
+  .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address")
   .required("Required");
 
-export const agreeCheckbox = Yup.boolean().oneOf([true], "Must agree to terms");
+export const agreeCheckbox = Yup.boolean().oneOf([true], "To create an account, please acknowledge and accept our terms and privacy policy.");
 
 export const newBotStringSchema = Yup.string().required(
   "This field is required"
