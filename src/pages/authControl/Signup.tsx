@@ -31,12 +31,7 @@ const initialValues = {
   agree: false,
 };
 
-const list = [
-  "Min. 8 characters",
-  "Not same as username",
-  "At least 1 alphabet, 1 number, and 1 punctuation",
-  "Differ from previous password",
-];
+const text = "Use 8 or more characters with a mix of letters, numbers & symbols";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -74,7 +69,7 @@ const Signup = () => {
           <TextField
             name="email"
             type="email"
-            label="Email Address"
+            label="Email address"
             startIcon={<IconMail />}
             value={values.email}
             onChange={handleChange}
@@ -98,7 +93,7 @@ const Signup = () => {
             sx={{ mb: 3 }}
           />
 
-          <GrayListBox list={list} />
+          <GrayListBox text={text} />
 
           <CheckboxWithText
             name="agree"
@@ -113,11 +108,16 @@ const Signup = () => {
               Boolean(errors.agree && touched.agree) ? "error" : undefined
             }
           >
-            <Typography className="pageDescription">
+            <Typography className="pageImportantMessage">
               I have read and agree to RobotaLife’s
-              <Link to={routes.terms}>
+              <Link to={routes.terms} className="authLinks">
                 {" "}
-                Terms of Service and Privacy Policy
+                Terms of service
+              </Link>
+                {" "}&
+              <Link to={routes.privacy}>
+                {" "}
+                Privacy policy
               </Link>
               .
             </Typography>

@@ -23,7 +23,8 @@ const routes = {
   exchangeInvoices: "/exchanges/invoices",
   // Common
   portfolio: "/portfolio",
-  terms: "/terms",
+  terms: "https://robotalife.com/term-of-use/",
+  privacy: "https://robotalife.com/privacy-notice/",
   notFound: "/not-found",
   "404": "/404",
 } as const;

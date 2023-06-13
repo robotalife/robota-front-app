@@ -1,20 +1,16 @@
-import { Paper } from "@mui/material";
+import {Paper, Typography} from "@mui/material";
 import { PropsWithChildren } from "react";
 
 import classes from "./GrayListBox.module.scss";
 
 interface Props {
-  list: string[];
+  text: string;
 }
 
-const GrayListBox = ({ list }: Props) => {
+const GrayListBox = ({ text }: Props) => {
   return (
-    <Paper elevation={0} className={classes.listWrapper}>
-      <ul>
-        {list.map((item) => (
-          <li key={item}>{item}</li>
-        ))}
-      </ul>
+    <Paper elevation={0} className={classes.textWrapper}>
+        <Typography className={classes.text}>{text}</Typography>
     </Paper>
   );
 };
