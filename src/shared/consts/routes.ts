@@ -16,6 +16,7 @@ const routes = {
   botTVToken: "/bot/tokens", // trading view tokens
   // Exchange
   exchangeNew: "/exchanges/new",
+  exchangeUpdate: "/exchanges/update",
   exchangeList: "/exchanges/list",
   exchangeSecurity: "/exchanges/security",
   exchangeNotifications: "/exchanges/notifications",

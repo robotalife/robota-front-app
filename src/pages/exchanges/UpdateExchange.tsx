@@ -8,81 +8,38 @@ import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import useNotify from "../../shared/hooks/useNotify";
-import CustomRadioButtonsGroup from "../../components/formElements/CustomRadioButtonsGroup";
-import ExchangeRadioContent from "../../components/pageSpecific/ExchangeRadioContent";
-import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
 import useReturnTo from "../../shared/hooks/useReturnTo";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import ViewArticle from "../../components/pageSpecific/ViewArticle";
 
-const items = [
-  {
-    label: (
-      <ExchangeRadioContent
-        title="Binance Futures"
-        icon={<IconBinance />}
-        info="New to Binance Futures?"
-        linkText="Learn how to create an API key on Binance"
-        linkHref="/"
-      />
-    ),
-    value: "BINANCE_FUTURES",
-  },
-  {
-    label: (
-      <ExchangeRadioContent
-        title="Binance"
-        icon={<IconBinance />}
-        info="New to Binance?"
-        linkText="Learn how to create an API key on Binance"
-        linkHref="/"
-      />
-    ),
-    value: "BINANCE",
-  },
-  {
-    label: (
-      <ExchangeRadioContent
-        title="Kucoin"
-        icon={<IconKucoin />}
-        info="New to Kucoin?"
-        linkText="Learn how to create an API key on Kucoin"
-        linkHref="/"
-      />
-    ),
-    value: "KUCOIN",
-  },
-];
-
-const NewExchange = () => {
+const UpdateExchange = () => {
   const { userId } = useContext(AuthContext);
   const { axios } = useAxios();
   const navigate = useNavigate();
   const returnTo = useReturnTo();
   const notify = useNotify();
+  const { exchangeType, exchangeId, exchnageLabel } = useParams();
 
   const [formData, setFormData] = useState<{
-    userId: string | null;
+    exchangeId: string;
     apiKey: string;
     apiSecret: string;
     exchangeName: string;
-    exchangeType: string;
-    passPhrase: string | null;
+    passPhrase?: string | null;
   }>({
-    userId,
+    exchangeId: exchangeId || "",
     apiKey: "",
     apiSecret: "",
-    exchangeName: "",
-    exchangeType: "BINANCE_FUTURES",
-    passPhrase: null,
+    exchangeName: exchnageLabel || "",
+    passPhrase: "",
   });
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
+      const response: AxiosResponse<any, any> = await axios.patch(
         apiEndPoints.exchange,
         formData
       );
@@ -106,25 +63,15 @@ const NewExchange = () => {
           <form
             noValidate
             onSubmit={(e) => handleSubmit(e)}
-            id="newExchangeForm"
+            id="UpdateExchangeForm"
           >
-            <FieldsetElement label="Select your exchange">
-              <CustomRadioButtonsGroup
-                items={items}
-                name="exchangeType"
-                value={formData.exchangeType}
-                onChange={(e) => {
-                  setFormData({ ...formData, exchangeType: e.target.value });
-                  console.log(e.target.value);
-                }}
-              />
-            </FieldsetElement>
             <FieldsetElement label="Account Label">
               <TextField
                 name="name"
                 type="text"
                 message="Example : John Smitt - Binance account"
                 required
+                value={formData.exchangeName}
                 onChange={(e) =>
                   setFormData({ ...formData, exchangeName: e.target.value })
                 }
@@ -135,6 +82,7 @@ const NewExchange = () => {
                 name="apiKey"
                 type="text"
                 required
+                value={formData.apiKey}
                 onChange={(e) =>
                   setFormData({ ...formData, apiKey: e.target.value })
                 }
@@ -145,17 +93,19 @@ const NewExchange = () => {
                 name="apiSecret"
                 type="text"
                 required
+                value={formData.apiSecret}
                 onChange={(e) =>
                   setFormData({ ...formData, apiSecret: e.target.value })
                 }
               />
             </FieldsetElement>
-            {formData.exchangeType === "KUCOIN" && (
+            {exchangeType === "KUCOIN" && (
               <FieldsetElement label="Passphrase">
                 <TextField
                   name="apiSecret"
                   type="text"
                   required
+                  value={formData.passPhrase || ""}
                   onChange={(e) =>
                     setFormData({ ...formData, passPhrase: e.target.value })
                   }
@@ -166,8 +116,8 @@ const NewExchange = () => {
         </Grid>
         <Grid item xs={12} lg={6}>
           <ViewArticle
-            exchange={formData.exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
-            link={formData.exchangeType === "KUCOIN" ? "/" : "/"}
+            exchange={exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
+            link={exchangeType === "KUCOIN" ? "/" : "/"}
           />
         </Grid>
         <Grid item xs={12}>
@@ -178,9 +128,9 @@ const NewExchange = () => {
                 variant="contained"
                 size="small"
                 fullWidth
-                form="newExchangeForm"
+                form="UpdateExchangeForm"
               >
-                Connect Exchange
+                Update
               </Button>
             </Grid>
             <Grid item xs={6} md={"auto"}>
@@ -201,4 +151,4 @@ const NewExchange = () => {
   );
 };
 
-export default NewExchange;
+export default UpdateExchange;

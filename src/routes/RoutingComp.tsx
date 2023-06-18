@@ -29,6 +29,7 @@ import ExchangeSecurity from "../pages/exchanges/ExchangeSecurity";
 import ExchangeNotifications from "../pages/exchanges/ExchangeNotifications";
 import ExchangeEditProfile from "../pages/exchanges/ExchangeEditProfile";
 import ExchangeInvoices from "../pages/exchanges/ExchangeInvoices";
+import UpdateExchange from "../pages/exchanges/UpdateExchange";
 
 const RoutingComp = () => {
   return (
@@ -103,6 +104,10 @@ const RoutingComp = () => {
           {/* Exchanges */}
           <Route element={<ExchangeLayout />}>
             <Route path={routes.exchangeNew} element={<NewExchange />} />
+            <Route
+              path={`${routes.exchangeUpdate}/:exchangeType/:exchnageLabel/:exchangeId`}
+              element={<UpdateExchange />}
+            />
             <Route path={routes.exchangeList} element={<Exchanges />} />
             <Route
               path={routes.exchangeSecurity}

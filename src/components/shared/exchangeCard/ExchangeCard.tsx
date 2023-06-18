@@ -17,6 +17,8 @@ import useAxios from "../../../shared/hooks/useAxios";
 import Modal from "../Modal";
 import useNotify from "../../../shared/hooks/useNotify";
 import { ExchangeContext } from "../../../shared/providers/ExchangeProvider";
+import { useNavigate } from "react-router-dom";
+import routes from "../../../shared/consts/routes";
 
 interface Props {
   data: IExchange;
@@ -26,6 +28,7 @@ interface Props {
 const ExchangeCard = ({ data, remove }: Props) => {
   const [showModal, setShowModal] = useState(false);
   const { axios } = useAxios();
+  const navigate = useNavigate();
   const [portfolio, setPortfolio] = useState<IPortfolioBalance>({
     balance: "N/A",
   });
@@ -89,7 +92,19 @@ const ExchangeCard = ({ data, remove }: Props) => {
           spacing={2}
         >
           <Grid item xs>
-            <Button variant="outlined" size="small" fullWidth>
+            <Button
+              variant="outlined"
+              size="small"
+              fullWidth
+              onClick={() =>
+                navigate(
+                  `${routes.exchangeUpdate}/${data.exchangeType.replaceAll(
+                    " ",
+                    "_"
+                  )}/${data.label}/s${data.value}`
+                )
+              }
+            >
               <IconPencil style={{ marginRight: 8, height: 16, width: 16 }} />
               Update API
             </Button>
