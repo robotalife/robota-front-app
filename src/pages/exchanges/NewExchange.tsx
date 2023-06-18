@@ -74,7 +74,7 @@ const NewExchange = () => {
     apiKey: "",
     apiSecret: "",
     exchangeName: "",
-    exchangeType: "",
+    exchangeType: "BINANCE_FUTURES",
     passPhrase: null,
   });
 
@@ -112,6 +112,7 @@ const NewExchange = () => {
               <CustomRadioButtonsGroup
                 items={items}
                 name="exchangeType"
+                value={formData.exchangeType}
                 onChange={(e) =>
                   setFormData({ ...formData, exchangeType: e.target.value })
                 }
@@ -148,6 +149,18 @@ const NewExchange = () => {
                 }
               />
             </FieldsetElement>
+            {formData.exchangeType === "KUCOIN" && (
+              <FieldsetElement label="Passphrase">
+                <TextField
+                  name="apiSecret"
+                  type="text"
+                  required
+                  onChange={(e) =>
+                    setFormData({ ...formData, passPhrase: e.target.value })
+                  }
+                />
+              </FieldsetElement>
+            )}
           </form>
         </Grid>
         <Grid item xs={12} lg={6}>
