@@ -27,13 +27,22 @@ const UpdateExchange = () => {
     apiSecret: string;
     exchangeName: string;
     passPhrase?: string | null;
-  }>({
-    exchangeId: exchangeId || "",
-    apiKey: "",
-    apiSecret: "",
-    exchangeName: exchnageLabel || "",
-    passPhrase: "",
-  });
+  }>(
+    exchangeType !== "KUCOIN"
+      ? {
+          exchangeId: exchangeId || "",
+          apiKey: "",
+          apiSecret: "",
+          exchangeName: exchnageLabel || "",
+        }
+      : {
+          exchangeId: exchangeId || "",
+          apiKey: "",
+          apiSecret: "",
+          exchangeName: exchnageLabel || "",
+          passPhrase: "",
+        }
+  );
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();

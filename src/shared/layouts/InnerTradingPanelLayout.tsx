@@ -24,7 +24,6 @@ const InnerTradingPanelLayout = () => {
   const { botData, getBotData } = useContext(BotContext);
   const { botId = "" } = useParams();
   const { pathname } = useLocation();
-  // const [pageTitle, setPageTitle] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -61,19 +60,13 @@ const InnerTradingPanelLayout = () => {
     }
   }, [setLoading]);
 
-  // useEffect(() => {
-  //   const title = botTabs(botId).find((link) => pathname === link.to)?.label;
-  //   setPageTitle(title || "");
-  // }, [pathname]);
-
   return (
     <Container maxWidth="xl" sx={{ margin: 0 }}>
       <LayoutBreadcrumbs>
         <Link to={routes.botsNew}>
           <IconVrHeadset />
         </Link>
-        <Link to={routes.botsNew}>Settings</Link>
-        <Link to={routes.myBots}>Bots</Link>
+        <Link to={routes.myBots}>My Bots</Link>
         <Typography component={"span"}>{pageTitle}</Typography>
       </LayoutBreadcrumbs>
       <PageTitle title={pageTitle}>
