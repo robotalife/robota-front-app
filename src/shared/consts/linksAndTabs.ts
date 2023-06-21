@@ -53,20 +53,20 @@ export const exchangeTabs = [
     label: "Exchnages",
     to: routes.exchangeList,
   },
-  {
-    label: "Security",
-    to: routes.exchangeSecurity,
-  },
-  {
-    label: "Notifications",
-    to: routes.exchangeNotifications,
-  },
-  {
-    label: "Edit Profile",
-    to: routes.exchangeEditProfile,
-  },
-  {
-    label: "Invoices",
-    to: routes.exchangeInvoices,
-  },
+  // {
+  //   label: "Security",
+  //   to: routes.exchangeSecurity,
+  // },
+  // {
+  //   label: "Notifications",
+  //   to: routes.exchangeNotifications,
+  // },
+  // {
+  //   label: "Edit Profile",
+  //   to: routes.exchangeEditProfile,
+  // },
+  // {
+  //   label: "Invoices",
+  //   to: routes.exchangeInvoices,
+  // },
 ];
