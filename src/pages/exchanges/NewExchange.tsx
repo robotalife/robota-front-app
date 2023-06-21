@@ -22,37 +22,37 @@ const items = [
       <ExchangeRadioContent
         title="Binance Futures"
         icon={<IconBinance />}
-        info="New to Binance Futures?"
-        linkText="Learn how to create an API key on Binance"
+        info=""
+        linkText=""
         linkHref="/"
       />
     ),
     value: "BINANCE_FUTURES",
   },
-  {
-    label: (
-      <ExchangeRadioContent
-        title="Binance"
-        icon={<IconBinance />}
-        info="New to Binance?"
-        linkText="Learn how to create an API key on Binance"
-        linkHref="/"
-      />
-    ),
-    value: "BINANCE",
-  },
-  {
-    label: (
-      <ExchangeRadioContent
-        title="Kucoin"
-        icon={<IconKucoin />}
-        info="New to Kucoin?"
-        linkText="Learn how to create an API key on Kucoin"
-        linkHref="/"
-      />
-    ),
-    value: "KUCOIN",
-  },
+  // {
+  //   label: (
+  //     <ExchangeRadioContent
+  //       title="Binance"
+  //       icon={<IconBinance />}
+  //       info="New to Binance?"
+  //       linkText="Learn how to create an API key on Binance"
+  //       linkHref="/"
+  //     />
+  //   ),
+  //   value: "BINANCE",
+  // },
+  // {
+  //   label: (
+  //     <ExchangeRadioContent
+  //       title="Kucoin"
+  //       icon={<IconKucoin />}
+  //       info="New to Kucoin?"
+  //       linkText="Learn how to create an API key on Kucoin"
+  //       linkHref="/"
+  //     />
+  //   ),
+  //   value: "KUCOIN",
+  // },
 ];
 
 const NewExchange = () => {
@@ -96,7 +96,11 @@ const NewExchange = () => {
   };
 
   const goBack = () => {
-    navigate(returnTo || routes.exchangeList);
+    if(returnTo === routes.signin){
+      return navigate(routes.exchangeList);
+    } else {
+      navigate(returnTo || routes.exchangeList);
+    }
   };
 
   return (
