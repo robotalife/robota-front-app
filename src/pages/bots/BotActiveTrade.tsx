@@ -124,7 +124,7 @@ const BotActiveTrade = () => {
                     <TextBadge>
                         {activeTrade.entryPrice}
                     </TextBadge>
-                    /
+                    {" "}/{" "}
                     <TextBadge>
                         {activeTrade.currentPrice}
                     </TextBadge>

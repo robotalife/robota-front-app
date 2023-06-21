@@ -159,6 +159,7 @@ const BotTradeHistory = () => {
                 <TableCell>Creation Date</TableCell>
                 <TableCell>End Date</TableCell>
                 <TableCell>Duration</TableCell>
+                <TableCell>Entry Price / Exit Price</TableCell>
                 <TableCell>$ Net Profit / Loss </TableCell>
                 <TableCell>% Profit / Loss </TableCell>
                 <TableCell>Volume</TableCell>
@@ -196,6 +197,15 @@ const BotTradeHistory = () => {
                         <IconClock />
                         {h.duration}
                       </TextBadge>
+                    </TableCell>
+                    <TableCell>
+                      <TextBadge>
+                        {h.entryPrice}
+                      </TextBadge>
+                      {" "}/{""}
+                        <TextBadge>
+                            {h.exitPrice}
+                        </TextBadge>
                     </TableCell>
                     <TableCell>
                       {h.netProfit.indexOf("-") === -1 ? (

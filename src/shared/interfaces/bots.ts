@@ -48,6 +48,8 @@ export interface IBotHistoryObj {
   quoteVolume: string;
   status: string;
   strategy: "SHORT" | "LONG";
+  entryPrice: string;
+  exitPrice: string;
 }
 
 export interface INewBotInterface {
