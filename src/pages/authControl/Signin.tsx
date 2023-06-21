@@ -52,7 +52,7 @@ const Signin = () => {
       setIsAuthenticated(true);
       setUserId(id);
 
-      navigate(returnTo || routes.portfolio);
+      navigate(returnTo || routes.botsNew);
     } catch (error) {
       // Handle error
     }

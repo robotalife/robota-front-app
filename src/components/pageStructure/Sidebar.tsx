@@ -21,21 +21,21 @@ const Sidebar = () => {
   return (
     <div className={classes.wrapper}>
       <nav className={classes.nav}>
-        <IconButton>
-          <NavLink
-            style={({ isActive, isPending }) => {
-              return {
-                color: isActive ? "red" : "inherit",
-              };
-            }}
-            className={({ isActive, isPending }) => {
-              return isActive ? "active" : isPending ? "pending" : "";
-            }}
-            to={routes.portfolio}
-          >
-            <IconBarChart />
-          </NavLink>
-        </IconButton>
+        {/*<IconButton>*/}
+        {/*  <NavLink*/}
+        {/*    style={({ isActive, isPending }) => {*/}
+        {/*      return {*/}
+        {/*        color: isActive ? "red" : "inherit",*/}
+        {/*      };*/}
+        {/*    }}*/}
+        {/*    className={({ isActive, isPending }) => {*/}
+        {/*      return isActive ? "active" : isPending ? "pending" : "";*/}
+        {/*    }}*/}
+        {/*    to={routes.portfolio}*/}
+        {/*  >*/}
+        {/*    <IconBarChart />*/}
+        {/*  </NavLink>*/}
+        {/*</IconButton>*/}
         {/* <IconButton>
           <IconTripleOctagons />
         </IconButton>
