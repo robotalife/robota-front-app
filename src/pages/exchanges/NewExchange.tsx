@@ -171,7 +171,7 @@ const NewExchange = () => {
         <Grid item xs={12} lg={6}>
           <ViewArticle
             exchange={formData.exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
-            link={formData.exchangeType === "KUCOIN" ? "/" : "/"}
+            link={formData.exchangeType === "KUCOIN" ? "/" : "https://www.binance.com/en-BH/support/faq/how-to-create-api-360002502072"}
           />
         </Grid>
         <Grid item xs={12}>

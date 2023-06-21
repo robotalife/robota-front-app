@@ -9,7 +9,6 @@ interface Props {
 }
 
 const ViewArticle = ({ exchange, link }: Props) => {
-  const navigate = useNavigate();
 
   return (
     <Paper elevation={0} sx={{ p: 8 }} className={styles.card}>
@@ -23,14 +22,15 @@ const ViewArticle = ({ exchange, link }: Props) => {
           </Typography>
         </Grid>
         <Grid item xs={12} lg="auto">
+          <a href={link} target="_blank" rel="noreferrer">
           <Button
             type="submit"
             variant="contained"
             size="small"
-            onClick={() => navigate(link)}
           >
             View article
           </Button>
+            </a>
         </Grid>
       </Grid>
     </Paper>
