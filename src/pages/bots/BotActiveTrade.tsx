@@ -84,6 +84,7 @@ const BotActiveTrade = () => {
                 <TableCell>Strategy</TableCell>
                 <TableCell>Creation Date</TableCell>
                 <TableCell>Duration</TableCell>
+                <TableCell>Entry Price / Current Price</TableCell>
                 <TableCell>% Unl Profit/Loss </TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
@@ -119,6 +120,16 @@ const BotActiveTrade = () => {
                       {activeTrade.duration}
                     </TextBadge>
                   </TableCell>
+                  <TableCell>
+                    <TextBadge>
+                        {activeTrade.entryPrice}
+                    </TextBadge>
+                    /
+                    <TextBadge>
+                        {activeTrade.currentPrice}
+                    </TextBadge>
+
+                    </TableCell>
                   <TableCell>
                     {activeTrade.profit.indexOf("-") === -1 ? (
                       <TextBadge variation="success">

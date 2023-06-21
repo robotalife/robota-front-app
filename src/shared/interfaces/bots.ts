@@ -16,6 +16,8 @@ export interface IActiveTrade {
   pair: string;
   profit: string;
   strategy: "SHORT" | "LONG";
+  entryPrice: string;
+  currentPrice: string;
 }
 
 export interface ILiveTrade {
