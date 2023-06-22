@@ -30,6 +30,7 @@ import ExchangeNotifications from "../pages/exchanges/ExchangeNotifications";
 import ExchangeEditProfile from "../pages/exchanges/ExchangeEditProfile";
 import ExchangeInvoices from "../pages/exchanges/ExchangeInvoices";
 import UpdateExchange from "../pages/exchanges/UpdateExchange";
+import TradeTerminal from "../pages/bots/TradeTerminal";
 
 const RoutingComp = () => {
   return (
@@ -63,6 +64,9 @@ const RoutingComp = () => {
 
             {/* Live Trade */}
             <Route path={routes.liveTrade} element={<LiveTrade />} />
+
+          {/*Trade Terminal*/}
+            <Route path={routes.tradeTerminal} element={<TradeTerminal />} />
           </Route>
 
           {/* inner bot pages with sub-layout */}

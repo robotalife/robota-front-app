@@ -32,6 +32,8 @@ export interface ILiveTrade {
     qouteAsset: string;
 }
 
+
+
 export interface IBotHistoryObj {
   baseLogo: string;
   baseVolume: string;

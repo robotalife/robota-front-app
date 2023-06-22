@@ -24,6 +24,10 @@ const TradingPanelLayout = () => {
     {
       label: "Live Trade",
       to: routes.liveTrade,
+    },
+    {
+      label: "Trade Terminal",
+      to: routes.tradeTerminal,
     }
   ];
 
