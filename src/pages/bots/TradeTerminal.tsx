@@ -17,6 +17,7 @@ import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 import Button from "../../components/formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import TradingViewChart from "../../components/shared/TradingViewChart";
 
 const TradeTerminal = () => {
   const {
@@ -79,8 +80,6 @@ const TradeTerminal = () => {
       const resposne: AxiosResponse<IBot[]> = await axios.get(
         `${apiEndPoints.getLiveTrades}?page=${page}`
       );
-
-      console.log(resposne.data);
     } catch (error) {
       // Handle error
     } finally {
@@ -97,6 +96,12 @@ const TradeTerminal = () => {
     getLiveTrades();
   }, []);
 
+  const candlestickData = [
+    { time: 1624429200000, open: 100, high: 150, low: 80, close: 120 },
+    { time: 1624515600000, open: 120, high: 180, low: 100, close: 150 },
+    // Add more candlestick data objects as needed
+  ];
+
   return (
     <Box className={classes.botCard}>
       <Grid container>
@@ -106,6 +111,7 @@ const TradeTerminal = () => {
               ? "Select a bot to start trade"
               : getSelectedBot(selectedBot.value as string)?.name}
           </Typography>
+          <TradingViewChart data={candlestickData} />
         </Grid>
         <Grid item xs={12} lg={3}>
           <Typography variant="h6">Bots</Typography>
