@@ -26,6 +26,7 @@ const ComboBox = ({
   message,
   messageType,
   options,
+  placeholder,
   ...props
 }: Props) => {
   const tmpId = useId();
@@ -40,7 +41,9 @@ const ComboBox = ({
     >
       <Autocomplete
         options={options}
-        renderInput={(params) => <TextField {...params} />}
+        renderInput={(params) => (
+          <TextField {...params} placeholder={placeholder} />
+        )}
         {...props}
       />
     </InputWrapper>
