@@ -16,89 +16,71 @@ import TradingViewChart from "../../components/shared/TradingViewChart";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
+import useEnhancedEffect from "@mui/utils/useEnhancedEffect";
 
 const TradeTerminal = () => {
-  const {
-    botsList,
-    setFilters,
-    paginateData,
-    loading: botsLoading,
-    filters,
-  } = useContext(MyBotsContext);
+  const navigate = useNavigate();
+  const { botsList } = useContext(MyBotsContext);
   const [selectedBot, setSelectedBot] = useState<AutocompleteOption | null>(
     null
   );
-  const navigate = useNavigate();
+  const [liveData, setLiveData] = useState<any[]>([]);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+
+  useEffect(() => {
+    if (socket) {
+      setLiveData([]);
+      socket.close();
+    }
+    if (!selectedBot) {
+      return;
+    }
+    let newSocket = new WebSocket("wss://stream.binance.com:9443/ws");
+
+    newSocket.onopen = () => {
+      const tradingPair = getSelectedBot(
+        selectedBot.value as string
+      )?.tradingPair;
+      newSocket.send(
+        JSON.stringify({
+          method: "SUBSCRIBE",
+          params: [`${(tradingPair as string).toLowerCase()}@kline_1m`],
+          id: 1,
+        })
+      );
+    };
+
+    newSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data?.e === "kline") {
+        const candlestick = {
+          time: data.E,
+          open: parseFloat(data.k.o),
+          high: parseFloat(data.k.h),
+          low: parseFloat(data.k.l),
+          close: parseFloat(data.k.c),
+        };
+
+        setLiveData((prevData) => [...prevData, candlestick]);
+      }
+    };
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
+  }, [selectedBot]);
 
   const botsCombo = botsList.map((bot) => ({
     label: bot.name,
     value: bot.id.toString(),
   })) as AutocompleteOption[];
 
-  const { axios } = useAxios();
-  const [liveTrades, setLiveTrades] = useState<ILiveTrade[]>(
-    [] as ILiveTrade[]
-  );
-  const [pagination, setPagination] = useState<PaginationObj>({
-    currentPage: 0,
-    hasNext: false,
-    nextPage: 1,
-    hasPrevious: false,
-    perPage: 10,
-    remainingCount: 1,
-    total: 1,
-    totalPages: 1,
-    previousPage: 0,
-  });
-  const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(0);
-  const postTrade = useCallback(
-    async (action: "START" | "STOP", botId: number) => {
-      try {
-        setLoading(true);
-        const response: AxiosResponse<any, any> = await axios.post(
-          apiEndPoints.signal,
-          {
-            action: action,
-            botId: botId,
-          }
-        );
-        getLiveTrades();
-        setLoading(false);
-      } catch (error) {
-        // Handle error
-      }
-    },
-    []
-  );
-
-  const getLiveTrades = useCallback(async () => {
-    // setLoading(true);
-    try {
-      const resposne: AxiosResponse<IBot[]> = await axios.get(
-        `${apiEndPoints.getLiveTrades}?page=${page}`
-      );
-    } catch (error) {
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
-  }, [setLiveTrades, setPagination, page]);
-
   const getSelectedBot = (botId: string) => {
     const bot = botsList.find((bot) => bot.id === Number(botId));
     return bot;
   };
-
-  useEffect(() => {
-    getLiveTrades();
-  }, []);
-
-  const candlestickData = [
-    { time: "2018-12-22", open: 100, high: 150, low: 80, close: 120 },
-    { time: "2018-12-23", open: 120, high: 180, low: 100, close: 150 },
-    // Add more candlestick data objects as needed
-  ];
 
   return (
     <Container maxWidth="xl" sx={{ m: 0, padding: "0!important" }}>
@@ -117,7 +99,7 @@ const TradeTerminal = () => {
               }
             />
             <WrapperBoxSection>
-              <TradingViewChart data={candlestickData} />
+              {selectedBot && <TradingViewChart data={liveData} />}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
@@ -153,7 +135,7 @@ const TradeTerminal = () => {
                   </Alert>
                   <hr />
 
-                  <Button
+                  {/* <Button
                     color="error"
                     variant="contained"
                     size="small"
@@ -168,7 +150,7 @@ const TradeTerminal = () => {
                     fullWidth
                   >
                     Open Position at Market Price
-                  </Button>
+                  </Button> */}
                 </>
               )}
             </WrapperBoxSection>
