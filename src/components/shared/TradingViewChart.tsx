@@ -15,11 +15,7 @@ interface ChartData {
   close: number;
 }
 
-interface TradingViewChartProps {
-  data: ChartData[];
-}
-
-const TradingViewChart: React.FC<TradingViewChartProps> = ({ data }) => {
+const TradingViewChart = ({ data }: { data: ChartData[] }) => {
   const chartContainerRef = useRef<HTMLDivElement>(null);
   const chartInstanceRef = useRef<IChartApi | null>(null);
   const candlestickSeriesRef = useRef<ISeriesApi<

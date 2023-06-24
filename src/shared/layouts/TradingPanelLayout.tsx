@@ -28,7 +28,7 @@ const TradingPanelLayout = () => {
     {
       label: "Trade Terminal",
       to: routes.tradeTerminal,
-    }
+    },
   ];
 
   useEffect(() => {
@@ -37,11 +37,11 @@ const TradingPanelLayout = () => {
   }, [pathname]);
 
   return (
-    <div>
+    <>
       <PageTitle title={pageTitle} />
       <LinkBar links={botsPages(paginateData.total)} />
       <Outlet />
-    </div>
+    </>
   );
 };
 

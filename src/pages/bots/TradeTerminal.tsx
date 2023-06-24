@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Alert, Box, Grid, Typography } from "@mui/material";
+import { Alert, Box, Container, Grid, Typography } from "@mui/material";
 import { IBot, ILiveTrade } from "../../shared/interfaces/bots";
 import {
   DataWithPagination,
@@ -18,6 +18,7 @@ import Button from "../../components/formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import TradingViewChart from "../../components/shared/TradingViewChart";
+import { ChartData } from "chart.js";
 
 const TradeTerminal = () => {
   const {
@@ -97,66 +98,75 @@ const TradeTerminal = () => {
   }, []);
 
   const candlestickData = [
-    { time: 1624429200000, open: 100, high: 150, low: 80, close: 120 },
-    { time: 1624515600000, open: 120, high: 180, low: 100, close: 150 },
+    { time: "2018-12-22", open: 100, high: 150, low: 80, close: 120 },
+    { time: "2018-12-23", open: 120, high: 180, low: 100, close: 150 },
     // Add more candlestick data objects as needed
   ];
 
   return (
-    <Box className={classes.botCard}>
-      <Grid container>
+    <Container maxWidth="xl" sx={{ m: 0, padding: "0!important" }}>
+      <Grid container spacing={4}>
         <Grid item xs={12} lg>
-          <Typography variant="h6">
-            {selectedBot === null
-              ? "Select a bot to start trade"
-              : getSelectedBot(selectedBot.value as string)?.name}
-          </Typography>
-          <TradingViewChart data={candlestickData} />
+          <Box className={classes.botCard}>
+            <Typography variant="h6">
+              {selectedBot === null
+                ? "Select a bot to start trade"
+                : getSelectedBot(selectedBot.value as string)?.name}
+            </Typography>
+            <TradingViewChart data={candlestickData} />
+          </Box>
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Typography variant="h6">Bots</Typography>
-          <ComboBox
-            placeholder="Select Bot to start trade"
-            options={[...botsCombo]}
-            onChange={(e, val) => {
-              setSelectedBot(val);
-            }}
-            sx={{ width: "100%" }}
-            id="botsList"
-          />
-          {selectedBot && (
-            <>
-              <Button
-                variant="outlined"
-                size="small"
-                fullWidth
-                onClick={() =>
-                  navigate(`${routes.botOverview}/${selectedBot?.value}`)
-                }
-              >
-                View bot overview
-              </Button>
-              <hr />
-              <Alert severity="warning">
-                This bot already has an open trade.
-              </Alert>
-              <hr />
-              <Button color="error" variant="contained" size="small" fullWidth>
-                Close trade at market price
-              </Button>
-              <Button
-                color="success"
-                variant="contained"
-                size="small"
-                fullWidth
-              >
-                Open Position at Market Price
-              </Button>
-            </>
-          )}
+          <Box className={classes.botCard}>
+            <Typography variant="h6">Bots</Typography>
+            <ComboBox
+              placeholder="Select Bot to start trade"
+              options={[...botsCombo]}
+              onChange={(e, val) => {
+                setSelectedBot(val);
+              }}
+              sx={{ width: "100%" }}
+              id="botsList"
+            />
+            {selectedBot && (
+              <>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  onClick={() =>
+                    navigate(`${routes.botOverview}/${selectedBot?.value}`)
+                  }
+                >
+                  View bot overview
+                </Button>
+                <hr />
+                <Alert severity="warning">
+                  This bot already has an open trade.
+                </Alert>
+                <hr />
+                <Button
+                  color="error"
+                  variant="contained"
+                  size="small"
+                  fullWidth
+                >
+                  Close trade at market price
+                </Button>
+                <Button
+                  color="success"
+                  variant="contained"
+                  size="small"
+                  fullWidth
+                >
+                  Open Position at Market Price
+                </Button>
+              </>
+            )}
+          </Box>
         </Grid>
       </Grid>
-    </Box>
+    </Container>
   );
 };
 export default TradeTerminal;
