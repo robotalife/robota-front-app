@@ -1,24 +1,21 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
-import { Alert, Box, Container, Grid, Typography } from "@mui/material";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { Alert, Container, Grid } from "@mui/material";
 import { IBot, ILiveTrade } from "../../shared/interfaces/bots";
-import {
-  DataWithPagination,
-  PaginationObj,
-} from "../../shared/interfaces/paginateData";
+import { PaginationObj } from "../../shared/interfaces/paginateData";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import useAxios from "../../shared/hooks/useAxios";
 import ComboBox, {
   AutocompleteOption,
 } from "../../components/formElements/ComboBox";
-import { altDurations } from "../../shared/consts/durations";
-import classes from "../../components/shared/BotCard/BotCard.module.scss";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 import Button from "../../components/formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import TradingViewChart from "../../components/shared/TradingViewChart";
-import { ChartData } from "chart.js";
+import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
+import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
+import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 
 const TradeTerminal = () => {
   const {
@@ -106,64 +103,76 @@ const TradeTerminal = () => {
   return (
     <Container maxWidth="xl" sx={{ m: 0, padding: "0!important" }}>
       <Grid container spacing={4}>
-        <Grid item xs={12} lg>
-          <Box className={classes.botCard}>
-            <Typography variant="h6">
-              {selectedBot === null
-                ? "Select a bot to start trade"
-                : getSelectedBot(selectedBot.value as string)?.name}
-            </Typography>
-            <TradingViewChart data={candlestickData} />
-          </Box>
+        <Grid item xs={12} lg={9}>
+          <WrapperBox>
+            <WrapperBoxHeader
+              title={
+                selectedBot === null
+                  ? "Select a bot to start trade"
+                  : `${getSelectedBot(selectedBot.value as string)?.name} - ${
+                      getSelectedBot(selectedBot.value as string)?.tradingPair
+                    } - ${
+                      getSelectedBot(selectedBot.value as string)?.strategy
+                    }`
+              }
+            />
+            <WrapperBoxSection>
+              <TradingViewChart data={candlestickData} />
+            </WrapperBoxSection>
+          </WrapperBox>
         </Grid>
         <Grid item xs={12} lg={3}>
-          <Box className={classes.botCard}>
-            <Typography variant="h6">Bots</Typography>
-            <ComboBox
-              placeholder="Select Bot to start trade"
-              options={[...botsCombo]}
-              onChange={(e, val) => {
-                setSelectedBot(val);
-              }}
-              sx={{ width: "100%" }}
-              id="botsList"
-            />
-            {selectedBot && (
-              <>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  fullWidth
-                  onClick={() =>
-                    navigate(`${routes.botOverview}/${selectedBot?.value}`)
-                  }
-                >
-                  View bot overview
-                </Button>
-                <hr />
-                <Alert severity="warning">
-                  This bot already has an open trade.
-                </Alert>
-                <hr />
-                <Button
-                  color="error"
-                  variant="contained"
-                  size="small"
-                  fullWidth
-                >
-                  Close trade at market price
-                </Button>
-                <Button
-                  color="success"
-                  variant="contained"
-                  size="small"
-                  fullWidth
-                >
-                  Open Position at Market Price
-                </Button>
-              </>
-            )}
-          </Box>
+          <WrapperBox>
+            <WrapperBoxHeader title="Bots" noBorder />
+            <WrapperBoxSection>
+              <ComboBox
+                placeholder="Select Bot to start trade"
+                options={[...botsCombo]}
+                onChange={(e, val) => {
+                  setSelectedBot(val);
+                }}
+                sx={{ width: "100%" }}
+                id="botsList"
+              />
+              {selectedBot && (
+                <>
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                    onClick={() =>
+                      navigate(`${routes.botOverview}/${selectedBot?.value}`)
+                    }
+                    sx={{ mb: 3, mt: 3 }}
+                  >
+                    View bot overview
+                  </Button>
+                  <hr />
+                  <Alert severity="warning" sx={{ mb: 3, mt: 3 }}>
+                    This bot already has an open trade.
+                  </Alert>
+                  <hr />
+
+                  <Button
+                    color="error"
+                    variant="contained"
+                    size="small"
+                    fullWidth
+                  >
+                    Close trade at market price
+                  </Button>
+                  <Button
+                    color="success"
+                    variant="contained"
+                    size="small"
+                    fullWidth
+                  >
+                    Open Position at Market Price
+                  </Button>
+                </>
+              )}
+            </WrapperBoxSection>
+          </WrapperBox>
         </Grid>
       </Grid>
     </Container>
