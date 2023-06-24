@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
   createChart,
   IChartApi,
@@ -6,6 +6,8 @@ import {
   Time,
   CandlestickData,
 } from "lightweight-charts";
+
+import styles from "./TradingViewChart.module.scss";
 
 interface ChartData {
   time: Time;
@@ -26,6 +28,7 @@ const TradingViewChart = ({ data }: { data: ChartData[] }) => {
     chartInstanceRef.current = createChart(chartContainerRef.current!, {
       width: 800,
       height: 400,
+      autoSize: true,
     });
 
     candlestickSeriesRef.current =
@@ -48,7 +51,11 @@ const TradingViewChart = ({ data }: { data: ChartData[] }) => {
     };
   }, [data]);
 
-  return <div ref={chartContainerRef}></div>;
+  return (
+    <div className={styles.chartContainer}>
+      <div ref={chartContainerRef}></div>
+    </div>
+  );
 };
 
 export default TradingViewChart;
