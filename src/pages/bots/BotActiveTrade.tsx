@@ -147,8 +147,9 @@ const BotActiveTrade = () => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={6}>
-                    There is no active trade, start it now{" "}
-                    <button onClick={() => signal("START")}>start</button>
+                    There is no active trade.
+                    {/* There is no active trade, start it now{" "}*/}
+                    {/*<button onClick={() => signal("START")}>start</button>*/}
                   </TableCell>
                 </TableRow>
               )}
