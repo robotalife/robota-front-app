@@ -12,6 +12,7 @@ import TableRow from "../../components/shared/table/TableRow";
 import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
+import TableTradePrice from "../../components/shared/table/TableTradePrice";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import {IActiveTrade} from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
@@ -121,14 +122,7 @@ const BotActiveTrade = () => {
                     </TextBadge>
                   </TableCell>
                   <TableCell>
-                    <TextBadge>
-                        {activeTrade.entryPrice}
-                    </TextBadge>
-                    {" "}/{" "}
-                    <TextBadge>
-                        {activeTrade.currentPrice}
-                    </TextBadge>
-
+                    <TableTradePrice entryPrice={activeTrade.entryPrice} exitPrice={activeTrade.currentPrice}/>
                     </TableCell>
                   <TableCell>
                     {activeTrade.profit.indexOf("-") === -1 ? (
@@ -153,8 +147,9 @@ const BotActiveTrade = () => {
               ) : (
                 <TableRow>
                   <TableCell colSpan={6}>
-                    There is no active trade, start it now{" "}
-                    <button onClick={() => signal("START")}>start</button>
+                    There is no active trade.
+                    {/* There is no active trade, start it now{" "}*/}
+                    {/*<button onClick={() => signal("START")}>start</button>*/}
                   </TableCell>
                 </TableRow>
               )}

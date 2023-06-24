@@ -49,7 +49,6 @@ const RoutingComp = () => {
           />
         </Route>
         <Route element={<DefaultLayout />}>
-          <Route path="/" element={<Portfolio />} />
           <Route path={routes.portfolio} element={<Portfolio />} />
 
           {/* Bots */}
@@ -60,6 +59,7 @@ const RoutingComp = () => {
             <Route path={routes.myBots} element={<Bots />} />
 
             {/* create new bot */}
+            <Route path="/" element={<NewBot />} />
             <Route path={routes.botsNew} element={<NewBot />} />
 
             {/* Live Trade */}
