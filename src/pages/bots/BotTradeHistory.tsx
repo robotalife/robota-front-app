@@ -13,6 +13,8 @@ import TableCell from "../../components/shared/table/TableCell";
 import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
+import TableTradePrice from "../../components/shared/table/TableTradePrice";
+
 import {
   DataWithPagination,
   PaginationObj,
@@ -199,13 +201,7 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                      <TextBadge>
-                        {h.entryPrice}
-                      </TextBadge>
-                      {" "}/{""}
-                        <TextBadge>
-                            {h.exitPrice}
-                        </TextBadge>
+                        <TableTradePrice entryPrice={h.entryPrice} exitPrice={h.exitPrice} />
                     </TableCell>
                     <TableCell>
                       {h.netProfit.indexOf("-") === -1 ? (
