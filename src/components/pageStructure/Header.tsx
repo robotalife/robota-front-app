@@ -1,5 +1,5 @@
 import {Grid} from "@mui/material";
-
+import {Container} from "@mui/system";
 import robotaLogoType from "@images/robota-logo-type.svg";
 import classes from "./Header.module.scss";
 import {NavLink} from "react-router-dom";
@@ -27,16 +27,18 @@ const Header = () => {
         // </Grid> */}
         //     </Grid>
         // </Container>
-        <Grid container alignItems={"center"} spacing={1} >
-            <Grid item xs={"auto"}>
-                <NavLink to={routes.botsNew} className={classes.logoLink}>
-                    <img src={robotaLogoType} className={classes.logo}/>
-                </NavLink>
+        <Container maxWidth={false}>
+            <Grid container alignItems={"center"} spacing={1} >
+                <Grid item xs={"auto"}>
+                    <NavLink to={routes.botsNew} className={classes.logoLink}>
+                        <img src={robotaLogoType} className={classes.logo}/>
+                    </NavLink>
+                </Grid>
+                <Grid item xs={"auto"}>
+                    <TextBadge variation={"primary"} >Beta Version</TextBadge>
+                </Grid>
             </Grid>
-            <Grid item xs={"auto"}>
-                <TextBadge variation={"primary"} >Beta Version</TextBadge>
-            </Grid>
-        </Grid>
+        </Container>
     );
 };
 
