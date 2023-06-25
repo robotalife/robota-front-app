@@ -1,39 +1,27 @@
-import { FormEvent, useContext, useEffect, useState } from "react";
-import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
+import {FormEvent, useContext, useEffect, useState} from "react";
+import {ExchangeContext} from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
-import { AxiosResponse } from "axios";
+import {AxiosResponse} from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { Grid, MenuItem, Typography } from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
-import {
-  IconDollar,
-  IconTripleOctagons,
-  IconModalSave,
-} from "../../shared/icons/Icons";
+import {IconDollar, IconModalSave, IconTripleOctagons,} from "../../shared/icons/Icons";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
-import {
-  newBotAccess,
-  newBotLeverage,
-  newBotLeverageType,
-  newBotStartegy,
-} from "../../shared/consts/botCreateItems";
+import {newBotAccess, newBotLeverage, newBotLeverageType, newBotStartegy,} from "../../shared/consts/botCreateItems";
 import Button from "../../components/formElements/Button";
 import Modal from "../../components/shared/Modal";
 import Table from "../../components/shared/table/Table";
 import TableRow from "../../components/shared/table/TableRow";
 import TableCell from "../../components/shared/table/TableCell";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import TableBody from "../../components/shared/table/TableBody";
 import routes from "../../shared/consts/routes";
-import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
+import {MyBotsContext} from "../../shared/providers/MyBotsProvider";
 
 import classes from "./NewBot.module.scss";
-import Select from "../../components/formElements/Select";
-import ComboBox, {
-  AutocompleteOption,
-} from "../../components/formElements/ComboBox";
+import ComboBox, {AutocompleteOption,} from "../../components/formElements/ComboBox";
 
 // const validations = validationSchema({
 //   name: newBotStringSchema,

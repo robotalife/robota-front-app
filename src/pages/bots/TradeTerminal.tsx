@@ -1,163 +1,283 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import { Alert, Container, Grid } from "@mui/material";
-import { IBot, ILiveTrade } from "../../shared/interfaces/bots";
-import { PaginationObj } from "../../shared/interfaces/paginateData";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import useAxios from "../../shared/hooks/useAxios";
-import ComboBox, {
-  AutocompleteOption,
-} from "../../components/formElements/ComboBox";
-import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
+import {useCallback, useContext, useState,useEffect} from "react";
+import {Alert, Container, Grid} from "@mui/material";
+import ComboBox, {AutocompleteOption,} from "../../components/formElements/ComboBox";
+import {MyBotsContext} from "../../shared/providers/MyBotsProvider";
 import Button from "../../components/formElements/Button";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import routes from "../../shared/consts/routes";
-import TradingViewChart from "../../components/shared/TradingViewChart";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
-import useEnhancedEffect from "@mui/utils/useEnhancedEffect";
+import TradingViewWidget from "../../components/shared/TradingViewWidget";
+import classes from "./TradeTerminal.module.scss";
+import apiEndPoints from "../../shared/consts/apiEndpoints";
+import {AxiosResponse} from "axios";
+import useAxios from "../../shared/hooks/useAxios";
+import {IActiveTrade} from "../../shared/interfaces/bots";
+import Loader from "../../components/shared/Loader";
+import Table from "../../components/shared/table/Table";
+import TableHead from "../../components/shared/table/TableHead";
+import TableRow from "../../components/shared/table/TableRow";
+import TableCell from "../../components/shared/table/TableCell";
+import TableBody from "../../components/shared/table/TableBody";
+import PairLogo from "../../components/shared/PairLogo";
+import TableDateTime from "../../components/shared/table/TableDateCell";
+import TableStrategy from "../../components/shared/table/StrategyBadge";
+import getDateTime from "../../shared/helpers/getDateTimeObj";
+import TextBadge from "../../components/shared/TextBadge";
+import {IconArrowDown, IconArrowUp, IconClock} from "../../shared/icons/Icons";
+import TableTradePrice from "../../components/shared/table/TableTradePrice";
+import useNotify from "../../shared/hooks/useNotify";
+
 
 const TradeTerminal = () => {
-  const navigate = useNavigate();
-  const { botsList } = useContext(MyBotsContext);
-  const [selectedBot, setSelectedBot] = useState<AutocompleteOption | null>(
-    null
-  );
-  const [liveData, setLiveData] = useState<any[]>([]);
-  const [socket, setSocket] = useState<WebSocket | null>(null);
+    const notify = useNotify();
 
-  useEffect(() => {
-    if (socket) {
-      setLiveData([]);
-      socket.close();
+    const navigate = useNavigate();
+    const {botsList} = useContext(MyBotsContext);
+    const [selectedBot, setSelectedBot] = useState<AutocompleteOption | null>(
+        null
+    );
+    // const [socket, setSocket] = useState<WebSocket | null>(null);
+    const [widgetSymbol, setWidgetSymbol] = useState<string>("BINANCE:BTCUSDT.P");
+    const [loading, setLoading] = useState(false);
+    const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
+    const {axios} = useAxios();
+
+    useEffect(() => {
+
+    }, [selectedBot,activeTrade,selectedBot]);
+
+    const onBotChange = (bot: AutocompleteOption | null) => {
+        console.log(bot)
+        setSelectedBot(bot);
+        setWidgetSymbol(`BINANCE:${getSelectedBot(bot?.value as string)?.tradingPair}.P`);
+        getActiveTrade(bot?.value).then(r => console.log(r));
+
     }
-    if (!selectedBot) {
-      return;
+
+    const getActiveTrade = useCallback(async (botId: string | undefined | null) => {
+        setLoading(true);
+
+        try {
+            const response: AxiosResponse<IActiveTrade, any> = await axios.get(
+                apiEndPoints.getBotActiveTrade(botId as string)
+            );
+            const trade = response.data || undefined;
+            setActiveTrade(trade);
+        } catch (error) {
+            // Handle error
+        } finally {
+            setLoading(false);
+        }
+    }, []);
+
+    const botsCombo = botsList.map((bot) => ({
+        label: bot.name,
+        value: bot.id.toString(),
+    })) as AutocompleteOption[];
+
+    const getSelectedBot = (botId: string) => {
+        const bot = botsList.find((bot) => bot.id === Number(botId));
+        return bot;
+    };
+
+    const openPosition = () => {
+        signal("START");
     }
-    let newSocket = new WebSocket("wss://stream.binance.com:9443/ws");
 
-    newSocket.onopen = () => {
-      const tradingPair = getSelectedBot(
-        selectedBot.value as string
-      )?.tradingPair;
-      newSocket.send(
-        JSON.stringify({
-          method: "SUBSCRIBE",
-          params: [`${(tradingPair as string).toLowerCase()}@kline_1m`],
-          id: 1,
-        })
-      );
-    };
+    const closePosition = () => {
+        signal("STOP");
+    }
 
-    newSocket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data?.e === "kline") {
-        const candlestick = {
-          time: data.E,
-          open: parseFloat(data.k.o),
-          high: parseFloat(data.k.h),
-          low: parseFloat(data.k.l),
-          close: parseFloat(data.k.c),
-        };
+    const signal = useCallback(async (action: "START" | "STOP") => {
+        try {
+            console.log(selectedBot?.value,"selectedBot?.value");
+            await axios.post(
+                apiEndPoints.signal,
+                {
+                    action: action,
+                    botId: selectedBot?.value,
+                }
+            );
 
-        setLiveData((prevData) => [...prevData, candlestick]);
-      }
-    };
+            getActiveTrade(selectedBot?.value);
+            notify(`Trade ${action}`, "info");
+        } catch (error) {
+            // Handle error
+        }
+    }, []);
 
-    setSocket(newSocket);
+    return (
+        <Container maxWidth="xl" sx={{m: 0, padding: "0!important"}}>
+            <Grid container spacing={4}>
+                <Grid item xs={12} lg={9}>
+                    <WrapperBox>
+                        <WrapperBoxHeader
+                            title={
+                                selectedBot === null
+                                    ? "Select a bot to start trade"
+                                    : `${getSelectedBot(selectedBot.value as string)?.name} - ${
+                                        getSelectedBot(selectedBot.value as string)?.tradingPair
+                                    } - ${
+                                        getSelectedBot(selectedBot.value as string)?.strategy
+                                    }`
+                            }
+                        />
+                        <WrapperBoxSection>
+                            <TradingViewWidget symbol={widgetSymbol}></TradingViewWidget>
+                        </WrapperBoxSection>
+                    </WrapperBox>
+                </Grid>
+                <Grid item xs={12} lg={3}>
+                    <WrapperBox>
+                        <WrapperBoxHeader title="Bots" noBorder/>
+                        <WrapperBoxSection>
+                            <ComboBox
+                                placeholder="Select Bot to start trade"
 
-    return () => {
-      newSocket.close();
-    };
-  }, [selectedBot]);
+                                options={[...botsCombo]}
+                                onChange={(e, val) => {
+                                    onBotChange(val);
+                                }}
+                                sx={{width: "100%"}}
+                                id="botsList"
+                            />
+                            {selectedBot && (
+                                <>
+                                    <Button
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
+                                        onClick={() =>
+                                            navigate(`${routes.botOverview}/${selectedBot?.value}`)
+                                        }
+                                        sx={{mb: 3, mt: 3}}
+                                    >
+                                        View bot overview
+                                    </Button>
+                                    <hr className={classes.lineBreak}/>
+                                    {activeTrade ? (
+                                        <>
+                                            <Alert severity="info" sx={{mb: 3, mt: 3}}>
+                                                This bot already has an open trade.
+                                            </Alert>
+                                            <Button color={"error"} variant={"contained"} size={"small"} fullWidth
+                                                    onClick={closePosition}>
+                                                Close trade at market price
+                                            </Button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Alert severity="success" sx={{mb: 3, mt: 3}}>
+                                                This bot has no open trades.
+                                            </Alert>
+                                            <Button color={"success"} variant={"contained"} size={"small"} fullWidth
+                                                    onClick={openPosition}>
+                                                Open Position at Market Price
+                                            </Button>
+                                        </>
 
-  const botsCombo = botsList.map((bot) => ({
-    label: bot.name,
-    value: bot.id.toString(),
-  })) as AutocompleteOption[];
-
-  const getSelectedBot = (botId: string) => {
-    const bot = botsList.find((bot) => bot.id === Number(botId));
-    return bot;
-  };
-
-  return (
-    <Container maxWidth="xl" sx={{ m: 0, padding: "0!important" }}>
-      <Grid container spacing={4}>
-        <Grid item xs={12} lg={9}>
-          <WrapperBox>
-            <WrapperBoxHeader
-              title={
-                selectedBot === null
-                  ? "Select a bot to start trade"
-                  : `${getSelectedBot(selectedBot.value as string)?.name} - ${
-                      getSelectedBot(selectedBot.value as string)?.tradingPair
-                    } - ${
-                      getSelectedBot(selectedBot.value as string)?.strategy
-                    }`
-              }
-            />
-            <WrapperBoxSection>
-              {selectedBot && <TradingViewChart data={liveData} />}
-            </WrapperBoxSection>
-          </WrapperBox>
-        </Grid>
-        <Grid item xs={12} lg={3}>
-          <WrapperBox>
-            <WrapperBoxHeader title="Bots" noBorder />
-            <WrapperBoxSection>
-              <ComboBox
-                placeholder="Select Bot to start trade"
-                options={[...botsCombo]}
-                onChange={(e, val) => {
-                  setSelectedBot(val);
-                }}
-                sx={{ width: "100%" }}
-                id="botsList"
-              />
-              {selectedBot && (
-                <>
-                  <Button
-                    variant="outlined"
-                    size="small"
-                    fullWidth
-                    onClick={() =>
-                      navigate(`${routes.botOverview}/${selectedBot?.value}`)
-                    }
-                    sx={{ mb: 3, mt: 3 }}
-                  >
-                    View bot overview
-                  </Button>
-                  <hr />
-                  <Alert severity="warning" sx={{ mb: 3, mt: 3 }}>
-                    This bot already has an open trade.
-                  </Alert>
-                  <hr />
-
-                  {/* <Button
-                    color="error"
-                    variant="contained"
-                    size="small"
-                    fullWidth
-                  >
-                    Close trade at market price
-                  </Button>
-                  <Button
-                    color="success"
-                    variant="contained"
-                    size="small"
-                    fullWidth
-                  >
-                    Open Position at Market Price
-                  </Button> */}
-                </>
-              )}
-            </WrapperBoxSection>
-          </WrapperBox>
-        </Grid>
-      </Grid>
-    </Container>
-  );
+                                    )}
+                                </>
+                            )}
+                        </WrapperBoxSection>
+                    </WrapperBox>
+                </Grid>
+            </Grid>
+            <Grid item xs={12} lg={3}>
+                <WrapperBox>
+                    <WrapperBoxHeader
+                        title={
+                            selectedBot === null
+                                ? "Select a bot to start trade"
+                                : "Active Trade"
+                        }
+                    />
+                    {loading ? (
+                        <Loader/>
+                    ) : (
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell sx={{minWidth: 180}}>Pair / Bot</TableCell>
+                                    <TableCell>Strategy</TableCell>
+                                    <TableCell>Creation Date</TableCell>
+                                    <TableCell>Duration</TableCell>
+                                    <TableCell>Entry Price / Current Price</TableCell>
+                                    <TableCell>% Unl Profit/Loss </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {activeTrade ? (
+                                    <TableRow>
+                                        <TableCell>
+                                            <Grid container spacing={1} alignItems={"center"}>
+                                                <Grid item>
+                                                    <PairLogo
+                                                        src={activeTrade.logo}
+                                                        alt={activeTrade.pair}
+                                                    />
+                                                </Grid>
+                                                <Grid item>
+                                                    <TableDateTime
+                                                        date={activeTrade.pair}
+                                                        time={activeTrade.botName}
+                                                    />
+                                                </Grid>
+                                            </Grid>
+                                        </TableCell>
+                                        <TableCell>
+                                            <TableStrategy strategy={activeTrade.strategy}/>
+                                        </TableCell>
+                                        <TableCell>
+                                            <TableDateTime {...getDateTime(activeTrade.creationDate)} />
+                                        </TableCell>
+                                        <TableCell>
+                                            <TextBadge variation="primary">
+                                                <IconClock/>
+                                                {activeTrade.duration}
+                                            </TextBadge>
+                                        </TableCell>
+                                        <TableCell>
+                                            <TableTradePrice entryPrice={activeTrade.entryPrice}
+                                                             exitPrice={activeTrade.currentPrice}/>
+                                        </TableCell>
+                                        <TableCell>
+                                            {activeTrade.profit.indexOf("-") === -1 ? (
+                                                <TextBadge variation="success">
+                                                    {activeTrade.profit}
+                                                    <IconArrowUp/>
+                                                </TextBadge>
+                                            ) : (
+                                                <TextBadge variation="error">
+                                                    {activeTrade.profit}
+                                                    <IconArrowDown/>
+                                                </TextBadge>
+                                            )}
+                                        </TableCell>
+                                        {/*<TableCell>*/}
+                                        {/*    <IconButton onClick={() => signal("STOP")}>*/}
+                                        {/*        <IconCloseCircle />*/}
+                                        {/*    </IconButton>*/}
+                                        {/*    <Typography component={"span"}>Cancel Trade</Typography>*/}
+                                        {/*</TableCell>*/}
+                                    </TableRow>
+                                ) : (
+                                    <TableRow>
+                                        <TableCell colSpan={6}>
+                                            There is no active trade.
+                                            {/* There is no active trade, start it now{" "}*/}
+                                            {/*<button onClick={() => signal("START")}>start</button>*/}
+                                        </TableCell>
+                                    </TableRow>
+                                )}
+                            </TableBody>
+                        </Table>
+                    )}
+                </WrapperBox>
+            </Grid>
+        </Container>
+    );
 };
 export default TradeTerminal;
