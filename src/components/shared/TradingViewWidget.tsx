@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-
+import { useEffect, useRef } from "react";
+import styles from "./TradingViewWidget.module.scss";
 interface TradingViewWindow extends Window {
   TradingView: any; // Replace 'any' with the appropriate type if known
 }
@@ -50,6 +50,7 @@ export default function TradingViewWidget({
       const TradingView = tvWindow.TradingView;
       new TradingView.widget({
         symbol,
+        autosize: true,
         interval: "D",
         timezone: "Etc/UTC",
         theme: "light",
@@ -64,7 +65,7 @@ export default function TradingViewWidget({
   }
 
   return (
-    <div className="tradingview-widget-container">
+    <div className={styles.tradingviewCidgetContainer}>
       <div id="tradingview_b8343" />
     </div>
   );
