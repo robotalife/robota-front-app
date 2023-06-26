@@ -1,4 +1,4 @@
-import {useCallback, useContext, useState,useEffect} from "react";
+import {useCallback, useContext, useEffect, useState} from "react";
 import {Alert, Container, Grid} from "@mui/material";
 import ComboBox, {AutocompleteOption,} from "../../components/formElements/ComboBox";
 import {MyBotsContext} from "../../shared/providers/MyBotsProvider";
@@ -38,7 +38,6 @@ const TradeTerminal = () => {
     const [selectedBot, setSelectedBot] = useState<AutocompleteOption | null>(
         null
     );
-    // const [socket, setSocket] = useState<WebSocket | null>(null);
     const [widgetSymbol, setWidgetSymbol] = useState<string>("BINANCE:BTCUSDT.P");
     const [loading, setLoading] = useState(false);
     const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
@@ -46,13 +45,14 @@ const TradeTerminal = () => {
 
     useEffect(() => {
 
-    }, [selectedBot,activeTrade,selectedBot]);
+    }, [selectedBot, activeTrade]);
 
     const onBotChange = (bot: AutocompleteOption | null) => {
-        console.log(bot)
-        setSelectedBot(bot);
-        setWidgetSymbol(`BINANCE:${getSelectedBot(bot?.value as string)?.tradingPair}.P`);
+        console.log(bot, "bot");
+        const botted = findBotByBotId(bot?.value as string);
+        setWidgetSymbol(`BINANCE:${botted?.tradingPair}.P`);
         getActiveTrade(bot?.value).then(r => console.log(r));
+        setSelectedBot(bot);
 
     }
 
@@ -77,9 +77,8 @@ const TradeTerminal = () => {
         value: bot.id.toString(),
     })) as AutocompleteOption[];
 
-    const getSelectedBot = (botId: string) => {
-        const bot = botsList.find((bot) => bot.id === Number(botId));
-        return bot;
+    const findBotByBotId = (botId: string) => {
+        return botsList.find((bot) => bot.id === Number(botId));
     };
 
     const openPosition = () => {
@@ -92,7 +91,7 @@ const TradeTerminal = () => {
 
     const signal = useCallback(async (action: "START" | "STOP") => {
         try {
-            console.log(selectedBot?.value,"selectedBot?.value");
+            console.log(selectedBot?.value, "selectedBot?.value");
             await axios.post(
                 apiEndPoints.signal,
                 {
@@ -106,7 +105,7 @@ const TradeTerminal = () => {
         } catch (error) {
             // Handle error
         }
-    }, []);
+    }, [selectedBot]);
 
     return (
         <Container maxWidth="xl" sx={{m: 0, padding: "0!important"}}>
@@ -117,10 +116,10 @@ const TradeTerminal = () => {
                             title={
                                 selectedBot === null
                                     ? "Select a bot to start trade"
-                                    : `${getSelectedBot(selectedBot.value as string)?.name} - ${
-                                        getSelectedBot(selectedBot.value as string)?.tradingPair
+                                    : `${findBotByBotId(selectedBot.value as string)?.name} - ${
+                                        findBotByBotId(selectedBot.value as string)?.tradingPair
                                     } - ${
-                                        getSelectedBot(selectedBot.value as string)?.strategy
+                                        findBotByBotId(selectedBot.value as string)?.strategy
                                     }`
                             }
                         />
@@ -135,7 +134,6 @@ const TradeTerminal = () => {
                         <WrapperBoxSection>
                             <ComboBox
                                 placeholder="Select Bot to start trade"
-
                                 options={[...botsCombo]}
                                 onChange={(e, val) => {
                                     onBotChange(val);
