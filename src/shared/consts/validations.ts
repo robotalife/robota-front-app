@@ -9,7 +9,7 @@ export const passwordSimple = Yup.string()
 
 export const passwordFull = Yup.string()
   .matches(
-    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d@$!%*?&()]{8,}$/,
+    /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])[A-Za-z\d!@#$%^&*()_{}`~><,.'"|]{8,}$/,
     "Use 8 characters or more for your password."
   )
   .required("Required");
