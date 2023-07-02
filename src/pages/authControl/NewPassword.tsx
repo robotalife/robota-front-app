@@ -18,8 +18,8 @@ const validations = validationSchema({
   password: passwordFull,
 });
 
-const text = "Use 8 or more characters with a mix of letters, numbers & symbols";
-
+const text =
+  "Use 8 or more characters with a mix of letters, numbers & symbols";
 
 const NewPassword = () => {
   const navigate = useNavigate();

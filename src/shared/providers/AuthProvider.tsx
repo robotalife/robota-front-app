@@ -18,7 +18,7 @@ const token = localStorage.getItem("token");
 const localUserId = localStorage.getItem("userId");
 const currentPage = window.location.pathname;
 
-const authRouts: string[] = [
+const authRoutes: string[] = [
   routes.signin,
   routes.signup,
   routes.activate,
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setUserId(localUserId);
       setIsAuthenticated(true);
-    } else if (!authRouts.includes(currentPage)) {
+    } else if (!authRoutes.some((route) => currentPage.startsWith(route))) {
       window.location.href = `${routes.signin}?returnTo=${currentPage}`;
     }
   }, [setIsAuthenticated, setUserId]);
