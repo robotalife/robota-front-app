@@ -31,6 +31,7 @@ import ExchangeEditProfile from "../pages/exchanges/ExchangeEditProfile";
 import ExchangeInvoices from "../pages/exchanges/ExchangeInvoices";
 import UpdateExchange from "../pages/exchanges/UpdateExchange";
 import TradeTerminal from "../pages/bots/TradeTerminal";
+import Store from "../pages/store/Store";
 
 const RoutingComp = () => {
   return (
@@ -51,6 +52,23 @@ const RoutingComp = () => {
         <Route element={<DefaultLayout />}>
           <Route path={routes.portfolio} element={<Portfolio />} />
 
+          {/* Bot Store */}
+          <Route path={routes.store} element={<Store />} />
+          {/* outer bot pages */}
+          <Route element={<TradingPanelLayout />}>
+            {/* bot store */}
+
+            {/* create new bot */}
+            <Route path="/" element={<NewBot />} />
+            <Route path={routes.botsNew} element={<NewBot />} />
+
+            {/* Live Trade */}
+            <Route path={routes.liveTrade} element={<LiveTrade />} />
+
+            {/*Trade Terminal*/}
+            <Route path={routes.tradeTerminal} element={<TradeTerminal />} />
+          </Route>
+
           {/* Bots */}
 
           {/* outer bot pages */}
@@ -65,7 +83,7 @@ const RoutingComp = () => {
             {/* Live Trade */}
             <Route path={routes.liveTrade} element={<LiveTrade />} />
 
-          {/*Trade Terminal*/}
+            {/*Trade Terminal*/}
             <Route path={routes.tradeTerminal} element={<TradeTerminal />} />
           </Route>
 

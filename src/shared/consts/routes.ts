@@ -15,6 +15,11 @@ const routes = {
   botTradesHistory: "/bots/trades-history", // bot overview
   botLog: "/bots/log", // bot overview
   botTVToken: "/bot/tokens", // trading view tokens
+  // Store
+  store: "/store",
+  storeBotOverview: "/store/overview", // bot overview
+  storeBotActiveTrades: "/store/active-trades", // bot overview
+  storeBotTradesHistory: "/store/trades-history", // bot overview
   // Exchange
   exchangeNew: "/exchanges/new",
   exchangeUpdate: "/exchanges/update",
