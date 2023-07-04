@@ -13,6 +13,8 @@ const apiEndPoints = {
   exchangeList: "/exchange/list",
   // Symbols
   symbolsList: "/symbols?exchangeId=",
+  // Store
+  storeBots: "/store/bots",
   // Bots
   bots: "/bots",
   getLiveTrades: "/bots/live-trades",

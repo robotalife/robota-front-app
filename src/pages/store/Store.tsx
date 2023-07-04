@@ -1,15 +1,15 @@
 import { useContext } from "react";
-import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 import { Container, Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
 import BotFilters from "../../components/shared/BotFilter";
 import PageTitle from "../../components/pageStructure/PageTitle";
+import { StoreBotsContext } from "../../shared/providers/StoreBotsProvider";
 
 const Store = () => {
   const { botsList, setFilters, paginateData, loading, filters } =
-    useContext(MyBotsContext);
+    useContext(StoreBotsContext);
 
   return (
     <>

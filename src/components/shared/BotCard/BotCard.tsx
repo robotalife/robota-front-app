@@ -60,9 +60,7 @@ const BotCard = ({ data }: Props) => {
           </Typography>
         </Grid>
         <Grid item>
-          <BotCardChart
-            input={data.chartData}
-          />
+          {data.chartData && <BotCardChart input={data.chartData} />}
         </Grid>
       </Grid>
       <Grid

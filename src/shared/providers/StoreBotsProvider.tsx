@@ -36,7 +36,7 @@ const initialFilters: IBotFilters = {
   page: 0,
 };
 
-export const MyBotsContext = createContext<IMyBotsContext>({
+export const StoreBotsContext = createContext<IMyBotsContext>({
   botsList: [] as IBot[],
   paginateData: {} as PaginationObj,
   loading: true,
@@ -44,7 +44,7 @@ export const MyBotsContext = createContext<IMyBotsContext>({
   filters: initialFilters,
 });
 
-export const MyBotsProvider = ({ children }: PropsWithChildren) => {
+export const StoreBotsProvider = ({ children }: PropsWithChildren) => {
   const { isAuthenticated } = useContext(AuthContext);
   const { selectedExchange } = useContext(ExchangeContext);
 
@@ -66,7 +66,7 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     setLoading(true);
     try {
       const response: AxiosResponse<IMyBots, any> = await axios.get(
-        `${apiEndPoints.bots}?${getFiltersString(filters)}`
+        `${apiEndPoints.storeBots}?${getFiltersString(filters)}`
       );
 
       const { data, ...tmpPaginate } = response.data;
@@ -97,6 +97,8 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   }, [myBotsList, paginateData, loading]);
 
   return (
-    <MyBotsContext.Provider value={value}>{children}</MyBotsContext.Provider>
+    <StoreBotsContext.Provider value={value}>
+      {children}
+    </StoreBotsContext.Provider>
   );
 };

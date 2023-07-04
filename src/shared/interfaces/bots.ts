@@ -21,18 +21,16 @@ export interface IActiveTrade {
 }
 
 export interface ILiveTrade {
-    botId: number;
-    botName: string;
-    public: boolean;
-    botStrategy: "SHORT" | "LONG";
-    activeTradeCount: number;
-    pnl: string;
-    baseAssetLogo: string;
-    baseAsset: string;
-    qouteAsset: string;
+  botId: number;
+  botName: string;
+  public: boolean;
+  botStrategy: "SHORT" | "LONG";
+  activeTradeCount: number;
+  pnl: string;
+  baseAssetLogo: string;
+  baseAsset: string;
+  qouteAsset: string;
 }
-
-
 
 export interface IBotHistoryObj {
   baseLogo: string;
@@ -81,7 +79,7 @@ export interface IBotOverview {
   pnlChartData: IChartData;
   winRateChartData: IChartData;
   averageDailyProfit: string;
-  averageWinrate : string;
+  averageWinrate: string;
 }
 
 export interface IOverviewChart {
@@ -89,25 +87,25 @@ export interface IOverviewChart {
   profitByDay: IChartData;
 }
 
-
 export interface IBot {
-  id: string | number;
-  name: string;
+  assetLogo: string;
+  chartData: IChartData | null;
   exchangeId: string;
+  exchangeLogo: "https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png";
   exchangeType: string;
-  strategy: "LONG" | "SHORT";
+  id: string | number;
+  isSubscribed?: boolean;
   monthlyPrice: string;
-  tradingPair:string;
-  assetLogo:string;
-  exchangeLogo: "https://s2.coinmarketcap.com/static/img/exchanges/64x64/270.png"
+  name: string;
   pnl: string;
   stopped: false;
-  chartData: IChartData;
+  strategy: "LONG" | "SHORT";
+  tradingPair: string;
 }
 
 export interface IChartData {
-    data: number[];
-    labels: string[];
+  data: number[];
+  labels: string[];
 }
 
 export interface IMyBots {
