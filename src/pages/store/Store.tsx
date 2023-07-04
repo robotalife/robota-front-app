@@ -24,7 +24,7 @@ const Store = () => {
             <PageTitle title={"Bot Store"} />
           </Grid>
           <Grid item xs={12} lg>
-            {botsList.length > 0 ? <BotFilters /> : <> </>}
+            <BotFilters />
           </Grid>
         </Grid>
       </Container>
