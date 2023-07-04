@@ -8,8 +8,11 @@ import PageTitle from "../../components/pageStructure/PageTitle";
 import { StoreBotsContext } from "../../shared/providers/StoreBotsProvider";
 import { IconCircleCheck, IconCopy } from "../../shared/icons/Icons";
 import Button from "../../components/formElements/Button";
+import { useNavigate } from "react-router-dom";
+import routes from "../../shared/consts/routes";
 
 const Store = () => {
+  const navigate = useNavigate();
   const { botsList, setFilters, paginateData, loading, filters } =
     useContext(StoreBotsContext);
 
@@ -62,7 +65,13 @@ const Store = () => {
                       )}
                     </Grid>
                     <Grid item xs={"auto"}>
-                      <Button size="small" variant="text" onClick={() => {}}>
+                      <Button
+                        size="small"
+                        variant="text"
+                        onClick={() =>
+                          navigate(`${routes.botOverview}/${bot.id}`)
+                        }
+                      >
                         View bot detail
                       </Button>
                     </Grid>
