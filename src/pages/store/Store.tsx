@@ -69,7 +69,7 @@ const Store = () => {
                         size="small"
                         variant="text"
                         onClick={() =>
-                          navigate(`${routes.botOverview}/${bot.id}`)
+                          navigate(`${routes.storeBotOverview}/${bot.id}`)
                         }
                       >
                         View bot detail
