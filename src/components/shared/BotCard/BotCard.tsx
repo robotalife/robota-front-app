@@ -4,6 +4,7 @@ import { IBot } from "../../../shared/interfaces/bots";
 import PairLogo from "../PairLogo";
 import BotCardChart from "../chart/BotCardChart";
 import { PropsWithChildren } from "react";
+import { TempChartLong, TempChartShort } from "../../../shared/icons/Icons";
 
 interface Props extends PropsWithChildren {
   data: IBot;
@@ -57,7 +58,13 @@ const BotCard = ({ data, children }: Props) => {
           </Typography>
         </Grid>
         <Grid item>
-          {data.chartData && <BotCardChart input={data.chartData} />}
+          {data.chartData ? (
+            <BotCardChart input={data.chartData} />
+          ) : data.strategy === "SHORT" ? (
+            <TempChartShort />
+          ) : (
+            <TempChartLong />
+          )}
         </Grid>
       </Grid>
       <Grid
