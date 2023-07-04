@@ -1,18 +1,15 @@
 import { Box, Grid, Typography } from "@mui/material";
 import classes from "./BotCard.module.scss";
-import Button from "../../formElements/Button";
-import { useNavigate } from "react-router-dom";
-import routes from "../../../shared/consts/routes";
 import { IBot } from "../../../shared/interfaces/bots";
 import PairLogo from "../PairLogo";
 import BotCardChart from "../chart/BotCardChart";
+import { PropsWithChildren } from "react";
 
-interface Props {
+interface Props extends PropsWithChildren {
   data: IBot;
 }
 
-const BotCard = ({ data }: Props) => {
-  const navigate = useNavigate();
+const BotCard = ({ data, children }: Props) => {
   const pnlClass = (data: IBot) => {
     if (data.pnl == "0") {
       return "";
@@ -86,18 +83,8 @@ const BotCard = ({ data }: Props) => {
         </Grid>
       </Grid>
       <Grid container justifyContent={"space-between"} alignItems={"center"}>
-        <Grid item>
-          <Button
-            onClick={() => {
-              navigate(`${routes.botOverview}/${data.id}`);
-            }}
-            variant="outlined"
-            size="small"
-          >
-            View bot detail
-          </Button>
-        </Grid>
-        <Grid item>
+        <Grid item>{children}</Grid>
+        <Grid item xs="auto">
           <span className={classes.badge}>{data.monthlyPrice}$/Month</span>
         </Grid>
       </Grid>

@@ -58,13 +58,13 @@
   padding-bottom: 24px;
 }
 
-@media (min-width: $breakpoint-lg) {
-  .botCard {
-    min-width: 350px;
-  }
-}
+// @media (min-width: $breakpoint-lg) {
+//   .botCard {
+//     min-width: 350px;
+//   }
+// }
 
-@media (min-width: $breakpoint-xl) {
+@media (min-width: $breakpoint-lg) {
   .botCard {
     min-width: 425px;
   }

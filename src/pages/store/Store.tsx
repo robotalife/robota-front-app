@@ -1,11 +1,12 @@
 import { useContext } from "react";
-import { Container, Grid } from "@mui/material";
+import { Button, Container, Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
 import BotFilters from "../../components/shared/BotFilter";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import { StoreBotsContext } from "../../shared/providers/StoreBotsProvider";
+import { IconCircleCheck } from "../../shared/icons/Icons";
 
 const Store = () => {
   const { botsList, setFilters, paginateData, loading, filters } =
@@ -31,7 +32,30 @@ const Store = () => {
           {Array.isArray(botsList) && botsList.length ? (
             botsList.map((bot) => (
               <Grid item xs={12} sm={6} md={4} lg={"auto"} key={bot.id}>
-                <BotCard data={bot} />
+                <BotCard data={bot}>
+                  <Grid container justifyContent="start" flexWrap={"nowrap"}>
+                    <Grid item xs={"auto"}>
+                      <Button
+                        size="small"
+                        variant={bot.isSubscribed ? "contained" : "outlined"}
+                        onClick={() => {}}
+                        sx={{
+                          backgroundColor: "#F9F5FF",
+                          color: "#6941C6",
+                          borderWidth: 0,
+                        }}
+                      >
+                        <IconCircleCheck style={{ marginRight: 5 }} />
+                        Subscribed
+                      </Button>
+                    </Grid>
+                    <Grid item xs={"auto"}>
+                      <Button size="small" variant="text" onClick={() => {}}>
+                        View bot detail
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </BotCard>
               </Grid>
             ))
           ) : (
