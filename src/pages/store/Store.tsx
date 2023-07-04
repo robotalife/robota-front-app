@@ -1,12 +1,13 @@
 import { useContext } from "react";
-import { Button, Container, Grid } from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 import Pagination from "../../components/shared/Pagination";
 import Loader from "../../components/shared/Loader";
 import BotFilters from "../../components/shared/BotFilter";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import { StoreBotsContext } from "../../shared/providers/StoreBotsProvider";
-import { IconCircleCheck } from "../../shared/icons/Icons";
+import { IconCircleCheck, IconCopy } from "../../shared/icons/Icons";
+import Button from "../../components/formElements/Button";
 
 const Store = () => {
   const { botsList, setFilters, paginateData, loading, filters } =
@@ -35,19 +36,30 @@ const Store = () => {
                 <BotCard data={bot}>
                   <Grid container justifyContent="start" flexWrap={"nowrap"}>
                     <Grid item xs={"auto"}>
-                      <Button
-                        size="small"
-                        variant={bot.isSubscribed ? "contained" : "outlined"}
-                        onClick={() => {}}
-                        sx={{
-                          backgroundColor: "#F9F5FF",
-                          color: "#6941C6",
-                          borderWidth: 0,
-                        }}
-                      >
-                        <IconCircleCheck style={{ marginRight: 5 }} />
-                        Subscribed
-                      </Button>
+                      {bot.isSubscribed ? (
+                        <Button
+                          size="small"
+                          variant={"contained"}
+                          onClick={() => {}}
+                          sx={{
+                            backgroundColor: "#F9F5FF",
+                            color: "#6941C6",
+                            borderWidth: 0,
+                          }}
+                        >
+                          <IconCircleCheck style={{ marginRight: 5 }} />
+                          Subscribed
+                        </Button>
+                      ) : (
+                        <Button
+                          size="small"
+                          variant={"outlined"}
+                          onClick={() => {}}
+                        >
+                          <IconCopy style={{ marginRight: 5 }} />
+                          Copy bot
+                        </Button>
+                      )}
                     </Grid>
                     <Grid item xs={"auto"}>
                       <Button size="small" variant="text" onClick={() => {}}>
