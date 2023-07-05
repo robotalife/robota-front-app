@@ -32,8 +32,10 @@ const VerifyEmail = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (otpError) return;
+    if (!otpError) {
+        notify("Please fill in the OTP code to proceed.", "error")
+        return;
+    }
     verifyEmail(otp);
   };
 
