@@ -31,7 +31,8 @@ const initialValues = {
   agree: false,
 };
 
-const text = "Use 8 or more characters with a mix of letters, numbers & symbols";
+const text =
+  "Use 8 or more characters with a mix of letters, numbers & symbols";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -46,8 +47,9 @@ const Signup = () => {
           password: values.password,
         }
       );
-      navigate(`${routes.activate}/${response.data.id}`);
+
       localStorage.setItem("userId", response.data.id); // save token in local storage
+      navigate(`${routes.activate}/${response.data.id}`);
     } catch (error) {
       // Handle error
     }
@@ -113,13 +115,8 @@ const Signup = () => {
               <Link to={routes.terms} className="authLinks">
                 {" "}
                 Terms of service
-              </Link>
-                {" "}&
-              <Link to={routes.privacy}>
-                {" "}
-                Privacy policy
-              </Link>
-              .
+              </Link>{" "}
+              &<Link to={routes.privacy}> Privacy policy</Link>.
             </Typography>
           </CheckboxWithText>
 

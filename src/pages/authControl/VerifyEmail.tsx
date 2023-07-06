@@ -33,25 +33,22 @@ const VerifyEmail = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!otpError) {
-        notify("Please fill in the OTP code to proceed.", "error")
-        return;
+      notify("Please fill in the OTP code to proceed.", "error");
+      return;
     }
     verifyEmail(otp);
   };
 
   const handleChange = (e: string) => {
-    console.log("digits change", e);
     setOtp(e);
   };
 
   const verifyEmail = async (verifyKey: string) => {
-    console.log("verify email", verifyKey);
     try {
       const response: AxiosResponse<any, any> = await axios.post(
         `${apiEndPoints.verifyEmail}${verifyKey}`
       );
 
-      console.log("verify email response", response);
       navigate(routes.signin);
       notify("Your email is verified. You can sign in.", "success");
 
@@ -68,7 +65,9 @@ const VerifyEmail = () => {
           userId: string;
         },
         any
-      > = await axios.post(apiEndPoints.resendVerification, { userId: localStorage.getItem("userId") });
+      > = await axios.post(apiEndPoints.resendVerification, {
+        userId: localStorage.getItem("userId"),
+      });
 
       notify("Code resent to your email. Check your inbox.", "success");
       // Handle successful response
