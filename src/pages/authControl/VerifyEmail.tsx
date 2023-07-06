@@ -32,8 +32,10 @@ const VerifyEmail = () => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (otpError) return;
+    if (!otpError) {
+        notify("Please fill in the OTP code to proceed.", "error")
+        return;
+    }
     verifyEmail(otp);
   };
 
@@ -66,9 +68,9 @@ const VerifyEmail = () => {
           userId: string;
         },
         any
-      > = await axios.post(apiEndPoints.resendVerification, { userId: id });
+      > = await axios.post(apiEndPoints.resendVerification, { userId: localStorage.getItem("userId") });
 
-      notify("Verification email sent.", "success");
+      notify("Code resent to your email. Check your inbox.", "success");
       // Handle successful response
     } catch (error) {
       // Handle error
