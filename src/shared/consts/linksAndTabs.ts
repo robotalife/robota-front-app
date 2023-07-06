@@ -14,7 +14,7 @@ export const botsPages = (badge: number | string) => {
     {
       label: "Trade Terminal",
       to: routes.tradeTerminal,
-    }
+    },
   ];
 };
 
@@ -43,6 +43,26 @@ export const botTabs = (botId: string | number) => {
     {
       label: "Trading View Tokens",
       to: `${routes.botTVToken}/${botId}`,
+      pageTitle: "",
+    },
+  ];
+};
+
+export const storeTabs = (botId: string | number) => {
+  return [
+    {
+      label: "Overview",
+      to: `${routes.storeBotOverview}/${botId}`,
+      pageTitle: "",
+    },
+    {
+      label: "Active Trade",
+      to: `${routes.storeBotActiveTrades}/${botId}`,
+      pageTitle: "",
+    },
+    {
+      label: "Trades History",
+      to: `${routes.storeBotTradesHistory}/${botId}`,
       pageTitle: "",
     },
   ];

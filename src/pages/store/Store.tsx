@@ -24,7 +24,7 @@ const Store = () => {
             <PageTitle title={"Bot Store"} />
           </Grid>
           <Grid item xs={12} lg>
-            {botsList.length > 0 ? <BotFilters /> : <> </>}
+            <BotFilters />
           </Grid>
         </Grid>
       </Container>
@@ -69,7 +69,7 @@ const Store = () => {
                         size="small"
                         variant="text"
                         onClick={() =>
-                          navigate(`${routes.botOverview}/${bot.id}`)
+                          navigate(`${routes.storeBotOverview}/${bot.id}`)
                         }
                       >
                         View bot detail

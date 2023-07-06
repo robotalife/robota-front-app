@@ -32,6 +32,7 @@ import ExchangeInvoices from "../pages/exchanges/ExchangeInvoices";
 import UpdateExchange from "../pages/exchanges/UpdateExchange";
 import TradeTerminal from "../pages/bots/TradeTerminal";
 import Store from "../pages/store/Store";
+import InnerStoreLayout from "../shared/layouts/InnerStoreLayout";
 
 const RoutingComp = () => {
   return (
@@ -54,19 +55,31 @@ const RoutingComp = () => {
 
           {/* Bot Store */}
           <Route path={routes.store} element={<Store />} />
-          {/* outer bot pages */}
-          <Route element={<TradingPanelLayout />}>
-            {/* bot store */}
+          {/* Store inner bot pages */}
+          <Route
+            element={
+              <BotProvider>
+                <InnerStoreLayout />
+              </BotProvider>
+            }
+          >
+            {/* bot overview */}
+            <Route
+              path={`${routes.storeBotOverview}/:botId`}
+              element={<BotOverView />}
+            />
 
-            {/* create new bot */}
-            <Route path="/" element={<NewBot />} />
-            <Route path={routes.botsNew} element={<NewBot />} />
+            {/* bot active trades */}
+            <Route
+              path={`${routes.storeBotActiveTrades}/:botId`}
+              element={<BotActiveTrade />}
+            />
 
-            {/* Live Trade */}
-            <Route path={routes.liveTrade} element={<LiveTrade />} />
-
-            {/*Trade Terminal*/}
-            <Route path={routes.tradeTerminal} element={<TradeTerminal />} />
+            {/* bot trades history */}
+            <Route
+              path={`${routes.storeBotTradesHistory}/:botId`}
+              element={<BotTradeHistory />}
+            />
           </Route>
 
           {/* Bots */}
