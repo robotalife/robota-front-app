@@ -47,7 +47,7 @@ const Signup = () => {
         }
       );
       navigate(`${routes.activate}/${response.data.id}`);
-      // Handle successful response
+      localStorage.setItem("userId", response.data.id); // save token in local storage
     } catch (error) {
       // Handle error
     }
