@@ -28,7 +28,7 @@ const VerifyEmail = () => {
 
   useEffect(() => {
     setOtpError(otp.length !== 0 && otp.length !== 4);
-  }, [otp]);
+  }, [otp, setOtpError]);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,15 +38,18 @@ const VerifyEmail = () => {
   };
 
   const handleChange = (e: string) => {
+    console.log("digits change", e);
     setOtp(e);
   };
 
   const verifyEmail = async (verifyKey: string) => {
+    console.log("verify email", verifyKey);
     try {
       const response: AxiosResponse<any, any> = await axios.post(
         `${apiEndPoints.verifyEmail}${verifyKey}`
       );
 
+      console.log("verify email response", response);
       navigate(routes.signin);
       notify("Your email is verified. You can sign in.", "success");
 
@@ -79,7 +82,8 @@ const VerifyEmail = () => {
       </div>
       <div className={"pageTitle"}>Check your email</div>
       <div className={"pageSubtitle"} style={{ marginBottom: 50 }}>
-          A verification code has been sent to your email. If you do not receive it, please check your spam folder.
+        A verification code has been sent to your email. If you do not receive
+        it, please check your spam folder.
       </div>
 
       <DigitsInput
