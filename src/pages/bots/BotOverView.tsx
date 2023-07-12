@@ -65,12 +65,12 @@ const BotOverView = () => {
     "summary"
   );
 
-  const getOverviewData = useCallback(async () => {
+  const getOverviewData = useCallback(async (interval: number) => {
     setLoading(true);
 
     try {
       const response: AxiosResponse<IBotOverview, any> = await axios.get(
-        apiEndPoints.getBotOverview(botId as string)
+        `${apiEndPoints.getBotOverview(botId as string)}${interval}`
       );
 
       const overview = response.data;
@@ -83,12 +83,12 @@ const BotOverView = () => {
     }
   }, [setOverview, setLoading]);
 
-  const getOverviewChart = useCallback(async () => {
+  const getOverviewChart = useCallback(async (interval:number) => {
     setLoading(true);
 
     try {
       const response: AxiosResponse<IOverviewChart, any> = await axios.get(
-        apiEndPoints.getOverViewChart(botId as string)
+        `${apiEndPoints.getOverViewChart(botId as string)}${interval}`
       );
 
       setOverviewChart(response.data);
@@ -101,8 +101,8 @@ const BotOverView = () => {
   }, [setLoading]);
 
   useEffect(() => {
-    getOverviewData();
-    getOverviewChart();
+    getOverviewData(durations[0].value);
+    getOverviewChart(durations[0].value);
   }, [getOverviewData, getOverviewChart]);
 
   useEffect(() => {
@@ -113,6 +113,11 @@ const BotOverView = () => {
         : overviewChart.profitByDay
     );
   }, [activeButton, overviewChart]);
+
+  const handleDurationChange = (interval:number) => {
+    getOverviewData(interval);
+    getOverviewChart(interval);
+  }
 
   return (
     <Container maxWidth="xl">
@@ -239,7 +244,9 @@ const BotOverView = () => {
           <WrapperBoxHeader title="Overview" noBorder />
         </Grid>
         <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
-          <ToggleButtonGroup options={durations} noIndicator id="durations" />
+          <ToggleButtonGroup options={durations} noIndicator id="durations" onChange={(e)=> {
+            handleDurationChange(e.target.value);
+          }} />
         </Grid>
         <Grid item xs={12} sx={{ mb: 2, display: { xs: "none", lg: "block" } }}>
           <Button
