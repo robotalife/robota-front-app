@@ -39,7 +39,7 @@ const Sidebar = () => {
         <IconButton>
           <IconTripleOctagons />
         </IconButton> */}
-        {/* <IconButton>
+        <IconButton>
           <NavLink
             style={({ isActive, isPending }) => {
               return {
@@ -53,7 +53,7 @@ const Sidebar = () => {
           >
             <IconShopingCart />
           </NavLink>
-        </IconButton> */}
+        </IconButton>
         <IconButton>
           <NavLink
             style={({ isActive, isPending }) => {

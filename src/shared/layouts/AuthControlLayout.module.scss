@@ -18,10 +18,10 @@
   margin-bottom: 24px;
 }
 
-.authLinks{
-    a{
-        text-decoration: none;
-    }
+.authLinks {
+  a {
+    text-decoration: none;
+  }
 }
 
 .authControlCard {
@@ -48,16 +48,16 @@
   }
 }
 
-:global{
-  .pageImportantMessage{
+:global {
+  .pageImportantMessage {
     font-size: 14px;
     font-weight: 500;
     color: $gray-700;
   }
 }
 
-input:-webkit-autofill{
-    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset !important;
 }
 
 :global {
@@ -75,7 +75,19 @@ input:-webkit-autofill{
   }
 }
 
-@media (min-width: $breakpoint-md) {
+@media (min-width: 480px) {
+  .authControlCard {
+    background: $white;
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    height: auto;
+    max-width: 440px;
+    padding: 30px 40px;
+    width: calc(100vw - 80px);
+  }
+}
+
+@media (min-width: $breakpoint-sm) {
   .authControlWrapper {
     // background: #fafafa
     //   url("../../assets/images/account-control-desktop-bg.svg") no-repeat;
@@ -93,14 +105,5 @@ input:-webkit-autofill{
     margin: 0 auto;
     margin-bottom: 100px;
     width: 280px;
-  }
-
-  .authControlCard {
-    background: $white;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
-    height: auto;
-    padding: 30px 40px;
-    width: 440px;
   }
 }
