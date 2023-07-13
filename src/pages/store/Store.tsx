@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import BotCard from "../../components/shared/BotCard/BotCard";
 import Pagination from "../../components/shared/Pagination";
@@ -6,7 +6,11 @@ import Loader from "../../components/shared/Loader";
 import BotFilters from "../../components/shared/BotFilter";
 import PageTitle from "../../components/pageStructure/PageTitle";
 import { StoreBotsContext } from "../../shared/providers/StoreBotsProvider";
-import { IconCircleCheck, IconCopy } from "../../shared/icons/Icons";
+import {
+  IconCircleCheck,
+  IconCopy,
+  IconFilter,
+} from "../../shared/icons/Icons";
 import Button from "../../components/formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
@@ -15,18 +19,38 @@ const Store = () => {
   const navigate = useNavigate();
   const { botsList, setFilters, paginateData, loading, filters } =
     useContext(StoreBotsContext);
+  const [showFilters, setShowFilters] = useState(false);
 
   return (
     <>
-      <Container maxWidth={"xl"} sx={{ p: "0!important" }}>
+      <Container
+        maxWidth={"xl"}
+        sx={{
+          p: "0!important",
+          mb: 4,
+          marginLeft: "0!important",
+          marginRight: "0!important",
+        }}
+      >
         <Grid container>
-          <Grid item xs={12} lg={"auto"}>
+          <Grid item xs={12} lg>
             <PageTitle title={"Bot Store"} />
           </Grid>
-          <Grid item xs={12} lg>
-            <BotFilters />
+          <Grid item xs={12} lg={"auto"}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setShowFilters(!showFilters);
+              }}
+              fullWidth
+            >
+              <IconFilter style={{ marginRight: 8 }} />
+              Filter
+            </Button>
           </Grid>
         </Grid>
+        <BotFilters show={showFilters} />
       </Container>
 
       {loading ? (

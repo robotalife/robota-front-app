@@ -1,5 +1,5 @@
 import { Container, Grid } from "@mui/material";
-import { SyntheticEvent, useContext, useState } from "react";
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import Slider from "../formElements/Slider";
 import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
@@ -8,11 +8,11 @@ import { altDurations } from "../../shared/consts/durations";
 import Button from "../formElements/Button";
 import { IconFilter } from "../../shared/icons/Icons";
 
-const BotFilters = () => {
+const BotFilters = ({ show }: { show?: boolean }) => {
   const { exchangeList, selectedExchange, setSelectedExchange, pairs } =
     useContext(ExchangeContext);
   const { filters, loading, setFilters } = useContext(MyBotsContext);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(show || false);
 
   const comboExchangeList: AutocompleteOption[] = [
     {
@@ -38,22 +38,28 @@ const BotFilters = () => {
     setFilters({ ...filters, profit: newValue as number[] });
   };
 
+  useEffect(() => {
+    setShowFilters(show || false);
+  }, [show, setShowFilters]);
+
   return (
     <>
       <Grid container justifyContent={"flex-end"} sx={{ mb: 2 }} spacing={2}>
-        <Grid item xs={12} lg={"auto"}>
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => {
-              setShowFilters(!showFilters);
-            }}
-            fullWidth
-          >
-            <IconFilter style={{ marginRight: 8 }} />
-            Filter
-          </Button>
-        </Grid>
+        {typeof show === "undefined" && (
+          <Grid item xs={12} lg={"auto"}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => {
+                setShowFilters(!showFilters);
+              }}
+              fullWidth
+            >
+              <IconFilter style={{ marginRight: 8 }} />
+              Filter
+            </Button>
+          </Grid>
+        )}
       </Grid>
       {showFilters && (
         <Grid
