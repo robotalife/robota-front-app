@@ -114,9 +114,10 @@ const BotOverView = () => {
     );
   }, [activeButton, overviewChart]);
 
-  const handleDurationChange = (interval:number) => {
-    getOverviewData(interval);
-    getOverviewChart(interval);
+  const handleDurationChange = (e:any) => {
+    console.log(e.target.value);
+    getOverviewData(Number(e.target.value));
+    getOverviewChart(Number(e.target.value));
   }
 
   return (
@@ -245,7 +246,7 @@ const BotOverView = () => {
         </Grid>
         <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
           <ToggleButtonGroup options={durations} noIndicator id="durations" onChange={(e)=> {
-            handleDurationChange(e.target.value);
+            handleDurationChange(e);
           }} />
         </Grid>
         <Grid item xs={12} sx={{ mb: 2, display: { xs: "none", lg: "block" } }}>
