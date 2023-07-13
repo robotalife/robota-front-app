@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import useAxios from "../../shared/hooks/useAxios";
 import { useCallback, useEffect, useState } from "react";
 import { AxiosResponse } from "axios";
+import Loader from "../../components/shared/Loader";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import {
   IBotOverview,
@@ -126,6 +127,9 @@ const BotOverView = () => {
         <Grid xs={12} lg={4} item>
           <WrapperBox fullHeight>
             <WrapperBoxSection>
+              {loading ? (
+                  <Loader />
+                ) : (
               <BotOverviewCard
                 action={<IconInfoCircle />}
                 hasChart
@@ -166,13 +170,16 @@ const BotOverView = () => {
                   </>
                 }
                 title={"Total Profit"}
-              />
+              />)}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
         <Grid xs={12} lg={4} item>
           <WrapperBox fullHeight>
             <WrapperBoxSection>
+              {loading ? (
+                  <Loader />
+              ) : (
               <BotOverviewCard
                 action={<Icon3DotsVertical />}
                 hasChart
@@ -213,7 +220,7 @@ const BotOverView = () => {
                   </>
                 }
                 title={"Win rate"}
-              />
+              />)}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
@@ -221,6 +228,9 @@ const BotOverView = () => {
           <WrapperBox fullHeight>
             <WrapperBoxSection>
               {/*TODO: @homam chartData is not provide*/}
+              {loading ? (
+                  <Loader />
+              ) : (
               <BotOverviewCard
                 action={""}
                 chartData={{
@@ -230,7 +240,7 @@ const BotOverView = () => {
                 content={overview.closedDeals}
                 description={""}
                 title={"Closed Deals"}
-              />
+              />)}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
@@ -284,7 +294,11 @@ const BotOverView = () => {
           </Select>
         </Grid>
       </Grid>
+      {loading ? (
+          <Loader />
+      ) : (
       <OverviewAreaChart input={chartInput} />
+        )}
     </Container>
   );
 };
