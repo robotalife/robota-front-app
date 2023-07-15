@@ -5,12 +5,14 @@ import PairLogo from "../PairLogo";
 import BotCardChart from "../chart/BotCardChart";
 import { PropsWithChildren } from "react";
 import { TempChartLong, TempChartShort } from "../../../shared/icons/Icons";
+import { Link } from "react-router-dom";
 
 interface Props extends PropsWithChildren {
   data: IBot;
+  link: string;
 }
 
-const BotCard = ({ data, children }: Props) => {
+const BotCard = ({ data, link, children }: Props) => {
   const pnlClass = (data: IBot) => {
     if (data.pnl == "0") {
       return "";
@@ -33,9 +35,11 @@ const BotCard = ({ data, children }: Props) => {
         sx={{ mb: 3 }}
       >
         <Grid item>
-          <Typography className={classes.pairTitle} component={"div"}>
-            {data.name}
-          </Typography>
+          <Link to={link} className={classes.link}>
+            <Typography className={classes.pairTitle} component={"div"}>
+              {data.name}
+            </Typography>
+          </Link>
         </Grid>
         <Grid item>
           <Typography className={classes.strategy}>{data.strategy}</Typography>
