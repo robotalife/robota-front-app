@@ -13,7 +13,7 @@ const HistoryFilters = ({ onCreatedChange, onClosedChange }: Props) => {
   const [minClosedDate, setMinClosedDate] = useState<Date | null>(null);
   const minCreatedDate = moment(new Date()).subtract(90, "days");
 
-  const [dateRange, setDateRange] = useState([new Date(), new Date()]);
+  const [dateRange, setDateRange] = useState<Date[]>([new Date(), new Date()]);
 
   return (
     <Grid container spacing={2}>
@@ -21,7 +21,6 @@ const HistoryFilters = ({ onCreatedChange, onClosedChange }: Props) => {
         <Typography variant="h6">Created On</Typography>
         <RangePicker
           value={dateRange}
-          setValue={setDateRange}
           disabled={false}
           onChange={(e) => console.log(e)}
         />
