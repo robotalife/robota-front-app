@@ -10,7 +10,7 @@ import {
   IconVrHeadset,
   IconTelegram,
   IconTwitter,
-  IconLogout,
+  IconLogout, IconHelpDesk,
 } from "../../shared/icons/Icons";
 import classes from "./Sidebar.module.scss";
 import useLogout from "../../shared/hooks/useLogout";
@@ -95,13 +95,45 @@ const Sidebar = () => {
       </nav>
       <nav className={classes.sharing}>
         <IconButton>
-          <IconInstagram />
+          <NavLink style={({ isActive, isPending }) => {
+            return {
+              color: isActive ? "red" : "inherit",
+            };
+          }}
+                   className={({ isActive, isPending }) => {
+                     return isActive ? "active" : isPending ? "pending" : "";
+                   }}
+                   to={routes.instagram} target={"_black"}>
+            <IconInstagram />
+          </NavLink>
+
         </IconButton>
         <IconButton>
-          <IconTwitter />
+          <NavLink style={({ isActive, isPending }) => {
+            return {
+              color: isActive ? "red" : "inherit",
+            };
+          }}
+                   className={({ isActive, isPending }) => {
+                     return isActive ? "active" : isPending ? "pending" : "";
+                   }}
+                   to={routes.twitter} target={"_black"}>
+            <IconTwitter />
+          </NavLink>
+
         </IconButton>
         <IconButton>
-          <IconTelegram />
+          <NavLink style={({ isActive, isPending }) => {
+            return {
+              color: isActive ? "red" : "inherit",
+            };
+          }}
+                   className={({ isActive, isPending }) => {
+                     return isActive ? "active" : isPending ? "pending" : "";
+                   }}
+                   to={routes.helpcenter} target={"_black"}>
+            <IconHelpDesk />
+          </NavLink>
         </IconButton>
       </nav>
       <div className={classes.navDivider} />

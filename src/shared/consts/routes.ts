@@ -34,6 +34,10 @@ const routes = {
   privacy: "https://robotalife.com/privacy-notice/",
   notFound: "/not-found",
   "404": "/404",
+  //social
+  instagram: "https://www.instagram.com/robotalife/",
+  twitter: "https://twitter.com/RobotaLife",
+  helpcenter:"https://robotalife.notion.site/RobotaLife-s-Help-Center-f5444fd625fd4f99b23a2f489b55704f",
 } as const;
 
 export default routes;
