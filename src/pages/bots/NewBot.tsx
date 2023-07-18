@@ -1,27 +1,38 @@
-import {FormEvent, useContext, useEffect, useState} from "react";
-import {ExchangeContext} from "../../shared/providers/ExchangeProvider";
+import { FormEvent, useContext, useEffect, useMemo, useState } from "react";
+import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
-import {AxiosResponse} from "axios";
+import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import {Grid, Typography} from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
-import {IconDollar, IconModalSave, IconTripleOctagons,} from "../../shared/icons/Icons";
+import {
+  IconDollar,
+  IconModalSave,
+  IconTripleOctagons,
+} from "../../shared/icons/Icons";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
-import {newBotAccess, newBotLeverage, newBotLeverageType, newBotStartegy,} from "../../shared/consts/botCreateItems";
+import {
+  newBotAccess,
+  newBotLeverage,
+  newBotLeverageType,
+  newBotStartegy,
+} from "../../shared/consts/botCreateItems";
 import Button from "../../components/formElements/Button";
 import Modal from "../../components/shared/Modal";
 import Table from "../../components/shared/table/Table";
 import TableRow from "../../components/shared/table/TableRow";
 import TableCell from "../../components/shared/table/TableCell";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TableBody from "../../components/shared/table/TableBody";
 import routes from "../../shared/consts/routes";
-import {MyBotsContext} from "../../shared/providers/MyBotsProvider";
+import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
 
 import classes from "./NewBot.module.scss";
-import ComboBox, {AutocompleteOption,} from "../../components/formElements/ComboBox";
+import ComboBox, {
+  AutocompleteOption,
+} from "../../components/formElements/ComboBox";
 
 // const validations = validationSchema({
 //   name: newBotStringSchema,
@@ -71,7 +82,7 @@ const NewBot = () => {
     useContext(ExchangeContext);
   const [formData, setFormData] = useState({
     name: "",
-    exchangeId: "",
+    exchangeId: selectedExchange,
     configuration: {
       access: "PRIVATE",
       marginType: "ISOLATED",
@@ -87,11 +98,11 @@ const NewBot = () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const comboExchangeList: AutocompleteOption[] = exchangeList.map(
-    (exchange) => {
+  const comboExchangeList: AutocompleteOption[] = useMemo(() => {
+    return exchangeList.map((exchange) => {
       return { label: exchange.label, value: exchange.value };
-    }
-  );
+    });
+  }, [exchangeList]);
 
   const comboPairsList: AutocompleteOption[] = pairs.map((pair) => {
     return { value: pair.value, label: pair.text };
@@ -120,9 +131,12 @@ const NewBot = () => {
     setFormData({ ...formData, exchangeId: selectedExchange });
   }, [selectedExchange, setFormData]);
 
-  // const getExchange = (id: string): IExchange => {
-  //   return exchangeList.find((ex) => ex.exchangeId === id) || ({} as IExchange);
-  // };
+  const [selectedExchangeValue, setSelectedExchangeValue] =
+    useState<AutocompleteOption | null>(
+      () =>
+        comboExchangeList.find((x) => x.value === formData.exchangeId) ||
+        comboExchangeList[0]
+    );
 
   return (
     <>
@@ -169,13 +183,10 @@ const NewBot = () => {
                       ...formData,
                       exchangeId: val ? (val.value as string) : "",
                     });
+                    setSelectedExchangeValue(val);
                     setSelectedExchange((val && (val.value as string)) || "");
                   }}
-                  value={
-                    comboExchangeList.find(
-                      (x) => x.value === formData.exchangeId
-                    ) || comboExchangeList[0]
-                  }
+                  value={selectedExchangeValue}
                   id="exchangeId"
                 />
               </FieldsetElement>

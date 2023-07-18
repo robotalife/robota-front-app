@@ -16,14 +16,18 @@ export const passwordFull = Yup.string()
 
 export const email = Yup.string()
   .email("Invalid email")
-  .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Please enter a valid email address")
+  .matches(
+    /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+    "Please enter a valid email address"
+  )
   .required("Required");
 
-export const agreeCheckbox = Yup.boolean().oneOf([true], "To create an account, please acknowledge and accept our terms and privacy policy.");
-
-export const newBotStringSchema = Yup.string().required(
-  "This field is required"
+export const agreeCheckbox = Yup.boolean().oneOf(
+  [true],
+  "To create an account, please acknowledge and accept our terms and privacy policy."
 );
+
+export const stringSchema = Yup.string().required("This field is required");
 
 export const newBotStrategySchema = Yup.string().oneOf(
   ["LONG", "SHORT"],

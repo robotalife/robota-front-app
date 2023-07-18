@@ -15,6 +15,17 @@ import useReturnTo from "../../shared/hooks/useReturnTo";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import ViewArticle from "../../components/pageSpecific/ViewArticle";
+import {
+  stringSchema,
+  validationSchema,
+} from "../../shared/consts/validations";
+import { Form, Formik } from "formik";
+
+interface INewExchangeFormData {
+  exchangeName: string;
+  apiKey: string;
+  apiSecret: string;
+}
 
 const items = [
   {
@@ -55,6 +66,18 @@ const items = [
   // },
 ];
 
+const validations = validationSchema({
+  apiKey: stringSchema,
+  apiSecret: stringSchema,
+  exchangeName: stringSchema,
+});
+
+const initialValues: INewExchangeFormData = {
+  apiKey: "",
+  apiSecret: "",
+  exchangeName: "",
+};
+
 const NewExchange = () => {
   const { userId } = useContext(AuthContext);
   const { axios } = useAxios();
@@ -62,29 +85,20 @@ const NewExchange = () => {
   const returnTo = useReturnTo();
   const notify = useNotify();
 
-  const [formData, setFormData] = useState<{
-    userId: string | null;
-    apiKey: string;
-    apiSecret: string;
-    exchangeName: string;
-    exchangeType: string;
-    passPhrase: string | null;
-  }>({
+  const constFormData = {
     userId,
-    apiKey: "",
-    apiSecret: "",
-    exchangeName: "",
     exchangeType: "BINANCE_FUTURES",
     passPhrase: null,
-  });
+  };
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
+  const handleSubmit = async (values: INewExchangeFormData) => {
     try {
       const response: AxiosResponse<any, any> = await axios.post(
         apiEndPoints.exchange,
-        formData
+        {
+          ...constFormData,
+          ...values,
+        }
       );
 
       notify("The exchange added successfully", "info");
@@ -96,7 +110,7 @@ const NewExchange = () => {
   };
 
   const goBack = () => {
-    if(returnTo === routes.signin){
+    if (returnTo === routes.signin) {
       return navigate(routes.exchangeList);
     } else {
       navigate(returnTo || routes.exchangeList);
@@ -104,104 +118,131 @@ const NewExchange = () => {
   };
 
   return (
-    <Grid container maxWidth={"xl"}>
-      <Grid container columnSpacing={7}>
-        <Grid item xs={12} lg={6}>
-          <form
-            noValidate
-            onSubmit={(e) => handleSubmit(e)}
-            id="newExchangeForm"
-          >
-            <FieldsetElement label="Select your exchange">
-              <CustomRadioButtonsGroup
-                items={items}
-                name="exchangeType"
-                value={formData.exchangeType}
-                onChange={(e) => {
-                  setFormData({ ...formData, exchangeType: e.target.value });
-                  console.log(e.target.value);
-                }}
-              />
-            </FieldsetElement>
-            <FieldsetElement label="Account Label">
-              <TextField
-                name="name"
-                type="text"
-                message="Example : John Smitt - Binance account"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, exchangeName: e.target.value })
-                }
-              />
-            </FieldsetElement>
-            <FieldsetElement label="API Key">
-              <TextField
-                name="apiKey"
-                type="text"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, apiKey: e.target.value })
-                }
-              />
-            </FieldsetElement>
-            <FieldsetElement label="Secret Key">
-              <TextField
-                name="apiSecret"
-                type="text"
-                required
-                onChange={(e) =>
-                  setFormData({ ...formData, apiSecret: e.target.value })
-                }
-              />
-            </FieldsetElement>
-            {formData.exchangeType === "KUCOIN" && (
-              <FieldsetElement label="Passphrase">
-                <TextField
-                  name="apiSecret"
-                  type="text"
-                  required
-                  onChange={(e) =>
-                    setFormData({ ...formData, passPhrase: e.target.value })
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validations}
+      onSubmit={(values, { setSubmitting }) => {
+        handleSubmit(values);
+        setSubmitting(false);
+      }}
+    >
+      {({ values, handleChange, errors, touched }) => (
+        <Form noValidate style={{ width: "100%" }} id="newExchangeForm">
+          <Grid container maxWidth={"xl"}>
+            <Grid container columnSpacing={7}>
+              <Grid item xs={12} lg={6}>
+                <FieldsetElement label="Select your exchange">
+                  <CustomRadioButtonsGroup
+                    items={items}
+                    name="exchangeType"
+                    value={constFormData.exchangeType}
+                  />
+                </FieldsetElement>
+                <FieldsetElement label="Account Label">
+                  <TextField
+                    name="exchangeName"
+                    type="text"
+                    value={values.exchangeName}
+                    onChange={handleChange}
+                    placeholder="Example : John Smitt - Binance account"
+                    required
+                    error={Boolean(errors.exchangeName && touched.exchangeName)}
+                    helperText={
+                      errors.exchangeName &&
+                      touched.exchangeName &&
+                      errors.exchangeName
+                    }
+                  />
+                </FieldsetElement>
+                <FieldsetElement label="API Key">
+                  <TextField
+                    name="apiKey"
+                    type="text"
+                    value={values.apiKey}
+                    onChange={handleChange}
+                    placeholder="Example : John Smitt - Binance account"
+                    required
+                    error={Boolean(errors.apiKey && touched.apiKey)}
+                    helperText={
+                      errors.apiKey && touched.apiKey && errors.apiKey
+                    }
+                  />
+                </FieldsetElement>
+                <FieldsetElement label="Secret Key">
+                  <TextField
+                    name="apiSecret"
+                    type="text"
+                    value={values.apiSecret}
+                    onChange={handleChange}
+                    placeholder="Example : John Smitt - Binance account"
+                    required
+                    error={Boolean(errors.apiSecret && touched.apiSecret)}
+                    helperText={
+                      errors.apiSecret && touched.apiSecret && errors.apiSecret
+                    }
+                  />
+                </FieldsetElement>
+                {constFormData.exchangeType === "KUCOIN" && (
+                  <FieldsetElement label="Passphrase">
+                    <TextField
+                      name="apiSecret"
+                      type="text"
+                      required
+                      // onChange={(e) =>
+                      //   setFormData({
+                      //     ...formData,
+                      //     passPhrase: e.target.value,
+                      //   })
+                      // }
+                    />
+                  </FieldsetElement>
+                )}
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                <ViewArticle
+                  exchange={
+                    constFormData.exchangeType === "KUCOIN"
+                      ? "Kucoin"
+                      : "Binance"
+                  }
+                  link={
+                    constFormData.exchangeType === "KUCOIN"
+                      ? "/"
+                      : "https://www.binance.com/en-BH/support/faq/how-to-create-api-360002502072"
                   }
                 />
-              </FieldsetElement>
-            )}
-          </form>
-        </Grid>
-        <Grid item xs={12} lg={6}>
-          <ViewArticle
-            exchange={formData.exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
-            link={formData.exchangeType === "KUCOIN" ? "/" : "https://www.binance.com/en-BH/support/faq/how-to-create-api-360002502072"}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={2}>
-            <Grid item xs={6} md={"auto"}>
-              <Button
-                type="submit"
-                variant="contained"
-                size="small"
-                fullWidth
-                form="newExchangeForm"
-              >
-                Connect Exchange
-              </Button>
-            </Grid>
-            <Grid item xs={6} md={"auto"}>
-              <Button
-                type="button"
-                variant="outlined"
-                size="small"
-                fullWidth
-                onClick={goBack}
-              >
-                Back
-              </Button>
+              </Grid>
+              <Grid item xs={12}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6} md={"auto"}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      size="small"
+                      fullWidth
+                      form="newExchangeForm"
+                    >
+                      Connect Exchange
+                    </Button>
+                  </Grid>
+                  <Grid item xs={6} md={"auto"}>
+                    <Button
+                      type="button"
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                      onClick={goBack}
+                    >
+                      Back
+                    </Button>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Grid>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
