@@ -76,10 +76,11 @@ export interface IBotOverview {
   closedDeals: number;
   totalProfit: string;
   winRate: string;
-  pnlChartData: IChartData;
+  profitPerDayChartData: IChartData;
   winRateChartData: IChartData;
+  cumulativeProfitChartData: IChartData;
   averageDailyProfit: string;
-  averageWinrate: string;
+  averageWinRate: string;
 }
 
 export interface IOverviewChart {
