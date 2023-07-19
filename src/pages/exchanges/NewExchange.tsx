@@ -10,13 +10,15 @@ import apiEndPoints from "../../shared/consts/apiEndpoints";
 import useNotify from "../../shared/hooks/useNotify";
 import CustomRadioButtonsGroup from "../../components/formElements/CustomRadioButtonsGroup";
 import ExchangeRadioContent from "../../components/pageSpecific/ExchangeRadioContent";
-import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
+import { IconBinance } from "../../shared/icons/Icons";
 import useReturnTo from "../../shared/hooks/useReturnTo";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import ViewArticle from "../../components/pageSpecific/ViewArticle";
 import {
-  stringSchema,
+  newExchangeApiKeyStringSchema,
+  newExchangeLabelKeyStringSchema,
+  newExchangeSecretKeyStringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
 import { Form, Formik } from "formik";
@@ -67,9 +69,9 @@ const items = [
 ];
 
 const validations = validationSchema({
-  apiKey: stringSchema,
-  apiSecret: stringSchema,
-  exchangeName: stringSchema,
+  apiKey: newExchangeApiKeyStringSchema,
+  apiSecret: newExchangeSecretKeyStringSchema,
+  exchangeName: newExchangeLabelKeyStringSchema,
 });
 
 const initialValues: INewExchangeFormData = {

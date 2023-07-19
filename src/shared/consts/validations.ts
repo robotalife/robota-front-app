@@ -50,3 +50,13 @@ export const newBotLeverageSchema = Yup.number().oneOf(
 );
 
 export const newBotNumberSchema = Yup.number().positive();
+
+export const newExchangeApiKeyStringSchema = Yup.string().required(
+  "API Key is required"
+);
+export const newExchangeSecretKeyStringSchema = Yup.string().required(
+  "Secret Key is required"
+);
+export const newExchangeLabelKeyStringSchema = Yup.string().required(
+  "Account label is required"
+);
