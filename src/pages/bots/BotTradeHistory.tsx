@@ -56,8 +56,11 @@ const BotTradeHistory = () => {
   const [loading, setLoading] = useState(true);
   const [showFilters, setShowFilters] = useState(false);
 
-  const [closeDate, setCloseDate] = useState<Date | null>(null);
-  const [creationDate, setCreationDate] = useState<Date | null>(null);
+  const [closeDate, setCloseDate] = useState<(Date | null)[]>([null, null]);
+  const [creationDate, setCreationDate] = useState<(Date | null)[]>([
+    null,
+    null,
+  ]);
   const [page, setPage] = useState(0);
 
   const getHistory = useCallback(async () => {
@@ -70,8 +73,14 @@ const BotTradeHistory = () => {
         `${apiEndPoints.getBotHistory(
           botId as string
         )}?page=${page}&creationDate=${
-          getDateString(creationDate) || null
-        }&closeDate=${getDateString(closeDate) || null}`
+          creationDate[0] && creationDate[1]
+            ? [getDateString(creationDate[0]), getDateString(creationDate[1])]
+            : [null, null]
+        }&closeDate=${
+          closeDate[0] && closeDate[1]
+            ? [getDateString(closeDate[0]), getDateString(closeDate[1])]
+            : [null, null]
+        }`
       );
 
       const { data, ...paginateData } = response.data;
@@ -201,7 +210,10 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                        <TableTradePrice entryPrice={h.entryPrice} exitPrice={h.exitPrice} />
+                      <TableTradePrice
+                        entryPrice={h.entryPrice}
+                        exitPrice={h.exitPrice}
+                      />
                     </TableCell>
                     <TableCell>
                       {h.netProfit.indexOf("-") === -1 ? (
@@ -273,7 +285,9 @@ const BotTradeHistory = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5}>There is no history available</TableCell>
+                  <TableCell colSpan={5}>
+                    There is no history available
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>
