@@ -17,7 +17,6 @@ import {
   newBotAccess,
   newBotLeverage,
   newBotLeverageType,
-  newBotStartegy,
 } from "../../shared/consts/botCreateItems";
 import Button from "../../components/formElements/Button";
 import Modal from "../../components/shared/Modal";
@@ -34,43 +33,22 @@ import ComboBox, {
   AutocompleteOption,
 } from "../../components/formElements/ComboBox";
 import {
-  newBotAccessSchema,
-  newBotLeverageSchema,
-  newBotLeverageTypeSchema,
   newBotNumberSchema,
-  newBotStrategySchema,
   stringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
 import { INewBotInterface } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
+import { Form, Formik } from "formik";
 
 const validations = validationSchema({
   name: stringSchema,
-  exchangeId: stringSchema,
-  access: newBotAccessSchema,
-  marginType: newBotLeverageTypeSchema,
-  leverageValue: newBotLeverageSchema,
-  maxAmountForBotUsage: newBotNumberSchema,
-  minAmountForBotUsage: newBotNumberSchema,
-  monthlyPrice: newBotNumberSchema,
-  orderStrategy: newBotStrategySchema,
-  pair: newBotNumberSchema,
-  yearlyPrice: newBotNumberSchema,
+  investment: newBotNumberSchema,
 });
 
-const initialValues: INewBotInterface = {
+const initialValues: { name: string; investment: number } = {
   name: "",
-  exchangeId: "",
-  pair: "",
-  orderStrategy: "LONG",
-  access: "PRIVATE",
-  marginType: "CROSSED",
-  leverageValue: 1,
-  minAmountForBotUsage: 1000,
-  maxAmountForBotUsage: 5000,
-  monthlyPrice: 30,
-  yearlyPrice: 24,
+  investment: 5000,
 };
 
 enum PropertyNameList {
@@ -125,8 +103,8 @@ const NewBot = () => {
     return { value: pair.value, label: pair.text };
   });
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleSubmit = async (values: { name: string; investment: number }) => {
+    console.log(values);
     setShowModal(true);
   };
 
@@ -157,243 +135,171 @@ const NewBot = () => {
           </Grid>
         ) : (
           <Grid item xs={12} md={6} lg={8} xl={5}>
-            {/* <Formik
-          initialValues={initialValues}
-          validationSchema={validations}
-          onSubmit={(values, { setSubmitting }) => {
-            handleSubmit(values);
-            setSubmitting(false);
-          }}
-        >
-          {({ values, handleChange, errors, touched }) => (
-            <Form noValidate> */}
-            <form noValidate onSubmit={handleSubmit}>
-              <Fieldset legend="Main Setting">
-                <FieldsetElement
-                  label="Name"
-                  description="Please give this bot a unique name so reporting and management is easier."
-                >
-                  <TextField
-                    name="name"
-                    type="text"
-                    startIcon={<IconTripleOctagons />}
-                    value={formData.name}
-                    onChange={(e) => {
-                      setFormData({ ...formData, name: e.target.value });
-                    }}
-                    required
-                    sx={{ mb: 2 }}
-                  />
-                </FieldsetElement>
-                <FieldsetElement
-                  label="Exchange"
-                  description="This is the exchange account the bot will use for any deals it creates."
-                >
-                  <ComboBox
-                    label={"Exchange"}
-                    sx={{ width: "100%" }}
-                    options={comboExchangeList}
-                    onChange={(e, val) => {
-                      setFormData({
-                        ...formData,
-                        exchangeId: val ? (val.value as string) : "",
-                      });
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validations}
+              onSubmit={(values, { setSubmitting }) => {
+                handleSubmit(values);
+                setSubmitting(false);
+              }}
+            >
+              {({ values, handleChange, errors, touched }) => (
+                <Form noValidate>
+                  <Fieldset legend="Main Setting">
+                    <FieldsetElement
+                      label="Name"
+                      description="Please give this bot a unique name so reporting and management is easier."
+                    >
+                      <TextField
+                        name="name"
+                        type="text"
+                        startIcon={<IconTripleOctagons />}
+                        value={values.name}
+                        onChange={handleChange}
+                        required
+                        error={Boolean(errors.name && touched.name)}
+                        helperText={errors.name && touched.name && errors.name}
+                        sx={{ mb: 2 }}
+                      />
+                    </FieldsetElement>
+                    <FieldsetElement
+                      label="Exchange"
+                      description="This is the exchange account the bot will use for any deals it creates."
+                    >
+                      <ComboBox
+                        label={"Exchange"}
+                        sx={{ width: "100%" }}
+                        options={comboExchangeList}
+                        onChange={(e, val) => {
+                          setFormData({
+                            ...formData,
+                            exchangeId: val ? (val.value as string) : "",
+                          });
 
-                      setSelectedExchange((val && (val.value as string)) || "");
-                    }}
-                    value={
-                      exchangeList.find(
-                        (ex) => ex.exchangeId === formData.exchangeId
-                      ) || exchangeList[0]
-                    }
-                    id="exchangeId"
-                  />
-                </FieldsetElement>
-                <FieldsetElement
-                  label="Pair"
-                  description="Please select the Trading Pair this bot can use."
-                >
-                  <ComboBox
-                    label={"Pair"}
-                    sx={{ width: "100%" }}
-                    options={comboPairsList}
-                    onChange={(e, val) => {
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          pair: val ? (val.value as string) : "",
-                        },
-                      });
-                    }}
-                    value={
-                      comboPairsList.find(
-                        (pair) => pair.value === formData.configuration.pair
-                      ) || comboPairsList[0]
-                    }
-                    id="pair"
-                    disabled={!pairs.length}
-                  />
-                </FieldsetElement>
-              </Fieldset>
-              <Fieldset legend="Strategy">
-                <FieldsetElement
-                  label="Strategy"
-                  description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
-                >
-                  <ToggleButtonGroup
-                    options={newBotStartegy}
-                    value={formData.configuration.orderStrategy}
-                    id="orderStrategy"
-                    onChange={(e, v) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          orderStrategy: v,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-                <FieldsetElement
-                  label="Access"
-                  description="bot is for your personal use or want to make it public ?"
-                >
-                  <ToggleButtonGroup
-                    options={newBotAccess}
-                    value={formData.configuration.access}
-                    id="access"
-                    onChange={(e, v) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          access: v,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-                <FieldsetElement
-                  label="Leverage type"
-                  description="what is leverage type?"
-                >
-                  <ToggleButtonGroup
-                    options={newBotLeverageType}
-                    value={formData.configuration.marginType}
-                    id="marginType"
-                    onChange={(e, v) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          marginType: v,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-                <FieldsetElement
-                  label="Leverage custom value"
-                  description="what is leverage?"
-                >
-                  <ToggleButtonGroup
-                    options={newBotLeverage}
-                    value={formData.configuration.leverageValue}
-                    id="leverageValue"
-                    onChange={(e, v) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          leverageValue: v,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-              </Fieldset>
-              <Fieldset legend="Usage">
-                <FieldsetElement label="Min amount for bot usage">
-                  <TextField
-                    name="minAmountForBotUsage"
-                    type="number"
-                    endIcon={<IconDollar />}
-                    value={formData.configuration.minAmountForBotUsage}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          minAmountForBotUsage: e.currentTarget.value,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-                <FieldsetElement label="Max amount for bot usage">
-                  <TextField
-                    name="maxAmountForBotUsage"
-                    type="number"
-                    endIcon={<IconDollar />}
-                    value={formData.configuration.maxAmountForBotUsage}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          maxAmountForBotUsage: e.currentTarget.value,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-              </Fieldset>
-              <Fieldset legend="Price">
-                <FieldsetElement label="Monthly Bot Price">
-                  <TextField
-                    name="monthlyPrice"
-                    type="number"
-                    endIcon={<IconDollar />}
-                    value={formData.configuration.monthlyPrice}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          monthlyPrice: e.currentTarget.value,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-                <FieldsetElement label="Yearly Bot Price(Month)">
-                  <TextField
-                    name="yearlyPrice"
-                    type="number"
-                    endIcon={<IconDollar />}
-                    value={formData.configuration.yearlyPrice}
-                    onChange={(e) =>
-                      setFormData({
-                        ...formData,
-                        configuration: {
-                          ...formData.configuration,
-                          yearlyPrice: e.currentTarget.value,
-                        },
-                      })
-                    }
-                  />
-                </FieldsetElement>
-              </Fieldset>
+                          setSelectedExchange(
+                            (val && (val.value as string)) || ""
+                          );
+                        }}
+                        value={
+                          exchangeList.find(
+                            (ex) => ex.exchangeId === formData.exchangeId
+                          ) || exchangeList[0]
+                        }
+                        disableClearable={false}
+                        id="exchangeId"
+                      />
+                    </FieldsetElement>
+                    <FieldsetElement
+                      label="Pair"
+                      description="Please select the Trading Pair this bot can use."
+                    >
+                      <ComboBox
+                        label={"Pair"}
+                        sx={{ width: "100%" }}
+                        options={comboPairsList}
+                        onChange={(e, val) => {
+                          setFormData({
+                            ...formData,
+                            configuration: {
+                              ...formData.configuration,
+                              pair: val ? (val.value as string) : "",
+                            },
+                          });
+                        }}
+                        value={
+                          comboPairsList.find(
+                            (pair) => pair.value === formData.configuration.pair
+                          ) || comboPairsList[0]
+                        }
+                        id="pair"
+                        disabled={!pairs.length}
+                      />
+                    </FieldsetElement>
+                    <FieldsetElement
+                      label="Investment"
+                      description="This is the investment you are allocating from your exchange for this bot."
+                    >
+                      <TextField
+                        name="investment"
+                        type="number"
+                        startIcon={<IconDollar />}
+                        value={values.investment}
+                        onChange={handleChange}
+                        error={Boolean(errors.investment && touched.investment)}
+                        helperText={
+                          errors.investment &&
+                          touched.investment &&
+                          errors.investment
+                        }
+                      />
+                    </FieldsetElement>
+                  </Fieldset>
+                  <Fieldset legend="Strategy">
+                    <FieldsetElement
+                      label="Access"
+                      description="bot is for your personal use or want to make it public ?"
+                    >
+                      <ToggleButtonGroup
+                        options={newBotAccess}
+                        value={formData.configuration.access}
+                        id="access"
+                        onChange={(e, v) =>
+                          setFormData({
+                            ...formData,
+                            configuration: {
+                              ...formData.configuration,
+                              access: v,
+                            },
+                          })
+                        }
+                      />
+                    </FieldsetElement>
+                    <FieldsetElement
+                      label="Leverage type"
+                      description="what is leverage type?"
+                    >
+                      <ToggleButtonGroup
+                        options={newBotLeverageType}
+                        value={formData.configuration.marginType}
+                        id="marginType"
+                        onChange={(e, v) =>
+                          setFormData({
+                            ...formData,
+                            configuration: {
+                              ...formData.configuration,
+                              marginType: v,
+                            },
+                          })
+                        }
+                      />
+                    </FieldsetElement>
+                    <FieldsetElement
+                      label="Leverage custom value"
+                      description="what is leverage?"
+                    >
+                      <ToggleButtonGroup
+                        options={newBotLeverage}
+                        value={formData.configuration.leverageValue}
+                        id="leverageValue"
+                        onChange={(e, v) =>
+                          setFormData({
+                            ...formData,
+                            configuration: {
+                              ...formData.configuration,
+                              leverageValue: v,
+                            },
+                          })
+                        }
+                      />
+                    </FieldsetElement>
+                  </Fieldset>
 
-              <Button type="submit" variant="contained">
-                Save
-              </Button>
-            </form>
-            {/* </Form>
-          )}
-        </Formik> */}
+                  <Button type="submit" variant="contained">
+                    Save
+                  </Button>
+                </Form>
+              )}
+            </Formik>
           </Grid>
         )}
       </Grid>

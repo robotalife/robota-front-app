@@ -58,12 +58,9 @@ export interface INewBotInterface {
   access: "PUBLIC" | "PRIVATE";
   marginType: "CROSSED" | "ISOLATED";
   leverageValue: number;
-  maxAmountForBotUsage: number;
-  minAmountForBotUsage: number;
-  monthlyPrice: number;
   orderStrategy: "SHORT" | "LONG";
   pair: string;
-  yearlyPrice: number;
+  investment: number;
 }
 
 export interface ITradingViewTokens {

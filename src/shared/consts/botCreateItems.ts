@@ -1,14 +1,3 @@
-export const newBotStartegy = [
-  {
-    value: "LONG",
-    label: "Long",
-  },
-  {
-    value: "SHORT",
-    label: "Short",
-  },
-];
-
 export const newBotAccess = [
   {
     value: "PRIVATE",

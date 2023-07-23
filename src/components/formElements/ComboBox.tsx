@@ -8,6 +8,7 @@ import classes from "./ComboBox.module.scss";
 export interface AutocompleteOption {
   label: string;
   value: string | null | undefined;
+  disableClearable?: boolean;
 }
 
 interface Props

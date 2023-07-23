@@ -1,4 +1,3 @@
-import { newBotStartegy } from "./botCreateItems";
 import * as Yup from "yup";
 
 export const validationSchema = (schema: any) => Yup.object().shape(schema);
@@ -49,7 +48,9 @@ export const newBotLeverageSchema = Yup.number().oneOf(
   "Please select one of the options"
 );
 
-export const newBotNumberSchema = Yup.number().positive();
+export const newBotNumberSchema = Yup.number()
+  .positive()
+  .required("The investment amount is required");
 
 export const newExchangeApiKeyStringSchema = Yup.string().required(
   "API Key is required"
