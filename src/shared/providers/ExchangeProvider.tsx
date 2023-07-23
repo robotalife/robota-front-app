@@ -37,6 +37,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
 
   const getList = async () => {
     if (!userId) return;
+    setLoading(true);
     try {
       const response: AxiosResponse<
         { exchanges: IExchangeListResponseObj[] },
@@ -57,25 +58,20 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         })
       );
 
-      // if (
-      //   !exchanges.length &&
-      //   window.location.pathname !== routes.exchangeNew
-      // ) {
-      //   window.location.href = routes.exchangeNew;
-      // }
-
-      const tmpSelected =
-        exchanges.find((ex) => ex.default)?.exchangeId ||
-        exchanges[0]?.exchangeId;
-      setSelectedExchange(tmpSelected as string);
+      if (!!exchanges.length) {
+        const tmpSelected =
+          exchangeList.find((ex) => ex.default)?.exchangeId ||
+          exchanges[0].exchangeId;
+        setSelectedExchange(tmpSelected as string);
+        getPairs(tmpSelected as string);
+      }
     } catch (error) {
       // Handle error
-    } finally {
-      setLoading(false);
     }
   };
 
   const getPairs = async (exchangeId: string) => {
+    setLoading(true);
     try {
       const response: AxiosResponse<
         {
@@ -88,6 +84,8 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
       setPairs(symbols);
     } catch (error) {
       // Handle error
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -100,10 +98,10 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
         getPairs(exId);
       }
     }
-  }, [exchangeList]);
+  }, [selectedExchange, exchangeList]);
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && !exchangeList.length) {
       getList();
     }
   }, [isAuthenticated]);
