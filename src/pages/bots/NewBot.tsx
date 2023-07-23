@@ -1,4 +1,4 @@
-import { FormEvent, useContext, useEffect, useMemo, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
@@ -14,9 +14,9 @@ import {
 } from "../../shared/icons/Icons";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
 import {
-  newBotAccess,
   newBotLeverage,
   newBotLeverageType,
+  newBotStartegy,
 } from "../../shared/consts/botCreateItems";
 import Button from "../../components/formElements/Button";
 import Modal from "../../components/shared/Modal";
@@ -37,9 +37,9 @@ import {
   stringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
-import { INewBotInterface } from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
 import { Form, Formik } from "formik";
+import { IPair } from "../../shared/interfaces/exchange";
 
 const validations = validationSchema({
   name: stringSchema,
@@ -55,12 +55,9 @@ enum PropertyNameList {
   access = "Access",
   marginType = "Leverage type",
   leverageValue = "Leverage custom value",
-  maxAmountForBotUsage = "Max amount for bot usage",
-  minAmountForBotUsage = "Min amount for bot usage",
-  monthlyPrice = "Monthly Bot Price ",
   orderStrategy = "Strategy",
   pair = "Pair",
-  yearlyPrice = "Yearly Bot Price ( Month )",
+  investment = "Investment",
 }
 
 const NewBot = () => {
@@ -72,24 +69,10 @@ const NewBot = () => {
     selectedExchange,
     setSelectedExchange,
     pairs,
+    selectedPair,
+    setSelectedPair,
     loading,
   } = useContext(ExchangeContext);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    exchangeId: selectedExchange,
-    configuration: {
-      access: "PRIVATE",
-      marginType: "ISOLATED",
-      leverageValue: 1,
-      maxAmountForBotUsage: "",
-      minAmountForBotUsage: "",
-      monthlyPrice: "",
-      orderStrategy: "SHORT",
-      pair: "",
-      yearlyPrice: "",
-    },
-  });
 
   const [showModal, setShowModal] = useState(false);
 
@@ -103,8 +86,27 @@ const NewBot = () => {
     return { value: pair.value, label: pair.text };
   });
 
+  const [formData, setFormData] = useState({
+    name: "",
+    exchangeId: selectedExchange,
+    configuration: {
+      marginType: "ISOLATED",
+      leverageValue: 1,
+      orderStrategy: "SHORT",
+      pair: selectedPair?.value || "",
+      investment: "",
+    },
+  });
+
   const handleSubmit = async (values: { name: string; investment: number }) => {
-    console.log(values);
+    setFormData({
+      ...formData,
+      name: values.name,
+      configuration: {
+        ...formData.configuration,
+        investment: values.investment.toString(),
+      },
+    });
     setShowModal(true);
   };
 
@@ -125,6 +127,16 @@ const NewBot = () => {
   useEffect(() => {
     setFormData({ ...formData, exchangeId: selectedExchange });
   }, [selectedExchange, setFormData]);
+
+  useEffect(() => {
+    setFormData({
+      ...formData,
+      configuration: {
+        ...formData.configuration,
+        pair: selectedPair?.value || "",
+      },
+    });
+  }, [selectedPair, setFormData]);
 
   return (
     <>
@@ -198,19 +210,18 @@ const NewBot = () => {
                         sx={{ width: "100%" }}
                         options={comboPairsList}
                         onChange={(e, val) => {
-                          setFormData({
-                            ...formData,
-                            configuration: {
-                              ...formData.configuration,
-                              pair: val ? (val.value as string) : "",
-                            },
-                          });
+                          setSelectedPair(
+                            !!val
+                              ? (pairs.find(
+                                  (p) => p.value === val.value
+                                ) as IPair)
+                              : null
+                          );
                         }}
-                        value={
-                          comboPairsList.find(
-                            (pair) => pair.value === formData.configuration.pair
-                          ) || comboPairsList[0]
-                        }
+                        value={{
+                          value: selectedPair?.value,
+                          label: selectedPair?.text || "",
+                        }}
                         id="pair"
                         disabled={!pairs.length}
                       />
@@ -236,19 +247,19 @@ const NewBot = () => {
                   </Fieldset>
                   <Fieldset legend="Strategy">
                     <FieldsetElement
-                      label="Access"
-                      description="bot is for your personal use or want to make it public ?"
+                      label="Strategy"
+                      description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
                     >
                       <ToggleButtonGroup
-                        options={newBotAccess}
-                        value={formData.configuration.access}
-                        id="access"
+                        options={newBotStartegy}
+                        value={formData.configuration.orderStrategy}
+                        id="orderStrategy"
                         onChange={(e, v) =>
                           setFormData({
                             ...formData,
                             configuration: {
                               ...formData.configuration,
-                              access: v,
+                              orderStrategy: v,
                             },
                           })
                         }

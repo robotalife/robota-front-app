@@ -52,17 +52,6 @@ export interface IBotHistoryObj {
   exitPrice: string;
 }
 
-export interface INewBotInterface {
-  name: string;
-  exchangeId: string;
-  access: "PUBLIC" | "PRIVATE";
-  marginType: "CROSSED" | "ISOLATED";
-  leverageValue: number;
-  orderStrategy: "SHORT" | "LONG";
-  pair: string;
-  investment: number;
-}
-
 export interface ITradingViewTokens {
   startCommand: string;
   stopCommand: string;
