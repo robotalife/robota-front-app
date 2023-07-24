@@ -33,7 +33,9 @@ import ComboBox, {
   AutocompleteOption,
 } from "../../components/formElements/ComboBox";
 import {
+  exchangeComboBoxSchema,
   newBotNumberSchema,
+  pairComboBoxSchema,
   stringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
@@ -44,11 +46,20 @@ import { IPair } from "../../shared/interfaces/exchange";
 const validations = validationSchema({
   name: stringSchema,
   investment: newBotNumberSchema,
+  exchange: exchangeComboBoxSchema,
+  pair: pairComboBoxSchema,
 });
 
-const initialValues: { name: string; investment: number } = {
+const initialValues: {
+  name: string;
+  investment: number;
+  exchange: string;
+  pair: string;
+} = {
   name: "",
   investment: 5000,
+  exchange: "",
+  pair: "",
 };
 
 enum PropertyNameList {
@@ -155,7 +166,7 @@ const NewBot = () => {
                 setSubmitting(false);
               }}
             >
-              {({ values, handleChange, errors, touched }) => (
+              {({ values, handleChange, errors, touched, setFieldValue }) => (
                 <Form noValidate>
                   <Fieldset legend="Main Setting">
                     <FieldsetElement
@@ -187,18 +198,28 @@ const NewBot = () => {
                             ...formData,
                             exchangeId: val ? (val.value as string) : "",
                           });
-
                           setSelectedExchange(
                             (val && (val.value as string)) || ""
                           );
+                          setFieldValue("exchange", val?.value || "", true);
                         }}
                         value={
-                          exchangeList.find(
-                            (ex) => ex.exchangeId === formData.exchangeId
-                          ) || exchangeList[0]
+                          values.exchange
+                            ? exchangeList.find(
+                                (ex) => ex.exchangeId === values.exchange
+                              )
+                            : null
                         }
                         disableClearable={false}
-                        id="exchangeId"
+                        id="exchange"
+                        // error={Boolean(errors.name && touched.name)}
+                        messageType="error"
+                        message={
+                          (errors.exchange &&
+                            touched.exchange &&
+                            errors.exchange) ||
+                          undefined
+                        }
                       />
                     </FieldsetElement>
                     <FieldsetElement
@@ -217,13 +238,22 @@ const NewBot = () => {
                                 ) as IPair)
                               : null
                           );
+                          setFieldValue("pair", val?.value || "", true);
                         }}
-                        value={{
-                          value: selectedPair?.value,
-                          label: selectedPair?.text || "",
-                        }}
+                        value={
+                          values.pair
+                            ? comboPairsList.find(
+                                (ex) => ex.value === values.pair
+                              )
+                            : null
+                        }
                         id="pair"
                         disabled={!pairs.length}
+                        messageType="error"
+                        message={
+                          (errors.pair && touched.pair && errors.pair) ||
+                          undefined
+                        }
                       />
                     </FieldsetElement>
                     <FieldsetElement

@@ -28,6 +28,13 @@ export const agreeCheckbox = Yup.boolean().oneOf(
 
 export const stringSchema = Yup.string().required("This field is required");
 
+export const exchangeComboBoxSchema = Yup.string().required(
+  "The Exchange field is required"
+);
+export const pairComboBoxSchema = Yup.string().required(
+  "The Pair field is required"
+);
+
 export const newBotStrategySchema = Yup.string().oneOf(
   ["LONG", "SHORT"],
   "Please select one of the options"
