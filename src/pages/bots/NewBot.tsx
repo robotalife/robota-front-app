@@ -39,7 +39,6 @@ import {
   stringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
-import Loader from "../../components/shared/Loader";
 import { Form, Formik } from "formik";
 import { IPair } from "../../shared/interfaces/exchange";
 
@@ -52,12 +51,12 @@ const validations = validationSchema({
 
 const initialValues: {
   name: string;
-  investment: number;
+  investment: number | undefined;
   exchange: string;
   pair: string;
 } = {
   name: "",
-  investment: 5000,
+  investment: undefined,
   exchange: "",
   pair: "",
 };
@@ -152,197 +151,191 @@ const NewBot = () => {
   return (
     <>
       <Grid container>
-        {loading ? (
-          <Grid item xs={12} md>
-            <Loader />
-          </Grid>
-        ) : (
-          <Grid item xs={12} md={6} lg={8} xl={5}>
-            <Formik
-              initialValues={initialValues}
-              validationSchema={validations}
-              onSubmit={(values, { setSubmitting }) => {
-                handleSubmit(values);
-                setSubmitting(false);
-              }}
-            >
-              {({ values, handleChange, errors, touched, setFieldValue }) => (
-                <Form noValidate>
-                  <Fieldset legend="Main Setting">
-                    <FieldsetElement
-                      label="Name"
-                      description="Please give this bot a unique name so reporting and management is easier."
-                    >
-                      <TextField
-                        name="name"
-                        type="text"
-                        startIcon={<IconTripleOctagons />}
-                        value={values.name}
-                        onChange={handleChange}
-                        required
-                        error={Boolean(errors.name && touched.name)}
-                        helperText={errors.name && touched.name && errors.name}
-                        sx={{ mb: 2 }}
-                      />
-                    </FieldsetElement>
-                    <FieldsetElement
-                      label="Exchange"
-                      description="This is the exchange account the bot will use for any deals it creates."
-                    >
-                      <ComboBox
-                        label={"Exchange"}
-                        sx={{ width: "100%" }}
-                        options={comboExchangeList}
-                        onChange={(e, val) => {
-                          setFormData({
-                            ...formData,
-                            exchangeId: val ? (val.value as string) : "",
-                          });
-                          setSelectedExchange(
-                            (val && (val.value as string)) || ""
-                          );
-                          setFieldValue("exchange", val?.value || "", true);
-                        }}
-                        value={
-                          values.exchange
-                            ? exchangeList.find(
-                                (ex) => ex.exchangeId === values.exchange
-                              )
+        <Grid item xs={12} md={6} lg={8} xl={5}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validations}
+            onSubmit={(values, { setSubmitting }) => {
+              handleSubmit(values);
+              setSubmitting(false);
+            }}
+          >
+            {({ values, handleChange, errors, touched, setFieldValue }) => (
+              <Form noValidate>
+                <Fieldset legend="Main Setting">
+                  <FieldsetElement
+                    label="Name"
+                    description="Please give this bot a unique name so reporting and management is easier."
+                  >
+                    <TextField
+                      name="name"
+                      type="text"
+                      startIcon={<IconTripleOctagons />}
+                      value={values.name}
+                      onChange={handleChange}
+                      required
+                      error={Boolean(errors.name && touched.name)}
+                      helperText={errors.name && touched.name && errors.name}
+                      sx={{ mb: 2 }}
+                    />
+                  </FieldsetElement>
+                  <FieldsetElement
+                    label="Exchange"
+                    description="This is the exchange account the bot will use for any deals it creates."
+                  >
+                    <ComboBox
+                      label={"Exchange"}
+                      sx={{ width: "100%" }}
+                      options={comboExchangeList}
+                      onChange={(e, val) => {
+                        setFormData({
+                          ...formData,
+                          exchangeId: val ? (val.value as string) : "",
+                        });
+                        setSelectedExchange(
+                          (val && (val.value as string)) || ""
+                        );
+                        setFieldValue("exchange", val?.value || "", true);
+                      }}
+                      value={
+                        values.exchange
+                          ? exchangeList.find(
+                              (ex) => ex.exchangeId === values.exchange
+                            )
+                          : null
+                      }
+                      disableClearable={false}
+                      id="exchange"
+                      // error={Boolean(errors.name && touched.name)}
+                      messageType="error"
+                      message={
+                        (errors.exchange &&
+                          touched.exchange &&
+                          errors.exchange) ||
+                        undefined
+                      }
+                    />
+                  </FieldsetElement>
+                  <FieldsetElement
+                    label="Pair"
+                    description="Please select the Trading Pair this bot can use."
+                  >
+                    <ComboBox
+                      label={"Pair"}
+                      sx={{ width: "100%" }}
+                      options={comboPairsList}
+                      onChange={(e, val) => {
+                        setSelectedPair(
+                          !!val
+                            ? (pairs.find(
+                                (p) => p.value === val.value
+                              ) as IPair)
                             : null
-                        }
-                        disableClearable={false}
-                        id="exchange"
-                        // error={Boolean(errors.name && touched.name)}
-                        messageType="error"
-                        message={
-                          (errors.exchange &&
-                            touched.exchange &&
-                            errors.exchange) ||
-                          undefined
-                        }
-                      />
-                    </FieldsetElement>
-                    <FieldsetElement
-                      label="Pair"
-                      description="Please select the Trading Pair this bot can use."
-                    >
-                      <ComboBox
-                        label={"Pair"}
-                        sx={{ width: "100%" }}
-                        options={comboPairsList}
-                        onChange={(e, val) => {
-                          setSelectedPair(
-                            !!val
-                              ? (pairs.find(
-                                  (p) => p.value === val.value
-                                ) as IPair)
-                              : null
-                          );
-                          setFieldValue("pair", val?.value || "", true);
-                        }}
-                        value={
-                          values.pair
-                            ? comboPairsList.find(
-                                (ex) => ex.value === values.pair
-                              )
-                            : null
-                        }
-                        id="pair"
-                        disabled={!values.exchange || !pairs.length}
-                        messageType="error"
-                        message={
-                          (errors.pair && touched.pair && errors.pair) ||
-                          undefined
-                        }
-                      />
-                    </FieldsetElement>
-                    <FieldsetElement
-                      label="Investment"
-                      description="This is the investment you are allocating from your exchange for this bot."
-                    >
-                      <TextField
-                        name="investment"
-                        type="number"
-                        startIcon={<IconDollar />}
-                        value={values.investment}
-                        onChange={handleChange}
-                        error={Boolean(errors.investment && touched.investment)}
-                        helperText={
-                          errors.investment &&
-                          touched.investment &&
-                          errors.investment
-                        }
-                      />
-                    </FieldsetElement>
-                  </Fieldset>
-                  <Fieldset legend="Strategy">
-                    <FieldsetElement
-                      label="Strategy"
-                      description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
-                    >
-                      <ToggleButtonGroup
-                        options={newBotStartegy}
-                        value={formData.configuration.orderStrategy}
-                        id="orderStrategy"
-                        onChange={(e, v) =>
-                          setFormData({
-                            ...formData,
-                            configuration: {
-                              ...formData.configuration,
-                              orderStrategy: v,
-                            },
-                          })
-                        }
-                      />
-                    </FieldsetElement>
-                    <FieldsetElement
-                      label="Leverage type"
-                      description="what is leverage type?"
-                    >
-                      <ToggleButtonGroup
-                        options={newBotLeverageType}
-                        value={formData.configuration.marginType}
-                        id="marginType"
-                        onChange={(e, v) =>
-                          setFormData({
-                            ...formData,
-                            configuration: {
-                              ...formData.configuration,
-                              marginType: v,
-                            },
-                          })
-                        }
-                      />
-                    </FieldsetElement>
-                    <FieldsetElement
-                      label="Leverage custom value"
-                      description="what is leverage?"
-                    >
-                      <ToggleButtonGroup
-                        options={newBotLeverage}
-                        value={formData.configuration.leverageValue}
-                        id="leverageValue"
-                        onChange={(e, v) =>
-                          setFormData({
-                            ...formData,
-                            configuration: {
-                              ...formData.configuration,
-                              leverageValue: v,
-                            },
-                          })
-                        }
-                      />
-                    </FieldsetElement>
-                  </Fieldset>
+                        );
+                        setFieldValue("pair", val?.value || "", true);
+                      }}
+                      value={
+                        values.pair
+                          ? comboPairsList.find(
+                              (ex) => ex.value === values.pair
+                            )
+                          : null
+                      }
+                      id="pair"
+                      disabled={!values.exchange || !pairs.length}
+                      messageType="error"
+                      message={
+                        (errors.pair && touched.pair && errors.pair) ||
+                        undefined
+                      }
+                    />
+                  </FieldsetElement>
+                  <FieldsetElement
+                    label="Investment"
+                    description="This is the investment you are allocating from your exchange for this bot."
+                  >
+                    <TextField
+                      name="investment"
+                      type="number"
+                      startIcon={<IconDollar />}
+                      value={values.investment}
+                      onChange={handleChange}
+                      error={Boolean(errors.investment && touched.investment)}
+                      helperText={
+                        errors.investment &&
+                        touched.investment &&
+                        errors.investment
+                      }
+                    />
+                  </FieldsetElement>
+                </Fieldset>
+                <Fieldset legend="Strategy">
+                  <FieldsetElement
+                    label="Strategy"
+                    description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
+                  >
+                    <ToggleButtonGroup
+                      options={newBotStartegy}
+                      value={formData.configuration.orderStrategy}
+                      id="orderStrategy"
+                      onChange={(e, v) =>
+                        setFormData({
+                          ...formData,
+                          configuration: {
+                            ...formData.configuration,
+                            orderStrategy: v,
+                          },
+                        })
+                      }
+                    />
+                  </FieldsetElement>
+                  <FieldsetElement
+                    label="Leverage type"
+                    description="what is leverage type?"
+                  >
+                    <ToggleButtonGroup
+                      options={newBotLeverageType}
+                      value={formData.configuration.marginType}
+                      id="marginType"
+                      onChange={(e, v) =>
+                        setFormData({
+                          ...formData,
+                          configuration: {
+                            ...formData.configuration,
+                            marginType: v,
+                          },
+                        })
+                      }
+                    />
+                  </FieldsetElement>
+                  <FieldsetElement
+                    label="Leverage custom value"
+                    description="what is leverage?"
+                  >
+                    <ToggleButtonGroup
+                      options={newBotLeverage}
+                      value={formData.configuration.leverageValue}
+                      id="leverageValue"
+                      onChange={(e, v) =>
+                        setFormData({
+                          ...formData,
+                          configuration: {
+                            ...formData.configuration,
+                            leverageValue: v,
+                          },
+                        })
+                      }
+                    />
+                  </FieldsetElement>
+                </Fieldset>
 
-                  <Button type="submit" variant="contained">
-                    Save
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-          </Grid>
-        )}
+                <Button type="submit" variant="contained">
+                  Save
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Grid>
       </Grid>
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <>
@@ -379,10 +372,24 @@ const NewBot = () => {
                     {(PropertyNameList as { [key: string]: string })[config]}
                   </TableCell>
                   <TableCell>
-                    {
-                      // @ts-ignore
-                      formData.configuration[config]
-                    }
+                    {(PropertyNameList as { [key: string]: string })[config] ===
+                    "Pair" ? (
+                      <>
+                        {
+                          comboPairsList.find(
+                            // @ts-ignore
+                            (x) => x.value === formData.configuration[config]
+                          )?.label
+                        }
+                      </>
+                    ) : (
+                      <>
+                        {
+                          // @ts-ignore
+                          formData.configuration[config]
+                        }
+                      </>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
