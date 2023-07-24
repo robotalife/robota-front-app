@@ -156,6 +156,7 @@ const NewBot = () => {
             initialValues={initialValues}
             validationSchema={validations}
             onSubmit={(values, { setSubmitting }) => {
+              // @ts-ignore
               handleSubmit(values);
               setSubmitting(false);
             }}
