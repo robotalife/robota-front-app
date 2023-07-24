@@ -248,7 +248,7 @@ const NewBot = () => {
                             : null
                         }
                         id="pair"
-                        disabled={!pairs.length}
+                        disabled={!values.exchange || !pairs.length}
                         messageType="error"
                         message={
                           (errors.pair && touched.pair && errors.pair) ||
