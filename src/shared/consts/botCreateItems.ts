@@ -9,7 +9,7 @@ export const newBotStartegy = [
   },
 ];
 
-export const newBotLeverageType = [
+export const newBotMarginType = [
   {
     value: "CROSSED",
     label: "Cross",
@@ -40,6 +40,14 @@ export const newBotLeverage = [
   {
     value: 10,
     label: "10x",
+  },
+  {
+    value: 15,
+    label: "15x",
+  },
+  {
+    value: 20,
+    label: "20x",
   },
   {
     value: 25,

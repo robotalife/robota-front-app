@@ -15,7 +15,7 @@ import {
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
 import {
   newBotLeverage,
-  newBotLeverageType,
+  newBotMarginType,
   newBotStartegy,
 } from "../../shared/consts/botCreateItems";
 import Button from "../../components/formElements/Button";
@@ -291,11 +291,11 @@ const NewBot = () => {
                     />
                   </FieldsetElement>
                   <FieldsetElement
-                    label="Leverage type"
-                    description="what is leverage type?"
+                    label="Margin type"
+                    description="Choose leverage type"
                   >
                     <ToggleButtonGroup
-                      options={newBotLeverageType}
+                      options={newBotMarginType}
                       value={formData.configuration.marginType}
                       id="marginType"
                       onChange={(e, v) =>
@@ -311,7 +311,7 @@ const NewBot = () => {
                   </FieldsetElement>
                   <FieldsetElement
                     label="Leverage custom value"
-                    description="what is leverage?"
+                    description="Choose leverage value"
                   >
                     <ToggleButtonGroup
                       options={newBotLeverage}
