@@ -38,7 +38,7 @@ const InnerStoreLayout = () => {
         <Link to={routes.botsNew}>
           <IconVrHeadset />
         </Link>
-        <Link to={routes.myBots}>Bot Store</Link>
+        <Link to={routes.store}>Bot Store</Link>
         <Typography component={"span"}>{pageTitle}</Typography>
       </LayoutBreadcrumbs>
       <PageTitle title={pageTitle}>

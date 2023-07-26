@@ -162,7 +162,6 @@ const NewExchange = () => {
                     type="text"
                     value={values.apiKey}
                     onChange={handleChange}
-                    placeholder="Example : John Smitt - Binance account"
                     required
                     error={Boolean(errors.apiKey && touched.apiKey)}
                     helperText={
@@ -176,7 +175,6 @@ const NewExchange = () => {
                     type="text"
                     value={values.apiSecret}
                     onChange={handleChange}
-                    placeholder="Example : John Smitt - Binance account"
                     required
                     error={Boolean(errors.apiSecret && touched.apiSecret)}
                     helperText={
