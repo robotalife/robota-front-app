@@ -7,4 +7,12 @@
       //   padding: 10.5px 14px;
     }
   }
+
+  &.error {
+    :global {
+      .MuiInputBase-root {
+        border: 1px solid $error-500;
+      }
+    }
+  }
 }

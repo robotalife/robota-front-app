@@ -39,7 +39,7 @@ const ComboBox = ({
       label={label}
       message={message}
       messageType={messageType}
-      className={classes.wrapper}
+      className={`${classes.wrapper} ${!!message && classes.error}`}
     >
       <Autocomplete
         options={options}
