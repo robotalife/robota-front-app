@@ -8,6 +8,7 @@ import BotFilters from "../../components/shared/BotFilter";
 import Button from "../../components/formElements/Button";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import EmptyList from "../../components/shared/EmptyList";
 
 const Bots = () => {
   const navigate = useNavigate();
@@ -38,7 +39,9 @@ const Bots = () => {
               </Grid>
             ))
           ) : (
-            <Grid item>There is no bots for you</Grid>
+            <Grid item xs={12}>
+              <EmptyList />
+            </Grid>
           )}
         </Grid>
       )}

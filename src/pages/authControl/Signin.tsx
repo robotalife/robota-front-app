@@ -52,7 +52,7 @@ const Signin = () => {
       setIsAuthenticated(true);
       setUserId(id);
 
-      navigate(returnTo || routes.botsNew);
+      navigate(returnTo || routes.myBots);
     } catch (error) {
       // Handle error
     }
@@ -106,7 +106,7 @@ const Signin = () => {
             Sign In
           </Button>
           <Typography sx={{ textAlign: "center" }} className="pageDescription">
-            <Link to={routes.signup}>Create  account</Link>
+            <Link to={routes.signup}>Create account</Link>
           </Typography>
         </Form>
       )}

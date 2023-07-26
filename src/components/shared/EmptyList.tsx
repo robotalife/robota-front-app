@@ -7,11 +7,33 @@ import bgDesktop from "../../assets/images/empty-list-desktop.svg";
 import bgMobile from "../../assets/images/empty-list-mobile.svg";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
+import { useMemo } from "react";
 
 const currentPage = window.location.pathname;
 
 const EmptyList = () => {
   const navigate = useNavigate();
+  const pathname = window.location.pathname;
+
+  const navigateTo = useMemo(() => {
+    switch (pathname) {
+      case routes.myBots:
+        return {
+          route: routes.botsNew,
+          text: "bot",
+        };
+
+      case routes.exchangeList:
+        return {
+          route: routes.exchangeNew,
+          text: "exchange",
+        };
+
+      default:
+        null;
+        break;
+    }
+  }, [pathname]) as { route: string; text: string } | null;
 
   return (
     <div className={classes.container}>
@@ -21,18 +43,20 @@ const EmptyList = () => {
         No exchanges found.
       </Typography>
       <Typography component="p" className={classes.description}>
-        Get started by adding an exchange.
+        Get started by adding an {navigateTo?.text}.
       </Typography>
-      <Button
-        color="primary"
-        variant="contained"
-        onClick={() =>
-          navigate(`${routes.exchangeNew}?returnTo=${currentPage}`)
-        }
-      >
-        <IconAdd style={{ marginRight: 10 }} />
-        Add exchange
-      </Button>
+      {navigateTo && (
+        <Button
+          color="primary"
+          variant="contained"
+          onClick={() => {
+            navigate(`${navigateTo?.route}?returnTo=${currentPage}`);
+          }}
+        >
+          <IconAdd style={{ marginRight: 10 }} />
+          Add {navigateTo.text}
+        </Button>
+      )}
     </div>
   );
 };

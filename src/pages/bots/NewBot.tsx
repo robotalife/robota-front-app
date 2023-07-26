@@ -188,6 +188,7 @@ const NewBot = () => {
                       label={"Exchange"}
                       sx={{ width: "100%" }}
                       options={comboExchangeList}
+                      placeholder="Select an account"
                       onChange={(e, val) => {
                         setFormData({
                           ...formData,
@@ -224,6 +225,7 @@ const NewBot = () => {
                     <ComboBox
                       label={"Pair"}
                       sx={{ width: "100%" }}
+                      placeholder="Select a pair"
                       options={comboPairsList}
                       onChange={(e, val) => {
                         setSelectedPair(
@@ -258,7 +260,7 @@ const NewBot = () => {
                     <TextField
                       name="investment"
                       type="number"
-                      startIcon={<IconDollar />}
+                      startIcon={<>USD</>}
                       value={values.investment}
                       onChange={handleChange}
                       error={Boolean(errors.investment && touched.investment)}
