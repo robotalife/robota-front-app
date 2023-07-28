@@ -8,6 +8,7 @@ import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
 import {
+  IconBinance,
   IconCircle,
   IconExchangePlaceholder,
   IconModalSave,
@@ -89,7 +90,11 @@ const NewBot = () => {
 
   const comboExchangeList: AutocompleteOption[] = useMemo(() => {
     return exchangeList.map((exchange) => {
-      return { label: exchange.label, value: exchange.value };
+      return {
+        label: exchange.label,
+        value: exchange.value,
+        icon: <IconBinance style={{ width: 20, height: 20 }} />,
+      };
     });
   }, [exchangeList]);
 
@@ -203,8 +208,8 @@ const NewBot = () => {
                       }}
                       value={
                         values.exchange
-                          ? exchangeList.find(
-                              (ex) => ex.exchangeId === values.exchange
+                          ? comboExchangeList.find(
+                              (ex) => ex.value === values.exchange
                             )
                           : null
                       }

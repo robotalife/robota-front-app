@@ -58,24 +58,19 @@ const ComboBox = ({
               placeholder={placeholder}
               InputProps={{
                 ...otherInputProps,
-                startAdornment:
-                  !!placeholderIcon && !props?.value
-                    ? placeholderIcon
-                    : !!props?.value?.icon && (
-                        <InputAdornment position="start">
-                          {props?.value?.icon}
-                        </InputAdornment>
-                      ),
+                startAdornment: !props?.value
+                  ? placeholderIcon
+                  : props?.value?.icon,
               }}
               {...params}
             />
           );
         }}
         renderOption={(params, option) => (
-          <Grid container component="li" {...params} rowSpacing={1}>
+          <Grid container component="li" {...params} columnSpacing={1}>
             {option.icon && (
               <Grid item xs={"auto"}>
-                {option.icon}
+                <div className={classes.icon}>{option.icon}</div>
               </Grid>
             )}
             <Grid item xs>
