@@ -1,8 +1,8 @@
 import {
   Autocomplete,
   AutocompleteProps,
-  Box,
   Grid,
+  InputAdornment,
   TextField,
 } from "@mui/material";
 import { Message } from "../../shared/interfaces/message";
@@ -49,9 +49,23 @@ const ComboBox = ({
     >
       <Autocomplete
         options={options}
-        renderInput={(params) => (
-          <TextField {...params} placeholder={placeholder} />
-        )}
+        renderInput={({ InputProps, ...params }) => {
+          const { startAdornment, ...otherInputProps } = InputProps;
+          return (
+            <TextField
+              placeholder={placeholder}
+              InputProps={{
+                ...otherInputProps,
+                startAdornment: !!props?.value?.icon && (
+                  <InputAdornment position="start">
+                    {props?.value?.icon}
+                  </InputAdornment>
+                ),
+              }}
+              {...params}
+            />
+          );
+        }}
         renderOption={(params, option) => (
           <Grid container component="li" {...params} rowSpacing={1}>
             {option.icon && (
