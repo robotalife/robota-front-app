@@ -6,6 +6,11 @@
       padding-top: 3px;
       //   padding: 10.5px 14px;
     }
+
+    ::placeholder {
+      color: $gray-900;
+      opacity: 1;
+    }
   }
 
   &.error {

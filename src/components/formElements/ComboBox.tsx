@@ -27,6 +27,7 @@ interface Props
   label?: string;
   message?: string;
   messageType?: Message;
+  placeholderIcon?: JSX.Element;
 }
 
 const ComboBox = ({
@@ -35,6 +36,7 @@ const ComboBox = ({
   messageType,
   options,
   placeholder,
+  placeholderIcon,
   ...props
 }: Props) => {
   const tmpId = useId();
@@ -56,11 +58,14 @@ const ComboBox = ({
               placeholder={placeholder}
               InputProps={{
                 ...otherInputProps,
-                startAdornment: !!props?.value?.icon && (
-                  <InputAdornment position="start">
-                    {props?.value?.icon}
-                  </InputAdornment>
-                ),
+                startAdornment:
+                  !!placeholderIcon && !props?.value
+                    ? placeholderIcon
+                    : !!props?.value?.icon && (
+                        <InputAdornment position="start">
+                          {props?.value?.icon}
+                        </InputAdornment>
+                      ),
               }}
               {...params}
             />

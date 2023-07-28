@@ -8,9 +8,10 @@ import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
 import {
-  IconDollar,
+  IconCircle,
+  IconExchangePlaceholder,
   IconModalSave,
-  IconTripleOctagons,
+  IconOctagon,
 } from "../../shared/icons/Icons";
 import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
 import {
@@ -171,7 +172,7 @@ const NewBot = () => {
                     <TextField
                       name="name"
                       type="text"
-                      startIcon={<IconTripleOctagons />}
+                      startIcon={<IconOctagon />}
                       value={values.name}
                       onChange={handleChange}
                       required
@@ -189,6 +190,7 @@ const NewBot = () => {
                       sx={{ width: "100%" }}
                       options={comboExchangeList}
                       placeholder="Select an account"
+                      placeholderIcon={<IconExchangePlaceholder />}
                       onChange={(e, val) => {
                         setFormData({
                           ...formData,
@@ -225,6 +227,7 @@ const NewBot = () => {
                       label={"Pair"}
                       sx={{ width: "100%" }}
                       placeholder="Select a pair"
+                      placeholderIcon={<IconCircle />}
                       options={comboPairsList}
                       onChange={(e, val) => {
                         setSelectedPair(
