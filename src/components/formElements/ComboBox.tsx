@@ -1,4 +1,10 @@
-import { Autocomplete, AutocompleteProps, TextField } from "@mui/material";
+import {
+  Autocomplete,
+  AutocompleteProps,
+  Box,
+  Grid,
+  TextField,
+} from "@mui/material";
 import { Message } from "../../shared/interfaces/message";
 import InputWrapper from "./InputWrapper";
 import { useId } from "react";
@@ -9,7 +15,7 @@ import { IconChevronDown } from "../../shared/icons/Icons";
 export interface AutocompleteOption {
   label: string;
   value: string | null | undefined;
-  disableClearable?: boolean;
+  icon?: JSX.Element;
 }
 
 interface Props
@@ -45,6 +51,18 @@ const ComboBox = ({
         options={options}
         renderInput={(params) => (
           <TextField {...params} placeholder={placeholder} />
+        )}
+        renderOption={(params, option) => (
+          <Grid container component="li" {...params} rowSpacing={1}>
+            {option.icon && (
+              <Grid item xs={"auto"}>
+                {option.icon}
+              </Grid>
+            )}
+            <Grid item xs>
+              {option.label}
+            </Grid>
+          </Grid>
         )}
         popupIcon={<IconChevronDown />}
         {...props}

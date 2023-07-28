@@ -206,7 +206,6 @@ const NewBot = () => {
                             )
                           : null
                       }
-                      disableClearable={false}
                       id="exchange"
                       // error={Boolean(errors.name && touched.name)}
                       messageType="error"
