@@ -83,7 +83,6 @@ const NewBot = () => {
     pairs,
     selectedPair,
     setSelectedPair,
-    loading,
   } = useContext(ExchangeContext);
 
   const [showModal, setShowModal] = useState(false);
@@ -99,7 +98,16 @@ const NewBot = () => {
   }, [exchangeList]);
 
   const comboPairsList: AutocompleteOption[] = pairs.map((pair) => {
-    return { value: pair.value, label: pair.text };
+    return {
+      value: pair.value,
+      label: pair.text,
+      icon: (
+        <img
+          src={pair.iconUrl}
+          style={{ height: 20, width: 20, objectFit: "contain" }}
+        />
+      ),
+    };
   });
 
   const [formData, setFormData] = useState({

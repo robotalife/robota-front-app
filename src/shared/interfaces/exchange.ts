@@ -14,6 +14,7 @@ export interface IPair {
   text: string;
   base: string;
   quote: string;
+  iconUrl: string;
   symbolFilter: {
     lotSizeFilter: {
       minQty: string;
