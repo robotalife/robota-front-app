@@ -10,7 +10,7 @@ import apiEndPoints from "../../shared/consts/apiEndpoints";
 import useNotify from "../../shared/hooks/useNotify";
 import CustomRadioButtonsGroup from "../../components/formElements/CustomRadioButtonsGroup";
 import ExchangeRadioContent from "../../components/pageSpecific/ExchangeRadioContent";
-import { IconBinance } from "../../shared/icons/Icons";
+import { IconBinance, IconKucoin } from "../../shared/icons/Icons";
 import useReturnTo from "../../shared/hooks/useReturnTo";
 import { useNavigate } from "react-router-dom";
 import routes from "../../shared/consts/routes";
@@ -18,6 +18,7 @@ import ViewArticle from "../../components/pageSpecific/ViewArticle";
 import {
   newExchangeApiKeyStringSchema,
   newExchangeLabelKeyStringSchema,
+  newExchangePassPhraseStringSchema,
   newExchangeSecretKeyStringSchema,
   validationSchema,
 } from "../../shared/consts/validations";
@@ -27,6 +28,10 @@ interface INewExchangeFormData {
   exchangeName: string;
   apiKey: string;
   apiSecret: string;
+}
+
+interface INewExchangeFormDataWithPass extends INewExchangeFormData {
+  passPhrase: string;
 }
 
 const items = [
@@ -42,30 +47,30 @@ const items = [
     ),
     value: "BINANCE_FUTURES",
   },
-  // {
-  //   label: (
-  //     <ExchangeRadioContent
-  //       title="Binance"
-  //       icon={<IconBinance />}
-  //       info="New to Binance?"
-  //       linkText="Learn how to create an API key on Binance"
-  //       linkHref="/"
-  //     />
-  //   ),
-  //   value: "BINANCE",
-  // },
-  // {
-  //   label: (
-  //     <ExchangeRadioContent
-  //       title="Kucoin"
-  //       icon={<IconKucoin />}
-  //       info="New to Kucoin?"
-  //       linkText="Learn how to create an API key on Kucoin"
-  //       linkHref="/"
-  //     />
-  //   ),
-  //   value: "KUCOIN",
-  // },
+  {
+    label: (
+      <ExchangeRadioContent
+        title="Binance"
+        icon={<IconBinance />}
+        info="New to Binance?"
+        linkText="Learn how to create an API key on Binance"
+        linkHref="/"
+      />
+    ),
+    value: "BINANCE",
+  },
+  {
+    label: (
+      <ExchangeRadioContent
+        title="Kucoin"
+        icon={<IconKucoin />}
+        info="New to Kucoin?"
+        linkText="Learn how to create an API key on Kucoin"
+        linkHref="/"
+      />
+    ),
+    value: "KUCOIN",
+  },
 ];
 
 const validations = validationSchema({
@@ -74,10 +79,24 @@ const validations = validationSchema({
   exchangeName: newExchangeLabelKeyStringSchema,
 });
 
+const validationsWithPass = validationSchema({
+  apiKey: newExchangeApiKeyStringSchema,
+  apiSecret: newExchangeSecretKeyStringSchema,
+  exchangeName: newExchangeLabelKeyStringSchema,
+  passPhrase: newExchangePassPhraseStringSchema,
+});
+
 const initialValues: INewExchangeFormData = {
   apiKey: "",
   apiSecret: "",
   exchangeName: "",
+};
+
+const initialValuesWithPass: INewExchangeFormDataWithPass = {
+  apiKey: "",
+  apiSecret: "",
+  exchangeName: "",
+  passPhrase: "",
 };
 
 const NewExchange = () => {
@@ -89,17 +108,21 @@ const NewExchange = () => {
 
   const constFormData = {
     userId,
-    exchangeType: "BINANCE_FUTURES",
     passPhrase: null,
   };
 
-  const handleSubmit = async (values: INewExchangeFormData) => {
+  const [exchangeType, setExchangeType] = useState<string>("BINANCE_FUTURES");
+
+  const handleSubmit = async (
+    values: INewExchangeFormData | INewExchangeFormDataWithPass
+  ) => {
     try {
       const response: AxiosResponse<any, any> = await axios.post(
         apiEndPoints.exchange,
         {
           ...constFormData,
           ...values,
+          exchangeType,
         }
       );
 
@@ -121,8 +144,12 @@ const NewExchange = () => {
 
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={validations}
+      initialValues={
+        exchangeType === "KUCOIN" ? initialValues : initialValuesWithPass
+      }
+      validationSchema={
+        exchangeType === "KUCOIN" ? validationsWithPass : validations
+      }
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
         setSubmitting(false);
@@ -137,7 +164,11 @@ const NewExchange = () => {
                   <CustomRadioButtonsGroup
                     items={items}
                     name="exchangeType"
-                    value={constFormData.exchangeType}
+                    value={exchangeType}
+                    onChange={(e) => {
+                      setExchangeType(e.target.value as string);
+                      console.log(e.target.value);
+                    }}
                   />
                 </FieldsetElement>
                 <FieldsetElement label="Account Label">
@@ -182,31 +213,34 @@ const NewExchange = () => {
                     }
                   />
                 </FieldsetElement>
-                {constFormData.exchangeType === "KUCOIN" && (
+                {exchangeType === "KUCOIN" && (
                   <FieldsetElement label="Passphrase">
                     <TextField
-                      name="apiSecret"
+                      name="passPhrase"
                       type="text"
+                      //@ts-ignore
+                      value={values.passPhrase}
+                      onChange={handleChange}
                       required
-                      // onChange={(e) =>
-                      //   setFormData({
-                      //     ...formData,
-                      //     passPhrase: e.target.value,
-                      //   })
-                      // }
+                      //@ts-ignore
+                      error={Boolean(errors.passPhrase && touched.passPhrase)}
+                      helperText={
+                        //@ts-ignore
+                        errors.passPhrase &&
+                        //@ts-ignore
+                        touched.passPhrase &&
+                        //@ts-ignore
+                        errors.passPhrase
+                      }
                     />
                   </FieldsetElement>
                 )}
               </Grid>
               <Grid item xs={12} lg={6}>
                 <ViewArticle
-                  exchange={
-                    constFormData.exchangeType === "KUCOIN"
-                      ? "Kucoin"
-                      : "Binance"
-                  }
+                  exchange={exchangeType === "KUCOIN" ? "Kucoin" : "Binance"}
                   link={
-                    constFormData.exchangeType === "KUCOIN"
+                    exchangeType === "KUCOIN"
                       ? "/"
                       : "https://www.binance.com/en-BH/support/faq/how-to-create-api-360002502072"
                   }

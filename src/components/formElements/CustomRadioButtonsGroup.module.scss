@@ -1,5 +1,12 @@
 .groupWrapper {
   width: 100%;
+
+  :global {
+    .MuiFormControlLabel-root {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 .itemWrapper {

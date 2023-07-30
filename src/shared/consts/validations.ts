@@ -68,3 +68,6 @@ export const newExchangeSecretKeyStringSchema = Yup.string().required(
 export const newExchangeLabelKeyStringSchema = Yup.string().required(
   "Account label is required"
 );
+export const newExchangePassPhraseStringSchema = Yup.string().required(
+  "Pass phrase is required"
+);
