@@ -24,13 +24,13 @@ import {
 } from "../../shared/consts/validations";
 import { Form, Formik } from "formik";
 
-interface INewExchangeFormData {
+export interface INewExchangeFormData {
   exchangeName: string;
   apiKey: string;
   apiSecret: string;
 }
 
-interface INewExchangeFormDataWithPass extends INewExchangeFormData {
+export interface INewExchangeFormDataWithPass extends INewExchangeFormData {
   passPhrase: string;
 }
 
