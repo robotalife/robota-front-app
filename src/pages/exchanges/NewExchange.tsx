@@ -52,8 +52,8 @@ const items = [
       <ExchangeRadioContent
         title="Binance"
         icon={<IconBinance />}
-        info="New to Binance?"
-        linkText="Learn how to create an API key on Binance"
+        info=""
+        linkText=""
         linkHref="/"
       />
     ),
@@ -64,8 +64,8 @@ const items = [
       <ExchangeRadioContent
         title="Kucoin"
         icon={<IconKucoin />}
-        info="New to Kucoin?"
-        linkText="Learn how to create an API key on Kucoin"
+        info=""
+        linkText=""
         linkHref="/"
       />
     ),
@@ -177,7 +177,6 @@ const NewExchange = () => {
                     type="text"
                     value={values.exchangeName}
                     onChange={handleChange}
-                    placeholder="Example : John Smitt - Binance account"
                     required
                     error={Boolean(errors.exchangeName && touched.exchangeName)}
                     helperText={
