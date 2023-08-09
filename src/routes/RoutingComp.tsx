@@ -33,6 +33,7 @@ import UpdateExchange from "../pages/exchanges/UpdateExchange";
 import TradeTerminal from "../pages/bots/TradeTerminal";
 import Store from "../pages/store/Store";
 import InnerStoreLayout from "../shared/layouts/InnerStoreLayout";
+import NewBotOverview from "../pages/bots/newBotOverview";
 
 const RoutingComp = () => {
   return (
@@ -111,7 +112,7 @@ const RoutingComp = () => {
             {/* bot overview */}
             <Route
               path={`${routes.botOverview}/:botId`}
-              element={<BotOverView />}
+              element={<NewBotOverview />}
             />
 
             {/* bot active trades */}
