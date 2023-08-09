@@ -55,6 +55,18 @@ const HeadBand = ({ isOpen }: { isOpen: boolean }) => {
         </div>
       </Grid>
       <Grid item xs={6} lg>
+        <Typography className={classes.title}>Leverage Value</Typography>
+        <div className={classes.item}>
+          <div>10X</div>
+        </div>
+      </Grid>
+      <Grid item xs={6} lg>
+        <Typography className={classes.title}>Margin Type</Typography>
+        <div className={classes.item}>
+          <div>Cross</div>
+        </div>
+      </Grid>
+      <Grid item xs={6} lg>
         <Typography className={classes.title}>Created by</Typography>
         <div className={classes.item}>
           <div>{botData.createdBy}</div>
