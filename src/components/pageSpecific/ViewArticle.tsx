@@ -1,7 +1,6 @@
 import { Grid, Paper, Typography } from "@mui/material";
 import styles from "./ViewArticle.module.scss";
 import Button from "../formElements/Button";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   exchange: string;
