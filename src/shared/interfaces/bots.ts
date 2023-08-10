@@ -111,6 +111,7 @@ export interface IMyBotsContext {
   loading: boolean;
   filters: IBotFilters;
   setFilters: (filters: IBotFilters) => void;
+  reloadBots: () => void;
 }
 
 export interface ISingleBotData {

@@ -42,6 +42,7 @@ export const MyBotsContext = createContext<IMyBotsContext>({
   loading: true,
   setFilters: (filters: IBotFilters) => {},
   filters: initialFilters,
+  reloadBots: () => {},
 });
 
 export const MyBotsProvider = ({ children }: PropsWithChildren) => {
@@ -61,7 +62,6 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
   });
 
   const [loading, setLoading] = useState(true);
-
   const loadMyBots = useCallback(async () => {
     setLoading(true);
     try {
@@ -80,6 +80,10 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
     }
   }, [setMyBotsList, setPaginateData, myBotsList, paginateData, filters]);
 
+  const reloadBots = useCallback(() => {
+    setFilters({ ...initialFilters, exchange: selectedExchange });
+  }, [setFilters, selectedExchange]);
+
   useEffect(() => {
     if (isAuthenticated) {
       loadMyBots();
@@ -93,6 +97,7 @@ export const MyBotsProvider = ({ children }: PropsWithChildren) => {
       loading,
       filters,
       setFilters,
+      reloadBots,
     } as IMyBotsContext;
   }, [myBotsList, paginateData, loading]);
 
