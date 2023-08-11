@@ -135,6 +135,7 @@ const NewBotOverview = () => {
                   onChange={(e) => {
                     handleDurationChange(e);
                   }}
+                  fullWidth
                 />
                 <Table className={classes.table}>
                   <TableBody>
