@@ -22,7 +22,7 @@ export const botTabs = (botId: string | number) => {
   return [
     {
       label: "Overview",
-      to: `${routes.botOverview}/${botId}`,
+      to: `${routes.botOverview}/${botId}/information`,
       pageTitle: "",
     },
     {
