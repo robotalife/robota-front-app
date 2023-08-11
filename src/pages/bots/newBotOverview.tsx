@@ -85,11 +85,11 @@ const NewBotOverview = () => {
     } finally {
       setLoading(false);
     }
-  }, [setOverview, setLoading, setActiveButton, setChartInput]);
+  }, [setOverview, setLoading, setActiveButton, setChartInput, duration]);
 
   useEffect(() => {
     getOverviewData();
-  }, [duration, getOverviewData]);
+  }, [getOverviewData]);
 
   useEffect(() => {
     //action for active button
