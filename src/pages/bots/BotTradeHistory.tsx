@@ -103,7 +103,6 @@ const BotTradeHistory = () => {
     link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(
       botId as string
     )}`;
-    console.log(link.href);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

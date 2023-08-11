@@ -10,10 +10,6 @@ import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 import { StoreBotsProvider } from "./shared/providers/StoreBotsProvider";
 
 function App() {
-  useEffect(() => {
-    console.log(appVersion);
-  }, []);
-
   return (
     <LocalizationProvider dateAdapter={AdapterMoment}>
       <SnackbarProvider>
