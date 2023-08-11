@@ -51,7 +51,6 @@ const NewBotOverview = () => {
   const [duration, setDuration] = useState<number>(durations[0].value);
   const [selectedChart, setSelectedChart] = useState<string>("ROI");
   const handleDurationChange = (e: any) => {
-    console.log(e.target.value);
     setDuration(Number(e.target.value));
   };
   const [activeButton, setActiveButton] = useState<"summary" | "day">(
@@ -64,7 +63,6 @@ const NewBotOverview = () => {
 
   const getOverviewData = useCallback(async () => {
     setLoading(true);
-    console.log("fetching with " + duration);
 
     try {
       const response: AxiosResponse<IBotOverview, any> = await axios.get(

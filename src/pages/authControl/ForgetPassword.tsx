@@ -21,7 +21,6 @@ const ForgetPassword = () => {
   const [userEmail, setUserEmail] = useState<string | undefined>();
 
   const handleSubmit = async (values: { email: string }) => {
-      console.log(values, "values")
     const userData = {
       email: values.email,
     };
@@ -36,7 +35,6 @@ const ForgetPassword = () => {
       > = await axios.post(apiEndPoints.resetInit, userData);
       setUserEmail(values.email);
       setIsSent(true);
-      console.log(values.email? values.email : "something")
     } catch (error) {
       // Handle error
     }
@@ -56,7 +54,9 @@ const ForgetPassword = () => {
           className={"pageDescription"}
           sx={{ marginTop: 2, textAlign: "center" }}
         >
-            We've sent a password reset link to <u>{userEmail? userEmail : "your email"}</u>. If you don't see it in your inbox, please check your spam folder.
+          We've sent a password reset link to{" "}
+          <u>{userEmail ? userEmail : "your email"}</u>. If you don't see it in
+          your inbox, please check your spam folder.
         </Typography>
       </>
     );
