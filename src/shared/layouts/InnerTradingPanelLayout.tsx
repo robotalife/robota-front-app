@@ -117,7 +117,7 @@ const InnerTradingPanelLayout = () => {
           </Grid>
         </Grid>
       </PageTitle>
-      <HeadBand isOpen={isOpen} />
+      {pageTitle !== "Overview" && <HeadBand isOpen={isOpen} />}
       <LinkBar links={botTabs(botId)} />
       <Outlet />
     </Container>
