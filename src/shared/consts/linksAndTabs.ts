@@ -90,3 +90,16 @@ export const exchangeTabs = [
   //   to: routes.exchangeInvoices,
   // },
 ];
+
+export const botOverviewTabs = (botId: string | number) => {
+  return [
+    {
+      label: "Information",
+      to: `${routes.botOverview}/${botId}/information`,
+    },
+    {
+      label: "Performance",
+      to: `${routes.botOverview}/${botId}/performance`,
+    },
+  ];
+};
