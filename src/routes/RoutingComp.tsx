@@ -111,7 +111,7 @@ const RoutingComp = () => {
           >
             {/* bot overview */}
             <Route
-              path={`${routes.botOverview}/:botId/:tab`}
+              path={`${routes.botOverview}/:botId`}
               element={<NewBotOverview />}
             />
 

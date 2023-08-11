@@ -22,7 +22,7 @@ export const botTabs = (botId: string | number) => {
   return [
     {
       label: "Overview",
-      to: `${routes.botOverview}/${botId}/information`,
+      to: `${routes.botOverview}/${botId}`,
       pageTitle: "",
     },
     {
@@ -90,16 +90,3 @@ export const exchangeTabs = [
   //   to: routes.exchangeInvoices,
   // },
 ];
-
-export const botOverviewTabs = (botId: string | number) => {
-  return [
-    {
-      label: "Information",
-      to: `${routes.botOverview}/${botId}/information`,
-    },
-    {
-      label: "Performance",
-      to: `${routes.botOverview}/${botId}/performance`,
-    },
-  ];
-};

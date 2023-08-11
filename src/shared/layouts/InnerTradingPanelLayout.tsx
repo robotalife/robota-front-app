@@ -30,6 +30,8 @@ const InnerTradingPanelLayout = () => {
   const pageTitle =
     botTabs(botId).find((link) => pathname === link.to)?.label || "";
 
+  console.log("botData", botId);
+
   const stopBot = useCallback(async () => {
     setLoading(true);
 
