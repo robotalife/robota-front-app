@@ -21,6 +21,7 @@ import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import TabBar, { TabBarItem } from "../../components/pageStructure/TabBar";
+import BotaDataTable from "../../components/pageStructure/BotaDataTable";
 
 const buttonStyle = {
   borderRadius: "6px !important",
@@ -103,16 +104,16 @@ const NewBotOverview = () => {
 
   const tabs: TabBarItem[] = [
     {
-      label: "Performance",
-      value: "performance",
-      action: () => setTab("performance"),
-      active: tab === "performance",
-    },
-    {
       label: "Information",
       value: "information",
       action: () => setTab("information"),
       active: tab === "information",
+    },
+    {
+      label: "Performance",
+      value: "performance",
+      action: () => setTab("performance"),
+      active: tab === "performance",
     },
   ];
 
@@ -125,94 +126,106 @@ const NewBotOverview = () => {
               <TabBar tabs={tabs} />
             </WrapperBoxHeader>
             <WrapperBoxSection>
-              <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
-                <ToggleButtonGroup
-                  options={durations}
-                  noIndicator
-                  id="durations"
-                  value={duration}
-                  onChange={(e) => {
-                    handleDurationChange(e);
-                  }}
-                  fullWidth
-                />
-                <Table className={classes.table}>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Asset Account</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>USDT 643</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>ROI</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>USDT 243</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Win Ratio</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>92.32 %</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>uPNL of active bot trades</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>$ 12</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>PnL Ratio</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>1:3.1</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Invested money on bot</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>USDT 400</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Funds locked in bot trades</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>USDT 540</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Total Transactions</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>325</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>No. of Winning Trades</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>27</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>No. of Winning Trades</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>27</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>No. of Losing Trades</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>219</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Average Profit</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>4.24</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Average Losses</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>-11.84</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Average Holding Time</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>3D 20H</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Average Holding Time</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>
-                        Leverage Median 20x
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Trading Frequency</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>41D</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Last Trading Time</TableCell>
-                      <TableCell sx={{ textAlign: "end" }}>
-                        2023-04-12 05:47
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </Grid>
+              {tab === "performance" ? (
+                <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
+                  <ToggleButtonGroup
+                    options={durations}
+                    noIndicator
+                    id="durations"
+                    value={duration}
+                    onChange={(e) => {
+                      handleDurationChange(e);
+                    }}
+                    fullWidth
+                  />
+                  <Table className={classes.table}>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Asset Account</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          USDT 643
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>ROI</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          USDT 243
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Win Ratio</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>92.32 %</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>uPNL of active bot trades</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>$ 12</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>PnL Ratio</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>1:3.1</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Invested money on bot</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          USDT 400
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Funds locked in bot trades</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          USDT 540
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Total Transactions</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>325</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>No. of Winning Trades</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>27</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>No. of Winning Trades</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>27</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>No. of Losing Trades</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>219</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Average Profit</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>4.24</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Average Losses</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>-11.84</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Average Holding Time</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>3D 20H</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Average Holding Time</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          Leverage Median 20x
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Trading Frequency</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>41D</TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Last Trading Time</TableCell>
+                        <TableCell sx={{ textAlign: "end" }}>
+                          2023-04-12 05:47
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Grid>
+              ) : (
+                <BotaDataTable />
+              )}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
