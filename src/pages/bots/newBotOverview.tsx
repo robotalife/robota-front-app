@@ -21,7 +21,7 @@ import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import LinkBar from "../../components/pageStructure/LinkBar";
-import { botOverviewTabs } from "../../shared/consts/linksAndTabs";
+import TabBar, { TabBarItem } from "../../components/pageStructure/TabBar";
 
 const buttonStyle = {
   borderRadius: "6px !important",
@@ -35,12 +35,15 @@ const activeButtonStyle = {
   backgroundColor: "#F9F5FF",
   color: "#6941C6",
 };
+
 const NewBotOverview = () => {
-  const { botId, tab } = useParams();
+  const { botId } = useParams();
   const [overview, setOverview] = useState<IBotOverview>({
     averageDailyProfit: "",
     averageWinRate: "",
   } as IBotOverview);
+
+  const [tab, setTab] = useState<"performance" | "information">("performance");
 
   const [loading, setLoading] = useState(false);
   const { axios } = useAxios();
@@ -99,13 +102,28 @@ const NewBotOverview = () => {
     );
   }, [activeButton, overview]);
 
+  const tabs: TabBarItem[] = [
+    {
+      label: "Performance",
+      value: "performance",
+      action: () => setTab("performance"),
+      active: tab === "performance",
+    },
+    {
+      label: "Information",
+      value: "information",
+      action: () => setTab("information"),
+      active: tab === "information",
+    },
+  ];
+
   return (
     <Container maxWidth="xl" sx={{ m: 0, padding: "0!important" }}>
       <Grid container spacing={4} sx={{ mb: 3 }}>
         <Grid item xs={12} lg={4}>
           <WrapperBox>
             <WrapperBoxHeader>
-              <LinkBar links={botOverviewTabs(botId as string)} />
+              <TabBar tabs={tabs} />
             </WrapperBoxHeader>
             <WrapperBoxSection>
               <Grid item xs={12} lg="auto" sx={{ mb: { xs: 2, lg: 0 } }}>
