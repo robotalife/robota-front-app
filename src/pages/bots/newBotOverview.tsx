@@ -20,7 +20,6 @@ import Select from "../../components/formElements/Select";
 import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import LinkBar from "../../components/pageStructure/LinkBar";
 import TabBar, { TabBarItem } from "../../components/pageStructure/TabBar";
 
 const buttonStyle = {
@@ -141,71 +140,75 @@ const NewBotOverview = () => {
                   <TableBody>
                     <TableRow>
                       <TableCell>Asset Account</TableCell>
-                      <TableCell>USDT 643</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>USDT 643</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>ROI</TableCell>
-                      <TableCell>USDT 243</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>USDT 243</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Win Ratio</TableCell>
-                      <TableCell>92.32 %</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>92.32 %</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>uPNL of active bot trades</TableCell>
-                      <TableCell>$ 12</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>$ 12</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>PnL Ratio</TableCell>
-                      <TableCell>1:3.1</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>1:3.1</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Invested money on bot</TableCell>
-                      <TableCell>USDT 400</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>USDT 400</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Funds locked in bot trades</TableCell>
-                      <TableCell>USDT 540</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>USDT 540</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Total Transactions</TableCell>
-                      <TableCell>325</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>325</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>No. of Winning Trades</TableCell>
-                      <TableCell>27</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>27</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>No. of Winning Trades</TableCell>
-                      <TableCell>27</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>27</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>No. of Losing Trades</TableCell>
-                      <TableCell>219</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>219</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Average Profit</TableCell>
-                      <TableCell>4.24</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>4.24</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Average Losses</TableCell>
-                      <TableCell>-11.84</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>-11.84</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Average Holding Time</TableCell>
-                      <TableCell>3D 20H</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>3D 20H</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Average Holding Time</TableCell>
-                      <TableCell>Leverage Median 20x</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>
+                        Leverage Median 20x
+                      </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Trading Frequency</TableCell>
-                      <TableCell>41D</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>41D</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Last Trading Time</TableCell>
-                      <TableCell>2023-04-12 05:47</TableCell>
+                      <TableCell sx={{ textAlign: "end" }}>
+                        2023-04-12 05:47
+                      </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
