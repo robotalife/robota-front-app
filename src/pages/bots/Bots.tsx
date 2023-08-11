@@ -28,7 +28,7 @@ const Bots = () => {
                 <BotCard data={bot} link={`${routes.botOverview}/${bot.id}`}>
                   <Button
                     onClick={() => {
-                      navigate(`${routes.botOverview}/${bot.id}`);
+                      navigate(`${routes.botOverview}/${bot.id}/information`);
                     }}
                     variant="outlined"
                     size="small"
