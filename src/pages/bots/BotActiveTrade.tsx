@@ -28,18 +28,19 @@ const BotActiveTrade = () => {
   const notify = useNotify();
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
+    const [activeTrades, setActiveTrades] = useState<IActiveTrade[] | undefined>();
   const [loading, setLoading] = useState(true);
 
-  const getActiveTrade = useCallback(async () => {
+    const getActiveTrades = useCallback(async () => {
     setLoading(true);
 
     try {
-      const response: AxiosResponse<IActiveTrade, any> = await axios.get(
-        apiEndPoints.getBotActiveTrade(botId as string)
+            const response: AxiosResponse<IActiveTrade[], any> = await axios.get(
+                apiEndPoints.getBotActiveTrades(botId as string)
       );
-      const trade = response.data || undefined;
-      setActiveTrade(trade);
+            const trades = response.data || undefined;
+            setActiveTrades(trades);
+            console.log(trades, "trades");
     } catch (error) {
       // Handle error
     } finally {
@@ -47,25 +48,23 @@ const BotActiveTrade = () => {
     }
   }, []);
 
-  const signal = useCallback(async (action: "START" | "STOP") => {
+    const closeTrade = useCallback(async (tradeId: string) => {
+        setLoading(true);
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
-        apiEndPoints.signal,
-        {
-          action: action,
-          botId: botId,
-        }
-      );
+            console.log(tradeId,"tradeId to close");
+            await axios.delete(apiEndPoints.closeTrade(tradeId));
+            notify("Trade closed successfully", "success");
+            getActiveTrades();
+        } catch (e) {
 
-      getActiveTrade();
-      notify(`Trade ${action}`, "info");
-    } catch (error) {
-      // Handle error
-    }
-  }, []);
+        } finally {
+            setLoading(false);
+        }
+
+    }, [activeTrades]);
 
   useEffect(() => {
-    getActiveTrade();
+        getActiveTrades();
   }, []);
 
   return (
@@ -91,65 +90,66 @@ const BotActiveTrade = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {activeTrade ? (
-                <TableRow>
+                            {Array.isArray(activeTrades) && activeTrades.length ? (
+                                activeTrades.map((h, i) => (
+                                    <TableRow key={`${h.id}_${i}`}>
                   <TableCell>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
                         <PairLogo
-                          src={activeTrade.logo}
-                          alt={activeTrade.pair}
+                                                        src={h.logo}
+                                                        alt={h.pair}
                         />
                       </Grid>
                       <Grid item>
                         <TableDateTime
-                          date={activeTrade.pair}
-                          time={activeTrade.botName}
+                                                        date={h.pair}
+                                                        time={h.botName}
                         />
                       </Grid>
                     </Grid>
                   </TableCell>
                   <TableCell>
-                    <TableStrategy strategy={activeTrade.strategy} />
+                                            <TableStrategy strategy={h.strategy}/>
                   </TableCell>
                   <TableCell>
-                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
+                                            <TableDateTime {...getDateTime(h.creationDate)} />
                   </TableCell>
                   <TableCell>
                     <TextBadge variation="primary">
                       <IconClock />
-                      {activeTrade.duration}
+                                                {h.duration}
                     </TextBadge>
                   </TableCell>
                   <TableCell>
-                    <TableTradePrice entryPrice={activeTrade.entryPrice} exitPrice={activeTrade.currentPrice}/>
+                                            <TableTradePrice entryPrice={h.entryPrice}
+                                                             exitPrice={h.currentPrice}/>
                     </TableCell>
                   <TableCell>
-                    {activeTrade.profit.indexOf("-") === -1 ? (
+                                            {h.profit.indexOf("-") === -1 ? (
                       <TextBadge variation="success">
-                        {activeTrade.profit}
+                                                    {h.profit}
                         <IconArrowUp />
                       </TextBadge>
                     ) : (
                       <TextBadge variation="error">
-                        {activeTrade.profit}
+                                                    {h.profit}
                         <IconArrowDown />
                       </TextBadge>
                     )}
                   </TableCell>
                   <TableCell>
-                    <IconButton onClick={() => signal("STOP")}>
+                                            <IconButton onClick={() => closeTrade(h.id)}>
                       <IconCloseCircle />
                     </IconButton>
-                    <Typography component={"span"}>Cancel Trade</Typography>
+                                            <Typography component={"span"}>Close trade</Typography>
                   </TableCell>
                 </TableRow>
+                                ))
               ) : (
                 <TableRow>
                   <TableCell colSpan={6}>
                     There is no active trade.
-                    {/* There is no active trade, start it now{" "}*/}
-                    {/*<button onClick={() => signal("START")}>start</button>*/}
                   </TableCell>
                 </TableRow>
               )}

@@ -9,6 +9,7 @@ export interface IEventLog {
 }
 
 export interface IActiveTrade {
+  id: string;
   botName: string;
   creationDate: string;
   duration: string;
