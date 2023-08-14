@@ -19,6 +19,7 @@ export interface IActiveTrade {
   strategy: "SHORT" | "LONG";
   entryPrice: string;
   currentPrice: string;
+  size: string;
 }
 
 export interface ILiveTrade {
@@ -125,7 +126,7 @@ export interface ISingleBotData {
   pair: string;
   price: string;
   strategy: "SHORT" | "LONG";
-  stopped: string;
+  stopped: boolean;
 }
 
 export interface IBotFilters {

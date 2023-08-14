@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import {Alert, Container, Grid, IconButton, Typography} from "@mui/material";
+import { Alert, Container, Grid } from "@mui/material";
 import ComboBox, {
   AutocompleteOption,
 } from "../../components/formElements/ComboBox";
@@ -239,6 +239,8 @@ const TradeTerminal = () => {
                       </Button>
                     </>
                   )}
+                </>
+              )}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
@@ -267,34 +269,34 @@ const TradeTerminal = () => {
             </TableHead>
             <TableBody>
               {Array.isArray(activeTrades) && activeTrades.length ? (
-                  activeTrades.map((h, i) => (
+                  activeTrades.map((activeTrade, i) => (
                       <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
                   <TableCell>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
                         <PairLogo
-                                  src={h.logo}
-                                  alt={h.pair}
+                          src={activeTrade.logo}
+                          alt={activeTrade.pair}
                         />
                       </Grid>
                       <Grid item>
                         <TableDateTime
-                                  date={h.pair}
-                                  time={h.botName}
+                          date={activeTrade.pair}
+                          time={activeTrade.botName}
                         />
                       </Grid>
                     </Grid>
                   </TableCell>
                   <TableCell>
-                          <TableStrategy strategy={h.strategy}/>
+                    <TableStrategy strategy={activeTrade.strategy} />
                   </TableCell>
                   <TableCell>
-                          <TableDateTime {...getDateTime(h.creationDate)} />
+                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
                   </TableCell>
                   <TableCell>
                     <TextBadge variation="primary">
                       <IconClock />
-                            {h.duration}
+                      {activeTrade.duration}
                     </TextBadge>
                   </TableCell>
                   <TableCell>
@@ -324,11 +326,7 @@ const TradeTerminal = () => {
                   ))
               ) : (
                 <TableRow>
-                    <TableCell colSpan={6}>
-                      There is no active trade.
-                      {/* There is no active trade, start it now{" "}*/}
-                      {/*<button onClick={() => signal("START")}>start</button>*/}
-                    </TableCell>
+                  <TableCell colSpan={6}>There is no active trade.</TableCell>
                 </TableRow>
               )}
             </TableBody>

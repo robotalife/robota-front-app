@@ -24,13 +24,15 @@ const apiEndPoints = {
   getBotHistory: (botId: string) => `/bots/${botId}/trades/history`,
   getBotActiveTrades: (botId: string) => `/bots/${botId}/trades/active`,
   getBotOverview: (botId: string) => `/bots/${botId}/overview?interval=`,
+    getBotOverview2: (botId: string) => `/bots/${botId}/overview2?interval=`,
+
   getOverViewChart: (botId: string) => `/bots/${botId}/overview/chart?interval=`,
   getBotTradesFile: (botId: string) => `/export/bots/${botId}/trades`,
   getStopBot: (botId: string) => `/bots/${botId}/stop`,
   getRestartBot: (botId: string) => `/bots/${botId}/restart`,
   signal: "/signal",
-  openTrade: "/trade",
-  closeTrade: (tradeId: string) => `/trade/${tradeId}`,
+    openTrade: "/trade",
+    closeTrade: (tradeId: string) => `/trade/${tradeId}`,
 
   //Portfolio
   balance: "/portfolio/balance?exchangeId=",
