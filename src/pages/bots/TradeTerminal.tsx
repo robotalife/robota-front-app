@@ -1,5 +1,5 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import { Alert, Container, Grid } from "@mui/material";
+import {Alert, Container, Grid, IconButton, Typography} from "@mui/material";
 import ComboBox, {
   AutocompleteOption,
 } from "../../components/formElements/ComboBox";
@@ -30,7 +30,7 @@ import TextBadge from "../../components/shared/TextBadge";
 import {
   IconArrowDown,
   IconArrowUp,
-  IconClock,
+  IconClock, IconCloseCircle,
 } from "../../shared/icons/Icons";
 import TableTradePrice from "../../components/shared/table/TableTradePrice";
 import useNotify from "../../shared/hooks/useNotify";
@@ -45,27 +45,70 @@ const TradeTerminal = () => {
   );
   const [widgetSymbol, setWidgetSymbol] = useState<string>("BINANCE:BTCUSDT.P");
   const [loading, setLoading] = useState(false);
-  const [activeTrade, setActiveTrade] = useState<IActiveTrade | undefined>();
+  const [activeTrades, setActiveTrades] = useState<IActiveTrade[] | undefined>();
   const { axios } = useAxios();
+  const [liveData, setLiveData] = useState<any[]>([]);
+  const [socket, setSocket] = useState<WebSocket | null>(null);
+  const [currentPrice, setCurrentPrice] = useState<number | undefined>();
+  const [pnl, setPnl] = useState<string | undefined>("N/A");
 
-  useEffect(() => {}, [selectedBot, activeTrade]);
+  useEffect(() => {
+    if (socket) {
+      console.log("socket already exists");
+      setLiveData([]);
+      socket.close();
+    }
+    if (!selectedBot) {
+      return;
+    }
+    let newSocket = new WebSocket("wss://fstream.binance.com/ws");
+
+    newSocket.onopen = () => {
+      const tradingPair = findBotByBotId(
+          selectedBot.value as string
+      )?.tradingPair;
+      newSocket.send(
+          JSON.stringify({
+            method: "SUBSCRIBE",
+            params: [`${(tradingPair as string).toLowerCase()}@markPrice@1s`],
+            id: 1,
+          })
+      );
+    };
+
+    newSocket.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data?.e === "markPriceUpdate") {
+        console.log("response from binance",data);
+        setCurrentPrice(data?.p);
+        //calculatePnl();
+      }
+    };
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.close();
+    };
+  }, [selectedBot, activeTrades,currentPrice]);
+
 
   const onBotChange = (bot: AutocompleteOption | null) => {
     setLoading(true);
     const botted = findBotByBotId(bot?.value as string);
     setWidgetSymbol(`BINANCE:${botted?.tradingPair}.P`);
-    getActiveTrade(bot?.value);
+    getActiveTrades(bot?.value);
     setSelectedBot(bot);
   };
 
-  const getActiveTrade = useCallback(
+  const getActiveTrades = useCallback(
     async (botId: string | undefined | null) => {
       try {
-        const response: AxiosResponse<IActiveTrade, any> = await axios.get(
-          apiEndPoints.getBotActiveTrade(botId as string)
+        const response: AxiosResponse<IActiveTrade[], any> = await axios.get(
+          apiEndPoints.getBotActiveTrades(botId as string)
         );
         const trade = response.data || undefined;
-        setActiveTrade(trade);
+        setActiveTrades(trade);
       } catch (error) {
         // Handle error
       } finally {
@@ -74,6 +117,17 @@ const TradeTerminal = () => {
     },
     []
   );
+
+  // const calculatePnl = () => {
+  //   if (!activeTrades || !currentPrice) {
+  //     return;
+  //   }
+  //   const entryPrice = Number(activeTrades.entryPrice.slice(2));
+  //   const quantity = Number(activeTrades.size);
+  //   const pnl =((((currentPrice  - entryPrice)  *quantity)/(entryPrice * quantity)) * 100).toFixed(2)
+  //   setPnl(pnl);
+  //
+  // }
 
   const botsCombo = botsList.map((bot) => ({
     label: bot.name,
@@ -97,12 +151,12 @@ const TradeTerminal = () => {
       setLoading(true);
 
       try {
-        await axios.post(apiEndPoints.signal, {
+        await axios.post(apiEndPoints.openTrade, {
           action: action,
-          botId: selectedBot?.value,
+          botId: selectedBot?.value
         });
 
-        getActiveTrade(selectedBot?.value);
+        getActiveTrades(selectedBot?.value);
         notify(`Trade ${action}`, "info");
       } catch (error) {
         // Handle error
@@ -159,39 +213,39 @@ const TradeTerminal = () => {
                     View bot overview
                   </Button>
                   <hr className={classes.lineBreak} />
-                  {activeTrade ? (
+                  {activeTrades ? (
                     <>
                       <Alert severity="info" sx={{ mb: 3, mt: 3 }}>
                         This bot already has an open trade.
                       </Alert>
-                      <Button
-                        color={"error"}
-                        variant={"contained"}
-                        size={"small"}
-                        fullWidth
-                        onClick={closePosition}
-                        disabled={loading}
-                      >
-                        Close trade at market price
-                      </Button>
+                      {/*<Button*/}
+                      {/*  color={"error"}*/}
+                      {/*  variant={"contained"}*/}
+                      {/*  size={"small"}*/}
+                      {/*  fullWidth*/}
+                      {/*  onClick={closePosition}*/}
+                      {/*  disabled={loading}*/}
+                      {/*>*/}
+                      {/*  Close trade at market price*/}
+                      {/*</Button>*/}
                     </>
                   ) : (
                     <>
                       <Alert severity="success" sx={{ mb: 3, mt: 3 }}>
                         This bot has no open trades.
                       </Alert>
-                      <Button
-                        color={"success"}
-                        variant={"contained"}
-                        size={"small"}
-                        fullWidth
-                        onClick={openPosition}
-                        disabled={loading}
-                      >
-                        Open Position at Market Price
-                      </Button>
                     </>
                   )}
+                  <Button
+                      color={"success"}
+                      variant={"contained"}
+                      size={"small"}
+                      fullWidth
+                      onClick={openPosition}
+                      disabled={loading}
+                  >
+                    Open Position at Market Price
+                  </Button>
                 </>
               )}
             </WrapperBoxSection>
@@ -217,64 +271,74 @@ const TradeTerminal = () => {
                 <TableCell>Creation Date</TableCell>
                 <TableCell>Duration</TableCell>
                 <TableCell>Entry Price / Current Price</TableCell>
-                <TableCell>% Unl Profit/Loss </TableCell>
+                {/*<TableCell>% Unl Profit/Loss </TableCell>*/}
               </TableRow>
             </TableHead>
             <TableBody>
-              {activeTrade ? (
-                <TableRow>
-                  <TableCell>
-                    <Grid container spacing={1} alignItems={"center"}>
-                      <Grid item>
-                        <PairLogo
-                          src={activeTrade.logo}
-                          alt={activeTrade.pair}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <TableDateTime
-                          date={activeTrade.pair}
-                          time={activeTrade.botName}
-                        />
-                      </Grid>
-                    </Grid>
-                  </TableCell>
-                  <TableCell>
-                    <TableStrategy strategy={activeTrade.strategy} />
-                  </TableCell>
-                  <TableCell>
-                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
-                  </TableCell>
-                  <TableCell>
-                    <TextBadge variation="primary">
-                      <IconClock />
-                      {activeTrade.duration}
-                    </TextBadge>
-                  </TableCell>
-                  <TableCell>
-                    <TableTradePrice
-                      entryPrice={activeTrade.entryPrice}
-                      exitPrice={activeTrade.currentPrice}
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {activeTrade.profit.indexOf("-") === -1 ? (
-                      <TextBadge variation="success">
-                        {activeTrade.profit}
-                        <IconArrowUp />
-                      </TextBadge>
-                    ) : (
-                      <TextBadge variation="error">
-                        {activeTrade.profit}
-                        <IconArrowDown />
-                      </TextBadge>
-                    )}
-                  </TableCell>
-                </TableRow>
+              {Array.isArray(activeTrades) && activeTrades.length ? (
+                  activeTrades.map((h, i) => (
+                      <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
+                        <TableCell>
+                          <Grid container spacing={1} alignItems={"center"}>
+                            <Grid item>
+                              <PairLogo
+                                  src={h.logo}
+                                  alt={h.pair}
+                              />
+                            </Grid>
+                            <Grid item>
+                              <TableDateTime
+                                  date={h.pair}
+                                  time={h.botName}
+                              />
+                            </Grid>
+                          </Grid>
+                        </TableCell>
+                        <TableCell>
+                          <TableStrategy strategy={h.strategy}/>
+                        </TableCell>
+                        <TableCell>
+                          <TableDateTime {...getDateTime(h.creationDate)} />
+                        </TableCell>
+                        <TableCell>
+                          <TextBadge variation="primary">
+                            <IconClock/>
+                            {h.duration}
+                          </TextBadge>
+                        </TableCell>
+                        <TableCell>
+                          <TableTradePrice entryPrice={h.entryPrice}
+                                           exitPrice={h.currentPrice}/>
+                        </TableCell>
+                        {/*<TableCell>*/}
+                        {/*  {h.profit.indexOf("-") === -1 ? (*/}
+                        {/*      <TextBadge variation="success">*/}
+                        {/*        {h.profit}*/}
+                        {/*        <IconArrowUp/>*/}
+                        {/*      </TextBadge>*/}
+                        {/*  ) : (*/}
+                        {/*      <TextBadge variation="error">*/}
+                        {/*        {h.profit}*/}
+                        {/*        <IconArrowDown/>*/}
+                        {/*      </TextBadge>*/}
+                        {/*  )}*/}
+                        {/*</TableCell>*/}
+                        {/*<TableCell>*/}
+                        {/*  <IconButton onClick={() => signal("STOP")}>*/}
+                        {/*    <IconCloseCircle/>*/}
+                        {/*  </IconButton>*/}
+                        {/*  <Typography component={"span"}>Cancel Trade</Typography>*/}
+                        {/*</TableCell>*/}
+                      </TableRow>
+                  ))
               ) : (
-                <TableRow>
-                  <TableCell colSpan={6}>There is no active trade.</TableCell>
-                </TableRow>
+                  <TableRow>
+                    <TableCell colSpan={6}>
+                      There is no active trade.
+                      {/* There is no active trade, start it now{" "}*/}
+                      {/*<button onClick={() => signal("START")}>start</button>*/}
+                    </TableCell>
+                  </TableRow>
               )}
             </TableBody>
           </Table>
