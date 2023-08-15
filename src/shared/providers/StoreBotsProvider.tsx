@@ -42,6 +42,7 @@ export const StoreBotsContext = createContext<IMyBotsContext>({
   loading: true,
   setFilters: (filters: IBotFilters) => {},
   filters: initialFilters,
+  reloadBots: () => {},
 });
 
 export const StoreBotsProvider = ({ children }: PropsWithChildren) => {
