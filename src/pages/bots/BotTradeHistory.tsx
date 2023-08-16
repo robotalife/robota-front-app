@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import useAxios from "../../shared/hooks/useAxios";
@@ -35,8 +35,12 @@ import HistoryFilters from "../../components/shared/HistoryFilters";
 import Button from "../../components/formElements/Button";
 import Pagination from "../../components/shared/Pagination";
 import getDateString from "../../shared/helpers/getDateString";
+import routes from "../../shared/consts/routes";
 
 const BotTradeHistory = () => {
+  const { pathname } = useLocation();
+  const isMyBot = pathname.includes(routes.botTradesHistory);
+
   const { botId } = useParams();
   const { axios } = useAxios();
   const [history, setHistory] = useState<IBotHistoryObj[]>(
@@ -171,11 +175,15 @@ const BotTradeHistory = () => {
                 <TableCell>End Date</TableCell>
                 <TableCell>Duration</TableCell>
                 <TableCell>Entry Price / Exit Price</TableCell>
-                <TableCell>$ Net Profit / Loss </TableCell>
+                {isMyBot && <TableCell>$ Net Profit / Loss </TableCell>}
                 <TableCell>% Profit / Loss </TableCell>
-                <TableCell>Volume</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Exchange</TableCell>
+                {isMyBot && (
+                  <>
+                    <TableCell>Volume</TableCell>
+                    <TableCell>Status</TableCell>
+                    <TableCell>Exchange</TableCell>
+                  </>
+                )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -215,19 +223,23 @@ const BotTradeHistory = () => {
                         exitPrice={h.exitPrice}
                       />
                     </TableCell>
-                    <TableCell>
-                      {h.netProfit.indexOf("-") === -1 ? (
-                        <TextBadge variation="success">
-                          {h.netProfit}
-                          <IconArrowUp />
-                        </TextBadge>
-                      ) : (
-                        <TextBadge variation="error">
-                          {h.netProfit}
-                          <IconArrowDown />
-                        </TextBadge>
-                      )}
-                    </TableCell>
+                    {isMyBot && (
+                      <>
+                        <TableCell>
+                          {h.netProfit.indexOf("-") === -1 ? (
+                            <TextBadge variation="success">
+                              {h.netProfit}
+                              <IconArrowUp />
+                            </TextBadge>
+                          ) : (
+                            <TextBadge variation="error">
+                              {h.netProfit}
+                              <IconArrowDown />
+                            </TextBadge>
+                          )}
+                        </TableCell>
+                      </>
+                    )}
                     <TableCell>
                       {h.profitPercentage.indexOf("-") === -1 ? (
                         <TextBadge variation="success">
@@ -241,46 +253,56 @@ const BotTradeHistory = () => {
                         </TextBadge>
                       )}
                     </TableCell>
-                    <TableCell>
-                      <Grid
-                        container
-                        spacing={1}
-                        alignItems={"center"}
-                        wrap="nowrap"
-                      >
-                        <Grid item xs={"auto"}>
-                          <div>
-                            <PairLogo
-                              src={h.baseLogo}
-                              alt={h.baseVolume}
-                              style={{ marginBottom: 8 }}
-                            />
-                          </div>
-                          <div>
-                            <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
-                          </div>
-                        </Grid>
-                        <Grid item xs>
-                          <Typography component={"div"} sx={{ mb: 1 }}>
-                            {h.baseVolume}
-                          </Typography>
-                          <Typography component={"div"}>
-                            {h.quoteVolume}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    </TableCell>
-                    <TableCell>
-                      {h.status && (
-                        <TextBadge variation="secondary">
-                          <IconClock />
-                          {h.status}
-                        </TextBadge>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <TableDateTime date={h.exchange} time={h.exchangeType} />
-                    </TableCell>
+                    {isMyBot && (
+                      <>
+                        <TableCell>
+                          <Grid
+                            container
+                            spacing={1}
+                            alignItems={"center"}
+                            wrap="nowrap"
+                          >
+                            <Grid item xs={"auto"}>
+                              <div>
+                                <PairLogo
+                                  src={h.baseLogo}
+                                  alt={h.baseVolume}
+                                  style={{ marginBottom: 8 }}
+                                />
+                              </div>
+                              <div>
+                                <PairLogo
+                                  src={h.quoteLogo}
+                                  alt={h.quoteVolume}
+                                />
+                              </div>
+                            </Grid>
+                            <Grid item xs>
+                              <Typography component={"div"} sx={{ mb: 1 }}>
+                                {h.baseVolume}
+                              </Typography>
+                              <Typography component={"div"}>
+                                {h.quoteVolume}
+                              </Typography>
+                            </Grid>
+                          </Grid>
+                        </TableCell>
+                        <TableCell>
+                          {h.status && (
+                            <TextBadge variation="secondary">
+                              <IconClock />
+                              {h.status}
+                            </TextBadge>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          <TableDateTime
+                            date={h.exchange}
+                            time={h.exchangeType}
+                          />
+                        </TableCell>
+                      </>
+                    )}
                   </TableRow>
                 ))
               ) : (
