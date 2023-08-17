@@ -2,7 +2,6 @@ import {
   Autocomplete,
   AutocompleteProps,
   Grid,
-  InputAdornment,
   TextField,
 } from "@mui/material";
 import { Message } from "../../shared/interfaces/message";

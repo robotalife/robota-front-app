@@ -1,21 +1,49 @@
-.input {
-  :global {
-    .MuiInputBase-root {
-      border: $gray-300;
-      border-radius: 8px;
-      box-shadow: $input-shadow;
+.wrapper {
+  &:hover {
+    :global {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: $gray-900;
+      }
     }
+  }
 
+  :global {
     .MuiInputBase-input {
       padding: 10.5px 14px;
     }
 
-    .MuiInputBase-inputAdornedStart {
-      padding-left: 0;
+    .MuiOutlinedInput-notchedOutline {
+      border-radius: 8px;
     }
+  }
+}
 
-    .MuiInputBase-inputAdornedEnd {
-      padding-right: 0;
+.innerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-shadow: $input-shadow;
+}
+
+.select {
+  :global {
+    .MuiInputBase-root,
+    .MuiOutlinedInput-notchedOutline {
+      border-right: 0;
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+  }
+}
+.input {
+  :global {
+    .MuiInputBase-root,
+    .MuiOutlinedInput-notchedOutline {
+      border-left: 0;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
     }
   }
 }

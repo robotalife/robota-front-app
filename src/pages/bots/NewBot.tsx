@@ -88,6 +88,8 @@ const NewBot = () => {
     setSelectedPair,
   } = useContext(ExchangeContext);
 
+  const [currency, setCurrency] = useState<string>("usdt");
+
   const [showModal, setShowModal] = useState(false);
 
   const comboExchangeList: AutocompleteOption[] = useMemo(() => {
@@ -115,15 +117,26 @@ const NewBot = () => {
 
   const investmentProps: DropdownTextFieldProps = {
     selectProps: {
-      children: (
-        <>
-          <MenuItem value={"usdt"}>USDT</MenuItem>
-          <MenuItem value={"usdc"}>USDC</MenuItem>
-          <MenuItem value={"bnb"}>BNB</MenuItem>
-        </>
-      ),
+      children: [
+        <MenuItem selected value={"usdt"} key={"usdt"}>
+          USDT
+        </MenuItem>,
+        <MenuItem value={"usdc"} key="usdc">
+          USDC
+        </MenuItem>,
+        <MenuItem value={"bnb"} key="bnb">
+          BNB
+        </MenuItem>,
+      ],
+      onChange: (e) => {
+        setCurrency(e.target.value as string);
+      },
+      value: currency,
     },
-    textFieldProps: {},
+    textFieldProps: {
+      type: "number",
+      onChange: (e) => console.log(e.target.value),
+    },
     message: "lorem ipsum dollor sum",
     messageType: "error",
   };
