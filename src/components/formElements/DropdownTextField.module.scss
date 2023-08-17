@@ -1,0 +1,21 @@
+.input {
+  :global {
+    .MuiInputBase-root {
+      border: $gray-300;
+      border-radius: 8px;
+      box-shadow: $input-shadow;
+    }
+
+    .MuiInputBase-input {
+      padding: 10.5px 14px;
+    }
+
+    .MuiInputBase-inputAdornedStart {
+      padding-left: 0;
+    }
+
+    .MuiInputBase-inputAdornedEnd {
+      padding-right: 0;
+    }
+  }
+}
