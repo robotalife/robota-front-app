@@ -3,7 +3,7 @@ import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { Grid, Typography } from "@mui/material";
+import { Grid, MenuItem, Typography } from "@mui/material";
 import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
@@ -43,6 +43,9 @@ import {
 } from "../../shared/consts/validations";
 import { Form, Formik } from "formik";
 import { IPair } from "../../shared/interfaces/exchange";
+import DropdownTextField, {
+  DropdownTextFieldProps,
+} from "../../components/formElements/DropdownTextField";
 
 const validations = validationSchema({
   name: stringSchema,
@@ -109,6 +112,21 @@ const NewBot = () => {
       ),
     };
   });
+
+  const investmentProps: DropdownTextFieldProps = {
+    selectProps: {
+      children: (
+        <>
+          <MenuItem value={"usdt"}>USDT</MenuItem>
+          <MenuItem value={"usdc"}>USDC</MenuItem>
+          <MenuItem value={"bnb"}>BNB</MenuItem>
+        </>
+      ),
+    },
+    textFieldProps: {},
+    message: "lorem ipsum dollor sum",
+    messageType: "error",
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -285,6 +303,7 @@ const NewBot = () => {
                         errors.investment
                       }
                     />
+                    <DropdownTextField {...investmentProps} />
                   </FieldsetElement>
                 </Fieldset>
                 <Fieldset legend="Strategy">
