@@ -122,7 +122,7 @@ const NewBot = () => {
     },
   });
 
-  const handleSubmit = async (values: { name: string; investment: number }) => {
+  const handleSubmit = (values: { name: string; investment: number }) => {
     setFormData({
       ...formData,
       name: values.name,
