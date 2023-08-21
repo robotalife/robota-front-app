@@ -83,7 +83,10 @@ const ExchangeSecurity = () => {
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>
-                <FieldsetElement label="New password">
+                <FieldsetElement
+                  label="New password"
+                  description="Use 8 or more characters with a mix of letters, numbers & symbols"
+                >
                   <TextField
                     name="newPassword"
                     type="password"
