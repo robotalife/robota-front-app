@@ -316,7 +316,7 @@ const NewBot = () => {
                         errors.investment
                       }
                     />
-                    <DropdownTextField {...investmentProps} />
+                    {/* <DropdownTextField {...investmentProps} /> */}
                   </FieldsetElement>
                 </Fieldset>
                 <Fieldset legend="Strategy">
