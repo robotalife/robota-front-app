@@ -1,11 +1,11 @@
-import { Grid, IconButton } from "@mui/material";
+import { Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import robotaLogoType from "@images/robota-logo-type.svg";
 import classes from "./Header.module.scss";
 import { NavLink } from "react-router-dom";
 import routes from "../../shared/consts/routes";
 import TextBadge from "../shared/TextBadge";
-import { IconBell } from "../../shared/icons/Icons";
+import NotificationsDropdown from "../shared/NotificationsDropdown";
 
 const Header = () => {
   return (
@@ -22,9 +22,7 @@ const Header = () => {
           </Grid>
           <Grid item xs />
           <Grid item xs={"auto"}>
-            <IconButton>
-              <IconBell />
-            </IconButton>
+            <NotificationsDropdown />
           </Grid>
         </Grid>
       </Container>

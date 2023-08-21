@@ -44,6 +44,27 @@ export const IconKey = (props: IconProps) => {
   );
 };
 
+export const IconTrashBin = (props: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M3 6H5M5 6H21M5 6V20C5 20.5304 5.21071 21.0391 5.58579 21.4142C5.96086 21.7893 6.46957 22 7 22H17C17.5304 22 18.0391 21.7893 18.4142 21.4142C18.7893 21.0391 19 20.5304 19 20V6H5ZM8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6M10 11V17M14 11V17"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
 export const IconEye = (props: IconProps) => {
   return (
     <svg
@@ -134,6 +155,47 @@ export const IconShopingCart = (props: IconProps) => {
     >
       <path
         d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6M10 21C10 21.5523 9.55228 22 9 22C8.44772 22 8 21.5523 8 21C8 20.4477 8.44772 20 9 20C9.55228 20 10 20.4477 10 21ZM21 21C21 21.5523 20.5523 22 20 22C19.4477 22 19 21.5523 19 21C19 20.4477 19.4477 20 20 20C20.5523 20 21 20.4477 21 21Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconLink = (props: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M9.99825 13C10.4277 13.5741 10.9756 14.0491 11.6048 14.3929C12.234 14.7367 12.9298 14.9411 13.6449 14.9923C14.36 15.0435 15.0778 14.9403 15.7496 14.6897C16.4214 14.4392 17.0314 14.047 17.5382 13.54L20.5382 10.54C21.449 9.59695 21.953 8.33394 21.9416 7.02296C21.9302 5.71198 21.4044 4.45791 20.4773 3.53087C19.5503 2.60383 18.2962 2.07799 16.9853 2.0666C15.6743 2.0552 14.4113 2.55918 13.4682 3.46997L11.7482 5.17997M13.9982 11C13.5688 10.4258 13.0209 9.95078 12.3917 9.60703C11.7625 9.26327 11.0667 9.05885 10.3516 9.00763C9.63645 8.95641 8.91866 9.0596 8.2469 9.31018C7.57514 9.56077 6.96513 9.9529 6.45825 10.46L3.45825 13.46C2.54746 14.403 2.04348 15.666 2.05488 16.977C2.06627 18.288 2.59211 19.542 3.51915 20.4691C4.44619 21.3961 5.70026 21.9219 7.01124 21.9333C8.32222 21.9447 9.58524 21.4408 10.5282 20.53L12.2382 18.82"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconDollarSign = (props: IconProps) => {
+  return (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12 1V23M17 5H9.5C8.57174 5 7.6815 5.36875 7.02513 6.02513C6.36875 6.6815 6 7.57174 6 8.5C6 9.42826 6.36875 10.3185 7.02513 10.9749C7.6815 11.6313 8.57174 12 9.5 12H14.5C15.4283 12 16.3185 12.3687 16.9749 13.0251C17.6313 13.6815 18 14.5717 18 15.5C18 16.4283 17.6313 17.3185 16.9749 17.9749C16.3185 18.6313 15.4283 19 14.5 19H6"
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
@@ -529,6 +591,27 @@ export const IconClock = (props: IconProps) => {
         d="M6 3V6L8 7M11 6C11 8.76142 8.76142 11 6 11C3.23858 11 1 8.76142 1 6C1 3.23858 3.23858 1 6 1C8.76142 1 11 3.23858 11 6Z"
         stroke="currentColor"
         strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const IconArrowRight = (props: IconProps) => {
+  return (
+    <svg
+      width="21"
+      height="20"
+      viewBox="0 0 21 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4.66797 9.99984H16.3346M16.3346 9.99984L10.5013 4.1665M16.3346 9.99984L10.5013 15.8332"
+        stroke="currentColor"
+        strokeWidth="1.67"
         strokeLinecap="round"
         strokeLinejoin="round"
       />

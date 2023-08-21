@@ -7,4 +7,14 @@
   font-weight: 500;
   margin: 0 8px;
   padding: 2px 8px;
+
+  &.success {
+    background: $success-50;
+    color: $success-700;
+  }
+
+  &.error {
+    background: $error-50;
+    color: $error-700;
+  }
 }
