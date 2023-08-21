@@ -1,0 +1,49 @@
+.wrapper {
+  &:hover {
+    :global {
+      .MuiOutlinedInput-notchedOutline {
+        border-color: $gray-900;
+      }
+    }
+  }
+
+  :global {
+    .MuiInputBase-input {
+      padding: 10.5px 14px;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+      border-radius: 8px;
+    }
+  }
+}
+
+.innerWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-shadow: $input-shadow;
+}
+
+.select {
+  :global {
+    .MuiInputBase-root,
+    .MuiOutlinedInput-notchedOutline {
+      border-right: 0;
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+  }
+}
+.input {
+  :global {
+    .MuiInputBase-root,
+    .MuiOutlinedInput-notchedOutline {
+      border-left: 0;
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+    }
+  }
+}

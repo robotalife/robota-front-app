@@ -3,7 +3,7 @@ import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
 import useAxios from "../../shared/hooks/useAxios";
 import { AxiosResponse } from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { Grid, Typography } from "@mui/material";
+import { Grid, MenuItem, Typography } from "@mui/material";
 import Fieldset from "../../components/formElements/Fieldset";
 import FieldsetElement from "../../components/formElements/FieldsetElement";
 import TextField from "../../components/formElements/TextField";
@@ -43,6 +43,9 @@ import {
 } from "../../shared/consts/validations";
 import { Form, Formik } from "formik";
 import { IPair } from "../../shared/interfaces/exchange";
+import DropdownTextField, {
+  DropdownTextFieldProps,
+} from "../../components/formElements/DropdownTextField";
 
 const validations = validationSchema({
   name: stringSchema,
@@ -85,6 +88,8 @@ const NewBot = () => {
     setSelectedPair,
   } = useContext(ExchangeContext);
 
+  const [currency, setCurrency] = useState<string>("usdt");
+
   const [showModal, setShowModal] = useState(false);
 
   const comboExchangeList: AutocompleteOption[] = useMemo(() => {
@@ -109,6 +114,32 @@ const NewBot = () => {
       ),
     };
   });
+
+  const investmentProps: DropdownTextFieldProps = {
+    selectProps: {
+      children: [
+        <MenuItem selected value={"usdt"} key={"usdt"}>
+          USDT
+        </MenuItem>,
+        <MenuItem value={"usdc"} key="usdc">
+          USDC
+        </MenuItem>,
+        <MenuItem value={"bnb"} key="bnb">
+          BNB
+        </MenuItem>,
+      ],
+      onChange: (e) => {
+        setCurrency(e.target.value as string);
+      },
+      value: currency,
+    },
+    textFieldProps: {
+      type: "number",
+      onChange: (e) => console.log(e.target.value),
+    },
+    message: "lorem ipsum dollor sum",
+    messageType: "error",
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -285,6 +316,7 @@ const NewBot = () => {
                         errors.investment
                       }
                     />
+                    {/* <DropdownTextField {...investmentProps} /> */}
                   </FieldsetElement>
                 </Fieldset>
                 <Fieldset legend="Strategy">

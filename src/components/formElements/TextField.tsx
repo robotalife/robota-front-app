@@ -79,11 +79,7 @@ const TextField = ({
           startAdornment: startIcon ? (
             <InputAdornment position="start">{startIcon}</InputAdornment>
           ) : undefined,
-          endAdornment: (
-            <>
-              <EndIcon />
-            </>
-          ),
+          endAdornment: <EndIcon />,
         }}
       />
     </InputWrapper>
