@@ -1,0 +1,26 @@
+.dropdownMenu {
+  width: 400px;
+
+  :global {
+    .MuiMenu-paper {
+      width: 100%;
+    }
+
+    .MuiList-root {
+      padding: 20px;
+      padding-bottom: 0 !important;
+      padding-top: 0;
+    }
+  }
+}
+
+.dropdownItem {
+  background: $primary-50;
+  color: $primary-700;
+  font-size: 16px;
+  font-weight: 500;
+  justify-content: center;
+  margin: 0 -20px;
+  padding: 28px 32px;
+  text-align: center;
+}
