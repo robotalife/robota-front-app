@@ -118,17 +118,6 @@ const TradeTerminal = () => {
     []
   );
 
-  // const calculatePnl = () => {
-  //   if (!activeTrades || !currentPrice) {
-  //     return;
-  //   }
-  //   const entryPrice = Number(activeTrades.entryPrice.slice(2));
-  //   const quantity = Number(activeTrades.size);
-  //   const pnl =((((currentPrice  - entryPrice)  *quantity)/(entryPrice * quantity)) * 100).toFixed(2)
-  //   setPnl(pnl);
-  //
-  // }
-
   const botsCombo = botsList.map((bot) => ({
     label: bot.name,
     value: bot.id.toString(),
@@ -160,9 +149,11 @@ const TradeTerminal = () => {
         notify(`Trade ${action}`, "info");
       } catch (error) {
         // Handle error
+      }finally {
+        setLoading(false);
       }
     },
-    [selectedBot]
+    [selectedBot, activeTrades]
   );
 
   return (
