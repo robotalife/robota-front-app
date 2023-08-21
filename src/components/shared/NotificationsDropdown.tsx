@@ -11,7 +11,7 @@ import {
 } from "../../shared/icons/Icons";
 import DropdownNotificationItem, {
   IDropdownNotificationItem,
-} from "./dropdownNotificationItem";
+} from "./DropdownNotificationItem";
 
 import classes from "./NotificationsDropdown.module.scss";
 

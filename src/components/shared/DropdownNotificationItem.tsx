@@ -1,7 +1,7 @@
 import { Grid, MenuItem, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { IconArrowRight } from "../../shared/icons/Icons";
-import classes from "./dropdownNotificationItem.module.scss";
+import classes from "./DropdownNotificationItem.module.scss";
 import Badge from "./Badge";
 
 export interface IDropdownNotificationItem {
