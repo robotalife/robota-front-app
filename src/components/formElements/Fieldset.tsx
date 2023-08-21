@@ -9,7 +9,9 @@ const Fieldset = ({ legend, children, ...props }: FieldsetProps) => {
   return (
     <fieldset
       {...props}
-      className={`${classes.fieldset} ${props.className || ""}`}
+      className={`${classes.fieldset} ${props.className || ""} ${
+        (!children && classes.empty) || ""
+      } `}
     >
       <legend className={classes.legend}>{legend}</legend>
       {children}

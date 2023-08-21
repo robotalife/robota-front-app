@@ -20,6 +20,17 @@ export const newBotMarginType = [
   },
 ];
 
+export const notificationType = [
+  {
+    value: false,
+    label: "None",
+  },
+  {
+    value: true,
+    label: "Email",
+  },
+];
+
 export const newBotLeverage = [
   {
     value: 1,
