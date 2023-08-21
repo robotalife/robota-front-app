@@ -5,7 +5,7 @@ import LinkBar from "../../components/pageStructure/LinkBar";
 import {useCallback, useContext, useState} from "react";
 import {botTabs} from "../consts/linksAndTabs";
 import Button from "../../components/formElements/Button";
-import {IconInfoCircle, IconModalDelete, IconPause, IconPencil, IconPlay, IconVrHeadset,} from "../icons/Icons";
+import {IconInfoCircle, IconModalDelete, IconPause, IconTrash, IconPlay, IconVrHeadset,} from "../icons/Icons";
 import {Container, Grid, Tooltip, Typography} from "@mui/material";
 import {BotContext} from "../providers/BotProvider";
 import {AxiosResponse} from "axios";
@@ -115,7 +115,7 @@ const InnerTradingPanelLayout = () => {
                                                     setShowModal(true)
                                                 }}
                                             >
-                                                <IconPencil style={{width: 20, marginRight: 10}}/>
+                                                <IconTrash style={{width: 20, marginRight: 10}}/>
                                                 Delete
                                             </Button>
                                         </div>
