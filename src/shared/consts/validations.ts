@@ -13,6 +13,11 @@ export const passwordFull = Yup.string()
   )
   .required("Required");
 
+export const passwordConfirmation = Yup.string().oneOf(
+  [Yup.ref("newPassword")],
+  "Passwords must match"
+);
+
 export const email = Yup.string()
   .email("Invalid email")
   .matches(
