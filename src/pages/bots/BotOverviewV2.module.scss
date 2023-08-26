@@ -1,5 +1,5 @@
 
-:global{
+:global {
   .success {
     color: $success-600;
   }
@@ -9,6 +9,16 @@
   }
 }
 
-.lineBreak{
+.lineBreak {
   background: $gray-200;
 }
+
+.overviewValue {
+  color: $gray-900 !important;
+
+}
+
+.overviewTitle {
+  color: $gray-500 !important;
+}
+

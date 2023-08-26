@@ -72,25 +72,35 @@ export interface IBotOverview {
 }
 
 export interface IBotOverviewV2 {
-    //v2
-    roi: IAssetType;
-    pnl: IAssetType;
-    // //v1
-    // botId: string | number;
-    // closedDeals: number;
-    // totalProfit: string;
-    // winRate: string;
-    // profitPerDayChartData: IChartData;
-    // winRateChartData: IChartData;
-    // cumulativeProfitChartData: IChartData;
-    // averageDailyProfit: string;
-    // averageWinRate: string;
+//v2
+    botId: number;
+// accountAsset: INumberType;
+    roi: INumberType;
+    pnl: INumberType;
+    winRate: INumberType;
+    loseRate: INumberType;
+    // activeTradesTotalUpnl: INumberType;
+    //investment: INumberType;
+    //lockedAsset: INumberType;
+    totalTransactions: INumberType;
+    totalWinTransactions: INumberType;
+    totalLoseTransactions: INumberType;
+    averageProfit: INumberType;
+    averageLoss: INumberType;
+
+    //averageDuration: string;
+    // leverageValue: INumberType;
+    // tradingFrequency: INumberType;
+    // tradeDays: INumberType;
+    // lastTradeTime: string;
+    roiChartData : IChartData;
+    pnlCumulativeChartData : IChartData;
+
 }
 
-export interface IAssetType {
+export interface INumberType {
     value: string;
-    assetSymbol: string;
-    sign: string;
+    symbol: string;
 }
 
 export interface IOverviewChart {
