@@ -39,19 +39,32 @@ const activeButtonStyle = {
 const NewBotOverview = () => {
     const {botId} = useParams();
     const [overview, setOverview] = useState<IBotOverviewV2>({
-        roi: {
-            sign: "",
+        botId: "",
+        loseRate: {
             value: "",
-            assetSymbol: "",
+            symbol: "",
+        },
+        roi: {
+            value: "0",
+            symbol: "",
         },
         pnl: {
-            sign: "",
+            value: "0",
+            symbol: "",
+        },
+        winRate: {
             value: "",
-            assetSymbol: "",
-        }
-        // averageDailyProfit: "",
-        // averageWinRate: "",
-    } as IBotOverviewV2);
+            symbol: "",
+        },
+        roiChartData: {
+            data: [],
+            labels: [],
+        },
+        cumulativeProfitChartData: {
+            data: [],
+            labels: [],
+        },
+    } as unknown as IBotOverviewV2);
 
     const [tab, setTab] = useState<"performance" | "information">("performance");
 
@@ -63,8 +76,8 @@ const NewBotOverview = () => {
     const handleDurationChange = (e: any) => {
         setDuration(Number(e.target.value));
     };
-    const [activeButton, setActiveButton] = useState<"summary" | "day">(
-        "summary"
+    const [activeButton, setActiveButton] = useState<"roi" | "pnl">(
+        "roi"
     );
     const [chartInput, setChartInput] = useState<IChartData>({
         labels: [],
@@ -82,15 +95,15 @@ const NewBotOverview = () => {
             const overview = response.data;
             console.log(overview, "overview");
             setOverview(overview);
-            // const charts = {
-            //   summaryProfitChart: overview.cumulativeProfitChartData,
-            //   profitByDay: overview.profitPerDayChartData,
-            // };
-            // setChartInput(
-            //   activeButton === "summary"
-            //     ? overview.cumulativeProfitChartData
-            //     : overview.profitPerDayChartData
-            // );
+            const charts = {
+                roiChartData: overview.roiChartData,
+                pnlCumulativeChartData: overview.pnlCumulativeChartData,
+            };
+            setChartInput(
+                activeButton === "roi"
+                    ? overview.roiChartData
+                    : overview.pnlCumulativeChartData
+            );
         } catch (error) {
             // Handle error
         } finally {
@@ -104,11 +117,11 @@ const NewBotOverview = () => {
 
     useEffect(() => {
         //action for active button
-        // setChartInput(
-        //   activeButton === "summary"
-        //     ? overview.cumulativeProfitChartData
-        //     : overview.profitPerDayChartData
-        // );
+        setChartInput(
+          activeButton === "roi"
+            ? overview.roiChartData
+            : overview.pnlCumulativeChartData
+        );
     }, [activeButton, overview]);
 
     const tabs: TabBarItem[] = [
@@ -156,87 +169,151 @@ const NewBotOverview = () => {
                                             {/*  </TableCell>*/}
                                             {/*</TableRow>*/}
                                             <TableRow>
-                                                <TableCell>ROI</TableCell>
+                                                <TableCell><Typography component={"span"}>ROI</Typography></TableCell>
                                                 <TableCell sx={{textAlign: "end"}}>
                                                     <TextBadge>
-                                                        {overview.roi.sign + overview.roi.value + overview.roi.assetSymbol}
+                                                        {overview.roi.value + overview.roi.symbol}
                                                     </TextBadge>
                                                     <Typography
                                                         component={"span"}
-                                                        // className="error"
                                                     >
-                                                        {overview.pnl.sign + overview.pnl.value +" "+ overview.pnl.assetSymbol}
+                                                        {overview.pnl.value + " " + overview.pnl.symbol}
                                                     </Typography>
                                                 </TableCell>
                                             </TableRow>
-                                            <TableRow>
-                                                <TableCell>Win Ratio</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>92.32 %</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>uPNL of active bot trades</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>$ 12</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>PnL Ratio</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>1:3.1</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Invested money on bot</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>
-                                                    USDT 400
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Funds locked in bot trades</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>
-                                                    USDT 540
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Total Transactions</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>325</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>No. of Winning Trades</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>27</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>No. of Winning Trades</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>27</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>No. of Losing Trades</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>219</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Average Profit</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>4.24</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Average Losses</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>-11.84</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Average Holding Time</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>3D 20H</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Average Holding Time</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>
-                                                    Leverage Median 20x
-                                                </TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Trading Frequency</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>41D</TableCell>
-                                            </TableRow>
-                                            <TableRow>
-                                                <TableCell>Last Trading Time</TableCell>
-                                                <TableCell sx={{textAlign: "end"}}>
-                                                    2023-04-12 05:47
-                                                </TableCell>
-                                            </TableRow>
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Win Ratio</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"}*/}
+                                            {/*        >*/}
+                                            {/*            {overview.winRate.value + " " + overview.winRate.symbol}*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>uPNL of active bot trades</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}><Typography*/}
+                                            {/*        component={"span"} className={classes.overviewValue}*/}
+                                            {/*    >*/}
+                                            {/*        $ 12*/}
+                                            {/*    </Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>PnL Ratio</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >*/}
+                                            {/*            1:3.1*/}
+                                            {/*        </Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Invested money on bot</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        > USDT 400*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Funds locked in bot trades</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        > USDT 400*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Total Transactions</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}> <Typography*/}
+                                            {/*        component={"span"} className={classes.overviewValue}*/}
+                                            {/*    > 400*/}
+                                            {/*    </Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>No. of Winning Trades</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>  <Typography*/}
+                                            {/*        component={"span"} className={classes.overviewValue}*/}
+                                            {/*    > 27*/}
+                                            {/*    </Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>No. of Winning Trades</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>  <Typography*/}
+                                            {/*        component={"span"} className={classes.overviewValue}*/}
+                                            {/*    > 12*/}
+                                            {/*    </Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>No. of Losing Trades</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >219</Typography></TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Average Profit</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >4.24*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Average Losses</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >*/}
+                                            {/*            -11.84*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Average Holding Time</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >*/}
+                                            {/*            3D 20H*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Average Holding Time</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >20x</Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell><Typography component={"span"}>Trading Frequency</Typography></TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >41D*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
+                                            {/*<TableRow>*/}
+                                            {/*    <TableCell>*/}
+                                            {/*        <Typography component={"span"}>*/}
+                                            {/*            Last Trading Time*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
+                                            {/*        <Typography*/}
+                                            {/*            component={"span"} className={classes.overviewValue}*/}
+                                            {/*        >*/}
+                                            {/*            2023-04-12 05:47*/}
+                                            {/*        </Typography>*/}
+                                            {/*    </TableCell>*/}
+                                            {/*</TableRow>*/}
                                         </TableBody>
                                     </Table>
                                 </Grid>
@@ -265,33 +342,33 @@ const NewBotOverview = () => {
                                         size="small"
                                         sx={{
                                             ...buttonStyle,
-                                            ...(activeButton === "summary" ? activeButtonStyle : {}),
+                                            ...(activeButton === "roi" ? activeButtonStyle : {}),
                                         }}
-                                        onClick={() => setActiveButton("summary")}
+                                        onClick={() => setActiveButton("roi")}
                                     >
-                                        Summary Profit
+                                        ROI
                                     </Button>
                                     <Button
                                         size="small"
-                                        onClick={() => setActiveButton("day")}
+                                        onClick={() => setActiveButton("pnl")}
                                         sx={{
                                             ...buttonStyle,
-                                            ...(activeButton === "day" ? activeButtonStyle : {}),
+                                            ...(activeButton === "pnl" ? activeButtonStyle : {}),
                                         }}
                                     >
-                                        Profit by Day
+                                        Cumulative PnL
                                     </Button>
                                 </Grid>
                                 <Grid item xs={12} sx={{mb: 2, display: {lg: "none"}}}>
                                     <Select
                                         onChange={(e) =>
-                                            setActiveButton(e.target.value as "summary" | "day")
+                                            setActiveButton(e.target.value as "roi" | "pnl")
                                         }
                                         value={activeButton}
                                         sx={{width: "100%"}}
                                     >
-                                        <MenuItem value={"summary"}>Summary Profit</MenuItem>
-                                        <MenuItem value={"day"}>Profit by Day</MenuItem>
+                                        <MenuItem value={"roi"}>ROI</MenuItem>
+                                        <MenuItem value={"pnl"}>Cumulative PnL</MenuItem>
                                     </Select>
                                 </Grid>
                             </Grid>
