@@ -64,6 +64,10 @@ const NewBotOverview = () => {
             data: [],
             labels: [],
         },
+        totalTransactions:{
+            value: "",
+            symbol: "",
+        }
     } as unknown as IBotOverviewV2);
 
     const [tab, setTab] = useState<"performance" | "information">("performance");
@@ -118,9 +122,9 @@ const NewBotOverview = () => {
     useEffect(() => {
         //action for active button
         setChartInput(
-          activeButton === "roi"
-            ? overview.roiChartData
-            : overview.pnlCumulativeChartData
+            activeButton === "roi"
+                ? overview.roiChartData
+                : overview.pnlCumulativeChartData
         );
     }, [activeButton, overview]);
 
@@ -174,11 +178,11 @@ const NewBotOverview = () => {
                                                     <TextBadge>
                                                         {overview.roi.value + overview.roi.symbol}
                                                     </TextBadge>
-                                                    <Typography
-                                                        component={"span"}
-                                                    >
-                                                        {overview.pnl.value + " " + overview.pnl.symbol}
-                                                    </Typography>
+                                                    {/*<Typography*/}
+                                                    {/*    component={"span"}*/}
+                                                    {/*>*/}
+                                                    {/*    {overview.pnl.value + " " + overview.pnl.symbol}*/}
+                                                    {/*</Typography>*/}
                                                 </TableCell>
                                             </TableRow>
                                             {/*<TableRow>*/}
@@ -226,13 +230,18 @@ const NewBotOverview = () => {
                                             {/*        </Typography>*/}
                                             {/*    </TableCell>*/}
                                             {/*</TableRow>*/}
-                                            {/*<TableRow>*/}
-                                            {/*    <TableCell><Typography component={"span"}>Total Transactions</Typography></TableCell>*/}
-                                            {/*    <TableCell sx={{textAlign: "end"}}> <Typography*/}
-                                            {/*        component={"span"} className={classes.overviewValue}*/}
-                                            {/*    > 400*/}
-                                            {/*    </Typography></TableCell>*/}
-                                            {/*</TableRow>*/}
+                                            <TableRow>
+                                                <TableCell>
+                                                    <Typography component={"span"}
+                                                    >Total Transactions
+                                                    </Typography>
+                                                </TableCell>
+                                                <TableCell sx={{textAlign: "end"}}>
+                                                    <Typography component={"span"} className={classes.overviewValue}>
+                                                        {overview.totalTransactions.value + " " + overview.totalTransactions.symbol}
+                                                    </Typography>
+                                                </TableCell>
+                                            </TableRow>
                                             {/*<TableRow>*/}
                                             {/*    <TableCell><Typography component={"span"}>No. of Winning Trades</Typography></TableCell>*/}
                                             {/*    <TableCell sx={{textAlign: "end"}}>  <Typography*/}
