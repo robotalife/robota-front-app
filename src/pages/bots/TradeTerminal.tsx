@@ -239,8 +239,6 @@ const TradeTerminal = () => {
                       </Button>
                     </>
                   )}
-                </>
-              )}
             </WrapperBoxSection>
           </WrapperBox>
         </Grid>
@@ -270,7 +268,7 @@ const TradeTerminal = () => {
             <TableBody>
               {Array.isArray(activeTrades) && activeTrades.length ? (
                   activeTrades.map((activeTrade, i) => (
-                      <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
+                      <TableRow key={`${activeTrade.botName}_${activeTrade.creationDate}_${i}`}>
                   <TableCell>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
@@ -300,18 +298,18 @@ const TradeTerminal = () => {
                     </TextBadge>
                   </TableCell>
                   <TableCell>
-                          <TableTradePrice entryPrice={h.entryPrice}
-                                           exitPrice={h.currentPrice}/>
+                          <TableTradePrice entryPrice={activeTrade.entryPrice}
+                                           exitPrice={activeTrade.currentPrice}/>
                   </TableCell>
                         {/*<TableCell>*/}
-                        {/*  {h.profit.indexOf("-") === -1 ? (*/}
+                        {/*  {activeTrade.profit.indexOf("-") === -1 ? (*/}
                         {/*      <TextBadge variation="success">*/}
-                        {/*        {h.profit}*/}
+                        {/*        {activeTrade.profit}*/}
                         {/*        <IconArrowUp/>*/}
                         {/*      </TextBadge>*/}
                         {/*  ) : (*/}
                         {/*      <TextBadge variation="error">*/}
-                        {/*        {h.profit}*/}
+                        {/*        {activeTrade.profit}*/}
                         {/*        <IconArrowDown/>*/}
                         {/*      </TextBadge>*/}
                         {/*  )}*/}
