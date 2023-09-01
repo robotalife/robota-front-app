@@ -22,7 +22,7 @@ const apiEndPoints = {
   getBot: (botId: string) => `/bots/${botId}`,
   getBotLog: (botId: string) => `/bots/${botId}/logs`,
   getBotHistory: (botId: string) => `/bots/${botId}/trades/history`,
-  getBotActiveTrades: (botId: string) => `/bots/${botId}/trades/active`,
+    getBotActiveTrades: (botId: string) => `/bots/${botId}/trades/active`,
   getBotOverview: (botId: string) => `/bots/${botId}/overview?interval=`,
     getBotOverview2: (botId: string) => `/bots/${botId}/overview2?interval=`,
 
