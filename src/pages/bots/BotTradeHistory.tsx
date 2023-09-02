@@ -14,7 +14,7 @@ import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
 import TableTradePrice from "../../components/shared/table/TableTradePrice";
-
+import classes from "./BotTradeHistory.module.scss";
 import {
   DataWithPagination,
   PaginationObj,
@@ -103,7 +103,6 @@ const BotTradeHistory = () => {
     link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(
       botId as string
     )}`;
-    console.log(link.href);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -278,10 +277,10 @@ const BotTradeHistory = () => {
                               </div>
                             </Grid>
                             <Grid item xs>
-                              <Typography component={"div"} sx={{ mb: 1 }}>
+                          <Typography component={"div"} sx={{ mb: 1 }} className={classes.volume}>
                                 {h.baseVolume}
                               </Typography>
-                              <Typography component={"div"}>
+                          <Typography component={"div"} className={classes.volume}>
                                 {h.quoteVolume}
                               </Typography>
                             </Grid>

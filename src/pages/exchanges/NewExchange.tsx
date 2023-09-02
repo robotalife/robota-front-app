@@ -167,7 +167,6 @@ const NewExchange = () => {
                     value={exchangeType}
                     onChange={(e) => {
                       setExchangeType(e.target.value as string);
-                      console.log(e.target.value);
                     }}
                   />
                 </FieldsetElement>

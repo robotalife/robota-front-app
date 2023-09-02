@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import {useCallback, useEffect, useState} from "react";
 import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
 import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
 import { useLocation, useParams } from "react-router-dom";
@@ -14,9 +14,9 @@ import TableBody from "../../components/shared/table/TableBody";
 import TableDateTime from "../../components/shared/table/TableDateCell";
 import TableTradePrice from "../../components/shared/table/TableTradePrice";
 import getDateTime from "../../shared/helpers/getDateTimeObj";
-import { IActiveTrade } from "../../shared/interfaces/bots";
+import {IActiveTrade} from "../../shared/interfaces/bots";
 import Loader from "../../components/shared/Loader";
-import { Grid, IconButton, Typography } from "@mui/material";
+import {Grid, IconButton, Typography} from "@mui/material";
 import PairLogo from "../../components/shared/PairLogo";
 import TextBadge from "../../components/shared/TextBadge";
 
@@ -37,26 +37,24 @@ const BotActiveTrade = () => {
   const notify = useNotify();
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [activeTrades, setActiveTrades] = useState<
-    IActiveTrade[] | undefined
-  >();
+    const [activeTrades, setActiveTrades] = useState<IActiveTrade[] | undefined>();
   const [loading, setLoading] = useState(true);
 
-  const getActiveTrades = useCallback(async () => {
-    setLoading(true);
+    const getActiveTrades = useCallback(async () => {
+        setLoading(true);
 
-    try {
-      const response: AxiosResponse<IActiveTrade[], any> = await axios.get(
-        apiEndPoints.getBotActiveTrades(botId as string)
-      );
+        try {
+            const response: AxiosResponse<IActiveTrade[], any> = await axios.get(
+                apiEndPoints.getBotActiveTrades(botId as string)
+            );
       const trades = response.data || undefined;
       setActiveTrades(trades);
-    } catch (error) {
-      // Handle error
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+        } catch (error) {
+            // Handle error
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
   const closeTrade = useCallback(
     async (tradeId: string) => {
@@ -74,14 +72,14 @@ const BotActiveTrade = () => {
     [activeTrades]
   );
 
-  useEffect(() => {
+    useEffect(() => {
     getActiveTrades();
-  }, []);
+    }, []);
 
   return (
     <WrapperBox>
       <WrapperBoxHeader
-        title="Active Trade"
+        title="Active Trades"
         description="Monitor active trades for this bot"
       />
       <WrapperBoxSection noPadding>
@@ -104,54 +102,57 @@ const BotActiveTrade = () => {
             </TableHead>
             <TableBody>
               {Array.isArray(activeTrades) && activeTrades.length ? (
-                activeTrades.map((h, i) => (
-                  <TableRow key={`${h.id}_${i}`}>
-                    <TableCell>
-                      <Grid container spacing={1} alignItems={"center"}>
-                        <Grid item>
-                          <PairLogo src={h.logo} alt={h.pair} />
-                        </Grid>
-                        <Grid item>
-                          <TableDateTime date={h.pair} time={h.botName} />
-                        </Grid>
-                      </Grid>
-                    </TableCell>
-                    <TableCell>
-                      <TableStrategy strategy={h.strategy} />
-                    </TableCell>
-                    <TableCell>
-                      <TableDateTime {...getDateTime(h.creationDate)} />
-                    </TableCell>
-                    <TableCell>
-                      <TextBadge variation="primary">
-                        <IconClock />
-                        {h.duration}
-                      </TextBadge>
-                    </TableCell>
-                    {isMyBot && (
-                      <TableCell>
-                        <TableTradePrice
-                          entryPrice={h.entryPrice}
-                          exitPrice={h.currentPrice}
+                activeTrades.map((activeTrade, i) => (
+                  <TableRow key={`${activeTrade.id}_${i}`}>
+                  <TableCell>
+                    <Grid container spacing={1} alignItems={"center"}>
+                      <Grid item>
+                        <PairLogo
+                          src={activeTrade.logo}
+                          alt={activeTrade.pair}
                         />
-                      </TableCell>
-                    )}
-                    <TableCell>
-                      {h.profit.indexOf("-") === -1 ? (
-                        <TextBadge variation="success">
-                          {h.profit}
-                          <IconArrowUp />
-                        </TextBadge>
-                      ) : (
-                        <TextBadge variation="error">
-                          {h.profit}
-                          <IconArrowDown />
-                        </TextBadge>
-                      )}
-                    </TableCell>
+                      </Grid>
+                      <Grid item>
+                        <TableDateTime
+                          date={activeTrade.pair}
+                          time={activeTrade.botName}
+                        />
+                      </Grid>
+                    </Grid>
+                  </TableCell>
+                  <TableCell>
+                    <TableStrategy strategy={activeTrade.strategy} />
+                  </TableCell>
+                  <TableCell>
+                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
+                  </TableCell>
+                  <TableCell>
+                    <TextBadge variation="primary">
+                      <IconClock />
+                      {activeTrade.duration}
+                    </TextBadge>
+                  </TableCell>
                     {isMyBot && (
-                      <TableCell>
-                        <IconButton onClick={() => closeTrade(h.id)}>
+                  <TableCell>
+                    <TableTradePrice entryPrice={activeTrade.entryPrice} exitPrice={activeTrade.currentPrice}/>
+                    </TableCell>
+                    )}
+                  <TableCell>
+                    {activeTrade.profit.indexOf("-") === -1 ? (
+                      <TextBadge variation="success">
+                        {activeTrade.profit}
+                        <IconArrowUp />
+                      </TextBadge>
+                    ) : (
+                      <TextBadge variation="error">
+                        {activeTrade.profit}
+                        <IconArrowDown />
+                      </TextBadge>
+                    )}
+                  </TableCell>
+                    {isMyBot && (
+                  <TableCell>
+                        <IconButton onClick={() => closeTrade(activeTrade.id)}>
                           <IconCloseCircle />
                         </IconButton>
                         <Typography component={"span"}>Close trade</Typography>

@@ -1,0 +1,24 @@
+
+:global {
+  .success {
+    color: $success-600;
+  }
+
+  .error {
+    color: $error-600;
+  }
+}
+
+.lineBreak {
+  background: $gray-200;
+}
+
+.overviewValue {
+  color: $gray-900 !important;
+
+}
+
+.overviewTitle {
+  color: $gray-500 !important;
+}
+
