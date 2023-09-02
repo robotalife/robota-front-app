@@ -102,8 +102,8 @@ const BotActiveTrade = () => {
             </TableHead>
             <TableBody>
               {Array.isArray(activeTrades) && activeTrades.length ? (
-                activeTrades.map((h, i) => (
-                  <TableRow key={`${h.id}_${i}`}>
+                activeTrades.map((activeTrade, i) => (
+                  <TableRow key={`${activeTrade.id}_${i}`}>
                   <TableCell>
                     <Grid container spacing={1} alignItems={"center"}>
                       <Grid item>
