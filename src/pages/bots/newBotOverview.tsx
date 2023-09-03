@@ -19,7 +19,7 @@ import OverviewAreaChart from "../../components/shared/chart/OverviewAreaChart";
 import {AxiosResponse} from "axios";
 import apiEndPoints from "../../shared/consts/apiEndpoints";
 import TabBar, {TabBarItem} from "../../components/pageStructure/TabBar";
-import BotaDataTable from "../../components/pageStructure/BotaDataTable";
+import BotDataTable from "../../components/pageStructure/BotDataTable";
 import TextBadge from "../../components/shared/TextBadge";
 import classes from "./BotOverviewV2.module.scss";
 
@@ -327,7 +327,7 @@ const NewBotOverview = () => {
                                     </Table>
                                 </Grid>
                             ) : (
-                                <BotaDataTable/>
+                                <BotDataTable/>
                             )}
                         </WrapperBoxSection>
                     </WrapperBox>
