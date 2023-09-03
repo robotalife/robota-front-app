@@ -377,7 +377,7 @@ const NewBotOverview = () => {
                                         sx={{width: "100%"}}
                                     >
                                         <MenuItem value={"roi"}>ROI</MenuItem>
-                                        <MenuItem value={"pnl"}>Cumulative PnL</MenuItem>
+                                        {/*<MenuItem value={"pnl"}>Cumulative PnL</MenuItem>*/}
                                     </Select>
                                 </Grid>
                             </Grid>
