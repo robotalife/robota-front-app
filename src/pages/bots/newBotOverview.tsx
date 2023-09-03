@@ -357,16 +357,16 @@ const NewBotOverview = () => {
                                     >
                                         ROI
                                     </Button>
-                                    <Button
-                                        size="small"
-                                        onClick={() => setActiveButton("pnl")}
-                                        sx={{
-                                            ...buttonStyle,
-                                            ...(activeButton === "pnl" ? activeButtonStyle : {}),
-                                        }}
-                                    >
-                                        Cumulative PnL
-                                    </Button>
+                                    {/*<Button*/}
+                                    {/*    size="small"*/}
+                                    {/*    onClick={() => setActiveButton("pnl")}*/}
+                                    {/*    sx={{*/}
+                                    {/*        ...buttonStyle,*/}
+                                    {/*        ...(activeButton === "pnl" ? activeButtonStyle : {}),*/}
+                                    {/*    }}*/}
+                                    {/*>*/}
+                                    {/*    Cumulative PnL*/}
+                                    {/*</Button>*/}
                                 </Grid>
                                 <Grid item xs={12} sx={{mb: 2, display: {lg: "none"}}}>
                                     <Select
