@@ -118,7 +118,7 @@ export interface IBot {
     isSubscribed?: boolean;
     monthlyPrice: string;
     name: string;
-    pnl: string;
+    roi: string;
     stopped: false;
     strategy: "LONG" | "SHORT";
     tradingPair: string;
@@ -159,6 +159,8 @@ export interface ISingleBotData {
     price: string;
     strategy: "SHORT" | "LONG";
     stopped: boolean;
+    leverageValue: string;
+    marginType: string;
 }
 
 export interface IBotFilters {

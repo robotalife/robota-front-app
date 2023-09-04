@@ -14,14 +14,14 @@ interface Props extends PropsWithChildren {
 
 const BotCard = ({ data, link, children }: Props) => {
   const pnlClass = (data: IBot) => {
-    if (data.pnl == "0") {
+    if (data.roi == "0") {
       return "";
     }
-    if (data.pnl.includes("-")) {
+    if (data.roi.includes("-")) {
       return classes.red;
     }
 
-    if (data.pnl.includes("+")) {
+    if (data.roi.includes("+")) {
       return classes.green;
     }
   };
@@ -58,7 +58,7 @@ const BotCard = ({ data, link, children }: Props) => {
             component={"div"}
             className={`${classes.profitPercentage} ${pnlClass(data)}`}
           >
-            {data.pnl}
+            {data.roi}
           </Typography>
         </Grid>
         <Grid item>

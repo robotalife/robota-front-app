@@ -71,7 +71,7 @@ const BotDataTable = () => {
             </TableCell>
             <TableCell sx={{ textAlign: "end" }}>
               <Typography className={classes.values}>
-                10X
+                {botData.leverageValue }
               </Typography>
               </TableCell>
           </TableRow>
@@ -79,7 +79,7 @@ const BotDataTable = () => {
             <TableCell>
               <Typography component={"span"}>Margin Type</Typography>
             </TableCell>
-            <TableCell sx={{ textAlign: "end" }} className={classes.values}>Cross</TableCell>
+            <TableCell sx={{ textAlign: "end" }} className={classes.values}>{botData.marginType}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell>
