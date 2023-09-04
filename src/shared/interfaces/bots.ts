@@ -150,6 +150,7 @@ export interface IMyBotsContext {
 
 export interface ISingleBotData {
     createdAt: string;
+    startedAt: string;
     createdBy: string;
     exchangeType: string;
     id: string;

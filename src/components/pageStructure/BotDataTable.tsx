@@ -89,11 +89,21 @@ const BotDataTable = () => {
           </TableRow>
           <TableRow>
             <TableCell>
+              <Typography component={"span"}>Created at</Typography>
+            </TableCell>
+            <TableCell sx={{ textAlign: "end" }}>
+              <Typography className={classes.values}>
+                {getDateTimeString(botData.createdAt)}
+              </Typography>
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
               <Typography component={"span"}>Started at</Typography>
             </TableCell>
             <TableCell sx={{ textAlign: "end" }}>
               <Typography className={classes.values}>
-              {getDateTimeString(botData.createdAt)}
+              {getDateTimeString(botData.startedAt)}
               </Typography>
             </TableCell>
           </TableRow>
