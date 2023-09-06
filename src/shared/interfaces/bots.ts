@@ -80,7 +80,7 @@ export interface IBotOverviewV2 {
     winRate: INumberType;
     loseRate: INumberType;
     // activeTradesTotalUpnl: INumberType;
-    //investment: INumberType;
+    investment: INumberType;
     //lockedAsset: INumberType;
     totalTransactions: INumberType;
     totalWinTransactions: INumberType;

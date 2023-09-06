@@ -64,7 +64,19 @@ const NewBotOverview = () => {
             data: [],
             labels: [],
         },
-        totalTransactions:{
+        totalTransactions: {
+            value: "",
+            symbol: "",
+        },
+        investment: {
+            value: "",
+            symbol: "",
+        },
+        totalWinTransactions: {
+            value: "",
+            symbol: "",
+        },
+        totalLoseTransactions: {
             value: "",
             symbol: "",
         }
@@ -212,15 +224,16 @@ const NewBotOverview = () => {
                                             {/*            1:3.1*/}
                                             {/*        </Typography></TableCell>*/}
                                             {/*</TableRow>*/}
-                                            {/*<TableRow>*/}
-                                            {/*    <TableCell><Typography component={"span"}>Invested money on bot</Typography></TableCell>*/}
-                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
-                                            {/*        <Typography*/}
-                                            {/*            component={"span"} className={classes.overviewValue}*/}
-                                            {/*        > USDT 400*/}
-                                            {/*        </Typography>*/}
-                                            {/*    </TableCell>*/}
-                                            {/*</TableRow>*/}
+                                            <TableRow>
+                                                <TableCell><Typography component={"span"}>Invested money on
+                                                    bot</Typography></TableCell>
+                                                <TableCell sx={{textAlign: "end"}}>
+                                                    <Typography
+                                                        component={"span"} className={classes.overviewValue}
+                                                    > {overview.investment.symbol + " " + overview.investment.value}
+                                                    </Typography>
+                                                </TableCell>
+                                            </TableRow>
                                             {/*<TableRow>*/}
                                             {/*    <TableCell><Typography component={"span"}>Funds locked in bot trades</Typography></TableCell>*/}
                                             {/*    <TableCell sx={{textAlign: "end"}}>*/}
@@ -242,13 +255,15 @@ const NewBotOverview = () => {
                                                     </Typography>
                                                 </TableCell>
                                             </TableRow>
-                                            {/*<TableRow>*/}
-                                            {/*    <TableCell><Typography component={"span"}>No. of Winning Trades</Typography></TableCell>*/}
-                                            {/*    <TableCell sx={{textAlign: "end"}}>  <Typography*/}
-                                            {/*        component={"span"} className={classes.overviewValue}*/}
-                                            {/*    > 27*/}
-                                            {/*    </Typography></TableCell>*/}
-                                            {/*</TableRow>*/}
+                                            <TableRow>
+                                                <TableCell><Typography component={"span"}>No. of Winning
+                                                    Trades</Typography></TableCell>
+                                                <TableCell sx={{textAlign: "end"}}> <Typography
+                                                    component={"span"} className={classes.overviewValue}
+                                                >
+                                                    {overview.totalWinTransactions.symbol + " " + overview.totalWinTransactions.value}
+                                                </Typography></TableCell>
+                                            </TableRow>
                                             {/*<TableRow>*/}
                                             {/*    <TableCell><Typography component={"span"}>No. of Winning Trades</Typography></TableCell>*/}
                                             {/*    <TableCell sx={{textAlign: "end"}}>  <Typography*/}
@@ -256,13 +271,16 @@ const NewBotOverview = () => {
                                             {/*    > 12*/}
                                             {/*    </Typography></TableCell>*/}
                                             {/*</TableRow>*/}
-                                            {/*<TableRow>*/}
-                                            {/*    <TableCell><Typography component={"span"}>No. of Losing Trades</Typography></TableCell>*/}
-                                            {/*    <TableCell sx={{textAlign: "end"}}>*/}
-                                            {/*        <Typography*/}
-                                            {/*            component={"span"} className={classes.overviewValue}*/}
-                                            {/*        >219</Typography></TableCell>*/}
-                                            {/*</TableRow>*/}
+                                            <TableRow>
+                                                <TableCell><Typography component={"span"}>No. of Losing
+                                                    Trades</Typography></TableCell>
+                                                <TableCell sx={{textAlign: "end"}}>
+                                                    <Typography
+                                                        component={"span"} className={classes.overviewValue}
+                                                    >
+                                                        {overview.totalLoseTransactions.symbol + " " + overview.totalLoseTransactions.value}
+                                                    </Typography></TableCell>
+                                            </TableRow>
                                             {/*<TableRow>*/}
                                             {/*    <TableCell><Typography component={"span"}>Average Profit</Typography></TableCell>*/}
                                             {/*    <TableCell sx={{textAlign: "end"}}>*/}
