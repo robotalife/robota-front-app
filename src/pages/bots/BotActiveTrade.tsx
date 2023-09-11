@@ -1,35 +1,29 @@
-import {useCallback, useEffect, useState} from "react";
-import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
-import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
-import { useLocation, useParams } from "react-router-dom";
-import useAxios from "../../shared/hooks/useAxios";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
-import Table from "../../components/shared/table/Table";
-import TableHead from "../../components/shared/table/TableHead";
-import TableRow from "../../components/shared/table/TableRow";
-import TableCell from "../../components/shared/table/TableCell";
-import TableBody from "../../components/shared/table/TableBody";
-import TableDateTime from "../../components/shared/table/TableDateCell";
-import TableTradePrice from "../../components/shared/table/TableTradePrice";
-import getDateTime from "../../shared/helpers/getDateTimeObj";
-import {IActiveTrade} from "../../shared/interfaces/bots";
-import Loader from "../../components/shared/Loader";
-import {Grid, IconButton, Typography} from "@mui/material";
-import PairLogo from "../../components/shared/PairLogo";
-import TextBadge from "../../components/shared/TextBadge";
+import { useCallback, useEffect, useState } from 'react';
+import WrapperBox from '../../components/shared/wrapperBox/WrapperBox';
+import WrapperBoxHeader from '../../components/shared/wrapperBox/WrapperBoxHeader';
+import { useLocation, useParams } from 'react-router-dom';
+import useAxios from '../../shared/hooks/useAxios';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import WrapperBoxSection from '../../components/shared/wrapperBox/WrapperBoxSection';
+import Table from '../../components/shared/table/Table';
+import TableHead from '../../components/shared/table/TableHead';
+import TableRow from '../../components/shared/table/TableRow';
+import TableCell from '../../components/shared/table/TableCell';
+import TableBody from '../../components/shared/table/TableBody';
+import TableDateTime from '../../components/shared/table/TableDateCell';
+import TableTradePrice from '../../components/shared/table/TableTradePrice';
+import getDateTime from '../../shared/helpers/getDateTimeObj';
+import { IActiveTrade } from '../../shared/interfaces/bots';
+import Loader from '../../components/shared/Loader';
+import { Grid, IconButton, Typography } from '@mui/material';
+import PairLogo from '../../components/shared/PairLogo';
+import TextBadge from '../../components/shared/TextBadge';
 
-import {
-  IconArrowDown,
-  IconArrowUp,
-  IconClock,
-  IconCloseCircle,
-  IconHelpCircle,
-} from "../../shared/icons/Icons";
-import useNotify from "../../shared/hooks/useNotify";
-import TableStrategy from "../../components/shared/table/StrategyBadge";
-import routes from "../../shared/consts/routes";
+import { IconArrowDown, IconArrowUp, IconClock, IconCloseCircle, IconHelpCircle } from '../../shared/icons/Icons';
+import useNotify from '../../shared/hooks/useNotify';
+import TableStrategy from '../../components/shared/table/StrategyBadge';
+import routes from '../../shared/consts/routes';
 
 const BotActiveTrade = () => {
   const { pathname } = useLocation();
@@ -37,32 +31,30 @@ const BotActiveTrade = () => {
   const notify = useNotify();
   const { botId } = useParams();
   const { axios } = useAxios();
-    const [activeTrades, setActiveTrades] = useState<IActiveTrade[] | undefined>();
+  const [activeTrades, setActiveTrades] = useState<IActiveTrade[] | undefined>();
   const [loading, setLoading] = useState(true);
 
-    const getActiveTrades = useCallback(async () => {
-        setLoading(true);
+  const getActiveTrades = useCallback(async () => {
+    setLoading(true);
 
-        try {
-            const response: AxiosResponse<IActiveTrade[], any> = await axios.get(
-                apiEndPoints.getBotActiveTrades(botId as string)
-            );
+    try {
+      const response: AxiosResponse<IActiveTrade[], any> = await axios.get(apiEndPoints.getBotActiveTrades(botId as string));
       const trades = response.data || undefined;
       setActiveTrades(trades);
-        } catch (error) {
-            // Handle error
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    } catch (error) {
+      // Handle error
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   const closeTrade = useCallback(
     async (tradeId: string) => {
       setLoading(true);
       try {
-        console.log(tradeId, "tradeId to close");
+        console.log(tradeId, 'tradeId to close');
         await axios.delete(apiEndPoints.closeTrade(tradeId));
-        notify("Trade closed successfully", "success");
+        notify('Trade closed successfully', 'success');
         getActiveTrades();
       } catch (e) {
       } finally {
@@ -72,16 +64,13 @@ const BotActiveTrade = () => {
     [activeTrades]
   );
 
-    useEffect(() => {
+  useEffect(() => {
     getActiveTrades();
-    }, []);
+  }, []);
 
   return (
     <WrapperBox>
-      <WrapperBoxHeader
-        title="Active Trades"
-        description="Monitor active trades for this bot"
-      />
+      <WrapperBoxHeader title="Active Trades" description="Monitor active trades for this bot" />
       <WrapperBoxSection noPadding>
         {loading ? (
           <Loader />
@@ -104,58 +93,52 @@ const BotActiveTrade = () => {
               {Array.isArray(activeTrades) && activeTrades.length ? (
                 activeTrades.map((activeTrade, i) => (
                   <TableRow key={`${activeTrade.id}_${i}`}>
-                  <TableCell>
-                    <Grid container spacing={1} alignItems={"center"}>
-                      <Grid item>
-                        <PairLogo
-                          src={activeTrade.logo}
-                          alt={activeTrade.pair}
-                        />
+                    <TableCell>
+                      <Grid container spacing={1} alignItems={'center'}>
+                        <Grid item>
+                          <PairLogo src={activeTrade.logo} alt={activeTrade.pair} />
+                        </Grid>
+                        <Grid item>
+                          <TableDateTime date={activeTrade.pair} time={activeTrade.botName} />
+                        </Grid>
                       </Grid>
-                      <Grid item>
-                        <TableDateTime
-                          date={activeTrade.pair}
-                          time={activeTrade.botName}
-                        />
-                      </Grid>
-                    </Grid>
-                  </TableCell>
-                  <TableCell>
-                    <TableStrategy strategy={activeTrade.strategy} />
-                  </TableCell>
-                  <TableCell>
-                    <TableDateTime {...getDateTime(activeTrade.creationDate)} />
-                  </TableCell>
-                  <TableCell>
-                    <TextBadge variation="primary">
-                      <IconClock />
-                      {activeTrade.duration}
-                    </TextBadge>
-                  </TableCell>
-                    {isMyBot && (
-                  <TableCell>
-                    <TableTradePrice entryPrice={activeTrade.entryPrice} exitPrice={activeTrade.currentPrice}/>
                     </TableCell>
-                    )}
-                  <TableCell>
-                    {activeTrade.profit.indexOf("-") === -1 ? (
-                      <TextBadge variation="success">
-                        {activeTrade.profit}
-                        <IconArrowUp />
+                    <TableCell>
+                      <TableStrategy strategy={activeTrade.strategy} />
+                    </TableCell>
+                    <TableCell>
+                      <TableDateTime {...getDateTime(activeTrade.creationDate)} />
+                    </TableCell>
+                    <TableCell>
+                      <TextBadge variation="primary">
+                        <IconClock />
+                        {activeTrade.duration}
                       </TextBadge>
-                    ) : (
-                      <TextBadge variation="error">
-                        {activeTrade.profit}
-                        <IconArrowDown />
-                      </TextBadge>
-                    )}
-                  </TableCell>
+                    </TableCell>
                     {isMyBot && (
-                  <TableCell>
+                      <TableCell>
+                        <TableTradePrice entryPrice={activeTrade.entryPrice} exitPrice={activeTrade.currentPrice} />
+                      </TableCell>
+                    )}
+                    <TableCell>
+                      {activeTrade.profit.indexOf('-') === -1 ? (
+                        <TextBadge variation="success">
+                          {activeTrade.profit}
+                          <IconArrowUp />
+                        </TextBadge>
+                      ) : (
+                        <TextBadge variation="error">
+                          {activeTrade.profit}
+                          <IconArrowDown />
+                        </TextBadge>
+                      )}
+                    </TableCell>
+                    {isMyBot && (
+                      <TableCell>
                         <IconButton onClick={() => closeTrade(activeTrade.id)}>
                           <IconCloseCircle />
                         </IconButton>
-                        <Typography component={"span"}>Close trade</Typography>
+                        <Typography component={'span'}>Close trade</Typography>
                       </TableCell>
                     )}
                   </TableRow>

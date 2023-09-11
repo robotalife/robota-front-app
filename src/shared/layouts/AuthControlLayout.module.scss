@@ -1,7 +1,6 @@
 .authControlWrapper {
   align-items: center;
-  background: #fafafa url("../../assets/images/account-control-mobile-bg.svg")
-    no-repeat center -10%;
+  background: #fafafa url('../../assets/images/account-control-mobile-bg.svg') no-repeat center -10%;
   background-size: 123%;
   display: flex;
   justify-content: center;
@@ -78,8 +77,10 @@ input:-webkit-autofill {
 @media (min-width: 480px) {
   .authControlCard {
     background: $white;
-    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
-      0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.14),
+      0px 1px 3px 0px rgba(0, 0, 0, 0.12);
     height: auto;
     max-width: 440px;
     padding: 30px 40px;
@@ -91,7 +92,7 @@ input:-webkit-autofill {
   .authControlWrapper {
     // background: #fafafa
     //   url("../../assets/images/account-control-desktop-bg.svg") no-repeat;
-    background: #fafafa url("../../assets/images/auth-desktop.svg") no-repeat;
+    background: #fafafa url('../../assets/images/auth-desktop.svg') no-repeat;
     background-position: center center;
     background-size: 1230px;
   }

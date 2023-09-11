@@ -1,11 +1,11 @@
-import { Box, Grid, Typography } from "@mui/material";
-import classes from "./BotCard.module.scss";
-import { IBot } from "../../../shared/interfaces/bots";
-import PairLogo from "../PairLogo";
-import BotCardChart from "../chart/BotCardChart";
-import { PropsWithChildren } from "react";
-import { TempChartLong, TempChartShort } from "../../../shared/icons/Icons";
-import { Link } from "react-router-dom";
+import { Box, Grid, Typography } from '@mui/material';
+import classes from './BotCard.module.scss';
+import { IBot } from '../../../shared/interfaces/bots';
+import PairLogo from '../PairLogo';
+import BotCardChart from '../chart/BotCardChart';
+import { PropsWithChildren } from 'react';
+import { TempChartLong, TempChartShort } from '../../../shared/icons/Icons';
+import { Link } from 'react-router-dom';
 
 interface Props extends PropsWithChildren {
   data: IBot;
@@ -14,29 +14,24 @@ interface Props extends PropsWithChildren {
 
 const BotCard = ({ data, link, children }: Props) => {
   const pnlClass = (data: IBot) => {
-    if (data.roi == "0") {
-      return "";
+    if (data.roi == '0') {
+      return '';
     }
-    if (data.roi.includes("-")) {
+    if (data.roi.includes('-')) {
       return classes.red;
     }
 
-    if (data.roi.includes("+")) {
+    if (data.roi.includes('+')) {
       return classes.green;
     }
   };
 
   return (
     <Box className={classes.botCard}>
-      <Grid
-        container
-        justifyContent={"space-between"}
-        alignItems={"center"}
-        sx={{ mb: 3 }}
-      >
+      <Grid container justifyContent={'space-between'} alignItems={'center'} sx={{ mb: 3 }}>
         <Grid item>
           <Link to={link} className={classes.link}>
-            <Typography className={classes.pairTitle} component={"div"}>
+            <Typography className={classes.pairTitle} component={'div'}>
               {data.name}
             </Typography>
           </Link>
@@ -45,55 +40,30 @@ const BotCard = ({ data, link, children }: Props) => {
           <Typography className={classes.strategy}>{data.strategy}</Typography>
         </Grid>
       </Grid>
-      <Grid
-        container
-        justifyContent={"space-between"}
-        className={classes.borderBottom}
-      >
+      <Grid container justifyContent={'space-between'} className={classes.borderBottom}>
         <Grid item>
-          <Typography component={"div"} className={classes.profitTitle}>
+          <Typography component={'div'} className={classes.profitTitle}>
             Net Profit last month
           </Typography>
-          <Typography
-            component={"div"}
-            className={`${classes.profitPercentage} ${pnlClass(data)}`}
-          >
+          <Typography component={'div'} className={`${classes.profitPercentage} ${pnlClass(data)}`}>
             {data.roi}
           </Typography>
         </Grid>
         <Grid item>
-          {data.chartData ? (
-            <BotCardChart input={data.chartData} />
-          ) : data.strategy === "SHORT" ? (
-            <TempChartShort />
-          ) : (
-            <TempChartLong />
-          )}
+          {data.chartData ? <BotCardChart input={data.chartData} /> : data.strategy === 'SHORT' ? <TempChartShort /> : <TempChartLong />}
         </Grid>
       </Grid>
-      <Grid
-        container
-        justifyContent={"space-between"}
-        className={classes.borderBottom}
-      >
+      <Grid container justifyContent={'space-between'} className={classes.borderBottom}>
         <Grid item>
-          <PairLogo
-            src={data.exchangeLogo}
-            alt={data.exchangeType}
-            style={{ marginRight: 6, verticalAlign: "middle" }}
-          />
+          <PairLogo src={data.exchangeLogo} alt={data.exchangeType} style={{ marginRight: 6, verticalAlign: 'middle' }} />
           {data.exchangeType}
         </Grid>
         <Grid item>
-          <PairLogo
-            src={data.assetLogo}
-            alt={data.tradingPair}
-            style={{ marginRight: 6, verticalAlign: "middle" }}
-          />
+          <PairLogo src={data.assetLogo} alt={data.tradingPair} style={{ marginRight: 6, verticalAlign: 'middle' }} />
           {data.tradingPair}
         </Grid>
       </Grid>
-      <Grid container justifyContent={"space-between"} alignItems={"center"}>
+      <Grid container justifyContent={'space-between'} alignItems={'center'}>
         <Grid item>{children}</Grid>
         <Grid item xs="auto">
           <span className={classes.badge}>{data.monthlyPrice}$/Month</span>

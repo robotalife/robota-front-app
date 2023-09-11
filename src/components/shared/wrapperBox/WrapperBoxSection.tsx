@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import { PropsWithChildren } from 'react';
 
 interface Props extends PropsWithChildren {
   noPadding?: boolean;
@@ -6,10 +6,7 @@ interface Props extends PropsWithChildren {
 
 const WrapperBoxSection = ({ noPadding, children }: Props) => {
   return (
-    <div
-      className="wrapperBoxSection"
-      style={{ padding: !!noPadding ? 0 : 24 }}
-    >
+    <div className="wrapperBoxSection" style={{ padding: !!noPadding ? 0 : 24 }}>
       {children}
     </div>
   );

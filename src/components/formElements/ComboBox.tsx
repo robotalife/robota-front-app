@@ -1,15 +1,10 @@
-import {
-  Autocomplete,
-  AutocompleteProps,
-  Grid,
-  TextField,
-} from "@mui/material";
-import { Message } from "../../shared/interfaces/message";
-import InputWrapper from "./InputWrapper";
-import { useId } from "react";
+import { Autocomplete, AutocompleteProps, Grid, TextField } from '@mui/material';
+import { Message } from '../../shared/interfaces/message';
+import InputWrapper from './InputWrapper';
+import { useId } from 'react';
 
-import classes from "./ComboBox.module.scss";
-import { IconChevronDown } from "../../shared/icons/Icons";
+import classes from './ComboBox.module.scss';
+import { IconChevronDown } from '../../shared/icons/Icons';
 
 export interface AutocompleteOption {
   label: string;
@@ -17,11 +12,7 @@ export interface AutocompleteOption {
   icon?: JSX.Element;
 }
 
-interface Props
-  extends Omit<
-    AutocompleteProps<AutocompleteOption, false, false, false>,
-    "renderInput"
-  > {
+interface Props extends Omit<AutocompleteProps<AutocompleteOption, false, false, false>, 'renderInput'> {
   options: AutocompleteOption[];
   label?: string;
   message?: string;
@@ -29,15 +20,7 @@ interface Props
   placeholderIcon?: JSX.Element;
 }
 
-const ComboBox = ({
-  label,
-  message,
-  messageType,
-  options,
-  placeholder,
-  placeholderIcon,
-  ...props
-}: Props) => {
+const ComboBox = ({ label, message, messageType, options, placeholder, placeholderIcon, ...props }: Props) => {
   const tmpId = useId();
 
   return (
@@ -57,9 +40,7 @@ const ComboBox = ({
               placeholder={placeholder}
               InputProps={{
                 ...otherInputProps,
-                startAdornment: !props?.value
-                  ? placeholderIcon
-                  : props?.value?.icon,
+                startAdornment: !props?.value ? placeholderIcon : props?.value?.icon,
               }}
               {...params}
             />
@@ -68,7 +49,7 @@ const ComboBox = ({
         renderOption={(params, option) => (
           <Grid container component="li" {...params} columnSpacing={1}>
             {option.icon && (
-              <Grid item xs={"auto"}>
+              <Grid item xs={'auto'}>
                 <div className={classes.icon}>{option.icon}</div>
               </Grid>
             )}

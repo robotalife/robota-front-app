@@ -1,18 +1,14 @@
-import { Container, Grid } from "@mui/material";
-import {
-  email,
-  stringSchema,
-  validationSchema,
-} from "../../shared/consts/validations";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import useAxios from "../../shared/hooks/useAxios";
-import { Form, Formik } from "formik";
-import Fieldset from "../../components/formElements/Fieldset";
-import FieldsetElement from "../../components/formElements/FieldsetElement";
-import TextField from "../../components/formElements/TextField";
-import { IconMail } from "../../shared/icons/Icons";
-import Button from "../../components/formElements/Button";
+import { Container, Grid } from '@mui/material';
+import { email, stringSchema, validationSchema } from '../../shared/consts/validations';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import useAxios from '../../shared/hooks/useAxios';
+import { Form, Formik } from 'formik';
+import Fieldset from '../../components/formElements/Fieldset';
+import FieldsetElement from '../../components/formElements/FieldsetElement';
+import TextField from '../../components/formElements/TextField';
+import { IconMail } from '../../shared/icons/Icons';
+import Button from '../../components/formElements/Button';
 
 const validations = validationSchema({
   firstName: stringSchema,
@@ -25,19 +21,15 @@ const initialValues: {
   lastName: string;
   email: string;
 } = {
-  firstName: "",
-  lastName: "",
-  email: "",
+  firstName: '',
+  lastName: '',
+  email: '',
 };
 
 const ExchangeEditProfile = () => {
   const { axios } = useAxios();
 
-  const handleSubmit = async (values: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }) => {
+  const handleSubmit = async (values: { firstName: string; lastName: string; email: string }) => {
     // Here we should call the api to update the user profile
     console.log(values);
     // try {
@@ -71,9 +63,7 @@ const ExchangeEditProfile = () => {
                     onChange={handleChange}
                     required
                     error={Boolean(errors.firstName && touched.firstName)}
-                    helperText={
-                      errors.firstName && touched.firstName && errors.firstName
-                    }
+                    helperText={errors.firstName && touched.firstName && errors.firstName}
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>
@@ -85,9 +75,7 @@ const ExchangeEditProfile = () => {
                     onChange={handleChange}
                     required
                     error={Boolean(errors.lastName && touched.lastName)}
-                    helperText={
-                      errors.lastName && touched.lastName && errors.lastName
-                    }
+                    helperText={errors.lastName && touched.lastName && errors.lastName}
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>

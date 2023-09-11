@@ -11,35 +11,26 @@ import {
   ScriptableContext,
   ChartData,
   ChartOptions,
-} from "chart.js";
-import { Line } from "react-chartjs-2";
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
-import classes from "./BotCardChart.module.scss";
-import { faker } from "@faker-js/faker";
-import {IChartData} from "../../../shared/interfaces/bots";
+import classes from './BotCardChart.module.scss';
+import { faker } from '@faker-js/faker';
+import { IChartData } from '../../../shared/interfaces/bots';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend
-);
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Filler, Legend);
 
-const options: ChartOptions<"line"> = {
+const options: ChartOptions<'line'> = {
   responsive: true,
   maintainAspectRatio: false,
   plugins: {
     legend: {
       display: false,
-      position: "top" as const,
+      position: 'top' as const,
     },
     title: {
       display: false,
-      text: "",
+      text: '',
     },
   },
   scales: {
@@ -69,30 +60,28 @@ const options: ChartOptions<"line"> = {
 };
 
 interface Props {
-  input : IChartData;
+  input: IChartData;
 }
 
-const data = (
-    input: IChartData
-): ChartData<"line", number[], string> => {
+const data = (input: IChartData): ChartData<'line', number[], string> => {
   let trajectory = -1;
-  if(input.data && input.data[0] > input.data[input.data.length-1]){
+  if (input.data && input.data[0] > input.data[input.data.length - 1]) {
     trajectory = +1;
   }
   return {
-    labels:input.labels,
+    labels: input.labels,
     datasets: [
       {
         fill: true,
-        label: "Dataset 2",
-        data: input.data ,
-        borderColor:  trajectory<0 ? "#12B76A" : "#F04438",
+        label: 'Dataset 2',
+        data: input.data,
+        borderColor: trajectory < 0 ? '#12B76A' : '#F04438',
         borderWidth: 2,
-        backgroundColor: (context: ScriptableContext<"line">) => {
+        backgroundColor: (context: ScriptableContext<'line'>) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, -140, 0, 65);
-          gradient.addColorStop(0, trajectory<0 ? "#12B76A" : "#F04438");
-          gradient.addColorStop(1, "#fff");
+          gradient.addColorStop(0, trajectory < 0 ? '#12B76A' : '#F04438');
+          gradient.addColorStop(1, '#fff');
           return gradient;
         },
         tension: 0.3,
@@ -102,7 +91,7 @@ const data = (
   };
 };
 
-const BotCardChart = ({ input }:  Props) => {
+const BotCardChart = ({ input }: Props) => {
   return (
     <div className={classes.chartWrapper}>
       <Line options={options} data={data(input)} />

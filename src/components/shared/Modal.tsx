@@ -1,5 +1,5 @@
-import { Box, Modal as MUIModal, ModalProps } from "@mui/material";
-import classes from "./Modal.module.scss";
+import { Box, Modal as MUIModal, ModalProps } from '@mui/material';
+import classes from './Modal.module.scss';
 
 interface Props extends ModalProps {}
 

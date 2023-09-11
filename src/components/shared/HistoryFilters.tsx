@@ -1,6 +1,6 @@
-import { Grid, Typography } from "@mui/material";
-import { useState } from "react";
-import RangePicker from "../formElements/RangePicker";
+import { Grid, Typography } from '@mui/material';
+import { useState } from 'react';
+import RangePicker from '../formElements/RangePicker';
 
 interface Props {
   onCreatedChange: (e: (Date | null)[]) => void;

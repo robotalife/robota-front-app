@@ -1,15 +1,9 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import useAxios from "../hooks/useAxios";
-import { useParams } from "react-router-dom";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../consts/apiEndpoints";
-import { ISingleBotData } from "../interfaces/bots";
+import { createContext, PropsWithChildren, useCallback, useEffect, useState } from 'react';
+import useAxios from '../hooks/useAxios';
+import { useParams } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../consts/apiEndpoints';
+import { ISingleBotData } from '../interfaces/bots';
 
 export const BotContext = createContext<{
   botData: ISingleBotData;
@@ -26,9 +20,7 @@ export const BotProvider = ({ children }: PropsWithChildren) => {
 
   const getBotData = useCallback(async () => {
     try {
-      const response: AxiosResponse<ISingleBotData, any> = await axios.get(
-        apiEndPoints.getBot(botId as string)
-      );
+      const response: AxiosResponse<ISingleBotData, any> = await axios.get(apiEndPoints.getBot(botId as string));
 
       const data = response.data;
       setBotData(data);
@@ -41,9 +33,5 @@ export const BotProvider = ({ children }: PropsWithChildren) => {
     getBotData();
   }, [getBotData]);
 
-  return (
-    <BotContext.Provider value={{ botData, getBotData }}>
-      {children}
-    </BotContext.Provider>
-  );
+  return <BotContext.Provider value={{ botData, getBotData }}>{children}</BotContext.Provider>;
 };

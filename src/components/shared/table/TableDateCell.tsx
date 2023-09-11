@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
-import classes from "./TableDateCell.module.scss";
-import { ReactNode } from "react";
+import { Typography } from '@mui/material';
+import classes from './TableDateCell.module.scss';
+import { ReactNode } from 'react';
 
 interface Props {
   date: ReactNode;

@@ -2,7 +2,9 @@
   background: $white;
   border: 1px solid $gray-200;
   border-radius: 8px;
-  box-shadow: 0px 1px 3px rgba($gray-900, 10%), 0px 1px 2px rgba($gray-900, 6%);
+  box-shadow:
+    0px 1px 3px rgba($gray-900, 10%),
+    0px 1px 2px rgba($gray-900, 6%);
   display: flex;
   flex-direction: column;
   height: 100%;

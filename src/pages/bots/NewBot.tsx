@@ -1,51 +1,31 @@
-import { useContext, useEffect, useMemo, useState } from "react";
-import { ExchangeContext } from "../../shared/providers/ExchangeProvider";
-import useAxios from "../../shared/hooks/useAxios";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { Grid, MenuItem, Typography } from "@mui/material";
-import Fieldset from "../../components/formElements/Fieldset";
-import FieldsetElement from "../../components/formElements/FieldsetElement";
-import TextField from "../../components/formElements/TextField";
-import {
-  IconBinance,
-  IconCircle,
-  IconExchangePlaceholder,
-  IconModalSave,
-  IconOctagon,
-} from "../../shared/icons/Icons";
-import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
-import {
-  newBotLeverage,
-  newBotMarginType,
-  newBotStartegy,
-} from "../../shared/consts/botCreateItems";
-import Button from "../../components/formElements/Button";
-import Modal from "../../components/shared/Modal";
-import Table from "../../components/shared/table/Table";
-import TableRow from "../../components/shared/table/TableRow";
-import TableCell from "../../components/shared/table/TableCell";
-import { useNavigate } from "react-router-dom";
-import TableBody from "../../components/shared/table/TableBody";
-import routes from "../../shared/consts/routes";
-import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
+import { useContext, useEffect, useMemo, useState } from 'react';
+import { ExchangeContext } from '../../shared/providers/ExchangeProvider';
+import useAxios from '../../shared/hooks/useAxios';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { Grid, MenuItem, Typography } from '@mui/material';
+import Fieldset from '../../components/formElements/Fieldset';
+import FieldsetElement from '../../components/formElements/FieldsetElement';
+import TextField from '../../components/formElements/TextField';
+import { IconBinance, IconCircle, IconExchangePlaceholder, IconModalSave, IconOctagon } from '../../shared/icons/Icons';
+import ToggleButtonGroup from '../../components/formElements/ToggleButtonGroup';
+import { newBotLeverage, newBotMarginType, newBotStartegy } from '../../shared/consts/botCreateItems';
+import Button from '../../components/formElements/Button';
+import Modal from '../../components/shared/Modal';
+import Table from '../../components/shared/table/Table';
+import TableRow from '../../components/shared/table/TableRow';
+import TableCell from '../../components/shared/table/TableCell';
+import { useNavigate } from 'react-router-dom';
+import TableBody from '../../components/shared/table/TableBody';
+import routes from '../../shared/consts/routes';
+import { MyBotsContext } from '../../shared/providers/MyBotsProvider';
 
-import classes from "./NewBot.module.scss";
-import ComboBox, {
-  AutocompleteOption,
-} from "../../components/formElements/ComboBox";
-import {
-  exchangeComboBoxSchema,
-  newBotNumberSchema,
-  pairComboBoxSchema,
-  stringSchema,
-  validationSchema,
-} from "../../shared/consts/validations";
-import { Form, Formik } from "formik";
-import { IPair } from "../../shared/interfaces/exchange";
-import DropdownTextField, {
-  DropdownTextFieldProps,
-} from "../../components/formElements/DropdownTextField";
+import classes from './NewBot.module.scss';
+import ComboBox, { AutocompleteOption } from '../../components/formElements/ComboBox';
+import { exchangeComboBoxSchema, newBotNumberSchema, pairComboBoxSchema, stringSchema, validationSchema } from '../../shared/consts/validations';
+import { Form, Formik } from 'formik';
+import { IPair } from '../../shared/interfaces/exchange';
+import DropdownTextField, { DropdownTextFieldProps } from '../../components/formElements/DropdownTextField';
 
 const validations = validationSchema({
   name: stringSchema,
@@ -60,35 +40,28 @@ const initialValues: {
   exchange: string;
   pair: string;
 } = {
-  name: "",
+  name: '',
   investment: undefined,
-  exchange: "",
-  pair: "",
+  exchange: '',
+  pair: '',
 };
 
 enum PropertyNameList {
-  access = "Access",
-  marginType = "Leverage type",
-  leverageValue = "Leverage custom value",
-  orderStrategy = "Strategy",
-  pair = "Pair",
-  investment = "Investment",
+  access = 'Access',
+  marginType = 'Leverage type',
+  leverageValue = 'Leverage custom value',
+  orderStrategy = 'Strategy',
+  pair = 'Pair',
+  investment = 'Investment',
 }
 
 const NewBot = () => {
   const { filters, setFilters } = useContext(MyBotsContext);
   const { axios } = useAxios();
   const navigate = useNavigate();
-  const {
-    exchangeList,
-    selectedExchange,
-    setSelectedExchange,
-    pairs,
-    selectedPair,
-    setSelectedPair,
-  } = useContext(ExchangeContext);
+  const { exchangeList, selectedExchange, setSelectedExchange, pairs, selectedPair, setSelectedPair } = useContext(ExchangeContext);
 
-  const [currency, setCurrency] = useState<string>("usdt");
+  const [currency, setCurrency] = useState<string>('usdt');
 
   const [showModal, setShowModal] = useState(false);
 
@@ -106,25 +79,20 @@ const NewBot = () => {
     return {
       value: pair.value,
       label: pair.text,
-      icon: (
-        <img
-          src={pair.iconUrl}
-          style={{ height: 20, width: 20, objectFit: "contain" }}
-        />
-      ),
+      icon: <img src={pair.iconUrl} style={{ height: 20, width: 20, objectFit: 'contain' }} />,
     };
   });
 
   const investmentProps: DropdownTextFieldProps = {
     selectProps: {
       children: [
-        <MenuItem selected value={"usdt"} key={"usdt"}>
+        <MenuItem selected value={'usdt'} key={'usdt'}>
           USDT
         </MenuItem>,
-        <MenuItem value={"usdc"} key="usdc">
+        <MenuItem value={'usdc'} key="usdc">
           USDC
         </MenuItem>,
-        <MenuItem value={"bnb"} key="bnb">
+        <MenuItem value={'bnb'} key="bnb">
           BNB
         </MenuItem>,
       ],
@@ -134,22 +102,22 @@ const NewBot = () => {
       value: currency,
     },
     textFieldProps: {
-      type: "number",
+      type: 'number',
       onChange: (e) => console.log(e.target.value),
     },
-    message: "lorem ipsum dollor sum",
-    messageType: "error",
+    message: 'lorem ipsum dollor sum',
+    messageType: 'error',
   };
 
   const [formData, setFormData] = useState({
-    name: "",
+    name: '',
     exchangeId: selectedExchange,
     configuration: {
-      marginType: "ISOLATED",
+      marginType: 'ISOLATED',
       leverageValue: 1,
-      orderStrategy: "SHORT",
-      pair: selectedPair?.value || "",
-      investment: "",
+      orderStrategy: 'SHORT',
+      pair: selectedPair?.value || '',
+      investment: '',
     },
   });
 
@@ -167,8 +135,7 @@ const NewBot = () => {
 
   const createBot = async () => {
     try {
-      const response: AxiosResponse<{ botId: number; botName: string }, any> =
-        await axios.post(apiEndPoints.bots, formData);
+      const response: AxiosResponse<{ botId: number; botName: string }, any> = await axios.post(apiEndPoints.bots, formData);
 
       const { botId } = response.data;
       setFilters({ ...filters, page: 0 });
@@ -188,7 +155,7 @@ const NewBot = () => {
       ...formData,
       configuration: {
         ...formData.configuration,
-        pair: selectedPair?.value || "",
+        pair: selectedPair?.value || '',
       },
     });
   }, [selectedPair, setFormData]);
@@ -209,10 +176,7 @@ const NewBot = () => {
             {({ values, handleChange, errors, touched, setFieldValue }) => (
               <Form noValidate>
                 <Fieldset legend="Main Setting">
-                  <FieldsetElement
-                    label="Name"
-                    description="Please give this bot a unique name so reporting and management is easier."
-                  >
+                  <FieldsetElement label="Name" description="Please give this bot a unique name so reporting and management is easier.">
                     <TextField
                       name="name"
                       type="text"
@@ -225,84 +189,47 @@ const NewBot = () => {
                       sx={{ mb: 2 }}
                     />
                   </FieldsetElement>
-                  <FieldsetElement
-                    label="Exchange"
-                    description="This is the exchange account the bot will use for any deals it creates."
-                  >
+                  <FieldsetElement label="Exchange" description="This is the exchange account the bot will use for any deals it creates.">
                     <ComboBox
-                      label={"Exchange"}
-                      sx={{ width: "100%" }}
+                      label={'Exchange'}
+                      sx={{ width: '100%' }}
                       options={comboExchangeList}
                       placeholder="Select an account"
                       placeholderIcon={<IconExchangePlaceholder />}
                       onChange={(e, val) => {
                         setFormData({
                           ...formData,
-                          exchangeId: val ? (val.value as string) : "",
+                          exchangeId: val ? (val.value as string) : '',
                         });
-                        setSelectedExchange(
-                          (val && (val.value as string)) || ""
-                        );
-                        setFieldValue("exchange", val?.value || "", true);
+                        setSelectedExchange((val && (val.value as string)) || '');
+                        setFieldValue('exchange', val?.value || '', true);
                       }}
-                      value={
-                        values.exchange
-                          ? comboExchangeList.find(
-                              (ex) => ex.value === values.exchange
-                            )
-                          : null
-                      }
+                      value={values.exchange ? comboExchangeList.find((ex) => ex.value === values.exchange) : null}
                       id="exchange"
                       // error={Boolean(errors.name && touched.name)}
                       messageType="error"
-                      message={
-                        (errors.exchange &&
-                          touched.exchange &&
-                          errors.exchange) ||
-                        undefined
-                      }
+                      message={(errors.exchange && touched.exchange && errors.exchange) || undefined}
                     />
                   </FieldsetElement>
-                  <FieldsetElement
-                    label="Pair"
-                    description="Please select the Trading Pair this bot can use."
-                  >
+                  <FieldsetElement label="Pair" description="Please select the Trading Pair this bot can use.">
                     <ComboBox
-                      label={"Pair"}
-                      sx={{ width: "100%" }}
+                      label={'Pair'}
+                      sx={{ width: '100%' }}
                       placeholder="Select a pair"
                       placeholderIcon={<IconCircle />}
                       options={comboPairsList}
                       onChange={(e, val) => {
-                        setSelectedPair(
-                          !!val
-                            ? (pairs.find(
-                                (p) => p.value === val.value
-                              ) as IPair)
-                            : null
-                        );
-                        setFieldValue("pair", val?.value || "", true);
+                        setSelectedPair(!!val ? (pairs.find((p) => p.value === val.value) as IPair) : null);
+                        setFieldValue('pair', val?.value || '', true);
                       }}
-                      value={
-                        values.pair
-                          ? comboPairsList.find(
-                              (ex) => ex.value === values.pair
-                            )
-                          : null
-                      }
+                      value={values.pair ? comboPairsList.find((ex) => ex.value === values.pair) : null}
                       id="pair"
                       disabled={!values.exchange || !pairs.length}
                       messageType="error"
-                      message={
-                        (errors.pair && touched.pair && errors.pair) ||
-                        undefined
-                      }
+                      message={(errors.pair && touched.pair && errors.pair) || undefined}
                     />
                   </FieldsetElement>
-                  <FieldsetElement
-                    label="Investment"
-                    description="This is the investment you are allocating from your exchange for this bot."
-                  >
+                  <FieldsetElement label="Investment" description="This is the investment you are allocating from your exchange for this bot.">
                     <TextField
                       name="investment"
                       type="number"
@@ -310,20 +237,13 @@ const NewBot = () => {
                       value={values.investment}
                       onChange={handleChange}
                       error={Boolean(errors.investment && touched.investment)}
-                      helperText={
-                        errors.investment &&
-                        touched.investment &&
-                        errors.investment
-                      }
+                      helperText={errors.investment && touched.investment && errors.investment}
                     />
                     {/* <DropdownTextField {...investmentProps} /> */}
                   </FieldsetElement>
                 </Fieldset>
                 <Fieldset legend="Strategy">
-                  <FieldsetElement
-                    label="Strategy"
-                    description="Long bots profit when asset prices rise, Short bots profit when asset prices fall."
-                  >
+                  <FieldsetElement label="Strategy" description="Long bots profit when asset prices rise, Short bots profit when asset prices fall.">
                     <ToggleButtonGroup
                       options={newBotStartegy}
                       value={formData.configuration.orderStrategy}
@@ -339,10 +259,7 @@ const NewBot = () => {
                       }
                     />
                   </FieldsetElement>
-                  <FieldsetElement
-                    label="Margin type"
-                    description="Choose leverage type"
-                  >
+                  <FieldsetElement label="Margin type" description="Choose leverage type">
                     <ToggleButtonGroup
                       options={newBotMarginType}
                       value={formData.configuration.marginType}
@@ -358,10 +275,7 @@ const NewBot = () => {
                       }
                     />
                   </FieldsetElement>
-                  <FieldsetElement
-                    label="Leverage custom value"
-                    description="Choose leverage value"
-                  >
+                  <FieldsetElement label="Leverage custom value" description="Choose leverage value">
                     <ToggleButtonGroup
                       options={newBotLeverage}
                       value={formData.configuration.leverageValue}
@@ -389,15 +303,12 @@ const NewBot = () => {
       </Grid>
       <Modal open={showModal} onClose={() => setShowModal(false)}>
         <>
-          <Grid container justifyContent={"center"} mb={1}>
-            <Grid item xs={"auto"}>
+          <Grid container justifyContent={'center'} mb={1}>
+            <Grid item xs={'auto'}>
               <IconModalSave />
             </Grid>
           </Grid>
-          <Typography
-            component={"h3"}
-            sx={{ textAlign: "center", fontSize: 18, fontWeight: 500 }}
-          >
+          <Typography component={'h3'} sx={{ textAlign: 'center', fontSize: 18, fontWeight: 500 }}>
             Save Changes?
           </Typography>
           <Table className={classes.table}>
@@ -408,22 +319,13 @@ const NewBot = () => {
               </TableRow>
               <TableRow>
                 <TableCell>Exchange</TableCell>
-                <TableCell>
-                  {
-                    exchangeList.find(
-                      (ex) => ex.exchangeId === formData.exchangeId
-                    )?.exchangeName
-                  }
-                </TableCell>
+                <TableCell>{exchangeList.find((ex) => ex.exchangeId === formData.exchangeId)?.exchangeName}</TableCell>
               </TableRow>
               {Object.keys(formData.configuration).map((config) => (
                 <TableRow key={config}>
+                  <TableCell>{(PropertyNameList as { [key: string]: string })[config]}</TableCell>
                   <TableCell>
-                    {(PropertyNameList as { [key: string]: string })[config]}
-                  </TableCell>
-                  <TableCell>
-                    {(PropertyNameList as { [key: string]: string })[config] ===
-                    "Pair" ? (
+                    {(PropertyNameList as { [key: string]: string })[config] === 'Pair' ? (
                       <>
                         {
                           comboPairsList.find(
@@ -447,22 +349,12 @@ const NewBot = () => {
           </Table>
           <Grid container spacing={2} mt={2}>
             <Grid item xs={6}>
-              <Button
-                type="button"
-                variant="outlined"
-                fullWidth
-                onClick={() => setShowModal(false)}
-              >
+              <Button type="button" variant="outlined" fullWidth onClick={() => setShowModal(false)}>
                 Cancel
               </Button>
             </Grid>
             <Grid item xs={6}>
-              <Button
-                type="button"
-                variant="contained"
-                fullWidth
-                onClick={createBot}
-              >
+              <Button type="button" variant="contained" fullWidth onClick={createBot}>
                 Confirm
               </Button>
             </Grid>

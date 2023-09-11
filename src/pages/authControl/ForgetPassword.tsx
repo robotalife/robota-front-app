@@ -1,15 +1,15 @@
-import Button from "../../components/formElements/Button";
-import TextField from "../../components/formElements/TextField";
-import { IconMail } from "../../shared/icons/Icons";
-import * as Yup from "yup";
-import { Form, Formik } from "formik";
-import useAxios from "../../shared/hooks/useAxios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import { useState } from "react";
-import { Typography } from "@mui/material";
-import circleCheck from "@images/green-circle-check.svg";
-import { email, validationSchema } from "../../shared/consts/validations";
+import Button from '../../components/formElements/Button';
+import TextField from '../../components/formElements/TextField';
+import { IconMail } from '../../shared/icons/Icons';
+import * as Yup from 'yup';
+import { Form, Formik } from 'formik';
+import useAxios from '../../shared/hooks/useAxios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import { useState } from 'react';
+import { Typography } from '@mui/material';
+import circleCheck from '@images/green-circle-check.svg';
+import { email, validationSchema } from '../../shared/consts/validations';
 
 const validations = validationSchema({
   email: email,
@@ -43,27 +43,22 @@ const ForgetPassword = () => {
   if (isSent)
     return (
       <>
-        <div style={{ textAlign: "center" }}>
+        <div style={{ textAlign: 'center' }}>
           <img src={circleCheck} />
         </div>
-        <Typography component="div" className={"pageTitle"}>
+        <Typography component="div" className={'pageTitle'}>
           Check your email
         </Typography>
-        <Typography
-          component="div"
-          className={"pageDescription"}
-          sx={{ marginTop: 2, textAlign: "center" }}
-        >
-          We've sent a password reset link to{" "}
-          <u>{userEmail ? userEmail : "your email"}</u>. If you don't see it in
-          your inbox, please check your spam folder.
+        <Typography component="div" className={'pageDescription'} sx={{ marginTop: 2, textAlign: 'center' }}>
+          We've sent a password reset link to <u>{userEmail ? userEmail : 'your email'}</u>. If you don't see it in your inbox, please check your spam
+          folder.
         </Typography>
       </>
     );
 
   return (
     <Formik
-      initialValues={{ email: "" }}
+      initialValues={{ email: '' }}
       validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
@@ -71,8 +66,8 @@ const ForgetPassword = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate style={{ width: "100%" }}>
-          <div className={"pageTitle"}>Reset password</div>
+        <Form noValidate style={{ width: '100%' }}>
+          <div className={'pageTitle'}>Reset password</div>
           <TextField
             name="email"
             type="email"

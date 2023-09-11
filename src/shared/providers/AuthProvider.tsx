@@ -1,6 +1,6 @@
-import { createContext, PropsWithChildren, useEffect, useState } from "react";
-import useAxios from "../hooks/useAxios";
-import routes from "../consts/routes";
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
+import useAxios from '../hooks/useAxios';
+import routes from '../consts/routes';
 
 export const AuthContext = createContext<{
   isAuthenticated: boolean;
@@ -14,17 +14,11 @@ export const AuthContext = createContext<{
   userId: null,
 });
 
-const token = localStorage.getItem("token");
-const localUserId = localStorage.getItem("userId");
+const token = localStorage.getItem('token');
+const localUserId = localStorage.getItem('userId');
 const currentPage = window.location.pathname;
 
-const authRoutes: string[] = [
-  routes.signin,
-  routes.signup,
-  routes.activate,
-  routes.forgetPassword,
-  routes.newPassword,
-];
+const authRoutes: string[] = [routes.signin, routes.signup, routes.activate, routes.forgetPassword, routes.newPassword];
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
   const { axios } = useAxios();
@@ -34,7 +28,7 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     if (token && localUserId) {
       // set token as default authorization header for axios requests
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       setUserId(localUserId);
       setIsAuthenticated(true);
     } else if (!authRoutes.some((route) => currentPage.startsWith(route))) {
@@ -42,11 +36,5 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
     }
   }, [setIsAuthenticated, setUserId]);
 
-  return (
-    <AuthContext.Provider
-      value={{ isAuthenticated, setIsAuthenticated, userId, setUserId }}
-    >
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, userId, setUserId }}>{children}</AuthContext.Provider>;
 };

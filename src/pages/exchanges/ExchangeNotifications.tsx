@@ -1,18 +1,18 @@
-import { Grid } from "@mui/material";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import useAxios from "../../shared/hooks/useAxios";
-import { Form, Formik } from "formik";
-import Fieldset from "../../components/formElements/Fieldset";
-import FieldsetElement from "../../components/formElements/FieldsetElement";
-import TextField from "../../components/formElements/TextField";
-import { IconMail } from "../../shared/icons/Icons";
-import Button from "../../components/formElements/Button";
-import ToggleButtonGroup from "../../components/formElements/ToggleButtonGroup";
-import { notificationType } from "../../shared/consts/botCreateItems";
-import { boolean } from "yup";
-import { useEffect, useState } from "react";
-import useNotify from "../../shared/hooks/useNotify";
+import { Grid } from '@mui/material';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import useAxios from '../../shared/hooks/useAxios';
+import { Form, Formik } from 'formik';
+import Fieldset from '../../components/formElements/Fieldset';
+import FieldsetElement from '../../components/formElements/FieldsetElement';
+import TextField from '../../components/formElements/TextField';
+import { IconMail } from '../../shared/icons/Icons';
+import Button from '../../components/formElements/Button';
+import ToggleButtonGroup from '../../components/formElements/ToggleButtonGroup';
+import { notificationType } from '../../shared/consts/botCreateItems';
+import { boolean } from 'yup';
+import { useEffect, useState } from 'react';
+import useNotify from '../../shared/hooks/useNotify';
 
 interface IExchangeNotifications {
   open: boolean;
@@ -24,12 +24,11 @@ const ExchangeNotifications = () => {
   const notify = useNotify();
   const { axios } = useAxios();
 
-  const [notificationConfig, setNotificationConfig] =
-    useState<IExchangeNotifications>({
-      open: true,
-      close: false,
-      error: false,
-    });
+  const [notificationConfig, setNotificationConfig] = useState<IExchangeNotifications>({
+    open: true,
+    close: false,
+    error: false,
+  });
 
   const submitChange = async (endpoint: string, value: string) => {
     // try {
@@ -53,9 +52,7 @@ const ExchangeNotifications = () => {
             options={notificationType}
             value={notificationConfig.open}
             id="openTrade"
-            onChange={(e, i) =>
-              setNotificationConfig({ ...notificationConfig, open: i })
-            }
+            onChange={(e, i) => setNotificationConfig({ ...notificationConfig, open: i })}
           />
         </FieldsetElement>
         <FieldsetElement label="Close Trade">
@@ -63,9 +60,7 @@ const ExchangeNotifications = () => {
             options={notificationType}
             value={notificationConfig.close}
             id="closeTrade"
-            onChange={(e, i) =>
-              setNotificationConfig({ ...notificationConfig, close: i })
-            }
+            onChange={(e, i) => setNotificationConfig({ ...notificationConfig, close: i })}
           />
         </FieldsetElement>
         <FieldsetElement label="Errors">
@@ -73,9 +68,7 @@ const ExchangeNotifications = () => {
             options={notificationType}
             value={notificationConfig.error}
             id="error"
-            onChange={(e, i) =>
-              setNotificationConfig({ ...notificationConfig, error: i })
-            }
+            onChange={(e, i) => setNotificationConfig({ ...notificationConfig, error: i })}
           />
         </FieldsetElement>
       </Grid>

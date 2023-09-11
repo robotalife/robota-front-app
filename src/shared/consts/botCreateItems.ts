@@ -1,71 +1,71 @@
 export const newBotStartegy = [
   {
-    value: "LONG",
-    label: "Long",
+    value: 'LONG',
+    label: 'Long',
   },
   {
-    value: "SHORT",
-    label: "Short",
+    value: 'SHORT',
+    label: 'Short',
   },
 ];
 
 export const newBotMarginType = [
   {
-    value: "CROSSED",
-    label: "Cross",
+    value: 'CROSSED',
+    label: 'Cross',
   },
   {
-    value: "ISOLATED",
-    label: "Isolated",
+    value: 'ISOLATED',
+    label: 'Isolated',
   },
 ];
 
 export const notificationType = [
   {
     value: false,
-    label: "None",
+    label: 'None',
   },
   {
     value: true,
-    label: "Email",
+    label: 'Email',
   },
 ];
 
 export const newBotLeverage = [
   {
     value: 1,
-    label: "1x",
+    label: '1x',
   },
   {
     value: 2,
-    label: "2x",
+    label: '2x',
   },
   {
     value: 3,
-    label: "3x",
+    label: '3x',
   },
   {
     value: 5,
-    label: "5x",
+    label: '5x',
   },
   {
     value: 10,
-    label: "10x",
+    label: '10x',
   },
   {
     value: 15,
-    label: "15x",
+    label: '15x',
   },
   {
     value: 20,
-    label: "20x",
+    label: '20x',
   },
   {
     value: 25,
-    label: "25x",
+    label: '25x',
   },
   {
     value: 100,
-    label: "100x",
+    label: '100x',
   },
 ];

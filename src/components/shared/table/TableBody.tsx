@@ -1,4 +1,4 @@
-import { TableBody as MUITableBody, TableBodyProps } from "@mui/material";
+import { TableBody as MUITableBody, TableBodyProps } from '@mui/material';
 
 const TableBody = (props: TableBodyProps) => {
   return <MUITableBody {...props} />;

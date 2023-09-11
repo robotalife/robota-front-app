@@ -1,27 +1,24 @@
-import Table from "../../components/shared/table/Table";
-import TableBody from "../../components/shared/table/TableBody";
-import TableCell from "../../components/shared/table/TableCell";
-import TableHead from "../../components/shared/table/TableHead";
-import TableRow from "../../components/shared/table/TableRow";
-import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
-import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
-import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
-import TableDateTime from "../../components/shared/table/TableDateCell";
-import { useCallback, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import useAxios from "../../shared/hooks/useAxios";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import getDateTime from "../../shared/helpers/getDateTimeObj";
-import {
-  DataWithPagination,
-  PaginationObj,
-} from "../../shared/interfaces/paginateData";
-import { IEventLog } from "../../shared/interfaces/bots";
-import Loader from "../../components/shared/Loader";
-import TextBadge from "../../components/shared/TextBadge";
-import { IconCircleCheck } from "../../shared/icons/Icons";
-import Pagination from "../../components/shared/Pagination";
+import Table from '../../components/shared/table/Table';
+import TableBody from '../../components/shared/table/TableBody';
+import TableCell from '../../components/shared/table/TableCell';
+import TableHead from '../../components/shared/table/TableHead';
+import TableRow from '../../components/shared/table/TableRow';
+import WrapperBox from '../../components/shared/wrapperBox/WrapperBox';
+import WrapperBoxHeader from '../../components/shared/wrapperBox/WrapperBoxHeader';
+import WrapperBoxSection from '../../components/shared/wrapperBox/WrapperBoxSection';
+import TableDateTime from '../../components/shared/table/TableDateCell';
+import { useCallback, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import useAxios from '../../shared/hooks/useAxios';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import getDateTime from '../../shared/helpers/getDateTimeObj';
+import { DataWithPagination, PaginationObj } from '../../shared/interfaces/paginateData';
+import { IEventLog } from '../../shared/interfaces/bots';
+import Loader from '../../components/shared/Loader';
+import TextBadge from '../../components/shared/TextBadge';
+import { IconCircleCheck } from '../../shared/icons/Icons';
+import Pagination from '../../components/shared/Pagination';
 
 const BotEventLog = () => {
   const { botId } = useParams();
@@ -45,10 +42,7 @@ const BotEventLog = () => {
       setLoading(true);
 
       try {
-        const response: AxiosResponse<
-          DataWithPagination<IEventLog[]>,
-          any
-        > = await axios.get(
+        const response: AxiosResponse<DataWithPagination<IEventLog[]>, any> = await axios.get(
           `${apiEndPoints.getBotLog(botId as string)}?page=${page}`
         );
 
@@ -80,15 +74,12 @@ const BotEventLog = () => {
 
   return (
     <WrapperBox>
-      <WrapperBoxHeader
-        title="Event Log"
-        description="Auto Update in 10 Minutes."
-      />
+      <WrapperBoxHeader title="Event Log" description="Auto Update in 10 Minutes." />
       <WrapperBoxSection noPadding>
         {loading ? (
           <Loader />
         ) : (
-          <Table sx={{ tableLayout: "fixed" }}>
+          <Table sx={{ tableLayout: 'fixed' }}>
             <TableHead>
               <TableRow>
                 <TableCell sx={{ width: 150 }}>Creation Date</TableCell>

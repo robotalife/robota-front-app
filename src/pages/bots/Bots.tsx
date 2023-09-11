@@ -1,19 +1,18 @@
-import { useContext } from "react";
-import { MyBotsContext } from "../../shared/providers/MyBotsProvider";
-import { Grid } from "@mui/material";
-import BotCard from "../../components/shared/BotCard/BotCard";
-import Pagination from "../../components/shared/Pagination";
-import Loader from "../../components/shared/Loader";
-import BotFilters from "../../components/shared/BotFilter";
-import Button from "../../components/formElements/Button";
-import { useNavigate } from "react-router-dom";
-import routes from "../../shared/consts/routes";
-import EmptyList from "../../components/shared/EmptyList";
+import { useContext } from 'react';
+import { MyBotsContext } from '../../shared/providers/MyBotsProvider';
+import { Grid } from '@mui/material';
+import BotCard from '../../components/shared/BotCard/BotCard';
+import Pagination from '../../components/shared/Pagination';
+import Loader from '../../components/shared/Loader';
+import BotFilters from '../../components/shared/BotFilter';
+import Button from '../../components/formElements/Button';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../shared/consts/routes';
+import EmptyList from '../../components/shared/EmptyList';
 
 const Bots = () => {
   const navigate = useNavigate();
-  const { botsList, setFilters, paginateData, loading, filters } =
-    useContext(MyBotsContext);
+  const { botsList, setFilters, paginateData, loading, filters } = useContext(MyBotsContext);
 
   return (
     <>
@@ -24,7 +23,7 @@ const Bots = () => {
         <Grid container spacing={3}>
           {Array.isArray(botsList) && botsList.length ? (
             botsList.map((bot) => (
-              <Grid item xs={12} sm={6} md={4} lg={"auto"} key={bot.id}>
+              <Grid item xs={12} sm={6} md={4} lg={'auto'} key={bot.id}>
                 <BotCard data={bot} link={`${routes.botOverview}/${bot.id}`}>
                   <Button
                     onClick={() => {
@@ -52,9 +51,7 @@ const Bots = () => {
           hasNext={paginateData.hasNext}
           hasPrevious={paginateData.hasPrevious}
           next={() => setFilters({ ...filters, page: paginateData.nextPage })}
-          previous={() =>
-            setFilters({ ...filters, page: paginateData.previousPage })
-          }
+          previous={() => setFilters({ ...filters, page: paginateData.previousPage })}
         />
       ) : (
         <> </>

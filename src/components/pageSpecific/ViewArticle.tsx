@@ -1,6 +1,6 @@
-import { Grid, Paper, Typography } from "@mui/material";
-import styles from "./ViewArticle.module.scss";
-import Button from "../formElements/Button";
+import { Grid, Paper, Typography } from '@mui/material';
+import styles from './ViewArticle.module.scss';
+import Button from '../formElements/Button';
 
 interface Props {
   exchange: string;
@@ -8,7 +8,6 @@ interface Props {
 }
 
 const ViewArticle = ({ exchange, link }: Props) => {
-
   return (
     <Paper elevation={0} sx={{ p: 8 }} className={styles.card}>
       <Grid container columnSpacing={5}>
@@ -22,14 +21,10 @@ const ViewArticle = ({ exchange, link }: Props) => {
         </Grid>
         <Grid item xs={12} lg="auto">
           <a href={link} target="_blank" rel="noreferrer">
-          <Button
-            type="submit"
-            variant="contained"
-            size="small"
-          >
-            View article
-          </Button>
-            </a>
+            <Button type="submit" variant="contained" size="small">
+              View article
+            </Button>
+          </a>
         </Grid>
       </Grid>
     </Paper>

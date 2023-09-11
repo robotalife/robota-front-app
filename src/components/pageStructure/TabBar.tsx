@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { NavLink } from "react-router-dom";
+import { ReactNode } from 'react';
+import { NavLink } from 'react-router-dom';
 
-import classes from "./TabBar.module.scss";
+import classes from './TabBar.module.scss';
 
 export interface TabBarItem {
   label: ReactNode;
@@ -23,9 +23,9 @@ const TabBar = ({ tabs }: Props) => {
             <div
               role="button"
               tabIndex={i + 1}
-              className={tab.active ? "is-active" : ""}
+              className={tab.active ? 'is-active' : ''}
               onClick={() => tab.action(tab.value)}
-              onKeyUp={(e) => e.code === "Enter" && tab.action(tab.value)}
+              onKeyUp={(e) => e.code === 'Enter' && tab.action(tab.value)}
             >
               {tab.label}
             </div>

@@ -1,14 +1,9 @@
-import {
-  ToggleButton as MUIToggleButton,
-  ToggleButtonGroup as MUIToggleButtonGroup,
-  ToggleButtonGroupProps,
-} from "@mui/material";
-import { MouseEvent, useState } from "react";
+import { ToggleButton as MUIToggleButton, ToggleButtonGroup as MUIToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material';
+import { MouseEvent, useState } from 'react';
 
-import classes from "./ToggleButtonGroup.module.scss";
+import classes from './ToggleButtonGroup.module.scss';
 
-interface Props<T extends string | number | boolean>
-  extends ToggleButtonGroupProps {
+interface Props<T extends string | number | boolean> extends ToggleButtonGroupProps {
   options: {
     value: T;
     label: string;
@@ -17,11 +12,7 @@ interface Props<T extends string | number | boolean>
   noIndicator?: boolean;
 }
 
-const ToggleButtonGroup = <T extends string | number | boolean>({
-  options,
-  noIndicator,
-  ...props
-}: Props<T>) => {
+const ToggleButtonGroup = <T extends string | number | boolean>({ options, noIndicator, ...props }: Props<T>) => {
   const [value, setValue] = useState<T>(props.value as NonNullable<T>);
 
   const handleAlignment = (event: MouseEvent<HTMLElement>, newValue: T) => {
@@ -37,17 +28,11 @@ const ToggleButtonGroup = <T extends string | number | boolean>({
       value={value}
       exclusive
       onChange={handleAlignment}
-      className={`${classes.toggleButtonGroup} ${props.className || ""}`}
+      className={`${classes.toggleButtonGroup} ${props.className || ''}`}
     >
       {options.map((option) => (
-        <MUIToggleButton
-          value={option.value as T}
-          aria-label={option.label}
-          key={option.label}
-        >
-          {!noIndicator && option.value === value && (
-            <span className={classes.indicator} />
-          )}
+        <MUIToggleButton value={option.value as T} aria-label={option.label} key={option.label}>
+          {!noIndicator && option.value === value && <span className={classes.indicator} />}
           {option.label}
         </MUIToggleButton>
       ))}

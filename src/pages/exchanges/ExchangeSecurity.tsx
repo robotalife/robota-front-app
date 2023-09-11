@@ -1,20 +1,14 @@
-import { Container, Grid } from "@mui/material";
-import {
-  email,
-  passwordConfirmation,
-  passwordFull,
-  stringSchema,
-  validationSchema,
-} from "../../shared/consts/validations";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import useAxios from "../../shared/hooks/useAxios";
-import { Form, Formik } from "formik";
-import Fieldset from "../../components/formElements/Fieldset";
-import FieldsetElement from "../../components/formElements/FieldsetElement";
-import TextField from "../../components/formElements/TextField";
-import { IconMail } from "../../shared/icons/Icons";
-import Button from "../../components/formElements/Button";
+import { Container, Grid } from '@mui/material';
+import { email, passwordConfirmation, passwordFull, stringSchema, validationSchema } from '../../shared/consts/validations';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import useAxios from '../../shared/hooks/useAxios';
+import { Form, Formik } from 'formik';
+import Fieldset from '../../components/formElements/Fieldset';
+import FieldsetElement from '../../components/formElements/FieldsetElement';
+import TextField from '../../components/formElements/TextField';
+import { IconMail } from '../../shared/icons/Icons';
+import Button from '../../components/formElements/Button';
 
 const validations = validationSchema({
   currentPassword: stringSchema,
@@ -27,19 +21,15 @@ const initialValues: {
   newPassword: string;
   ConfirmNewPassword: string;
 } = {
-  currentPassword: "",
-  newPassword: "",
-  ConfirmNewPassword: "",
+  currentPassword: '',
+  newPassword: '',
+  ConfirmNewPassword: '',
 };
 
 const ExchangeSecurity = () => {
   const { axios } = useAxios();
 
-  const handleSubmit = async (values: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  }) => {
+  const handleSubmit = async (values: { firstName: string; lastName: string; email: string }) => {
     // Here we should call the api to update the user profile
     console.log(values);
     // try {
@@ -72,21 +62,12 @@ const ExchangeSecurity = () => {
                     value={values.currentPassword}
                     onChange={handleChange}
                     required
-                    error={Boolean(
-                      errors.currentPassword && touched.currentPassword
-                    )}
-                    helperText={
-                      errors.currentPassword &&
-                      touched.currentPassword &&
-                      errors.currentPassword
-                    }
+                    error={Boolean(errors.currentPassword && touched.currentPassword)}
+                    helperText={errors.currentPassword && touched.currentPassword && errors.currentPassword}
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>
-                <FieldsetElement
-                  label="New password"
-                  description="Use 8 or more characters with a mix of letters, numbers & symbols"
-                >
+                <FieldsetElement label="New password" description="Use 8 or more characters with a mix of letters, numbers & symbols">
                   <TextField
                     name="newPassword"
                     type="password"
@@ -94,11 +75,7 @@ const ExchangeSecurity = () => {
                     onChange={handleChange}
                     required
                     error={Boolean(errors.newPassword && touched.newPassword)}
-                    helperText={
-                      errors.newPassword &&
-                      touched.newPassword &&
-                      errors.newPassword
-                    }
+                    helperText={errors.newPassword && touched.newPassword && errors.newPassword}
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>
@@ -109,14 +86,8 @@ const ExchangeSecurity = () => {
                     startIcon={<IconMail />}
                     value={values.ConfirmNewPassword}
                     onChange={handleChange}
-                    error={Boolean(
-                      errors.ConfirmNewPassword && touched.ConfirmNewPassword
-                    )}
-                    helperText={
-                      errors.ConfirmNewPassword &&
-                      touched.ConfirmNewPassword &&
-                      errors.ConfirmNewPassword
-                    }
+                    error={Boolean(errors.ConfirmNewPassword && touched.ConfirmNewPassword)}
+                    helperText={errors.ConfirmNewPassword && touched.ConfirmNewPassword && errors.ConfirmNewPassword}
                   />
                 </FieldsetElement>
               </Fieldset>

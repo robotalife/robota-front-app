@@ -1,25 +1,14 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import apiEndPoints from "../consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import useAxios from "../hooks/useAxios";
-import { AuthContext } from "./AuthProvider";
-import routes from "../consts/routes";
-import {
-  IExchange,
-  IExchangeContext,
-  IExchangeListResponseObj,
-  IPair,
-} from "../interfaces/exchange";
+import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react';
+import apiEndPoints from '../consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import useAxios from '../hooks/useAxios';
+import { AuthContext } from './AuthProvider';
+import routes from '../consts/routes';
+import { IExchange, IExchangeContext, IExchangeListResponseObj, IPair } from '../interfaces/exchange';
 
 export const ExchangeContext = createContext<IExchangeContext>({
   exchangeList: [],
-  selectedExchange: "",
+  selectedExchange: '',
   setSelectedExchange: () => {},
   pairs: [],
   selectedPair: null,
@@ -33,21 +22,16 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
   const { axios } = useAxios();
 
   const [exchangeList, setExchangeList] = useState<IExchange[]>([]);
-  const [selectedExchange, setSelectedExchange] = useState("");
+  const [selectedExchange, setSelectedExchange] = useState('');
   const [pairs, setPairs] = useState<IPair[]>([] as IPair[]);
-  const [selectedPair, setSelectedPair] = useState<IPair | null>(
-    pairs[0] || null
-  );
+  const [selectedPair, setSelectedPair] = useState<IPair | null>(pairs[0] || null);
   const [loading, setLoading] = useState(true);
 
   const getList = async () => {
     if (!userId) return;
     setLoading(true);
     try {
-      const response: AxiosResponse<
-        { exchanges: IExchangeListResponseObj[] },
-        any
-      > = await axios.post(apiEndPoints.exchangeList, {
+      const response: AxiosResponse<{ exchanges: IExchangeListResponseObj[] }, any> = await axios.post(apiEndPoints.exchangeList, {
         userId: userId,
       });
 
@@ -64,9 +48,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
       );
 
       if (!!exchanges.length) {
-        const tmpSelected =
-          exchangeList.find((ex) => ex.default)?.exchangeId ||
-          exchanges[0].exchangeId;
+        const tmpSelected = exchangeList.find((ex) => ex.default)?.exchangeId || exchanges[0].exchangeId;
         setSelectedExchange(tmpSelected as string);
         getPairs(tmpSelected as string);
       }
@@ -97,8 +79,7 @@ export const ExchangeProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     if (exchangeList.length) {
-      const exId =
-        selectedExchange || exchangeList.find((ex) => ex.default)?.exchangeId;
+      const exId = selectedExchange || exchangeList.find((ex) => ex.default)?.exchangeId;
 
       if (exId) {
         getPairs(exId);

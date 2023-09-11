@@ -1,11 +1,8 @@
-import {
-  DatePickerProps,
-  DatePicker as MUIDatePicker,
-} from "@mui/x-date-pickers";
-import { useId } from "react";
-import InputWrapper from "./InputWrapper";
+import { DatePickerProps, DatePicker as MUIDatePicker } from '@mui/x-date-pickers';
+import { useId } from 'react';
+import InputWrapper from './InputWrapper';
 
-import classes from "./DatePicker.module.scss";
+import classes from './DatePicker.module.scss';
 
 interface Props extends DatePickerProps<Date> {
   id?: string;

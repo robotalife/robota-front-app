@@ -1,23 +1,19 @@
-import { Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/formElements/Button";
-import TextField from "../../components/formElements/TextField";
-import routes from "../../shared/consts/routes";
-import { IconKey, IconMail } from "../../shared/icons/Icons";
+import { Typography } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../components/formElements/Button';
+import TextField from '../../components/formElements/TextField';
+import routes from '../../shared/consts/routes';
+import { IconKey, IconMail } from '../../shared/icons/Icons';
 
-import { Form, Formik } from "formik";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import useAxios from "../../shared/hooks/useAxios";
-import { useContext } from "react";
-import { AuthContext } from "../../shared/providers/AuthProvider";
-import {
-  email,
-  passwordSimple,
-  validationSchema,
-} from "../../shared/consts/validations";
-import { SigninData, SigninResponse } from "../../shared/interfaces/auth";
-import useReturnTo from "../../shared/hooks/useReturnTo";
+import { Form, Formik } from 'formik';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import useAxios from '../../shared/hooks/useAxios';
+import { useContext } from 'react';
+import { AuthContext } from '../../shared/providers/AuthProvider';
+import { email, passwordSimple, validationSchema } from '../../shared/consts/validations';
+import { SigninData, SigninResponse } from '../../shared/interfaces/auth';
+import useReturnTo from '../../shared/hooks/useReturnTo';
 
 const validations = validationSchema({
   email: email,
@@ -25,8 +21,8 @@ const validations = validationSchema({
 });
 
 const initialValues: SigninData = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
 };
 
 const Signin = () => {
@@ -37,18 +33,15 @@ const Signin = () => {
 
   const handleSubmit = async (values: SigninData) => {
     try {
-      const response: AxiosResponse<SigninResponse, any> = await axios.post(
-        apiEndPoints.signin,
-        {
-          email: values.email,
-          password: values.password,
-        }
-      );
+      const response: AxiosResponse<SigninResponse, any> = await axios.post(apiEndPoints.signin, {
+        email: values.email,
+        password: values.password,
+      });
 
       const { token, id } = response.data;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`; // set token as default authorization header for axios requests
-      localStorage.setItem("token", token); // save token in local storage
-      localStorage.setItem("userId", id); // save token in local storage
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // set token as default authorization header for axios requests
+      localStorage.setItem('token', token); // save token in local storage
+      localStorage.setItem('userId', id); // save token in local storage
       setIsAuthenticated(true);
       setUserId(id);
 
@@ -68,9 +61,9 @@ const Signin = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate style={{ width: "100%" }}>
-          <div className={"pageTitle"}>Sign In</div>
-          <div className={"pageSubtitle"}>Welcome back! </div>
+        <Form noValidate style={{ width: '100%' }}>
+          <div className={'pageTitle'}>Sign In</div>
+          <div className={'pageSubtitle'}>Welcome back! </div>
           <TextField
             name="email"
             type="email"
@@ -105,7 +98,7 @@ const Signin = () => {
           <Button type="submit" variant="contained" fullWidth sx={{ mb: 2 }}>
             Sign In
           </Button>
-          <Typography sx={{ textAlign: "center" }} className="pageDescription">
+          <Typography sx={{ textAlign: 'center' }} className="pageDescription">
             <Link to={routes.signup}>Create account</Link>
           </Typography>
         </Form>

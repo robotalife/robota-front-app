@@ -1,6 +1,6 @@
-import { PropsWithChildren, ReactNode } from "react";
+import { PropsWithChildren, ReactNode } from 'react';
 
-import classes from "./IconBadge.module.scss";
+import classes from './IconBadge.module.scss';
 
 interface Props extends PropsWithChildren {
   icon?: ReactNode;

@@ -1,41 +1,32 @@
-import { useLocation, useParams } from "react-router-dom";
-import WrapperBox from "../../components/shared/wrapperBox/WrapperBox";
-import WrapperBoxHeader from "../../components/shared/wrapperBox/WrapperBoxHeader";
-import useAxios from "../../shared/hooks/useAxios";
-import { useCallback, useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import WrapperBoxSection from "../../components/shared/wrapperBox/WrapperBoxSection";
-import Table from "../../components/shared/table/Table";
-import TableHead from "../../components/shared/table/TableHead";
-import TableRow from "../../components/shared/table/TableRow";
-import TableCell from "../../components/shared/table/TableCell";
-import TableBody from "../../components/shared/table/TableBody";
-import TableDateTime from "../../components/shared/table/TableDateCell";
-import getDateTime from "../../shared/helpers/getDateTimeObj";
-import TableTradePrice from "../../components/shared/table/TableTradePrice";
-import classes from "./BotTradeHistory.module.scss";
-import {
-  DataWithPagination,
-  PaginationObj,
-} from "../../shared/interfaces/paginateData";
-import { IBotHistoryObj } from "../../shared/interfaces/bots";
-import Loader from "../../components/shared/Loader";
-import TextBadge from "../../components/shared/TextBadge";
-import {
-  IconArrowDown,
-  IconArrowUp,
-  IconClock,
-  IconExport,
-  IconFilter,
-} from "../../shared/icons/Icons";
-import { Grid, Typography } from "@mui/material";
-import PairLogo from "../../components/shared/PairLogo";
-import HistoryFilters from "../../components/shared/HistoryFilters";
-import Button from "../../components/formElements/Button";
-import Pagination from "../../components/shared/Pagination";
-import getDateString from "../../shared/helpers/getDateString";
-import routes from "../../shared/consts/routes";
+import { useLocation, useParams } from 'react-router-dom';
+import WrapperBox from '../../components/shared/wrapperBox/WrapperBox';
+import WrapperBoxHeader from '../../components/shared/wrapperBox/WrapperBoxHeader';
+import useAxios from '../../shared/hooks/useAxios';
+import { useCallback, useEffect, useState } from 'react';
+import { AxiosResponse } from 'axios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import WrapperBoxSection from '../../components/shared/wrapperBox/WrapperBoxSection';
+import Table from '../../components/shared/table/Table';
+import TableHead from '../../components/shared/table/TableHead';
+import TableRow from '../../components/shared/table/TableRow';
+import TableCell from '../../components/shared/table/TableCell';
+import TableBody from '../../components/shared/table/TableBody';
+import TableDateTime from '../../components/shared/table/TableDateCell';
+import getDateTime from '../../shared/helpers/getDateTimeObj';
+import TableTradePrice from '../../components/shared/table/TableTradePrice';
+import classes from './BotTradeHistory.module.scss';
+import { DataWithPagination, PaginationObj } from '../../shared/interfaces/paginateData';
+import { IBotHistoryObj } from '../../shared/interfaces/bots';
+import Loader from '../../components/shared/Loader';
+import TextBadge from '../../components/shared/TextBadge';
+import { IconArrowDown, IconArrowUp, IconClock, IconExport, IconFilter } from '../../shared/icons/Icons';
+import { Grid, Typography } from '@mui/material';
+import PairLogo from '../../components/shared/PairLogo';
+import HistoryFilters from '../../components/shared/HistoryFilters';
+import Button from '../../components/formElements/Button';
+import Pagination from '../../components/shared/Pagination';
+import getDateString from '../../shared/helpers/getDateString';
+import routes from '../../shared/consts/routes';
 
 const BotTradeHistory = () => {
   const { pathname } = useLocation();
@@ -43,9 +34,7 @@ const BotTradeHistory = () => {
 
   const { botId } = useParams();
   const { axios } = useAxios();
-  const [history, setHistory] = useState<IBotHistoryObj[]>(
-    [] as IBotHistoryObj[]
-  );
+  const [history, setHistory] = useState<IBotHistoryObj[]>([] as IBotHistoryObj[]);
   const [pagination, setPagination] = useState<PaginationObj>({
     currentPage: 0,
     hasNext: false,
@@ -61,30 +50,16 @@ const BotTradeHistory = () => {
   const [showFilters, setShowFilters] = useState(false);
 
   const [closeDate, setCloseDate] = useState<(Date | null)[]>([null, null]);
-  const [creationDate, setCreationDate] = useState<(Date | null)[]>([
-    null,
-    null,
-  ]);
+  const [creationDate, setCreationDate] = useState<(Date | null)[]>([null, null]);
   const [page, setPage] = useState(0);
 
   const getHistory = useCallback(async () => {
     setLoading(true);
     try {
-      const response: AxiosResponse<
-        DataWithPagination<IBotHistoryObj[]>,
-        any
-      > = await axios.get(
-        `${apiEndPoints.getBotHistory(
-          botId as string
-        )}?page=${page}&creationDate=${
-          creationDate[0] && creationDate[1]
-            ? [getDateString(creationDate[0]), getDateString(creationDate[1])]
-            : [null, null]
-        }&closeDate=${
-          closeDate[0] && closeDate[1]
-            ? [getDateString(closeDate[0]), getDateString(closeDate[1])]
-            : [null, null]
-        }`
+      const response: AxiosResponse<DataWithPagination<IBotHistoryObj[]>, any> = await axios.get(
+        `${apiEndPoints.getBotHistory(botId as string)}?page=${page}&creationDate=${
+          creationDate[0] && creationDate[1] ? [getDateString(creationDate[0]), getDateString(creationDate[1])] : [null, null]
+        }&closeDate=${closeDate[0] && closeDate[1] ? [getDateString(closeDate[0]), getDateString(closeDate[1])] : [null, null]}`
       );
 
       const { data, ...paginateData } = response.data;
@@ -99,10 +74,8 @@ const BotTradeHistory = () => {
   }, [setHistory, setPagination, creationDate, closeDate, page]);
 
   const getExport = useCallback(() => {
-    const link = document.createElement("a");
-    link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(
-      botId as string
-    )}`;
+    const link = document.createElement('a');
+    link.href = `${axios.defaults.baseURL}${apiEndPoints.getBotTradesFile(botId as string)}`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -124,12 +97,7 @@ const BotTradeHistory = () => {
       {/*  </Button>*/}
       {/*</Grid>*/}
       <Grid item xs={12} lg>
-        <Button
-          variant="outlined"
-          color="primary"
-          fullWidth
-          onClick={getExport}
-        >
+        <Button variant="outlined" color="primary" fullWidth onClick={getExport}>
           <IconExport style={{ marginRight: 8 }} />
           Export
         </Button>
@@ -143,11 +111,7 @@ const BotTradeHistory = () => {
 
   return (
     <WrapperBox>
-      <WrapperBoxHeader
-        title="Trade History"
-        description="Auto Update in 10 Minutes."
-        actions={HeaderActions}
-      />
+      <WrapperBoxHeader title="Trade History" description="Auto Update in 10 Minutes." actions={HeaderActions} />
       {showFilters && (
         <WrapperBoxSection>
           <HistoryFilters
@@ -190,16 +154,11 @@ const BotTradeHistory = () => {
                 history.map((h, i) => (
                   <TableRow key={`${h.botName}_${h.creationDate}_${i}`}>
                     <TableCell>
-                      <Grid
-                        container
-                        spacing={1}
-                        alignItems={"center"}
-                        wrap="nowrap"
-                      >
-                        <Grid item xs={"auto"}>
+                      <Grid container spacing={1} alignItems={'center'} wrap="nowrap">
+                        <Grid item xs={'auto'}>
                           <PairLogo src={h.baseLogo} alt={h.pair} />
                         </Grid>
-                        <Grid item xs={"auto"}>
+                        <Grid item xs={'auto'}>
                           <TableDateTime date={h.pair} time={h.botName} />
                         </Grid>
                       </Grid>
@@ -217,15 +176,12 @@ const BotTradeHistory = () => {
                       </TextBadge>
                     </TableCell>
                     <TableCell>
-                      <TableTradePrice
-                        entryPrice={h.entryPrice}
-                        exitPrice={h.exitPrice}
-                      />
+                      <TableTradePrice entryPrice={h.entryPrice} exitPrice={h.exitPrice} />
                     </TableCell>
                     {isMyBot && (
                       <>
                         <TableCell>
-                          {h.netProfit.indexOf("-") === -1 ? (
+                          {h.netProfit.indexOf('-') === -1 ? (
                             <TextBadge variation="success">
                               {h.netProfit}
                               <IconArrowUp />
@@ -240,7 +196,7 @@ const BotTradeHistory = () => {
                       </>
                     )}
                     <TableCell>
-                      {h.profitPercentage.indexOf("-") === -1 ? (
+                      {h.profitPercentage.indexOf('-') === -1 ? (
                         <TextBadge variation="success">
                           {h.profitPercentage}
                           <IconArrowUp />
@@ -255,32 +211,20 @@ const BotTradeHistory = () => {
                     {isMyBot && (
                       <>
                         <TableCell>
-                          <Grid
-                            container
-                            spacing={1}
-                            alignItems={"center"}
-                            wrap="nowrap"
-                          >
-                            <Grid item xs={"auto"}>
+                          <Grid container spacing={1} alignItems={'center'} wrap="nowrap">
+                            <Grid item xs={'auto'}>
                               <div>
-                                <PairLogo
-                                  src={h.baseLogo}
-                                  alt={h.baseVolume}
-                                  style={{ marginBottom: 8 }}
-                                />
+                                <PairLogo src={h.baseLogo} alt={h.baseVolume} style={{ marginBottom: 8 }} />
                               </div>
                               <div>
-                                <PairLogo
-                                  src={h.quoteLogo}
-                                  alt={h.quoteVolume}
-                                />
+                                <PairLogo src={h.quoteLogo} alt={h.quoteVolume} />
                               </div>
                             </Grid>
                             <Grid item xs>
-                          <Typography component={"div"} sx={{ mb: 1 }} className={classes.volume}>
+                              <Typography component={'div'} sx={{ mb: 1 }} className={classes.volume}>
                                 {h.baseVolume}
                               </Typography>
-                          <Typography component={"div"} className={classes.volume}>
+                              <Typography component={'div'} className={classes.volume}>
                                 {h.quoteVolume}
                               </Typography>
                             </Grid>
@@ -295,10 +239,7 @@ const BotTradeHistory = () => {
                           )}
                         </TableCell>
                         <TableCell>
-                          <TableDateTime
-                            date={h.exchange}
-                            time={h.exchangeType}
-                          />
+                          <TableDateTime date={h.exchange} time={h.exchangeType} />
                         </TableCell>
                       </>
                     )}
@@ -306,9 +247,7 @@ const BotTradeHistory = () => {
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5}>
-                    There is no history available
-                  </TableCell>
+                  <TableCell colSpan={5}>There is no history available</TableCell>
                 </TableRow>
               )}
             </TableBody>

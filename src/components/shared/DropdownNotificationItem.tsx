@@ -1,8 +1,8 @@
-import { Grid, MenuItem, Typography } from "@mui/material";
-import { Link } from "react-router-dom";
-import { IconArrowRight } from "../../shared/icons/Icons";
-import classes from "./DropdownNotificationItem.module.scss";
-import Badge from "./Badge";
+import { Grid, MenuItem, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { IconArrowRight } from '../../shared/icons/Icons';
+import classes from './DropdownNotificationItem.module.scss';
+import Badge from './Badge';
 
 export interface IDropdownNotificationItem {
   title: string;
@@ -14,36 +14,24 @@ export interface IDropdownNotificationItem {
   onclick?: () => void;
 }
 
-const DropdownNotificationItem = ({
-  title,
-  description,
-  icon,
-  linkTitle,
-  link,
-  isNew,
-  onclick,
-}: IDropdownNotificationItem) => {
+const DropdownNotificationItem = ({ title, description, icon, linkTitle, link, isNew, onclick }: IDropdownNotificationItem) => {
   return (
     <MenuItem onClick={onclick} className={classes.dropdownItem}>
-      <Grid container flexWrap={"nowrap"}>
+      <Grid container flexWrap={'nowrap'}>
         {icon && (
-          <Grid item xs={"auto"}>
+          <Grid item xs={'auto'}>
             <div className={classes.icon}>{icon}</div>
           </Grid>
         )}
         <Grid item xs>
           <Grid container>
-            <Grid item xs={"auto"}>
-              <Typography
-                component={"h6"}
-                variant={"h6"}
-                className={classes.title}
-              >
+            <Grid item xs={'auto'}>
+              <Typography component={'h6'} variant={'h6'} className={classes.title}>
                 {title}
               </Typography>
             </Grid>
             {isNew && (
-              <Grid item xs={"auto"}>
+              <Grid item xs={'auto'}>
                 <Badge variant="success" className={classes.new}>
                   new
                 </Badge>
@@ -51,11 +39,7 @@ const DropdownNotificationItem = ({
             )}
           </Grid>
           {description && (
-            <Typography
-              component={"p"}
-              variant={"body2"}
-              className={classes.description}
-            >
+            <Typography component={'p'} variant={'body2'} className={classes.description}>
               {description}
             </Typography>
           )}

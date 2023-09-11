@@ -1,7 +1,7 @@
-import {Paper, Typography} from "@mui/material";
-import { PropsWithChildren } from "react";
+import { Paper, Typography } from '@mui/material';
+import { PropsWithChildren } from 'react';
 
-import classes from "./GrayListBox.module.scss";
+import classes from './GrayListBox.module.scss';
 
 interface Props {
   text: string;
@@ -10,7 +10,7 @@ interface Props {
 const GrayListBox = ({ text }: Props) => {
   return (
     <Paper elevation={0} className={classes.textWrapper}>
-        <Typography className={classes.text}>{text}</Typography>
+      <Typography className={classes.text}>{text}</Typography>
     </Paper>
   );
 };

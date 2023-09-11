@@ -1,23 +1,23 @@
-import { Grid, Typography } from "@mui/material";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import Button from "../../components/formElements/Button";
-import routes from "../../shared/consts/routes";
+import { Grid, Typography } from '@mui/material';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import Button from '../../components/formElements/Button';
+import routes from '../../shared/consts/routes';
 
-import circleCheck from "@images/green-circle-check.svg";
-import useAxios from "../../shared/hooks/useAxios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import { FormEvent, useEffect, useState } from "react";
-import { IconArrowLeft } from "../../shared/icons/Icons";
-import DigitsInput from "../../components/formElements/DigitsInput";
-import useNotify from "../../shared/hooks/useNotify";
+import circleCheck from '@images/green-circle-check.svg';
+import useAxios from '../../shared/hooks/useAxios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import { FormEvent, useEffect, useState } from 'react';
+import { IconArrowLeft } from '../../shared/icons/Icons';
+import DigitsInput from '../../components/formElements/DigitsInput';
+import useNotify from '../../shared/hooks/useNotify';
 
 const VerifyEmail = () => {
   const { id } = useParams();
   const { axios } = useAxios();
   const notify = useNotify();
   const navigate = useNavigate();
-  const [otp, setOtp] = useState(id && id.length === 4 ? id : "");
+  const [otp, setOtp] = useState(id && id.length === 4 ? id : '');
   const [otpError, setOtpError] = useState(false);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const VerifyEmail = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (otpError) {
-      notify("Please fill in the OTP code to proceed.", "error");
+      notify('Please fill in the OTP code to proceed.', 'error');
       return;
     }
     verifyEmail(otp);
@@ -45,12 +45,10 @@ const VerifyEmail = () => {
 
   const verifyEmail = async (verifyKey: string) => {
     try {
-      const response: AxiosResponse<any, any> = await axios.post(
-        `${apiEndPoints.verifyEmail}${verifyKey}`
-      );
+      const response: AxiosResponse<any, any> = await axios.post(`${apiEndPoints.verifyEmail}${verifyKey}`);
 
       navigate(routes.signin);
-      notify("Your email is verified. You can sign in.", "success");
+      notify('Your email is verified. You can sign in.', 'success');
 
       // Handle successful response
     } catch (error) {
@@ -66,10 +64,10 @@ const VerifyEmail = () => {
         },
         any
       > = await axios.post(apiEndPoints.resendVerification, {
-        userId: localStorage.getItem("userId"),
+        userId: localStorage.getItem('userId'),
       });
 
-      notify("Code resent to your email. Check your inbox.", "success");
+      notify('Code resent to your email. Check your inbox.', 'success');
       // Handle successful response
     } catch (error) {
       // Handle error
@@ -77,39 +75,24 @@ const VerifyEmail = () => {
   };
 
   return (
-    <form noValidate onSubmit={handleSubmit} style={{ width: "100%" }}>
-      <div style={{ textAlign: "center" }}>
+    <form noValidate onSubmit={handleSubmit} style={{ width: '100%' }}>
+      <div style={{ textAlign: 'center' }}>
         <img src={circleCheck} />
       </div>
-      <div className={"pageTitle"}>Check your email</div>
-      <div className={"pageSubtitle"} style={{ marginBottom: 50 }}>
-        A verification code has been sent to your email. If you do not receive
-        it, please check your spam folder.
+      <div className={'pageTitle'}>Check your email</div>
+      <div className={'pageSubtitle'} style={{ marginBottom: 50 }}>
+        A verification code has been sent to your email. If you do not receive it, please check your spam folder.
       </div>
 
-      <DigitsInput
-        value={otp}
-        onChange={handleChange}
-        digitCounts={4}
-        message={otpError ? "OTP is required" : undefined}
-        messageType={"error"}
-      />
+      <DigitsInput value={otp} onChange={handleChange} digitCounts={4} message={otpError ? 'OTP is required' : undefined} messageType={'error'} />
 
-      <Button
-        type="submit"
-        variant="contained"
-        sx={{ my: 4, mx: "auto", display: "block" }}
-      >
+      <Button type="submit" variant="contained" sx={{ my: 4, mx: 'auto', display: 'block' }}>
         Verify email
       </Button>
-      <Typography
-        component={"div"}
-        sx={{ textAlign: "center" }}
-        alignItems="center"
-      >
-        <Grid container spacing={1} justifyContent={"center"}>
+      <Typography component={'div'} sx={{ textAlign: 'center' }} alignItems="center">
+        <Grid container spacing={1} justifyContent={'center'}>
           <Grid item>Haven't received the email? </Grid>
-          <Grid item xs={"auto"}>
+          <Grid item xs={'auto'}>
             <Typography className="pageSubtitle">
               <Link
                 to="/"
@@ -127,13 +110,13 @@ const VerifyEmail = () => {
             <Link
               to={routes.signup}
               style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: "#667085", //@todo : change color to scss color gray-500
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#667085', //@todo : change color to scss color gray-500
               }}
             >
-              <IconArrowLeft style={{ margin: "0 10px" }} />
+              <IconArrowLeft style={{ margin: '0 10px' }} />
               Back to sign-up
             </Link>
           </Grid>

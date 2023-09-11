@@ -1,13 +1,13 @@
-import { Typography } from "@mui/material";
-import classes from "./EmptyList.module.scss";
-import Button from "../formElements/Button";
-import { IconAdd } from "../../shared/icons/Icons";
+import { Typography } from '@mui/material';
+import classes from './EmptyList.module.scss';
+import Button from '../formElements/Button';
+import { IconAdd } from '../../shared/icons/Icons';
 
-import bgDesktop from "../../assets/images/empty-list-desktop.svg";
-import bgMobile from "../../assets/images/empty-list-mobile.svg";
-import { useNavigate } from "react-router-dom";
-import routes from "../../shared/consts/routes";
-import { useMemo } from "react";
+import bgDesktop from '../../assets/images/empty-list-desktop.svg';
+import bgMobile from '../../assets/images/empty-list-mobile.svg';
+import { useNavigate } from 'react-router-dom';
+import routes from '../../shared/consts/routes';
+import { useMemo } from 'react';
 
 const currentPage = window.location.pathname;
 
@@ -20,13 +20,13 @@ const EmptyList = () => {
       case routes.myBots:
         return {
           route: routes.botsNew,
-          text: "bot",
+          text: 'bot',
         };
 
       case routes.exchangeList:
         return {
           route: routes.exchangeNew,
-          text: "exchange",
+          text: 'exchange',
         };
 
       default:

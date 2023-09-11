@@ -1,13 +1,6 @@
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  RadioGroupProps,
-} from "@mui/material";
-import classes from "./RadioButtonsGroup.module.scss";
-import { useId } from "react";
+import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, RadioGroupProps } from '@mui/material';
+import classes from './RadioButtonsGroup.module.scss';
+import { useId } from 'react';
 
 interface Props extends RadioGroupProps {
   items: {
@@ -17,22 +10,14 @@ interface Props extends RadioGroupProps {
   groupLabel?: string;
 }
 
-const RadioButtonsGroup = ({
-  items,
-  groupLabel,
-  ...radioGroupProps
-}: Props) => {
+const RadioButtonsGroup = ({ items, groupLabel, ...radioGroupProps }: Props) => {
   const tmpId = useId();
   const tmpName = useId();
 
   return (
     <FormControl>
       {!!groupLabel && <FormLabel id={tmpId}>{groupLabel}</FormLabel>}
-      <RadioGroup
-        aria-labelledby={tmpId}
-        name={radioGroupProps.name || tmpName}
-        {...radioGroupProps}
-      >
+      <RadioGroup aria-labelledby={tmpId} name={radioGroupProps.name || tmpName} {...radioGroupProps}>
         {items.map((item, i) => (
           <FormControlLabel key={i} control={<Radio />} {...item} />
         ))}

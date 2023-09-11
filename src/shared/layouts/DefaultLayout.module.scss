@@ -3,9 +3,9 @@
   grid-template-rows: 64px 1fr 50px;
   grid-template-columns: 100vw;
   grid-template-areas:
-    "header"
-    "content"
-    "sidebar";
+    'header'
+    'content'
+    'sidebar';
   height: 100vh;
 }
 
@@ -39,8 +39,8 @@
     grid-template-columns: 80px auto;
     grid-template-rows: 90px auto;
     grid-template-areas:
-      "header header"
-      "sidebar content";
+      'header header'
+      'sidebar content';
   }
 
   .header {

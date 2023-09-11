@@ -1,23 +1,18 @@
-import { Typography } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
-import Button from "../../components/formElements/Button";
-import CheckboxWithText from "../../components/formElements/CheckboxWithText";
-import TextField from "../../components/formElements/TextField";
-import routes from "../../shared/consts/routes";
-import useAxios from "../../shared/hooks/useAxios";
-import { IconKey, IconMail } from "../../shared/icons/Icons";
+import { Typography } from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../components/formElements/Button';
+import CheckboxWithText from '../../components/formElements/CheckboxWithText';
+import TextField from '../../components/formElements/TextField';
+import routes from '../../shared/consts/routes';
+import useAxios from '../../shared/hooks/useAxios';
+import { IconKey, IconMail } from '../../shared/icons/Icons';
 
-import { Form, Formik } from "formik";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import {
-  agreeCheckbox,
-  email,
-  passwordFull,
-  validationSchema,
-} from "../../shared/consts/validations";
-import GrayListBox from "../../components/shared/GrayListBox";
-import { SignupData, SignupResponse } from "../../shared/interfaces/auth";
+import { Form, Formik } from 'formik';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import { agreeCheckbox, email, passwordFull, validationSchema } from '../../shared/consts/validations';
+import GrayListBox from '../../components/shared/GrayListBox';
+import { SignupData, SignupResponse } from '../../shared/interfaces/auth';
 
 const validations = validationSchema({
   email: email,
@@ -26,13 +21,12 @@ const validations = validationSchema({
 });
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
   agree: false,
 };
 
-const text =
-  "Use 8 or more characters with a mix of letters, numbers & symbols";
+const text = 'Use 8 or more characters with a mix of letters, numbers & symbols';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -40,15 +34,12 @@ const Signup = () => {
 
   const handleSubmit = async (values: SignupData) => {
     try {
-      const response: AxiosResponse<SignupResponse, any> = await axios.post(
-        apiEndPoints.signup,
-        {
-          email: values.email,
-          password: values.password,
-        }
-      );
+      const response: AxiosResponse<SignupResponse, any> = await axios.post(apiEndPoints.signup, {
+        email: values.email,
+        password: values.password,
+      });
 
-      localStorage.setItem("userId", response.data.id); // save token in local storage
+      localStorage.setItem('userId', response.data.id); // save token in local storage
       navigate(`${routes.activate}/${response.data.id}`);
     } catch (error) {
       // Handle error
@@ -65,9 +56,9 @@ const Signup = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate style={{ width: "100%" }}>
-          <div className={"pageTitle"}>Signup</div>
-          <div className={"pageSubtitle"}>Lets's get started</div>
+        <Form noValidate style={{ width: '100%' }}>
+          <div className={'pageTitle'}>Signup</div>
+          <div className={'pageSubtitle'}>Lets's get started</div>
           <TextField
             name="email"
             type="email"
@@ -103,19 +94,15 @@ const Signup = () => {
             onChange={handleChange}
             required
             sx={{ mb: 3 }}
-            message={
-              Boolean(errors.agree && touched.agree) ? errors.agree : undefined
-            }
-            messageType={
-              Boolean(errors.agree && touched.agree) ? "error" : undefined
-            }
+            message={Boolean(errors.agree && touched.agree) ? errors.agree : undefined}
+            messageType={Boolean(errors.agree && touched.agree) ? 'error' : undefined}
           >
             <Typography className="pageImportantMessage">
               I have read and agree to RobotaLife’s
               <Link to={routes.terms} className="authLinks">
-                {" "}
+                {' '}
                 Terms of service
-              </Link>{" "}
+              </Link>{' '}
               &<Link to={routes.privacy}> Privacy policy</Link>.
             </Typography>
           </CheckboxWithText>
@@ -124,7 +111,7 @@ const Signup = () => {
             Get started
           </Button>
 
-          <Typography sx={{ textAlign: "center" }} className="pageDescription">
+          <Typography sx={{ textAlign: 'center' }} className="pageDescription">
             Already have an account? <Link to={routes.signin}>Sign In</Link>
           </Typography>
         </Form>

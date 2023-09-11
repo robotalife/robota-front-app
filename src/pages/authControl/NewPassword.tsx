@@ -1,25 +1,21 @@
-import Button from "../../components/formElements/Button";
-import TextField from "../../components/formElements/TextField";
-import { IconKey } from "../../shared/icons/Icons";
-import { Form, Formik } from "formik";
-import useAxios from "../../shared/hooks/useAxios";
-import apiEndPoints from "../../shared/consts/apiEndpoints";
-import { AxiosResponse } from "axios";
-import { useNavigate, useParams } from "react-router-dom";
-import routes from "../../shared/consts/routes";
-import {
-  passwordFull,
-  validationSchema,
-} from "../../shared/consts/validations";
-import GrayListBox from "../../components/shared/GrayListBox";
-import useNotify from "../../shared/hooks/useNotify";
+import Button from '../../components/formElements/Button';
+import TextField from '../../components/formElements/TextField';
+import { IconKey } from '../../shared/icons/Icons';
+import { Form, Formik } from 'formik';
+import useAxios from '../../shared/hooks/useAxios';
+import apiEndPoints from '../../shared/consts/apiEndpoints';
+import { AxiosResponse } from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import routes from '../../shared/consts/routes';
+import { passwordFull, validationSchema } from '../../shared/consts/validations';
+import GrayListBox from '../../components/shared/GrayListBox';
+import useNotify from '../../shared/hooks/useNotify';
 
 const validations = validationSchema({
   password: passwordFull,
 });
 
-const text =
-  "Use 8 or more characters with a mix of letters, numbers & symbols";
+const text = 'Use 8 or more characters with a mix of letters, numbers & symbols';
 
 const NewPassword = () => {
   const navigate = useNavigate();
@@ -42,7 +38,7 @@ const NewPassword = () => {
         any
       > = await axios.post(apiEndPoints.resetFinish, userData);
 
-      notify("An email with password reset link sent to you.", "success");
+      notify('An email with password reset link sent to you.', 'success');
       navigate(routes.signin);
     } catch (error) {
       // Handle error
@@ -51,7 +47,7 @@ const NewPassword = () => {
 
   return (
     <Formik
-      initialValues={{ password: "", resetKey: "" }}
+      initialValues={{ password: '', resetKey: '' }}
       validationSchema={validations}
       onSubmit={(values, { setSubmitting }) => {
         handleSubmit(values);
@@ -59,8 +55,8 @@ const NewPassword = () => {
       }}
     >
       {({ values, handleChange, errors, touched }) => (
-        <Form noValidate style={{ width: "100%" }}>
-          <div className={"pageTitle"}>New Password</div>
+        <Form noValidate style={{ width: '100%' }}>
+          <div className={'pageTitle'}>New Password</div>
           <TextField
             name="password"
             type="password"

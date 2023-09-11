@@ -1,54 +1,41 @@
-import { IconButton, Menu, MenuItem } from "@mui/material";
-import React, { useState, useEffect } from "react";
-import {
-  IconArrowRight,
-  IconBell,
-  IconCircleCheck,
-  IconDollarSign,
-  IconLink,
-  IconOctagon,
-  IconTrashBin,
-} from "../../shared/icons/Icons";
-import DropdownNotificationItem, {
-  IDropdownNotificationItem,
-} from "./DropdownNotificationItem";
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { IconArrowRight, IconBell, IconCircleCheck, IconDollarSign, IconLink, IconOctagon, IconTrashBin } from '../../shared/icons/Icons';
+import DropdownNotificationItem, { IDropdownNotificationItem } from './DropdownNotificationItem';
 
-import classes from "./NotificationsDropdown.module.scss";
+import classes from './NotificationsDropdown.module.scss';
 
 const dropdownNotificationMockData: IDropdownNotificationItem[] = [
   {
-    title: "Password reset complete!",
-    description: "Password updated successfully!",
+    title: 'Password reset complete!',
+    description: 'Password updated successfully!',
     icon: <IconCircleCheck />,
     isNew: true,
   },
   {
-    title: "Welcome To Robotalife!",
-    description:
-      "Welcome to RobotaLife. To begin your journey, effortlessly integrate your exchange account with our platform.",
+    title: 'Welcome To Robotalife!',
+    description: 'Welcome to RobotaLife. To begin your journey, effortlessly integrate your exchange account with our platform.',
     icon: <IconOctagon />,
     isNew: true,
   },
   {
-    title: "Exchange connected successfully",
-    description:
-      "Your { Name of Exchange } exchange successfully connected to RobotaLife.",
+    title: 'Exchange connected successfully',
+    description: 'Your { Name of Exchange } exchange successfully connected to RobotaLife.',
     icon: <IconLink />,
     isNew: false,
   },
   {
-    title: "Exchange deleted successfully",
-    description: "Your connection to { Name of Exchange } has been removed.",
+    title: 'Exchange deleted successfully',
+    description: 'Your connection to { Name of Exchange } has been removed.',
     icon: <IconTrashBin />,
     isNew: false,
   },
   {
-    title: "Bot payment successfully received",
-    description:
-      "Your payment for the { Bot Name } bot was successfully made until  { Date }",
+    title: 'Bot payment successfully received',
+    description: 'Your payment for the { Bot Name } bot was successfully made until  { Date }',
     icon: <IconDollarSign />,
-    link: "/",
-    linkTitle: "View invoice",
+    link: '/',
+    linkTitle: 'View invoice',
     isNew: false,
   },
 ];
@@ -68,7 +55,7 @@ const NotificationsDropdown = () => {
   // API call function
   const callApi = () => {
     // Make your API call here
-    console.log("API called");
+    console.log('API called');
   };
 
   // Call the API on component mount

@@ -1,9 +1,9 @@
-import { FormHelperText, InputBase, InputBaseProps } from "@mui/material";
-import { Message } from "../../shared/interfaces/message";
-import OtpInput from "react-otp-input";
+import { FormHelperText, InputBase, InputBaseProps } from '@mui/material';
+import { Message } from '../../shared/interfaces/message';
+import OtpInput from 'react-otp-input';
 
-import classes from "./DigitsInput.module.scss";
-import { HTMLProps, useState } from "react";
+import classes from './DigitsInput.module.scss';
+import { HTMLProps, useState } from 'react';
 
 interface Props {
   message?: string;
@@ -13,19 +13,9 @@ interface Props {
   value: string;
 }
 
-const DigitsInput = ({
-  message,
-  messageType,
-  digitCounts,
-  onChange,
-  value,
-}: Props) => {
+const DigitsInput = ({ message, messageType, digitCounts, onChange, value }: Props) => {
   return (
-    <div
-      className={`${classes.otpInputWrapper} ${
-        value.length === digitCounts ? classes.filled : ""
-      }`}
-    >
+    <div className={`${classes.otpInputWrapper} ${value.length === digitCounts ? classes.filled : ''}`}>
       <OtpInput
         value={value}
         onChange={onChange}
@@ -36,10 +26,7 @@ const DigitsInput = ({
       />
 
       {message && (
-        <FormHelperText
-          className={classes.helperText}
-          error={messageType === "error"}
-        >
+        <FormHelperText className={classes.helperText} error={messageType === 'error'}>
           {message}
         </FormHelperText>
       )}

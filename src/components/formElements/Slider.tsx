@@ -1,8 +1,8 @@
-import { Slider as MUISlider, SliderProps } from "@mui/material";
-import InputWrapper from "./InputWrapper";
-import { useId } from "react";
+import { Slider as MUISlider, SliderProps } from '@mui/material';
+import InputWrapper from './InputWrapper';
+import { useId } from 'react';
 
-import classes from "./Slider.module.scss";
+import classes from './Slider.module.scss';
 
 interface Props extends SliderProps {
   label?: string;
@@ -11,11 +11,7 @@ interface Props extends SliderProps {
 const Slider = ({ label, ...props }: Props) => {
   const tmpId = useId();
   return (
-    <InputWrapper
-      id={props.id || tmpId}
-      label={label}
-      className={classes.wrapper}
-    >
+    <InputWrapper id={props.id || tmpId} label={label} className={classes.wrapper}>
       <div className={classes.innerContainer}>
         <MUISlider {...props} />
       </div>
