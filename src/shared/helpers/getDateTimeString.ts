@@ -1,7 +1,10 @@
-import moment, { Moment } from 'moment';
+import moment, {Moment} from 'moment';
 
 const getDateTimeString = (date: Moment | string | Date | null): string => {
-  return moment(date).format('LLL');
+    if (!moment(date).isValid()) {
+        return ('N/A');
+    }
+    return moment(date).format('LLL');
 };
 
 export default getDateTimeString;
