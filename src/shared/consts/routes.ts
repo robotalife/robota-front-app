@@ -30,6 +30,7 @@ const routes = {
   exchangeInvoices: '/exchanges/invoices',
   // Common
   portfolio: '/portfolio',
+  notifications: '/notifications',
   terms: 'https://robotalife.com/term-of-use/',
   privacy: 'https://robotalife.com/privacy-notice/',
   notFound: '/not-found',

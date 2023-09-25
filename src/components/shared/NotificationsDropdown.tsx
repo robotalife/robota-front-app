@@ -4,6 +4,8 @@ import { IconArrowRight, IconBell, IconCircleCheck, IconDollarSign, IconLink, Ic
 import DropdownNotificationItem, { IDropdownNotificationItem } from './DropdownNotificationItem';
 
 import classes from './NotificationsDropdown.module.scss';
+import { Link } from 'react-router-dom';
+import routes from '../../shared/consts/routes';
 
 const dropdownNotificationMockData: IDropdownNotificationItem[] = [
   {
@@ -74,32 +76,34 @@ const NotificationsDropdown = () => {
 
   return (
     <>
-      {/*<IconButton*/}
-      {/*  id="basic-button"*/}
-      {/*  aria-controls={open ? "basic-menu" : undefined}*/}
-      {/*  aria-haspopup="true"*/}
-      {/*  aria-expanded={open ? "true" : undefined}*/}
-      {/*  onClick={handleClick}*/}
-      {/*>*/}
-      {/*  <IconBell />*/}
-      {/*</IconButton>*/}
-      {/*<Menu*/}
-      {/*  id="basic-menu"*/}
-      {/*  anchorEl={anchorEl}*/}
-      {/*  open={open}*/}
-      {/*  onClose={handleClose}*/}
-      {/*  MenuListProps={{*/}
-      {/*    "aria-labelledby": "basic-button",*/}
-      {/*  }}*/}
-      {/*  className={classes.dropdownMenu}*/}
-      {/*>*/}
-      {/*  {dropdownNotificationMockData.map((item, index) => (*/}
-      {/*    <DropdownNotificationItem key={index} {...item} />*/}
-      {/*  ))}*/}
-      {/*  <MenuItem onClick={handleClose} className={classes.dropdownItem}>*/}
-      {/*    All notifications <IconArrowRight />*/}
-      {/*  </MenuItem>*/}
-      {/*</Menu>*/}
+      <IconButton
+        id="basic-button"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+      >
+        <IconBell />
+      </IconButton>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+        className={classes.dropdownMenu}
+      >
+        {dropdownNotificationMockData.map((item, index) => (
+          <DropdownNotificationItem key={index} {...item} />
+        ))}
+        <MenuItem onClick={handleClose} className={classes.dropdownItem}>
+          <Link to={routes.notifications}>
+            All notifications <IconArrowRight />
+          </Link>
+        </MenuItem>
+      </Menu>
     </>
   );
 };

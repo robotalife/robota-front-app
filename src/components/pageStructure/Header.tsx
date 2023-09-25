@@ -22,7 +22,7 @@ const Header = () => {
           </Grid>
           <Grid item xs />
           <Grid item xs={'auto'}>
-            <NotificationsDropdown />
+            {/* <NotificationsDropdown /> */}
           </Grid>
         </Grid>
       </Container>

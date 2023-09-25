@@ -34,6 +34,7 @@ import TradeTerminal from '../pages/bots/TradeTerminal';
 import Store from '../pages/store/Store';
 import InnerStoreLayout from '../shared/layouts/InnerStoreLayout';
 import NewBotOverview from '../pages/bots/newBotOverview';
+import Notifications from '../pages/Notifications';
 
 const RoutingComp = () => {
   return (
@@ -123,6 +124,7 @@ const RoutingComp = () => {
             <Route path={routes.exchangeEditProfile} element={<ExchangeEditProfile />} />
             <Route path={routes.exchangeInvoices} element={<ExchangeInvoices />} />
           </Route>
+          <Route path={routes.notifications} element={<Notifications />} />
         </Route>
         <Route element={<CommonLayout />}>
           <Route path={routes.terms} element={<Terms />} />

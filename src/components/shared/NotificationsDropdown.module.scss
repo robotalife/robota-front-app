@@ -23,4 +23,15 @@
   margin: 0 -20px;
   padding: 28px 32px;
   text-align: center;
+
+  a {
+    &,
+    &:hover,
+    &:visited,
+    &:active,
+    &:focus {
+      text-decoration: none;
+      color: inherit;
+    }
+  }
 }

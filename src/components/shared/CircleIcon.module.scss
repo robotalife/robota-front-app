@@ -1,0 +1,35 @@
+.icon {
+  align-items: center;
+  background: $gray-100;
+  border-radius: 50%;
+  color: $gray-600;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+
+  svg {
+    height: 100%;
+    max-width: 50%;
+  }
+
+  &.success {
+    background: $success-50;
+    color: $success-600;
+  }
+
+  &.error {
+    background: $error-50;
+    color: $error-600;
+  }
+
+  &.warning {
+    background: $warning-100;
+    color: $warning-600;
+  }
+
+  &.info {
+    background: $primary-50;
+    color: $primary-600;
+  }
+}

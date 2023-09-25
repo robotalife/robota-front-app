@@ -83,19 +83,19 @@ const BotTradeHistory = () => {
 
   const HeaderActions = (
     <Grid container spacing={1}>
-      {/*<Grid item xs={12} lg>*/}
-      {/*  <Button*/}
-      {/*    variant="outlined"*/}
-      {/*    color="primary"*/}
-      {/*    onClick={() => {*/}
-      {/*      setShowFilters(!showFilters);*/}
-      {/*    }}*/}
-      {/*    fullWidth*/}
-      {/*  >*/}
-      {/*    <IconFilter style={{ marginRight: 8 }} />*/}
-      {/*    Filter*/}
-      {/*  </Button>*/}
-      {/*</Grid>*/}
+      {/* <Grid item xs={12} lg>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            setShowFilters(!showFilters);
+          }}
+          fullWidth
+        >
+          <IconFilter style={{ marginRight: 8 }} />
+          Filter
+        </Button>
+      </Grid> */}
       <Grid item xs={12} lg>
         <Button variant="outlined" color="primary" fullWidth onClick={getExport}>
           <IconExport style={{ marginRight: 8 }} />
