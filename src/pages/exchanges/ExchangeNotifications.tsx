@@ -47,7 +47,7 @@ const ExchangeNotifications = () => {
         <Fieldset legend="Bot messages" />
       </Grid>
       <Grid item xs={12} md={8} xl={9}>
-        <FieldsetElement label="Open Trade">
+        <FieldsetElement label="Open Trade" autoGrid>
           <ToggleButtonGroup
             options={notificationType}
             value={notificationConfig.open}
@@ -55,7 +55,7 @@ const ExchangeNotifications = () => {
             onChange={(e, i) => setNotificationConfig({ ...notificationConfig, open: i })}
           />
         </FieldsetElement>
-        <FieldsetElement label="Close Trade">
+        <FieldsetElement label="Close Trade" autoGrid>
           <ToggleButtonGroup
             options={notificationType}
             value={notificationConfig.close}
@@ -63,7 +63,7 @@ const ExchangeNotifications = () => {
             onChange={(e, i) => setNotificationConfig({ ...notificationConfig, close: i })}
           />
         </FieldsetElement>
-        <FieldsetElement label="Errors">
+        <FieldsetElement label="Errors" autoGrid>
           <ToggleButtonGroup
             options={notificationType}
             value={notificationConfig.error}

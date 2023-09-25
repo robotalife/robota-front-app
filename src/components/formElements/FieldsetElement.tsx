@@ -6,12 +6,13 @@ import classes from './FieldsetElement.module.scss';
 interface Props extends PropsWithChildren {
   label?: string;
   description?: string;
+  autoGrid?: boolean;
 }
 
-const FieldsetElement = ({ label, description, children }: Props) => {
+const FieldsetElement = ({ label, description, children, autoGrid }: Props) => {
   return (
     <>
-      <Grid container alignItems={'flex-start'} spacing={2}>
+      <Grid container alignItems={'flex-start'} spacing={2} justifyContent={'space-between'}>
         {(label || description) && (
           <Grid item xs={12} md={5}>
             {label && (
@@ -27,7 +28,7 @@ const FieldsetElement = ({ label, description, children }: Props) => {
           </Grid>
         )}
 
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={7} lg={!!autoGrid ? 'auto' : 7}>
           {children}
         </Grid>
       </Grid>

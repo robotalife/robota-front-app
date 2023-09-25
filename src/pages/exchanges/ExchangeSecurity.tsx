@@ -54,7 +54,7 @@ const ExchangeSecurity = () => {
         >
           {({ values, handleChange, errors, touched, setFieldValue }) => (
             <Form noValidate>
-              <Fieldset legend="Main Setting">
+              <Fieldset legend="Password">
                 <FieldsetElement label="Current password">
                   <TextField
                     name="currentPassword"

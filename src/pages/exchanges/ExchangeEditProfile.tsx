@@ -54,8 +54,8 @@ const ExchangeEditProfile = () => {
         >
           {({ values, handleChange, errors, touched, setFieldValue }) => (
             <Form noValidate>
-              <Fieldset legend="Main Setting">
-                <FieldsetElement label="Name">
+              <Fieldset legend="Personal info">
+                <FieldsetElement label="First name">
                   <TextField
                     name="firstName"
                     type="text"
@@ -79,7 +79,7 @@ const ExchangeEditProfile = () => {
                     sx={{ mb: 2 }}
                   />
                 </FieldsetElement>
-                <FieldsetElement label="Investment">
+                <FieldsetElement label="Email address">
                   <TextField
                     name="email"
                     type="email"
