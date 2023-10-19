@@ -72,23 +72,23 @@ export interface IBotOverview {
 }
 
 export interface IBotOverviewV2 {
-  //v2
+  // v2
   botId: number;
   // accountAsset: INumberType;
   roi: INumberType;
   pnl: INumberType;
   winRate: INumberType;
   loseRate: INumberType;
-  // activeTradesTotalUpnl: INumberType;
+  activeTradesTotalUpnl: INumberType;
   investment: INumberType;
-  //lockedAsset: INumberType;
+  lockedAsset: INumberType;
   totalTransactions: INumberType;
   totalWinTransactions: INumberType;
   totalLoseTransactions: INumberType;
   averageProfit: INumberType;
   averageLoss: INumberType;
 
-  //averageDuration: string;
+  // averageDuration: string;
   // leverageValue: INumberType;
   // tradingFrequency: INumberType;
   // tradeDays: INumberType;
@@ -158,7 +158,7 @@ export interface ISingleBotData {
   pair: string;
   price: string;
   strategy: 'SHORT' | 'LONG';
-  stopped: boolean;
+  isStopped: boolean;
   leverageValue: string;
   marginType: string;
 }

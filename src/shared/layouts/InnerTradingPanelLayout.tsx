@@ -40,7 +40,7 @@ const InnerTradingPanelLayout = () => {
     } finally {
       setLoading(false);
     }
-  }, [setLoading]);
+  }, [setLoading,botData]);
 
   const startBot = useCallback(async () => {
     setLoading(true);
@@ -92,7 +92,7 @@ const InnerTradingPanelLayout = () => {
                         size="medium"
                         sx={{ mb: { xs: 1, lg: 0 } }}
                         fullWidth
-                        disabled={loading || !botData.stopped}
+                        disabled={loading || !botData.isStopped}
                         onClick={() => {
                           setShowModal(true);
                         }}
@@ -104,7 +104,7 @@ const InnerTradingPanelLayout = () => {
                   </Tooltip>
                 </Grid>
                 <Grid item xs={6} lg>
-                  {botData.stopped ? (
+                  {botData.isStopped ? (
                     <Button
                       variant="contained"
                       color="primary"
